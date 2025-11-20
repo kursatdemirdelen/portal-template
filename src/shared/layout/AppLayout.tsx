@@ -11,6 +11,7 @@ const { Text } = Typography;
 
 type MenuItem = Required<MenuProps>["items"][number];
 type MenuItemWithChildren = Extract<MenuItem, { children?: MenuProps["items"] }>;
+type MenuGroupItem = MenuItemWithChildren & { icon?: React.ReactNode };
 
 const GROUP_ORDER: string[] = [
   "Dashboard",
@@ -37,7 +38,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     .filter((route) => route.layout === "app" && route.showInMenu !== false)
     .filter((route) => (route.roles ? (user ? route.roles.includes(user.role) : false) : true));
 
-  const groupedItems: Record<string, MenuItemWithChildren> = {};
+  const groupedItems: Record<string, MenuGroupItem> = {};
   const rootItems: NonNullable<MenuProps["items"]> = [];
   const groupIcons: Record<string, React.ReactNode | undefined> = {};
 
@@ -61,7 +62,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           label: route.menuGroup,
           children: [],
           icon: groupIcons[route.menuGroup] ?? route.menuIcon,
-        } as MenuItemWithChildren;
+        } as MenuGroupItem;
       } else if (!groupedItems[route.menuGroup].icon) {
         groupedItems[route.menuGroup].icon = groupIcons[route.menuGroup] ?? route.menuIcon;
       }
