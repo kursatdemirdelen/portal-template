@@ -8,10 +8,6 @@ export interface BreadcrumbItem {
   onClick?: () => void;
 }
 
-const routesForMatch: RouteObject[] = appRoutes
-  .filter((route) => route.layout === "app")
-  .map((route) => ({ path: route.path }));
-
 const getGroupRootPath = (menuGroup: string, currentPath: string) => {
   const groupRoutes = appRoutes.filter((route) => route.menuGroup === menuGroup && route.layout === "app");
 
@@ -29,6 +25,10 @@ export const useBreadcrumbs = (): BreadcrumbItem[] => {
   const location = useLocation();
 
   return useMemo(() => {
+    const routesForMatch: RouteObject[] = appRoutes
+      .filter((route) => route.layout === "app")
+      .map((route) => ({ path: route.path }));
+
     const matches = matchRoutes(routesForMatch, location.pathname);
     const matchedPath = matches?.[matches.length - 1]?.route?.path;
     const route = appRoutes.find((item) => item.path === matchedPath);

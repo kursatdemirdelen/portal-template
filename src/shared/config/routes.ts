@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType } from "react";
 import {
   DashboardOutlined,
   TagsOutlined,
@@ -42,7 +42,7 @@ export interface AppRoute {
   roles?: Role[];
   showInMenu?: boolean;
   menuGroup?: string;
-  menuIcon?: ReactNode;
+  menuIcon?: ComponentType;
   groupRoot?: boolean;
 }
 
@@ -57,7 +57,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
-    menuIcon: <DashboardOutlined />,
+    menuIcon: DashboardOutlined,
     groupRoot: true,
   },
   {
@@ -68,7 +68,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Biletler",
-    menuIcon: <TagsOutlined />,
+    menuIcon: TagsOutlined,
   },
   {
     path: "/tickets",
@@ -78,7 +78,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Biletler",
-    menuIcon: <TagsOutlined />,
+    menuIcon: TagsOutlined,
     groupRoot: true,
   },
   {
@@ -89,7 +89,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin"],
     showInMenu: true,
     menuGroup: "M\u00fc\u015fteri",
-    menuIcon: <CustomerServiceOutlined />,
+    menuIcon: CustomerServiceOutlined,
     groupRoot: true,
   },
   {
@@ -100,7 +100,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin"],
     showInMenu: true,
     menuGroup: "Ayarlar",
-    menuIcon: <SettingOutlined />,
+    menuIcon: SettingOutlined,
     groupRoot: true,
   },
   {
@@ -111,7 +111,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
-    menuIcon: <FolderOpenOutlined />,
+    menuIcon: FolderOpenOutlined,
     groupRoot: true,
   },
   {
@@ -122,7 +122,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
-    menuIcon: <FolderOpenOutlined />,
+    menuIcon: FolderOpenOutlined,
   },
   {
     path: "/scrum-board",
@@ -132,7 +132,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
-    menuIcon: <FolderOpenOutlined />,
+    menuIcon: FolderOpenOutlined,
   },
   {
     path: "/users",
@@ -142,7 +142,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin"],
     showInMenu: true,
     menuGroup: "Kullan\u0131c\u0131lar",
-    menuIcon: <TeamOutlined />,
+    menuIcon: TeamOutlined,
     groupRoot: true,
   },
   {
@@ -153,7 +153,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin"],
     showInMenu: true,
     menuGroup: "Kullan\u0131c\u0131lar",
-    menuIcon: <TeamOutlined />,
+    menuIcon: TeamOutlined,
   },
   {
     path: "/assignments/info",
@@ -163,7 +163,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Zimmetler",
-    menuIcon: <SolutionOutlined />,
+    menuIcon: SolutionOutlined,
     groupRoot: true,
   },
   {
@@ -174,7 +174,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "\u0130\u015flemler",
-    menuIcon: <ToolOutlined />,
+    menuIcon: ToolOutlined,
     groupRoot: true,
   },
   {
@@ -185,7 +185,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "\u00c7al\u0131\u015fma & Tatil",
-    menuIcon: <CalendarOutlined />,
+    menuIcon: CalendarOutlined,
     groupRoot: true,
   },
   {
@@ -196,7 +196,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "\u00c7al\u0131\u015fma & Tatil",
-    menuIcon: <CalendarOutlined />,
+    menuIcon: CalendarOutlined,
   },
   {
     path: "/logs",
@@ -205,7 +205,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuIcon: <ToolOutlined />,
+    menuIcon: ToolOutlined,
   },
   {
     path: "/profile",
@@ -215,7 +215,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Profil",
-    menuIcon: <ProfileOutlined />,
+    menuIcon: ProfileOutlined,
     groupRoot: true,
   },
   {
@@ -226,7 +226,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Profil",
-    menuIcon: <ProfileOutlined />,
+    menuIcon: ProfileOutlined,
   },
   {
     path: "/login",

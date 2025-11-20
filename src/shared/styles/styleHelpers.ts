@@ -9,30 +9,18 @@ import { colorPalette, shadows } from './styleConstants';
    RENK HELPER'LARI
    =========================== */
 
+const statusMap: Record<string, { bg: string; text: string; border: string }> = {
+  "Yeni Istek": { bg: "rgba(52, 152, 219, 0.15)", text: colorPalette.primary, border: "rgba(52, 152, 219, 0.3)" },
+  "Atanan": { bg: "rgba(155, 89, 182, 0.15)", text: "#8e44ad", border: "rgba(155, 89, 182, 0.3)" },
+  "Çözümlenen": { bg: "rgba(39, 174, 96, 0.15)", text: colorPalette.success, border: "rgba(39, 174, 96, 0.3)" },
+  "In Progress": { bg: "rgba(59, 130, 246, 0.1)", text: colorPalette.primary, border: "rgba(59, 130, 246, 0.3)" },
+  Review: { bg: "rgba(168, 85, 247, 0.1)", text: "#8e44ad", border: "rgba(168, 85, 247, 0.3)" },
+  Done: { bg: "rgba(34, 197, 94, 0.1)", text: colorPalette.success, border: "rgba(34, 197, 94, 0.3)" },
+  Todo: { bg: "rgba(148, 163, 184, 0.1)", text: colorPalette.textSecondary, border: "rgba(148, 163, 184, 0.3)" },
+};
+
 export const getStatusStyle = (status: string) => {
-  const statusMap: Record<string, { bg: string; text: string; border: string }> = {
-    'In Progress': {
-      bg: 'rgba(59, 130, 246, 0.1)',
-      text: colorPalette.primaryLight,
-      border: 'rgba(59, 130, 246, 0.3)',
-    },
-    'Review': {
-      bg: 'rgba(168, 85, 247, 0.1)',
-      text: '#a78bfa',
-      border: 'rgba(168, 85, 247, 0.3)',
-    },
-    'Done': {
-      bg: 'rgba(34, 197, 94, 0.1)',
-      text: colorPalette.successLight,
-      border: 'rgba(34, 197, 94, 0.3)',
-    },
-    'Todo': {
-      bg: 'rgba(148, 163, 184, 0.1)',
-      text: '#cbd5e1',
-      border: 'rgba(148, 163, 184, 0.3)',
-    },
-  };
-  return statusMap[status] || statusMap['Todo'];
+  return statusMap[status] || statusMap["Todo"];
 };
 
 export const getPriorityColor = (priority: string): string => {
@@ -48,15 +36,15 @@ export const getProjectStatusStyle = (status: string) => {
   const projectMap: Record<string, { bg: string; text: string }> = {
     'On Track': {
       bg: 'rgba(34, 197, 94, 0.1)',
-      text: colorPalette.successLight,
+      text: colorPalette.success,
     },
     'At Risk': {
       bg: 'rgba(239, 68, 68, 0.1)',
-      text: colorPalette.errorLight,
+      text: colorPalette.error,
     },
     'Planning': {
       bg: 'rgba(59, 130, 246, 0.1)',
-      text: colorPalette.primaryLight,
+      text: colorPalette.primary,
     },
   };
   return projectMap[status] || projectMap['Planning'];

@@ -1,5 +1,5 @@
 /**
- * Dashboard Stat Cards - Refactored sub-component
+ * Dashboard Stat Cards - Compact layout
  */
 
 import React, { useState } from "react";
@@ -32,24 +32,28 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
   };
 
   return (
-    <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
+    <Row gutter={[12, 12]} style={{ marginBottom: 0 }}>
       {stats.map((stat) => {
         const isHovered = hoveredCard === stat.key;
         const colorScheme = colorConfigs.cardColors[stat.color];
         const trendStyle = getTrendStyle(stat.trend);
 
         return (
-          <Col key={stat.key} xs={24} sm={12} lg={6}>
+          <Col key={stat.key} xs={12} sm={12} md={12} lg={12} xl={6}>
             <div
               style={{
                 background: isHovered ? colorScheme.gradient : "#ffffff",
                 border: `1px solid ${isHovered ? colorScheme.accent + "40" : "#e8eefb"}`,
                 borderRadius: 12,
-                padding: 20,
+                padding: 12,
                 cursor: "pointer",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+                transform: isHovered ? "translateY(-4px)" : "translateY(0)",
                 boxShadow: isHovered ? `0 12px 24px ${colorScheme.accent}20` : "0 2px 8px rgba(0, 0, 0, 0.08)",
+                minHeight: 120,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
               onMouseEnter={() => setHoveredCard(stat.key)}
               onMouseLeave={() => setHoveredCard(null)}
@@ -60,16 +64,16 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  marginBottom: 16,
+                  marginBottom: 6,
                 }}
               >
                 <Text
                   type="secondary"
                   style={{
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: 500,
                     textTransform: "uppercase",
-                    letterSpacing: "0.5px",
+                    letterSpacing: "0.3px",
                     color: "#7f8c8d",
                   }}
                 >
@@ -77,15 +81,15 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
                 </Text>
                 <div
                   style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 8,
+                    width: 28,
+                    height: 28,
+                    borderRadius: 6,
                     background: `${colorScheme.accent}15`,
                     border: `1px solid ${colorScheme.accent}40`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: 16,
+                    fontSize: 14,
                     color: colorScheme.accent,
                     transition: "all 0.3s ease",
                     transform: isHovered ? "scale(1.1)" : "scale(1)",
@@ -96,10 +100,10 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
               </div>
 
               {/* Value */}
-              <div style={{ marginBottom: 12 }}>
+              <div>
                 <span
                   style={{
-                    fontSize: 32,
+                    fontSize: 22,
                     fontWeight: 700,
                     color: "#2c3e50",
                     lineHeight: 1,
@@ -125,7 +129,7 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
                     width: "fit-content",
                   }}
                 >
-                  {stat.trend === "up" ? "▲" : "▼"}
+                  <span>{stat.trend === "up" ? "+" : "-"}</span>
                   <span>%{stat.trendValue}</span>
                 </div>
               )}

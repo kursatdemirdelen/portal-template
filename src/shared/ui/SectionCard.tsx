@@ -1,5 +1,6 @@
-import React, { type ReactNode } from "react";
+import React, { type ReactNode, type CSSProperties } from "react";
 import { Typography } from "antd";
+import { cardStyles } from "@/shared/styles/componentStyles";
 
 const { Title, Text } = Typography;
 
@@ -14,28 +15,25 @@ interface SectionCardProps {
   icon?: ReactNode;
   border?: boolean;
   padding?: "small" | "medium" | "large";
+  style?: CSSProperties;
 }
 
 const variantConfig = {
   default: {
     background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
     border: "1px solid #e8eefb",
-    hover: "rgba(91, 122, 237, 0.05)",
   },
   elevated: {
     background: "linear-gradient(135deg, #f0f3f7 0%, #e8eefb 100%)",
     border: "1px solid #d0ddf7",
-    hover: "rgba(91, 122, 237, 0.08)",
   },
   subtle: {
     background: "linear-gradient(135deg, #ffffff 0%, #ffffff 100%)",
     border: "1px solid #ecf0f1",
-    hover: "rgba(91, 122, 237, 0.04)",
   },
   gradient: {
     background: "linear-gradient(135deg, rgba(91, 122, 237, 0.08) 0%, rgba(108, 92, 231, 0.04) 100%)",
     border: "1px solid #e8eefb",
-    hover: "rgba(91, 122, 237, 0.12)",
   },
 };
 
@@ -54,6 +52,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
   icon,
   border: showBorder = true,
   padding = "medium",
+  style,
 }) => {
   const config = variantConfig[variant];
   const paddingSize = paddingConfig[padding];
@@ -61,12 +60,10 @@ export const SectionCard: React.FC<SectionCardProps> = ({
   return (
     <div
       style={{
+        ...cardStyles.sectionCard.container,
         background: config.background,
         border: showBorder ? config.border : "none",
-        borderRadius: 12,
-        overflow: "hidden",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.06)",
-        position: "relative",
+        ...style,
       }}
     >
       {/* Background decoration */}
@@ -89,10 +86,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
           <div
             style={{
               padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              gap: 16,
+              ...cardStyles.sectionCard.header,
             }}
           >
             <div style={{ flex: 1 }}>
@@ -116,16 +110,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                     {icon}
                   </div>
                 )}
-                <Title
-                  level={4}
-                  style={{
-                    margin: 0,
-                    fontSize: 16,
-                    fontWeight: 600,
-                    color: "#2c3e50",
-                    letterSpacing: "-0.3px",
-                  }}
-                >
+                <Title level={4} style={cardStyles.sectionCard.title}>
                   {title}
                 </Title>
               </div>

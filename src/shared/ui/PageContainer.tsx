@@ -3,6 +3,7 @@ import { Typography, Breadcrumb, Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useBreadcrumbs, type BreadcrumbItem } from "@/shared/hooks/useBreadcrumbs";
+import { layoutStyles } from "@/shared/styles/componentStyles";
 
 const { Title, Text } = Typography;
 
@@ -37,7 +38,12 @@ export const PageContainer: React.FC<PageContainerProps> = ({
 }) => {
   const navigate = useNavigate();
   const paddingStyle = paddingConfig[padding];
-  const routeBreadcrumbs = useBreadcrumbs();
+	  const routeBreadcrumbs = useBreadcrumbs();
+  const headerPadding = {
+    top: Math.max(paddingStyle.top - 8, 12),
+    bottom: Math.max(paddingStyle.bottom - 8, 12),
+    horizontal: paddingStyle.horizontal,
+  };
 
   const resolvedBreadcrumbs = breadcrumbs ?? (useRouteBreadcrumbs ? routeBreadcrumbs : []);
 
@@ -58,27 +64,25 @@ export const PageContainer: React.FC<PageContainerProps> = ({
       }))
     : [];
 
-  return (
-    <div
-      style={{
-        background: "linear-gradient(135deg, #f8f9fa 0%, #f0f3f7 100%)",
-        minHeight: "100%",
-      }}
-    >
+	  return (
+	    <div
+	      style={{
+	        background: layoutStyles.pageContainer.bodyBackground,
+	        minHeight: "100%",
+	      }}
+	    >
       {/* Header Section */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
-          borderBottom: "1px solid #e8eefb",
-          paddingTop: paddingStyle.top,
-          paddingBottom: paddingStyle.bottom,
-          paddingLeft: paddingStyle.horizontal,
-          paddingRight: paddingStyle.horizontal,
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-          backdropFilter: "blur(10px)",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
+	      <div
+	        style={{
+	          background: layoutStyles.pageContainer.headerBackground,
+	          border: layoutStyles.pageContainer.headerBorder,
+          borderRadius: 12,
+          paddingTop: headerPadding.top,
+          paddingBottom: headerPadding.bottom,
+          paddingLeft: headerPadding.horizontal,
+          paddingRight: headerPadding.horizontal,
+          boxShadow: layoutStyles.pageContainer.headerShadow,
+          marginBottom: 12,
         }}
       >
         {/* Breadcrumbs */}
@@ -120,14 +124,14 @@ export const PageContainer: React.FC<PageContainerProps> = ({
           }}
         >
           <div style={{ flex: 1 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                marginBottom: subtitle ? 8 : 0,
-              }}
-            >
+	            <div
+	              style={{
+	                display: "flex",
+	                alignItems: "center",
+	                gap: 12,
+	                marginBottom: subtitle ? 8 : 0,
+	              }}
+	            >
               {showBackButton && (
                 <Button
                   type="text"
@@ -141,46 +145,36 @@ export const PageContainer: React.FC<PageContainerProps> = ({
                 />
               )}
 
-              {icon && (
-                <div
-                  style={{
-                    fontSize: 28,
-                    color: "#5b7aed",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {icon}
-                </div>
-              )}
+	              {icon && (
+	                <div
+	                  style={{
+	                    fontSize: 28,
+	                    color: "#5b7aed",
+	                    display: "flex",
+	                    alignItems: "center",
+	                  }}
+	                >
+	                  {icon}
+	                </div>
+	              )}
+	
+	              <Title level={2} style={layoutStyles.pageContainer.title}>
+	                {title}
+	              </Title>
+	            </div>
 
-              <Title
-                level={2}
-                style={{
-                  margin: 0,
-                  fontSize: 28,
-                  fontWeight: 700,
-                  color: "#2c3e50",
-                  letterSpacing: "-0.5px",
-                }}
-              >
-                {title}
-              </Title>
-            </div>
-
-            {subtitle && (
-              <Text
-                type="secondary"
-                style={{
-                  fontSize: 13,
-                  marginLeft: icon || showBackButton ? 40 : 0,
-                  display: "block",
-                  color: "#7f8c8d",
-                }}
-              >
-                {subtitle}
-              </Text>
-            )}
+	            {subtitle && (
+	              <Text
+	                type="secondary"
+	                style={{
+	                  ...layoutStyles.pageContainer.subtitle,
+	                  marginLeft: icon || showBackButton ? 40 : 0,
+	                  display: "block",
+	                }}
+	              >
+	                {subtitle}
+	              </Text>
+	            )}
           </div>
 
           {extra && (

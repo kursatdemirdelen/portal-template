@@ -2,7 +2,7 @@
  * Component Style Configurations
  */
 
-import { colorPalette, gradients, spacing, radius, transitions } from './styleConstants';
+import { colorPalette, gradients, spacing, radius, transitions, backgrounds, shadows } from './styleConstants';
 
 /* ===========================
    CARD CONFIGURATIONS
@@ -90,46 +90,54 @@ export const layoutStyles = {
   appLayout: {
     container: {
       minHeight: '100vh',
-      background: 'transparent',
+      background: backgrounds.page,
     },
     sider: {
       logo: {
-        height: 52,
+        height: 56,
         margin: spacing.lg,
-        color: '#e5e7eb',
-        fontWeight: 600,
+        color: '#ecf0f1',
+        fontWeight: 700,
         display: 'flex',
         alignItems: 'center',
-        fontSize: 16,
-        letterSpacing: 0.4,
+        fontSize: 18,
+        letterSpacing: 0.6,
+        paddingInline: 4,
+        borderRadius: radius.lg,
+        background: 'rgba(255,255,255,0.06)',
       },
     },
     header: {
-      background: 'transparent',
-      paddingInline: spacing.lg,
+      background: backgrounds.topbar,
+      paddingInline: 20,
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
+      gap: 16,
+      boxShadow: shadows.sm,
+      borderBottom: `1px solid ${backgrounds.hover}`,
     },
     content: {
-      margin: spacing.lg,
+      margin: 16,
       padding: 0,
+      background: backgrounds.page,
     },
   },
 
   pageContainer: {
-    headerBackground: `linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)`,
-    headerBorder: `1px solid #e8eefb`,
-    bodyBackground: `linear-gradient(135deg, #f8f9fa 0%, #f0f3f7 100%)`,
+    headerBackground: '#ffffff',
+    headerBorder: '1px solid #e5e7eb',
+    bodyBackground: '#f5f7fb',
+    headerShadow: '0 2px 6px rgba(15, 23, 42, 0.06)',
     title: {
-      fontSize: 28,
-      fontWeight: 700,
+      fontSize: 20,
+      fontWeight: 600,
       color: colorPalette.textPrimary,
       letterSpacing: '-0.5px',
     },
     subtitle: {
-      fontSize: 13,
-      color: colorPalette.textTertiary,
+      fontSize: 12,
+      color: colorPalette.textSecondary,
     },
   },
 } as const;
