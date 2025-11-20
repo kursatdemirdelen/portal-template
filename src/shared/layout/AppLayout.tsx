@@ -1,20 +1,7 @@
 import React from "react";
 import { Layout, Menu, Avatar, Dropdown, Space, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  DashboardOutlined,
-  TagsOutlined,
-  FolderOpenOutlined,
-  TeamOutlined,
-  CalendarOutlined,
-  SolutionOutlined,
-  CustomerServiceOutlined,
-  ToolOutlined,
-  ProfileOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { appRoutes } from "@/shared/config/routes";
@@ -30,10 +17,10 @@ const GROUP_ORDER: string[] = [
   "Biletler",
   "Projeler",
   "Zimmetler",
-  "Çalışma & Tatil",
-  "Kullanıcılar",
-  "Müşteri",
-  "İşlemler",
+  "\u00c7al\u0131\u015fma & Tatil",
+  "Kullan\u0131c\u0131lar",
+  "M\u00fc\u015fteri",
+  "\u0130\u015flemler",
   "Ayarlar",
   "Profil",
 ];
@@ -52,25 +39,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   const groupedItems: Record<string, MenuItemWithChildren> = {};
   const rootItems: NonNullable<MenuProps["items"]> = [];
+  const groupIcons: Record<string, React.ReactNode | undefined> = {};
 
-  const iconMap: Record<string, React.ReactNode> = {
-    Dashboard: <DashboardOutlined />,
-    Biletler: <TagsOutlined />,
-    Projeler: <FolderOpenOutlined />,
-    "Zimmetler": <SolutionOutlined />,
-    "Çalışma & Tatil": <CalendarOutlined />,
-    Kullanıcılar: <TeamOutlined />,
-    "Müşteri": <CustomerServiceOutlined />,
-    "İşlemler": <ToolOutlined />,
-    "Ayarlar": <SettingOutlined />,
-    Profil: <ProfileOutlined />,
-  };
+  visibleRoutes.forEach((route) => {
+    if (route.menuGroup && route.menuIcon && route.groupRoot) {
+      groupIcons[route.menuGroup] = route.menuIcon;
+    }
+  });
 
   visibleRoutes.forEach((route) => {
     const item: MenuItem = {
       key: route.path,
       label: <Link to={route.path}>{route.label ?? route.path}</Link>,
-      icon: iconMap[route.menuGroup ?? route.label ?? ""],
+      icon: route.menuIcon,
     };
 
     if (route.menuGroup) {
@@ -79,9 +60,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           key: `group-${route.menuGroup}`,
           label: route.menuGroup,
           children: [],
-          icon: iconMap[route.menuGroup],
+          icon: groupIcons[route.menuGroup] ?? route.menuIcon,
         } as MenuItemWithChildren;
+      } else if (!groupedItems[route.menuGroup].icon) {
+        groupedItems[route.menuGroup].icon = groupIcons[route.menuGroup] ?? route.menuIcon;
       }
+
       const children = groupedItems[route.menuGroup].children || [];
       children.push(item);
       groupedItems[route.menuGroup].children = children;
@@ -102,7 +86,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     { key: "profile", icon: <UserOutlined />, label: "Profil" },
     { key: "settings", icon: <SettingOutlined />, label: "Ayarlar" },
     { type: "divider" },
-    { key: "logout", icon: <LogoutOutlined />, label: "Çıkış Yap", danger: true },
+    { key: "logout", icon: <LogoutOutlined />, label: "\u00c7\u0131k\u0131\u015f Yap", danger: true },
   ];
 
   const handleUserMenuClick: MenuProps["onClick"] = (e) => {

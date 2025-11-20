@@ -1,5 +1,16 @@
-import type { ComponentType } from "react";
-import type { Role } from "./roles";
+import type { ComponentType, ReactNode } from "react";
+import {
+  DashboardOutlined,
+  TagsOutlined,
+  FolderOpenOutlined,
+  TeamOutlined,
+  CalendarOutlined,
+  SolutionOutlined,
+  CustomerServiceOutlined,
+  ToolOutlined,
+  ProfileOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 import TicketsPage from "@/features/tickets/pages/TicketsPage";
 import ProjectsPage from "@/features/projects/pages/ProjectsPage";
@@ -19,6 +30,7 @@ import {
   ProfilePage,
   LogoutPage,
 } from "@/features/placeholders/pages/PlaceholderPages";
+import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";
 
@@ -30,11 +42,13 @@ export interface AppRoute {
   roles?: Role[];
   showInMenu?: boolean;
   menuGroup?: string;
+  menuIcon?: ReactNode;
+  groupRoot?: boolean;
 }
 
 const EmptyPage: ComponentType = () => null;
-// TODO: Gerçek sayfalar eklendikçe placeholder rotalar gerçek bileşenlerle bağlanacak.
 
+// TODO: Gerçek sayfalar eklendikçe placeholder rotalar gerçek bileşenlerle bağlanacak.
 export const appRoutes: AppRoute[] = [
   {
     path: "/dashboard",
@@ -43,15 +57,18 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
+    menuIcon: <DashboardOutlined />,
+    groupRoot: true,
   },
   {
     path: "/tickets/create",
-    label: "Bilet Oluştur",
+    label: "Bilet Olu\u015ftur",
     component: TicketsCreatePage,
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Biletler",
+    menuIcon: <TagsOutlined />,
   },
   {
     path: "/tickets",
@@ -61,24 +78,30 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Biletler",
+    menuIcon: <TagsOutlined />,
+    groupRoot: true,
   },
   {
     path: "/customers",
-    label: "Müşteri",
+    label: "M\u00fc\u015fteri",
     component: CustomersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Müşteri",
+    menuGroup: "M\u00fc\u015fteri",
+    menuIcon: <CustomerServiceOutlined />,
+    groupRoot: true,
   },
   {
     path: "/parameters",
-    label: "Parametreler Yönetimi",
+    label: "Parametreler Y\u00f6netimi",
     component: ParametersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
     menuGroup: "Ayarlar",
+    menuIcon: <SettingOutlined />,
+    groupRoot: true,
   },
   {
     path: "/projects",
@@ -88,6 +111,8 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
+    menuIcon: <FolderOpenOutlined />,
+    groupRoot: true,
   },
   {
     path: "/project-team",
@@ -97,6 +122,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
+    menuIcon: <FolderOpenOutlined />,
   },
   {
     path: "/scrum-board",
@@ -106,24 +132,28 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Projeler",
+    menuIcon: <FolderOpenOutlined />,
   },
   {
     path: "/users",
-    label: "Kullanıcı Listesi",
+    label: "Kullan\u0131c\u0131 Listesi",
     component: UsersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Kullanıcılar",
+    menuGroup: "Kullan\u0131c\u0131lar",
+    menuIcon: <TeamOutlined />,
+    groupRoot: true,
   },
   {
     path: "/users/create",
-    label: "Kullanıcı Oluştur",
+    label: "Kullan\u0131c\u0131 Olu\u015ftur",
     component: UserCreatePage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Kullanıcılar",
+    menuGroup: "Kullan\u0131c\u0131lar",
+    menuIcon: <TeamOutlined />,
   },
   {
     path: "/assignments/info",
@@ -133,15 +163,19 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuGroup: "Zimmetler",
+    menuIcon: <SolutionOutlined />,
+    groupRoot: true,
   },
   {
     path: "/approvals",
-    label: "Onay Süreçleri",
+    label: "Onay S\u00fcre\u00e7leri",
     component: ApprovalsPage,
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "İşlemler",
+    menuGroup: "\u0130\u015flemler",
+    menuIcon: <ToolOutlined />,
+    groupRoot: true,
   },
   {
     path: "/time-tracking",
@@ -150,7 +184,9 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "Çalışma & Tatil",
+    menuGroup: "\u00c7al\u0131\u015fma & Tatil",
+    menuIcon: <CalendarOutlined />,
+    groupRoot: true,
   },
   {
     path: "/leaves",
@@ -159,7 +195,8 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "Çalışma & Tatil",
+    menuGroup: "\u00c7al\u0131\u015fma & Tatil",
+    menuIcon: <CalendarOutlined />,
   },
   {
     path: "/logs",
@@ -168,6 +205,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
+    menuIcon: <ToolOutlined />,
   },
   {
     path: "/profile",
@@ -177,19 +215,22 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Profil",
+    menuIcon: <ProfileOutlined />,
+    groupRoot: true,
   },
   {
     path: "/logout",
-    label: "Çıkış",
+    label: "\u00c7\u0131k\u0131\u015f",
     component: LogoutPage,
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
     menuGroup: "Profil",
+    menuIcon: <ProfileOutlined />,
   },
   {
     path: "/login",
-    label: "Giriş",
+    label: "Giri\u015f",
     component: EmptyPage,
     layout: "auth",
     showInMenu: false,
