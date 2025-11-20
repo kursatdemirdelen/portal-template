@@ -1,45 +1,44 @@
 # Portal Template (React + TypeScript + Vite)
 
-Minimal, modüler ve okunabilir bir portal başlangıç teması. Ant Design ile sade bir UI, merkezileştirilmiş stil sistemi ve feature-based klasörleme kullanır.
+Minimal, modüler ve okunabilir portal altyapısıdır. Ant Design bileşenleriyle sade UI, merkezileştirilmiş stil sistemi ve feature-based klasörleme sunar.
 
-## Başlarken
+## Hızlı Başlangıç
 
-- Bağımlılıklar: `npm install`
-- Geliştirme: `npm run dev` (Vite dev server)
-- Build: `npm run build`
-- Önizleme: `npm run preview`
+- Bağımlılıkları yükleyin: `npm install`
+- Geliştirme sunucusu: `npm run dev`
+- Üretim build: `npm run build`
+- Yerel önizleme: `npm run preview`
 
-## Yapı Özeti
+> Node 20+ ve npm 10+ ile uyumludur; proje ESNext modül sistemi kullanır.
 
-- `src/app` — Router, layout ve korumalı rota yapısı
-- `src/features` — Özellik bazlı sayfalar (dashboard, tickets, assignments, time-tracking vb.)
-- `src/shared/config` — Tema ve rota konfigürasyonları
-- `src/shared/styles` — Stil sabitleri, yardımcılar ve bileşen stil konfigleri
-- `src/shared/ui` — Ortak UI bileşenleri (PageContainer, SectionCard vb.)
+## Proje Katmanları
 
-## Navigasyon / Rotalar
+- `src/app`: Router, layoutlar ve `ProtectedRoute`.
+- `src/features`: Dashboard, tickets, projects gibi feature bazlı sayfalar.
+- `src/shared/config`: Rota/tema konfigürasyonları; menü grubu, ikon ve yetki metadata içerir (`routes.ts`, `theme.ts`).
+- `src/shared/layout`: Uygulama (AppLayout) ve auth layout bileşenleri.
+- `src/shared/ui`: `PageContainer`, `SectionCard`, `PlaceholderPage` gibi genel UI parçaları.
+- `src/shared/styles`: `styleConstants`, `componentStyles`, `styleHelpers` ile renk/spacing/tipografi tokenları.
 
-`src/shared/config/routes.ts` içindeki menü sırası:
+Yeni sayfa eklerken `features/<feature>/` altına komponenti koyup `src/shared/config/routes.ts`’de `menuGroup`/`menuIcon`/`roles` bilgilerini güncelleyin. Menü grubu ikonu için `groupRoot` true olmalı.
 
-- Dashboard
-- Bilet Oluştur, Biletler
-- Profil, Müşteri, Parametreler Yönetimi
-- Proje, Proje Ekibi, Scrum Board
-- Kullanıcı Listesi, Kullanıcı Oluştur
-- Zimmet Biçileri, Onay Süreçleri, Takıl Biçileri
-- Puantaj, Logs, Çıkış
-- Login (menüde gizli)
+## Navigasyon ve Breadcrumb
 
-Not: Bazı rotalar henüz placeholder; ilgili sayfalar eklendikçe `EmptyPage` yerine gerçek bileşenleri bağlayın.
+1. `appRoutes` artık her rota için `menuGroup`, `menuIcon` ve gerekirse `groupRoot` bilgisi içeriyor.
+2. `AppLayout` bu metadata’dan yan menüyü oluşturuyor; `GROUP_ORDER` sabiti grupları belirli sıra ile render ediyor.
+3. `PageContainer` varsayılan `useRouteBreadcrumbs` özelliğiyle `useBreadcrumbs` hook’unu kullanıyor. Hook `matchRoutes` ile parametrik yolları da eşleyip `menuGroup → sayfa` kırıntısı üretiyor.
 
-## Stil Sistemi
+## Stil Sistemi ve Temalar
 
-Tüm stil sabitleri `src/shared/styles/styleConstants.ts` içinde merkezileştirildi (renkler, gradyentler, spacing, tipografi vb.). Ant Design tema tokenları `src/shared/config/theme.ts` dosyasında özelleştirildi.
+- Tüm renk, spacing, gradient, tipografi tokenları `src/shared/styles/styleConstants.ts` içinde toplanmıştır.
+- Ant Design tema overrides’ı `src/shared/config/theme.ts` içinde yapılır; renkleri sabitlerden almak önerilir.
+- `PageContainer`/`SectionCard` gibi bileşenlerde birçok inline stil bulunuyor; ileri aşamada bu stilleri sabitlere taşımak tutarlılığı artırır.
 
-## Refaktör Notları
+## Gelecek Adımlar & Notlar
 
-- Dashboard, alt bileşenlere bölünerek sadeleştirildi.
-- Router ve ProtectedRoute okunabilir ve genişletilebilir hâle getirildi.
-- Encode/label hataları temizlendi; menü isimleri Türkçe ve tutarlı.
+1. API ve auth entegrasyonu (axios instance/interceptor, `useAuth` için gerçek backend).
+2. Form bileşenleri + validasyon (örn. yup/zod).
+3. Error boundary + analytics (sayfa görüntülenme / logging).
+4. Unit/integration test altyapısı (vitest + React Testing Library önerilir).
 
-Geliştirme sırasında yeni özellikleri `features/<feature>/` altında konumlandırın ve ilgili rotayı `src/shared/config/routes.ts` dosyasına ekleyin.
+`REFACTORING_NOTES.md` şu anda proje yapısını açıklıyor; öncekilere göre güncel değilse içeriğini README’e taşıyıp dosyayı arşivleyebiliriz.
