@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Tag, Avatar } from "antd";
+import { RoleBadge } from "@/shared/ui";
 
 const { Text } = Typography;
 
@@ -117,9 +118,7 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
               >
                 {team.status}
               </Tag>
-              <Text type="secondary" style={{ color: "#64748b", fontSize: 12 }}>
-                {team.role}
-              </Text>
+              <RoleBadge role={team.role} />
             </div>
           </div>
 

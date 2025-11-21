@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
-import { Table, Input, Select, Space } from "antd";
+import { Table, Input, Select } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { PageContainer, SectionCard } from "@/shared/ui";
+import { PageContainer, SectionCard, FilterToolbar } from "@/shared/ui";
 import { TicketStatusChips } from "@/features/tickets/ui/TicketStatusChips";
 import { TICKET_STATUS_META } from "@/features/tickets/model/status";
 import {
@@ -142,12 +142,7 @@ const TicketsPage: React.FC = () => {
         title="Tüm Biletler"
         extra={<TicketStatusChips summary={ticketStatusSummary} />}
       >
-        <Space
-          direction="horizontal"
-          size={12}
-          wrap
-          style={{ marginBottom: 16, width: "100%" }}
-        >
+        <FilterToolbar>
           <Input
             placeholder="ID, başlık ya da proje ara"
             value={searchTerm}
@@ -171,7 +166,7 @@ const TicketsPage: React.FC = () => {
             onChange={(value) => setRequestTypeFilter(value)}
             style={{ width: 200 }}
           />
-        </Space>
+        </FilterToolbar>
         <Table
           columns={columns}
           dataSource={filteredTickets}
