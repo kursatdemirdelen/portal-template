@@ -2,6 +2,11 @@
 
 Minimal, modüler ve okunabilir portal altyapısıdır. Ant Design bileşenleriyle sade UI, merkezileştirilmiş stil sistemi ve feature-based klasörleme sunar.
 
+## Yapılacaklar & Dokümanlar
+
+- `docs/FEATURE_BACKLOG.md`: Tüm feature backlog ve eksik akışların listesi. New story açarken burada güncelleme yapın.
+- Stil sistemi, layout ve data katmanına dair yönergeler aşağıdaki bölümlerde özetlenmiştir.
+
 ## Hızlı Başlangıç
 
 - Bağımlılıkları yükleyin: `npm install`
@@ -30,9 +35,21 @@ Yeni sayfa eklerken `features/<feature>/` altına komponenti koyup `src/shared/c
 
 ## Stil Sistemi ve Temalar
 
-- Tüm renk, spacing, gradient, tipografi tokenları `src/shared/styles/styleConstants.ts` içinde toplanmıştır.
-- Ant Design tema overrides’ı `src/shared/config/theme.ts` içinde yapılır; renkleri sabitlerden almak önerilir.
-- `PageContainer`/`SectionCard` gibi bileşenlerde birçok inline stil bulunuyor; ileri aşamada bu stilleri sabitlere taşımak tutarlılığı artırır.
+- Tüm renk, spacing, gradient, tipografi tokenları `src/shared/styles/styleConstants.ts` içinde toplanmıştır. Yeni bileşenler oluştururken mutlaka bu sabitleri kullanın.
+- `styleHelpers.ts` durum pill’leri gibi tekrar eden inline stiller için yardımcı fonksiyonlar içerir. Gerektiğinde buraya yeni helper ekleyin.
+- `componentStyles.ts` AppLayout gibi temel layout stillerini barındırıyor; yeni layout oluştururken burayı genişletin.
+- Ant Design tema overrides’ı `src/shared/config/theme.ts` üzerinden yapılır. `ConfigProvider` token’larını güncellerken `colorPalette` ile senkron kalın.
+- `src/index.css` global resetleri ve tipografiyi yönetir; yeni global stil eklemeniz gerekiyorsa önce burada kontrol edin.
+- **İyileştirme önerileri:** birden fazla bileşende kullanılan inline stiller `styleConstants` veya `componentStyles` içine taşınabilir, ayrıca `PageContainer`/`SectionCard` gibi bileşenler `className` prop’u açılarak Tailwind/LESS kullanımına hazır hale getirilebilir.
+
+## Kullanım Rehberi
+
+- Yeni feature için klasör yapısı: `features/<feature>/{model,ui,data,pages}`. Paylaşılan veri/typelar `model`, mock/seed verileri `data`, UI bileşenleri `ui`, sayfalar `pages`.
+- Rota eklerken `src/shared/config/routes.ts`’te `layout`, `roles`, `menuGroup`, `menuIcon` ve `groupRoot` alanlarını doldurun. Auth sayfaları için `layout: "auth"` ve `showInMenu: false` kullanın.
+- `AppLayout` yan menüde hangi grupların gösterileceğini `GROUP_ORDER` ile belirler; yeni grup oluşturursanız bu listeye eklemeyi unutmayın.
+- Global state: Redux store’da `ui` slice’ı (ör. sidebar durumu) bulunur. `useAppSelector` / `useAppDispatch` ile erişin.
+- Auth: `AuthProvider` ve `useAuth` context’i login/logout bilgisini sağlar; role bazlı yetki için `appRoutes` üzerindeki `roles` alanını kullanın.
+- HTTP katmanı: `src/shared/api/httpClient.ts` fetch helper’ı, `apiClient.ts` axios instance’ı içerir. Yeni servisler için `apiGet/apiPost` helper’larını kullanın.
 
 ## Gelecek Adımlar & Notlar
 
