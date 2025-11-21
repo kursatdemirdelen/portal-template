@@ -12,11 +12,14 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
-import TicketsPage from "@/features/tickets/pages/TicketsPage";
-import ProjectsPage from "@/features/projects/pages/ProjectsPage";
-import AssignmentInfoPage from "@/features/assignments/pages/AssignmentInfoPage";
-import TimeTrackingPage from "@/features/time-tracking/pages/TimeTrackingPage";
-import LeaveInfoPage from "@/features/leaves/pages/LeaveInfoPage";
+import { TicketsPage } from "@/features/tickets";
+import { ProjectsPage } from "@/features/projects";
+import {
+  AssignmentInfoPage,
+  AssignmentsPage,
+} from "@/features/assignments";
+import { TimeTrackingPage } from "@/features/time-tracking";
+import { LeavesPage } from "@/features/leaves";
 import {
   TicketsCreatePage,
   CustomersPage,
@@ -29,7 +32,7 @@ import {
   LogsPage,
   ProfilePage,
   LogoutPage,
-} from "@/features/placeholders/pages/PlaceholderPages";
+} from "@/features/placeholders";
 import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";
@@ -156,6 +159,17 @@ export const appRoutes: AppRoute[] = [
     menuIcon: TeamOutlined,
   },
   {
+    path: "/assignments",
+    label: "Zimmetler",
+    component: AssignmentsPage,
+    layout: "app",
+    roles: ["admin", "worker", "user"],
+    showInMenu: true,
+    menuGroup: "Zimmetler",
+    menuIcon: SolutionOutlined,
+    groupRoot: true,
+  },
+  {
     path: "/assignments/info",
     label: "Zimmet Bilgileri",
     component: AssignmentInfoPage,
@@ -164,7 +178,6 @@ export const appRoutes: AppRoute[] = [
     showInMenu: true,
     menuGroup: "Zimmetler",
     menuIcon: SolutionOutlined,
-    groupRoot: true,
   },
   {
     path: "/approvals",
@@ -191,7 +204,7 @@ export const appRoutes: AppRoute[] = [
   {
     path: "/leaves",
     label: "Tatil Bilgileri",
-    component: LeaveInfoPage,
+    component: LeavesPage,
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
