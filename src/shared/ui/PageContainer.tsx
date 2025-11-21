@@ -4,6 +4,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useBreadcrumbs, type BreadcrumbItem } from "@/shared/hooks/useBreadcrumbs";
 import { layoutStyles } from "@/shared/styles/componentStyles";
+import { colorPalette } from "@/shared/styles/styleConstants";
 
 const { Title, Text } = Typography;
 
@@ -55,7 +56,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
             onClick={item.onClick || (() => item.href && navigate(item.href))}
             style={{
               cursor: item.onClick || item.href ? "pointer" : "default",
-              color: item.href || item.onClick ? "#5b7aed" : "inherit",
+              color: item.href || item.onClick ? colorPalette.primary : "inherit",
             }}
           >
             {item.title}
@@ -65,64 +66,45 @@ export const PageContainer: React.FC<PageContainerProps> = ({
     : [];
 
 	  return (
-	    <div
-	      style={{
-	        background: layoutStyles.pageContainer.bodyBackground,
-	        minHeight: "100%",
-	      }}
-	    >
+	    <div style={layoutStyles.pageContainer.root}>
       {/* Header Section */}
-	      <div
-	        style={{
-	          background: layoutStyles.pageContainer.headerBackground,
-	          border: layoutStyles.pageContainer.headerBorder,
-          borderRadius: 12,
+      <div
+        style={{
+          ...layoutStyles.pageContainer.headerContainer,
+          background: layoutStyles.pageContainer.headerBackground,
+          border: layoutStyles.pageContainer.headerBorder,
           paddingTop: headerPadding.top,
           paddingBottom: headerPadding.bottom,
           paddingLeft: headerPadding.horizontal,
           paddingRight: headerPadding.horizontal,
-          boxShadow: layoutStyles.pageContainer.headerShadow,
-          marginBottom: 12,
         }}
       >
         {/* Breadcrumbs */}
         {breadcrumbItems.length > 0 && (
-          <div style={{ marginBottom: 12 }}>
-            <Breadcrumb
-              items={[
-                {
-                  key: "home",
-                  title: (
-                    <span
-                      onClick={() => navigate("/")}
-                      style={{
-                        cursor: "pointer",
-                        color: "#5b7aed",
-                      }}
-                    >
-                      Home
-                    </span>
-                  ),
-                },
-                ...breadcrumbItems,
-              ]}
-              style={{
-                fontSize: 12,
-                color: "#7f8c8d",
-              }}
-            />
-          </div>
+          <Breadcrumb
+            items={[
+              {
+                key: "home",
+                title: (
+                  <span
+                    onClick={() => navigate("/")}
+                    style={{
+                      cursor: "pointer",
+                      color: colorPalette.primary,
+                    }}
+                  >
+                    Home
+                  </span>
+                ),
+              },
+              ...breadcrumbItems,
+            ]}
+            style={layoutStyles.pageContainer.breadcrumb}
+          />
         )}
 
         {/* Title Section */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            gap: 16,
-          }}
-        >
+        <div style={layoutStyles.pageContainer.titleRow}>
           <div style={{ flex: 1 }}>
 	            <div
 	              style={{
@@ -138,25 +120,18 @@ export const PageContainer: React.FC<PageContainerProps> = ({
                   icon={<ArrowLeftOutlined />}
                   onClick={() => navigate(-1)}
                   style={{
-                    color: "#7f8c8d",
+                    color: colorPalette.textSecondary,
                     padding: "4px 8px",
                     height: "auto",
                   }}
                 />
               )}
 
-	              {icon && (
-	                <div
-	                  style={{
-	                    fontSize: 28,
-	                    color: "#5b7aed",
-	                    display: "flex",
-	                    alignItems: "center",
-	                  }}
-	                >
-	                  {icon}
-	                </div>
-	              )}
+              {icon && (
+                <div style={layoutStyles.pageContainer.icon}>
+                  {icon}
+                </div>
+              )}
 	
 	              <Title level={2} style={layoutStyles.pageContainer.title}>
 	                {title}
@@ -180,9 +155,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
           {extra && (
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
+                ...layoutStyles.pageContainer.actions,
                 paddingTop: icon ? 4 : 0,
               }}
             >

@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import { Avatar, Space, Typography } from "antd";
-import { getStatusStyle } from "@/shared/styles/styleHelpers";
+import { tableStyles } from "@/shared/styles/componentStyles";
+import { getRequestTypeStyle, getStatusStyle } from "@/shared/styles/styleHelpers";
+import { gradients } from "@/shared/styles/styleConstants";
 import type { Ticket } from "../model/types";
 import { formatTicketDate } from "../data/tickets";
 
@@ -10,61 +12,16 @@ interface RecentTicketsProps {
   tickets: Ticket[];
 }
 
-const GRID_COLUMNS = "80px 1.6fr 1.1fr 1fr 1fr 1fr";
-
-// Dış container: küçük ekranda yatay scroll için
-const outerContainerStyle: React.CSSProperties = {
-  width: "100%",
-  overflowX: "auto",
-};
-
-// İç container: tablo genişliği
-const innerContainerStyle: React.CSSProperties = {
-  minWidth: 720, // istersen 680-760 arası oynayabiliriz
-};
-
-const headerRowStyle: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: GRID_COLUMNS,
-  padding: "8px 16px",
-  fontSize: 11,
-  fontWeight: 600,
-  textTransform: "uppercase",
-  letterSpacing: 0.3,
-  color: "#6b7280",
-  borderBottom: "1px solid #eef2ff",
-  background: "#f8fafc",
-  borderRadius: 8,
-  marginBottom: 8,
-};
-
-const dataRowBaseStyle: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: GRID_COLUMNS,
-  padding: "14px 16px",
-  alignItems: "center",
-  borderRadius: 8,
-  border: "1px solid #f0f2f8",
-  marginBottom: 8,
-};
-
-const requestTypeStyles: Record<string, { bg: string; text: string }> = {
-  "Technical Support": { bg: "rgba(52, 152, 219, 0.12)", text: "#2c82c9" },
-  "Suggest Improvement": { bg: "rgba(155, 89, 182, 0.12)", text: "#8e44ad" },
-  "Report a BUG": { bg: "rgba(231, 76, 60, 0.12)", text: "#c0392b" },
-  "Suggest a New Feature": { bg: "rgba(46, 204, 113, 0.12)", text: "#27ae60" },
-};
-
 export const RecentTickets: React.FC<RecentTicketsProps> = memo(
   ({ tickets }) => {
     return (
-      <div style={outerContainerStyle}>
-        <div style={innerContainerStyle}>
+      <div style={tableStyles.ticketTable.outer}>
+        <div style={tableStyles.ticketTable.inner}>
           {/* Header */}
-          <div style={headerRowStyle}>
+          <div style={tableStyles.ticketTable.headerRow}>
             <span>ID</span>
-            <span>Bilet Adı</span>
-            <span>İstek Tipi</span>
+            <span>Bilet Ad?</span>
+            <span>?stek Tipi</span>
             <span>Proje</span>
             <span>Durum</span>
             <span>Atanan</span>
@@ -73,22 +30,21 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
           {/* Rows */}
           {tickets.map((item, index) => {
             const statusColor = getStatusStyle(item.status);
-            const typeBadge = requestTypeStyles[item.requestType] ?? {
-              bg: "rgba(127, 140, 141, 0.15)",
-              text: "#7f8c8d",
-            };
+            const typeBadge = getRequestTypeStyle(item.requestType);
+            const rowBackground =
+              index % 2 === 0
+                ? tableStyles.ticketTable.rowBackgrounds.even
+                : tableStyles.ticketTable.rowBackgrounds.odd;
 
             return (
               <div
                 key={item.id}
                 style={{
-                  ...dataRowBaseStyle,
-                  background: index % 2 === 0 ? "#ffffff" : "#fdfdff",
+                  ...tableStyles.ticketTable.row,
+                  background: rowBackground,
                 }}
               >
-                <Text style={{ fontWeight: 600, color: "#1f2937" }}>
-                  {item.id}
-                </Text>
+                <Text style={tableStyles.ticketTable.idCell}>{item.id}</Text>
 
                 <div
                   style={{
@@ -97,46 +53,36 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                     gap: 4,
                   }}
                 >
-                  <Text style={{ color: "#1f2937", fontWeight: 600 }}>
-                    {item.title}
-                  </Text>
+                  <Text style={tableStyles.ticketTable.title}>{item.title}</Text>
                   <Text
                     type="secondary"
-                    style={{ fontSize: 12, color: "#64748b" }}
+                    style={tableStyles.ticketTable.meta}
                   >
-                    Müşteri: {item.customer} | Tarih:{" "}
+                    M??teri: {item.customer} | Tarih:{" "}
                     {formatTicketDate(item.createdAt)}
                   </Text>
                 </div>
 
                 <div
                   style={{
-                    padding: "4px 10px",
+                    ...tableStyles.ticketTable.chip,
                     background: typeBadge.bg,
                     color: typeBadge.text,
-                    fontSize: 11,
-                    fontWeight: 600,
-                    borderRadius: 6,
-                    width: "fit-content",
                   }}
                 >
                   {item.requestType}
                 </div>
 
-                <Text style={{ color: "#475569", fontWeight: 500 }}>
+                <Text style={tableStyles.ticketTable.project}>
                   {item.project}
                 </Text>
 
                 <div
                   style={{
-                    padding: "4px 10px",
+                    ...tableStyles.ticketTable.chip,
                     background: statusColor.bg,
-                    border: `1px solid ${statusColor.border}`,
-                    borderRadius: 6,
-                    fontSize: 11,
                     color: statusColor.text,
-                    fontWeight: 600,
-                    width: "fit-content",
+                    border: `1px solid ${statusColor.border}`,
                   }}
                 >
                   {item.status}
@@ -146,15 +92,13 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                   <Avatar
                     size={32}
                     style={{
-                      background:
-                        "linear-gradient(135deg, #5b7aed 0%, #6c5ce7 100%)",
-                      fontSize: 13,
-                      fontWeight: 600,
+                      ...tableStyles.ticketTable.avatar,
+                      background: gradients.avatarPrimary,
                     }}
                   >
                     {item.avatar}
                   </Avatar>
-                  <Text style={{ color: "#1f2937", fontWeight: 500 }}>
+                  <Text style={tableStyles.ticketTable.title}>
                     {item.assignee}
                   </Text>
                 </Space>

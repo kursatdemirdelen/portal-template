@@ -5,6 +5,7 @@ Minimal, modüler ve okunabilir portal altyapısıdır. Ant Design bileşenleriy
 ## Yapılacaklar & Dokümanlar
 
 - `docs/FEATURE_BACKLOG.md`: Tüm feature backlog ve eksik akışların listesi. New story açarken burada güncelleme yapın.
+- `docs/DEV_TODO.md`: Teknik TODO listesi (routing, store, stil, test). Sprint planı yaparken bu dosyayı kontrol edin.
 - Stil sistemi, layout ve data katmanına dair yönergeler aşağıdaki bölümlerde özetlenmiştir.
 
 ## Hızlı Başlangıç
@@ -36,11 +37,11 @@ Yeni sayfa eklerken `features/<feature>/` altına komponenti koyup `src/shared/c
 ## Stil Sistemi ve Temalar
 
 - Tüm renk, spacing, gradient, tipografi tokenları `src/shared/styles/styleConstants.ts` içinde toplanmıştır. Yeni bileşenler oluştururken mutlaka bu sabitleri kullanın.
-- `styleHelpers.ts` durum pill’leri gibi tekrar eden inline stiller için yardımcı fonksiyonlar içerir. Gerektiğinde buraya yeni helper ekleyin.
-- `componentStyles.ts` AppLayout gibi temel layout stillerini barındırıyor; yeni layout oluştururken burayı genişletin.
+- `styleHelpers.ts` durum/request/role rozetleri gibi tekrar eden inline stiller için yardımcı fonksiyonlar içerir; yeni badge ihtiyacınız olduğunda buraya helper ekleyin.
+- `componentStyles.ts` AppLayout, PageContainer, list/table/grid düzenleri ve filtre toolbar’larının templatelerini barındırır; yeni layout veya tablo oluştururken bu objeleri genişletin.
 - Ant Design tema overrides’ı `src/shared/config/theme.ts` üzerinden yapılır. `ConfigProvider` token’larını güncellerken `colorPalette` ile senkron kalın.
 - `src/index.css` global resetleri ve tipografiyi yönetir; yeni global stil eklemeniz gerekiyorsa önce burada kontrol edin.
-- **İyileştirme önerileri:** birden fazla bileşende kullanılan inline stiller `styleConstants` veya `componentStyles` içine taşınabilir, ayrıca `PageContainer`/`SectionCard` gibi bileşenler `className` prop’u açılarak Tailwind/LESS kullanımına hazır hale getirilebilir.
+- **İyileştirme önerileri:** `PageContainer`/`SectionCard` gibi bileşenlere `className` prop’u ekleyip tema katmanını genişletin, ayrıca `componentStyles` içindeki grid/table preset’leri için Storybook veya dokümantasyon kartları hazırlayın.
 
 ## Kullanım Rehberi
 

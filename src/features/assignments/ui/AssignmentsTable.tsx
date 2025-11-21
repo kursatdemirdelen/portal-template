@@ -7,45 +7,10 @@ import {
   CheckCircleOutlined,
 } from "@ant-design/icons";
 import type { Assignment } from "../model/types";
-import { colorPalette } from "@/shared/styles/styleConstants";
-
-const getStatusColor = (status: Assignment["status"]) => {
-  const statusColorMap: Record<Assignment["status"], string> = {
-    active: colorPalette.primary,
-    completed: "#52c41a",
-    overdue: "#ff4d4f",
-    pending: "#faad14",
-  };
-  return statusColorMap[status] || colorPalette.textSecondary;
-};
-
-const getStatusLabel = (status: Assignment["status"]) => {
-  const statusLabelMap: Record<Assignment["status"], string> = {
-    active: "Devam Ediyor",
-    completed: "Tamamlandı",
-    overdue: "Gecikmiş",
-    pending: "Beklemede",
-  };
-  return statusLabelMap[status] || status;
-};
-
-const getPriorityColor = (priority: Assignment["priority"]) => {
-  const priorityColorMap: Record<Assignment["priority"], string> = {
-    high: "#ff4d4f",
-    medium: "#faad14",
-    low: "#1890ff",
-  };
-  return priorityColorMap[priority] || "#666666";
-};
-
-const getPriorityLabel = (priority: Assignment["priority"]) => {
-  const priorityLabelMap: Record<Assignment["priority"], string> = {
-    high: "Yüksek",
-    medium: "Orta",
-    low: "Düşük",
-  };
-  return priorityLabelMap[priority] || priority;
-};
+import {
+  getAssignmentPriorityMeta,
+  getAssignmentStatusMeta,
+} from "@/shared/styles/styleHelpers";
 
 const columns: ColumnsType<Assignment> = [
   { title: "Zimmet ID", dataIndex: "id", key: "id", width: 100 },
@@ -66,18 +31,20 @@ const columns: ColumnsType<Assignment> = [
     dataIndex: "status",
     key: "status",
     width: 120,
-    render: (status: Assignment["status"]) => (
-      <Tag color={getStatusColor(status)}>{getStatusLabel(status)}</Tag>
-    ),
+    render: (status: Assignment["status"]) => {
+      const meta = getAssignmentStatusMeta(status);
+      return <Tag color={meta.color}>{meta.label}</Tag>;
+    },
   },
   {
     title: "Öncelik",
     dataIndex: "priority",
     key: "priority",
     width: 100,
-    render: (priority: Assignment["priority"]) => (
-      <Badge color={getPriorityColor(priority)} text={getPriorityLabel(priority)} />
-    ),
+    render: (priority: Assignment["priority"]) => {
+      const meta = getAssignmentPriorityMeta(priority);
+      return <Badge color={meta.color} text={meta.label} />;
+    },
   },
   {
     title: "İşlemler",

@@ -1,5 +1,6 @@
 import React from "react";
 import { Space } from "antd";
+import { toolbarStyles } from "@/shared/styles/componentStyles";
 
 interface FilterToolbarProps {
   children: React.ReactNode;
@@ -13,28 +14,12 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
   align = "flex-start",
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 12,
-        alignItems: align,
-        justifyContent: "space-between",
-        width: "100%",
-        marginBottom: 16,
-      }}
-    >
-      <Space size={12} wrap style={{ flex: 1, minWidth: 220 }}>
+    <div style={{ ...toolbarStyles.filter.container, alignItems: align }}>
+      <Space size={12} wrap style={toolbarStyles.filter.inputs}>
         {children}
       </Space>
       {actions && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
+        <div style={toolbarStyles.filter.actions}>
           {actions}
         </div>
       )}

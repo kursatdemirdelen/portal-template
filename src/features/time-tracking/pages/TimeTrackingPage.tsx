@@ -71,7 +71,7 @@ const stats = [
     title: "Bu Haftanın Toplamı",
     value: weeklyTotal().toFixed(2),
     suffix: "saat",
-    color: "#52c41a",
+    color: colorPalette.success,
   },
   {
     title: "Hedef Saatler",

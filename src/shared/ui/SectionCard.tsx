@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import { Typography } from "antd";
 import { cardStyles } from "@/shared/styles/componentStyles";
+import { borderColors, colorPalette, gradients } from "@/shared/styles/styleConstants";
 
 const { Title, Text } = Typography;
 
@@ -20,20 +21,20 @@ interface SectionCardProps {
 
 const variantConfig = {
   default: {
-    background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
-    border: "1px solid #e8eefb",
+    background: gradients.bgCard,
+    border: `1px solid ${borderColors.light}`,
   },
   elevated: {
-    background: "linear-gradient(135deg, #f0f3f7 0%, #e8eefb 100%)",
-    border: "1px solid #d0ddf7",
+    background: gradients.bgElevated,
+    border: `1px solid ${borderColors.medium}`,
   },
   subtle: {
-    background: "linear-gradient(135deg, #ffffff 0%, #ffffff 100%)",
-    border: "1px solid #ecf0f1",
+    background: gradients.bgSubtle,
+    border: `1px solid ${borderColors.gray}`,
   },
   gradient: {
-    background: "linear-gradient(135deg, rgba(91, 122, 237, 0.08) 0%, rgba(108, 92, 231, 0.04) 100%)",
-    border: "1px solid #e8eefb",
+    background: gradients.colorPurple,
+    border: `1px solid ${borderColors.light}`,
   },
 };
 
@@ -102,7 +103,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                   <div
                     style={{
                       fontSize: 20,
-                      color: "#5b7aed",
+                      color: colorPalette.primary,
                       display: "flex",
                       alignItems: "center",
                     }}
@@ -121,7 +122,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                     fontSize: 12,
                     marginLeft: icon ? 32 : 0,
                     display: "block",
-                    color: "#7f8c8d",
+                    color: colorPalette.textSecondary,
                   }}
                 >
                   {subtitle}

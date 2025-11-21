@@ -2,7 +2,7 @@
  * Component Style Configurations
  */
 
-import { colorPalette, gradients, spacing, radius, transitions, backgrounds, shadows } from './styleConstants';
+import { colorPalette, gradients, spacing, radius, transitions, backgrounds, shadows, borderColors } from './styleConstants';
 
 /* ===========================
    CARD CONFIGURATIONS
@@ -125,10 +125,40 @@ export const layoutStyles = {
   },
 
   pageContainer: {
-    headerBackground: '#ffffff',
-    headerBorder: '1px solid #e5e7eb',
+    root: {
+      background: backgrounds.page,
+      minHeight: '100%',
+    },
+    headerBackground: backgrounds.card,
+    headerBorder: `1px solid ${borderColors.gray}`,
     bodyBackground: '#f5f7fb',
-    headerShadow: '0 2px 6px rgba(15, 23, 42, 0.06)',
+    headerContainer: {
+      borderRadius: radius.lg,
+      boxShadow: '0 2px 6px rgba(15, 23, 42, 0.06)',
+      marginBottom: spacing.md,
+    },
+    breadcrumb: {
+      fontSize: 12,
+      color: colorPalette.textSecondary,
+      marginBottom: spacing.sm,
+    },
+    titleRow: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      gap: spacing.lg,
+    },
+    icon: {
+      fontSize: 28,
+      color: colorPalette.primary,
+      display: 'flex',
+      alignItems: 'center',
+    },
+    actions: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: spacing.sm,
+    },
     title: {
       fontSize: 20,
       fontWeight: 600,
@@ -141,6 +171,172 @@ export const layoutStyles = {
     },
   },
 } as const;
+
+/* ===========================
+   LIST / TABLE STYLES
+   =========================== */
+
+export const listStyles = {
+  teamList: {
+    container: {
+      border: `1px solid ${colorPalette.primaryLighter}`,
+      borderRadius: radius.lg,
+      overflow: 'hidden',
+    },
+    headerRow: {
+      display: 'grid',
+      gridTemplateColumns: '1.4fr 1fr 1fr',
+      padding: `${spacing.md}px ${spacing.lg}px`,
+      fontSize: 11,
+      textTransform: 'uppercase' as const,
+      letterSpacing: 0.4,
+      fontWeight: 600,
+      color: colorPalette.textSecondary,
+      background: '#f8fafc',
+    },
+    row: {
+      display: 'grid',
+      gridTemplateColumns: '1.4fr 1fr 1fr',
+      padding: `${spacing.md + 2}px ${spacing.lg}px`,
+      alignItems: 'center',
+      borderTop: `1px solid ${colorPalette.primaryLighter}`,
+    },
+    name: {
+      fontWeight: 600,
+      color: colorPalette.textPrimary,
+    },
+    project: {
+      color: '#475569',
+      fontWeight: 500,
+    },
+    infoColumn: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: spacing.xs,
+    },
+    metaRow: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: spacing.sm,
+    },
+    avatarRow: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: spacing.md,
+    },
+    avatar: {
+      fontSize: 13,
+      fontWeight: 600,
+    },
+    remainingTag: {
+      borderRadius: radius.full,
+      padding: `${spacing.xs}px ${spacing.sm}px`,
+    },
+    statusTag: {
+      borderRadius: radius.full,
+      fontWeight: 600,
+      padding: `${spacing.xs}px ${spacing.sm + 2}px`,
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: spacing.xs,
+    },
+    rowBackgrounds: {
+      even: '#ffffff',
+      odd: '#fbfcff',
+    },
+  },
+} as const;
+
+
+export const tableStyles = {
+  ticketTable: {
+    outer: {
+      width: '100%',
+      overflowX: 'auto',
+    },
+    inner: {
+      minWidth: 720,
+    },
+    headerRow: {
+      display: 'grid',
+      gridTemplateColumns: '80px 1.6fr 1.1fr 1fr 1fr 1fr',
+      padding: `${spacing.sm}px ${spacing.lg}px`,
+      fontSize: 11,
+      fontWeight: 600,
+      textTransform: 'uppercase' as const,
+      letterSpacing: 0.3,
+      color: colorPalette.textSecondary,
+      borderBottom: `1px solid ${colorPalette.primaryLighter}`,
+      background: '#f8fafc',
+      borderRadius: radius.md,
+      marginBottom: spacing.sm,
+    },
+    row: {
+      display: 'grid',
+      gridTemplateColumns: '80px 1.6fr 1.1fr 1fr 1fr 1fr',
+      padding: `${spacing.md + 2}px ${spacing.lg}px`,
+      alignItems: 'center',
+      borderRadius: radius.md,
+      border: `1px solid ${colorPalette.primaryLighter}`,
+      marginBottom: spacing.sm,
+    },
+    idCell: {
+      fontWeight: 600,
+      color: colorPalette.textPrimary,
+    },
+    title: {
+      color: colorPalette.textPrimary,
+      fontWeight: 600,
+    },
+    project: {
+      color: colorPalette.textSecondary,
+      fontWeight: 500,
+    },
+    meta: {
+      fontSize: 12,
+      color: colorPalette.textSecondary,
+    },
+    chip: {
+      padding: `${spacing.xs}px ${spacing.sm + 2}px`,
+      fontSize: 11,
+      fontWeight: 600,
+      borderRadius: radius.sm,
+      width: 'fit-content',
+    },
+    avatar: {
+      fontSize: 13,
+      fontWeight: 600,
+    },
+    rowBackgrounds: {
+      even: backgrounds.card,
+      odd: '#fdfdff',
+    },
+  },
+} as const;
+
+export const toolbarStyles = {
+  filter: {
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: spacing.md,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      marginBottom: spacing.lg,
+    },
+    inputs: {
+      flex: 1,
+      minWidth: 220,
+    },
+    actions: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: spacing.sm,
+    },
+  },
+} as const;
+
 
 /* ===========================
    COLOR-SPECIFIC CONFIGS
