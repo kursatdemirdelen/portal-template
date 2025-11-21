@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { PageContainer } from "@/shared/ui/PageContainer";
+import { PageContainer } from "@/shared/ui";
 import { ProjectList } from "@/features/projects/ui/ProjectList";
 import type { Project } from "@/features/projects/model";
 

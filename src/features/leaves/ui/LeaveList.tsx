@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Statistic, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { SectionCard } from "@/shared/ui";
 import { colorPalette, spacing } from "@/shared/styles/styleConstants";
 import type { Holiday, LeaveBalance, HolidayType } from "../model/types";
 

@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Table, Input, Select, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { PageContainer } from "@/shared/ui/PageContainer";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { PageContainer, SectionCard } from "@/shared/ui";
 import { TicketStatusChips } from "@/features/tickets/ui/TicketStatusChips";
 import { TICKET_STATUS_META } from "@/features/tickets/model/status";
 import {

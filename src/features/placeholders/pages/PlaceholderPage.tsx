@@ -28,10 +28,8 @@ import {
   CheckCircleOutlined,
   AlertOutlined,
 } from "@ant-design/icons";
-import { PageContainer } from "@/shared/ui/PageContainer";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { PageContainer, SectionCard, PlaceholderPage } from "@/shared/ui";
 import { colorPalette, spacing } from "@/shared/styles/styleConstants";
-import PlaceholderPage from "@/shared/ui/PlaceholderPage";
 import { PlaceholderCard } from "@/features/placeholders/ui/PlaceholderCard";
 
 // Bilet Oluştur

@@ -1,6 +1,5 @@
 import React from "react";
-import { PageContainer } from "@/shared/ui/PageContainer";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { PageContainer, SectionCard } from "@/shared/ui";
 import { AssignmentDetailsTable } from "@/features/assignments/ui/AssignmentDetailsTable";
 import type { AssignmentDetail } from "@/features/assignments/model";
 

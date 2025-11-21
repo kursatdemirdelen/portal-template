@@ -16,11 +16,11 @@
     "noEmit": true,
     "baseUrl": "./",
     "paths": {
-  "@/*": ["./src/*"],
-  "@features/*": ["./src/features/*"],
-  "@shared/*": ["./src/shared/*"],
-  "@entities/*": ["./src/entities/*"],
-},
+      "@/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
+      "@features/*": ["./src/features/*"],
+      "@shared/*": ["./src/shared/*"]
+    },
     "ignoreDeprecations": "6.0"
   },
   "include": [],

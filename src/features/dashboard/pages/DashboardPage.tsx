@@ -1,7 +1,6 @@
-﻿import React from "react";
+import React from "react";
 import { Row, Col } from "antd";
-import { PageContainer } from "@/shared/ui/PageContainer";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { PageContainer, SectionCard } from "@/shared/ui";
 import {
   UserCard,
   type UserInfo,

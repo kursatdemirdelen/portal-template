@@ -1,5 +1,5 @@
 import React from "react";
-import { PageContainer } from "@/shared/ui/PageContainer";
+import { PageContainer } from "@/shared/ui";
 import { LeaveList } from "@/features/leaves/ui/LeaveList";
 import type { LeaveBalance, Holiday } from "@/features/leaves/model";
 

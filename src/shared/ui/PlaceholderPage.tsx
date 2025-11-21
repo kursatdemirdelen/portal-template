@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "antd";
-import { PageContainer } from "@/shared/ui/PageContainer";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { PageContainer } from "./PageContainer";
+import { SectionCard } from "./SectionCard";
 
 interface PlaceholderPageProps {
   title: string;

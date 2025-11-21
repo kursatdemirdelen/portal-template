@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Tag, Progress, Button, Space } from "antd";
 import { TeamOutlined, CalendarOutlined } from "@ant-design/icons";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { SectionCard } from "@/shared/ui";
 import type { Project, ProjectStatus } from "../model/types";
 
 const statusColors: Record<ProjectStatus, string> = {

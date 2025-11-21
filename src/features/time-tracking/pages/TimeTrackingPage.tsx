@@ -1,5 +1,5 @@
 import React from "react";
-import { PageContainer } from "@/shared/ui/PageContainer";
+import { PageContainer } from "@/shared/ui";
 import { TimeSummaryCards } from "@/features/time-tracking/ui/TimeSummaryCards";
 import { TimeEntriesTable } from "@/features/time-tracking/ui/TimeEntriesTable";
 import { colorPalette } from "@/shared/styles/styleConstants";

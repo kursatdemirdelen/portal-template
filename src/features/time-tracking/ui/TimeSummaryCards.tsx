@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Statistic } from "antd";
-import { SectionCard } from "@/shared/ui/SectionCard";
+import { SectionCard } from "@/shared/ui";
 import { spacing } from "@/shared/styles/styleConstants";
 
 export interface TimeSummaryItem {
