@@ -42,20 +42,34 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
 
     return (
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <Avatar.Group maxCount={3} size={44} maxStyle={{ background: "#eef2ff", color: "#4338ca" }}>
+        <Avatar.Group
+          max={{
+            count: 3,
+            style: { background: "#eef2ff", color: "#4338ca" },
+          }}
+          size={44}
+        >
           {visible.map((person) => (
             <Avatar
               key={person.name}
-              size={44}
+              size={40}
               src={person.avatarUrl}
-              style={{ background: person.color, fontSize: 13, fontWeight: 600 }}
+              style={{
+                background: person.color,
+                fontSize: 13,
+                fontWeight: 600,
+              }}
             >
               {person.initials}
             </Avatar>
           ))}
         </Avatar.Group>
+
         {remaining > 0 && (
-          <Tag color="#e0e7ff" style={{ borderRadius: 999, color: "#4338ca", padding: "4px 10px" }}>
+          <Tag
+            color="#e0e7ff"
+            style={{ borderRadius: 999, color: "#4338ca", padding: "4px 8px" }}
+          >
             +{remaining}
           </Tag>
         )}
@@ -64,7 +78,13 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
   };
 
   return (
-    <div style={{ border: "1px solid #e8eefb", borderRadius: 12, overflow: "hidden" }}>
+    <div
+      style={{
+        border: "1px solid #e8eefb",
+        borderRadius: 12,
+        overflow: "hidden",
+      }}
+    >
       <div style={{ ...headerStyle, background: "#f8fafc" }}>
         <span>Proje Ekip Adi</span>
         <span>Proje</span>
@@ -84,9 +104,17 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <Text style={{ fontWeight: 600, color: "#1f2937" }}>{team.name}</Text>
+            <Text style={{ fontWeight: 600, color: "#1f2937" }}>
+              {team.name}
+            </Text>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <Tag color={team.status === "Aktif" ? "#d1fae5" : "#f3f4f6"} style={{ borderRadius: 999, color: team.status === "Aktif" ? "#059669" : "#6b7280" }}>
+              <Tag
+                color={team.status === "Aktif" ? "#d1fae5" : "#f3f4f6"}
+                style={{
+                  borderRadius: 999,
+                  color: team.status === "Aktif" ? "#059669" : "#6b7280",
+                }}
+              >
                 {team.status}
               </Tag>
               <Text type="secondary" style={{ color: "#64748b", fontSize: 12 }}>
@@ -95,7 +123,9 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
             </div>
           </div>
 
-          <Text style={{ color: "#475569", fontWeight: 500 }}>{team.projectName}</Text>
+          <Text style={{ color: "#475569", fontWeight: 500 }}>
+            {team.projectName}
+          </Text>
 
           {renderPeople(team)}
         </div>

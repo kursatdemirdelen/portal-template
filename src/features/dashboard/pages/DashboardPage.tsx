@@ -1,138 +1,25 @@
-import React from "react";
+﻿import React from "react";
 import { Row, Col } from "antd";
 import { PageContainer } from "@/shared/ui/PageContainer";
 import { SectionCard } from "@/shared/ui/SectionCard";
-import { RecentTickets, type Ticket } from "../components/RecentTickets";
-import { ActiveProjects, type Project } from "../components/ActiveProjects";
-import { ProjectTeams, type ProjectTeam } from "../components/ProjectTeams";
-import { UserCard, type UserInfo } from "../components/UserCard";
-import { TicketDistributionCard } from "../components/TicketDistributionCard";
-
-const TICKET_STATUS_META = [
-  {
-    key: "Yeni Istek",
-    label: "Yeni Istek",
-    color: "#2563eb",
-    bg: "rgba(37, 99, 235, 0.12)",
-  },
-  {
-    key: "Atanan",
-    label: "Atanan",
-    color: "#8e44ad",
-    bg: "rgba(142, 68, 173, 0.12)",
-  },
-  {
-    key: "Çözümlenen",
-    label: "Çözümlenen",
-    color: "#27ae60",
-    bg: "rgba(39, 174, 96, 0.12)",
-  },
-];
-
-const TicketStatusChips: React.FC<{
-  summary: Array<{
-    key: string;
-    label: string;
-    color: string;
-    bg: string;
-    count: number;
-  }>;
-}> = ({ summary }) => (
-  <div
-    style={{
-      display: "flex",
-      gap: 12,
-      flexWrap: "wrap",
-      justifyContent: "flex-end",
-      minWidth: 260,
-    }}
-  >
-    {summary.map((item) => (
-      <div
-        key={item.key}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "4px 12px",
-          borderRadius: 999,
-          background: item.bg,
-          color: item.color,
-          fontSize: 12,
-          fontWeight: 600,
-        }}
-      >
-        <span>{item.label}</span>
-        <span
-          style={{
-            background: "rgba(255,255,255,0.6)",
-            color: "#1f2933",
-            borderRadius: 999,
-            padding: "2px 8px",
-            fontSize: 11,
-          }}
-        >
-          {item.count}
-        </span>
-      </div>
-    ))}
-  </div>
-);
+import {
+  UserCard,
+  type UserInfo,
+  ActiveProjects,
+  type Project,
+  ProjectTeams,
+  type ProjectTeam,
+  TicketDistributionCard,
+} from "@/features/dashboard";
+import {
+  TicketStatusChips,
+  RecentTickets,
+  TICKET_STATUS_META,
+  getRecentTicketsForDepartment,
+  getTicketsByDepartment,
+} from "@/features/tickets";
 
 const DashboardPage: React.FC = () => {
-  const ticketDistribution = [
-    { label: "Yeni Bilet", value: 11, color: "#3b82f6" },
-    { label: "Devam Eden", value: 24, color: "#7c3aed" },
-    { label: "Çözümlenen", value: 47, color: "#22c55e" },
-  ];
-
-  const recentTickets: Ticket[] = [
-    {
-      id: "TCK-1042",
-      title: "Portal ana sayfa filtre hatasi",
-      customer: "Client Portal",
-      requestType: "Technical Support",
-      status: "Atanan",
-      assignee: "Ahmet Demir",
-      avatar: "A",
-      project: "Portal Intellium",
-      createdAt: "28 Eki 2025",
-    },
-    {
-      id: "TCK-1038",
-      title: "Zimmet raporu export suresi",
-      customer: "Portal Intellium",
-      requestType: "Suggest Improvement",
-      status: "Çözümlenen",
-      assignee: "Zeynep Unlu",
-      avatar: "Z",
-      project: "Turkuvaz Masraf",
-      createdAt: "27 Eki 2025",
-    },
-    {
-      id: "TCK-1031",
-      title: "Bildirim maili cift gidiyor",
-      customer: "Notification Service",
-      requestType: "Report a BUG",
-      status: "Yeni Istek",
-      assignee: "Kursat Demirdelen",
-      avatar: "K",
-      project: "Portal Support",
-      createdAt: "26 Eki 2025",
-    },
-    {
-      id: "TCK-1024",
-      title: "Scrumboard surukle birak iyilestirmesi",
-      customer: "Portal Intellium",
-      requestType: "Suggest a New Feature",
-      status: "Çözümlenen",
-      assignee: "Mehmet Can",
-      avatar: "M",
-      project: "Scrumboard Revamp",
-      createdAt: "24 Eki 2025",
-    },
-  ];
-
   const activeProjects: Project[] = [
     {
       name: "Portal Intellium",
@@ -158,13 +45,13 @@ const DashboardPage: React.FC = () => {
     {
       id: "team-01",
       name: "Portal Support Team",
-      projectName: "Portal Musteri Destek",
+      projectName: "Portal Müşteri Destek",
       role: "Product Owner",
       members: 6,
       status: "Aktif",
       people: [
         {
-          name: "Zeynep Unlu",
+          name: "Zeynep Ünlü",
           initials: "ZU",
           color: "#fde047",
           avatarUrl: "https://i.pravatar.cc/48?img=5",
@@ -186,7 +73,7 @@ const DashboardPage: React.FC = () => {
     {
       id: "team-02",
       name: "Albaraka Team",
-      projectName: "Albaraka Butce Planlama",
+      projectName: "Albaraka Bütçe Planlama",
       role: "Delivery Lead",
       members: 5,
       status: "Aktif",
@@ -209,12 +96,12 @@ const DashboardPage: React.FC = () => {
       id: "team-03",
       name: "CoLAB Team",
       projectName: "Portal-CoLAB",
-      role: "Danisman",
+      role: "Danışman",
       members: 7,
       status: "Beklemede",
       people: [
         {
-          name: "Onur Aydin",
+          name: "Onur Aydın",
           initials: "OA",
           color: "#fb7185",
           avatarUrl: "https://i.pravatar.cc/48?img=46",
@@ -236,63 +123,126 @@ const DashboardPage: React.FC = () => {
     email: "kursat.demirdelen@portal.com",
     lastLogin: "20.11.2025 09:24",
     avatar: "KD",
-    company: "Intellium Bilisim Teknolojileri A.S.",
+    company: "Intellium Bilişim Teknolojileri A.Ş.",
+    stats: {
+      openTickets: 8,
+      todayClosed: 2,
+      activeProjects: 3,
+    },
   };
+
+  const accessibleTickets = getTicketsByDepartment(currentUser.department);
+  const recentTickets = getRecentTicketsForDepartment(
+    currentUser.department,
+    5
+  );
+
+  const ticketDistribution = [
+    {
+      label: "Yeni İstek",
+      value: accessibleTickets.filter(
+        (ticket) => ticket.status === "Yeni İstek"
+      ).length,
+      color: "#3b82f6",
+    },
+    {
+      label: "Atanan",
+      value: accessibleTickets.filter((ticket) => ticket.status === "Atanan")
+        .length,
+      color: "#f97316",
+    },
+    {
+      label: "Çözümlenen",
+      value: accessibleTickets.filter(
+        (ticket) => ticket.status === "Çözümlenen"
+      ).length,
+      color: "#22c55e",
+    },
+  ];
 
   const ticketStatusSummary = TICKET_STATUS_META.map((meta) => ({
     ...meta,
-    count: recentTickets.filter((ticket) => ticket.status === meta.key).length,
+    count: accessibleTickets.filter((ticket) => ticket.status === meta.key)
+      .length,
   }));
 
   return (
     <PageContainer
       title="Dashboard"
-      subtitle="Projeler ve biletler icin hizli ozet"
+      subtitle="Projeler ve biletler için hızlı özet"
       padding="small"
     >
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }} align="stretch">
-        <Col xs={24} lg={4}>
+      {/* ÜST SATIR */}
+      <Row gutter={[8, 8]} style={{ marginBottom: 24 }} align="stretch">
+        {/* PROFİL */}
+        <Col
+          xs={{ span: 24, order: 2 }}
+          md={{ span: 12, order: 2 }}
+          lg={{ span: 12, order: 2 }}
+          xl={{ span: 12, order: 2 }}
+          xxl={{ span: 4, order: 1 }}
+        >
           <SectionCard
-            title="Profil"
             variant="subtle"
             padding="small"
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 180 }}
           >
             <UserCard user={currentUser} />
           </SectionCard>
         </Col>
-        <Col xs={24} lg={16}>
+
+        {/* SON BİLETLER   */}
+        <Col
+          xs={{ span: 24, order: 1 }}
+          md={{ span: 24, order: 1 }}
+          lg={{ span: 24, order: 1 }}
+          xl={{ span: 24, order: 1 }}
+          xxl={{ span: 16, order: 2 }}
+        >
           <SectionCard
             title="Son Biletler"
             extra={<TicketStatusChips summary={ticketStatusSummary} />}
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 180 }}
           >
             <RecentTickets tickets={recentTickets} />
           </SectionCard>
         </Col>
-        <Col xs={24} lg={4}>
+
+        {/* BİLET DAĞILIMI */}
+        <Col
+          xs={{ span: 24, order: 3 }}
+          md={{ span: 12, order: 2 }}
+          lg={{ span: 12, order: 2 }}
+          xl={{ span: 12, order: 2 }}
+          xxl={{ span: 4, order: 3 }}
+        >
           <SectionCard
             title="Bilet Dağılımı"
             variant="default"
             padding="small"
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 180 }}
           >
             <TicketDistributionCard items={ticketDistribution} />
           </SectionCard>
         </Col>
       </Row>
 
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }} align="stretch">
-        <Col xs={24} lg={12}>
-          <SectionCard title="Proje Ekipleri" style={{ height: "100%" }}>
+      {/* ALT SATIR */}
+      <Row gutter={[8, 8]} style={{ marginBottom: 24 }} align="stretch">
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+          <SectionCard
+            title="Proje Ekipleri"
+            style={{ height: "100%", minHeight: 200 }}
+          >
             <ProjectTeams teams={projectTeams} />
           </SectionCard>
         </Col>
-        <Col xs={24} lg={12}>
+
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <SectionCard
             title="Aktif Projeler"
             variant="elevated"
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 200 }}
           >
             <ActiveProjects projects={activeProjects} />
           </SectionCard>

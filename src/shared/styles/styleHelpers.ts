@@ -10,7 +10,7 @@ import { colorPalette, shadows } from './styleConstants';
    =========================== */
 
 const statusMap: Record<string, { bg: string; text: string; border: string }> = {
-  "Yeni Istek": { bg: "rgba(52, 152, 219, 0.15)", text: colorPalette.primary, border: "rgba(52, 152, 219, 0.3)" },
+  "Yeni İstek": { bg: "rgba(52, 152, 219, 0.15)", text: colorPalette.primary, border: "rgba(52, 152, 219, 0.3)" },
   "Atanan": { bg: "rgba(155, 89, 182, 0.15)", text: "#8e44ad", border: "rgba(155, 89, 182, 0.3)" },
   "Çözümlenen": { bg: "rgba(39, 174, 96, 0.15)", text: colorPalette.success, border: "rgba(39, 174, 96, 0.3)" },
   "In Progress": { bg: "rgba(59, 130, 246, 0.1)", text: colorPalette.primary, border: "rgba(59, 130, 246, 0.3)" },
