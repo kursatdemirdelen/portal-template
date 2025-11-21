@@ -1,33 +1,21 @@
 import React from "react";
-import { Table, Tag, Row, Col, Statistic } from "antd";
+import { Row, Col, Statistic, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { PageContainer } from "@/shared/ui/PageContainer";
 import { SectionCard } from "@/shared/ui/SectionCard";
 import { colorPalette, spacing } from "@/shared/styles/styleConstants";
+import type { Holiday, LeaveBalance, HolidayType } from "../model/types";
 
-interface LeaveBalance {
-  type: string;
-  used: number;
-  remaining: number;
-}
+const holidayTypeLabel: Record<HolidayType, string> = {
+  official: "Resmi Tatil",
+  company: "Şirket Tatili",
+  personal: "Kişisel",
+};
 
-interface Holiday {
-  date: string;
-  title: string;
-  type: "official" | "company" | "personal";
-}
-
-const balances: LeaveBalance[] = [
-  { type: "Yıllık İzin", used: 8, remaining: 12 },
-  { type: "Hastalık İzni", used: 2, remaining: 5 },
-  { type: "Ücretsiz İzin", used: 0, remaining: 10 },
-];
-
-const holidays: Holiday[] = [
-  { date: "2025-04-23", title: "Ulusal Egemenlik ve Çocuk Bayramı", type: "official" },
-  { date: "2025-05-01", title: "Emek ve Dayanışma Günü", type: "official" },
-  { date: "2025-06-10", title: "Şirket Tatili - Offsite", type: "company" },
-];
+const holidayTypeColor: Record<HolidayType, string> = {
+  official: colorPalette.primary,
+  company: "#faad14",
+  personal: "#52c41a",
+};
 
 const balanceColumns: ColumnsType<LeaveBalance> = [
   { title: "İzin Tipi", dataIndex: "type", key: "type", width: 180 },
@@ -43,28 +31,26 @@ const holidayColumns: ColumnsType<Holiday> = [
     dataIndex: "type",
     key: "type",
     width: 140,
-    render: (type: Holiday["type"]) => {
-      const labelMap: Record<Holiday["type"], string> = {
-        official: "Resmi Tatil",
-        company: "Şirket Tatili",
-        personal: "Kişisel",
-      };
-      const colorMap: Record<Holiday["type"], string> = {
-        official: colorPalette.primary,
-        company: "#faad14",
-        personal: "#52c41a",
-      };
-      return <Tag color={colorMap[type]}>{labelMap[type]}</Tag>;
-    },
+    render: (type: HolidayType) => (
+      <Tag color={holidayTypeColor[type]}>{holidayTypeLabel[type]}</Tag>
+    ),
   },
 ];
 
-const totalRemaining = balances.reduce((sum, item) => sum + item.remaining, 0);
-const totalUsed = balances.reduce((sum, item) => sum + item.used, 0);
+interface LeaveListProps {
+  balances: LeaveBalance[];
+  holidays: Holiday[];
+}
 
-const LeaveInfoPage: React.FC = () => {
+export const LeaveList: React.FC<LeaveListProps> = ({ balances, holidays }) => {
+  const totalRemaining = balances.reduce(
+    (sum, item) => sum + item.remaining,
+    0
+  );
+  const totalUsed = balances.reduce((sum, item) => sum + item.used, 0);
+
   return (
-    <PageContainer title="Tatil Bilgileri" subtitle="İzin hakları ve tatil takvimi">
+    <>
       <Row gutter={[16, 16]} style={{ marginBottom: spacing["2xl"] }}>
         <Col xs={24} sm={12} md={12} lg={6}>
           <SectionCard variant="default">
@@ -78,7 +64,11 @@ const LeaveInfoPage: React.FC = () => {
         </Col>
         <Col xs={24} sm={12} md={12} lg={6}>
           <SectionCard variant="default">
-            <Statistic title="Planlı Tatiller" value={holidays.length} suffix="gün" />
+            <Statistic
+              title="Planlı Tatiller"
+              value={holidays.length}
+              suffix="adet"
+            />
           </SectionCard>
         </Col>
       </Row>
@@ -102,8 +92,6 @@ const LeaveInfoPage: React.FC = () => {
           scroll={{ x: 640 }}
         />
       </SectionCard>
-    </PageContainer>
+    </>
   );
 };
-
-export default LeaveInfoPage;

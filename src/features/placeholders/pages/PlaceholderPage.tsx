@@ -32,6 +32,7 @@ import { PageContainer } from "@/shared/ui/PageContainer";
 import { SectionCard } from "@/shared/ui/SectionCard";
 import { colorPalette, spacing } from "@/shared/styles/styleConstants";
 import PlaceholderPage from "@/shared/ui/PlaceholderPage";
+import { PlaceholderCard } from "@/features/placeholders/ui/PlaceholderCard";
 
 // Bilet Oluştur
 const ticketChecklist = ["Özet", "Detaylar", "Öncelik", "Kategori", "İlgili proje", "Dosya ekle", "Atanan kişi"];
@@ -135,28 +136,42 @@ export const CustomersPage = () => (
 
 // Parametreler
 const parameterItems = [
-  { title: "Roller & İzinler", desc: "Kullanıcı rolleri ve erişim seviyeleri", icon: <SettingOutlined /> },
-  { title: "Bildirimler", desc: "E-posta ve sistem bildirim tercihleri", icon: <AlertOutlined /> },
-  { title: "SLA", desc: "Yanıt ve çözüm süreleri", icon: <FieldTimeOutlined /> },
-  { title: "Kategori & Etiketler", desc: "Bilet sınıflandırmaları", icon: <FileTextOutlined /> },
+  {
+    title: "Roller & ?zinler",
+    desc: "Kullan?c? rolleri ve eri?im seviyeleri",
+    icon: <SettingOutlined />,
+  },
+  {
+    title: "Bildirimler",
+    desc: "E-posta ve sistem bildirim tercihleri",
+    icon: <AlertOutlined />,
+  },
+  {
+    title: "SLA",
+    desc: "Yan?t ve ??z?m s?releri",
+    icon: <FieldTimeOutlined />,
+  },
+  {
+    title: "Kategori & Etiketler",
+    desc: "Bilet s?n?fland?rmalar?",
+    icon: <FileTextOutlined />,
+  },
 ];
 
 export const ParametersPage = () => (
-  <PageContainer title="Parametreler Yönetimi" subtitle="Sistem genel ayarları">
+  <PageContainer title="Parametreler Y?netimi" subtitle="Sistem genel ayarlar?">
     <Row gutter={[16, 16]}>
       {parameterItems.map((item) => (
         <Col key={item.title} xs={24} sm={12} md={8}>
-          <SectionCard variant="default">
-            <Space size="middle">
-              {item.icon}
-              <div>
-                <Typography.Text strong>{item.title}</Typography.Text>
-                <Typography.Paragraph style={{ margin: 0 }} type="secondary">
-                  {item.desc}
-                </Typography.Paragraph>
-              </div>
-            </Space>
-          </SectionCard>
+          <PlaceholderCard
+            title={item.title}
+            description={item.desc}
+            icon={item.icon}
+          >
+            <Typography.Text type="secondary">
+              Bu alan i?in yap?land?rma formu burada yer alacak.
+            </Typography.Text>
+          </PlaceholderCard>
         </Col>
       ))}
     </Row>
