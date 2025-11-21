@@ -3,7 +3,7 @@ import { Layout, Menu, Avatar, Dropdown, Space, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useAuth } from "@/features/auth";
 import { appRoutes } from "@/shared/config/routes";
 import { layoutStyles } from "@/shared/styles/componentStyles";
 

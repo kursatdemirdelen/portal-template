@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { Spin } from "antd";
 import type { Role } from "@/shared/config/roles";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useAuth } from "@/features/auth";
 
 interface ProtectedRouteProps {
   children: ReactNode;

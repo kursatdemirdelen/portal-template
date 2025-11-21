@@ -1,25 +1,15 @@
-import type { Role } from '@/shared/config/roles';
+import type { AuthState } from "@/features/auth/model";
 
-interface User {
-  id: string;
-  name: string;
-  role: Role;
-}
-
-export const useAuth = () => {
-  // TODO: Bunu backend'e bağlayacağız
-  const user: User | null = {
-    id: '1',
-    name: 'Kürşat (Admin)',
-    role: 'admin',
-  };
-
-  const isLoading = false;
-  const isAuthenticated = !!user;
-
+export const useAuth = (): AuthState => {
+  // TODO: Bu kısım backend entegrasyonu ile güncellenecek
   return {
-    user,
-    isLoading,
-    isAuthenticated,
+    user: {
+      id: "1",
+      name: "Kürşat (Admin)",
+      role: "admin",
+      email: "kursat@example.com",
+    },
+    isAuthenticated: true,
+    isLoading: false,
   };
 };
