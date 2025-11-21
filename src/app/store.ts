@@ -1,7 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
+import uiReducer from "@/shared/store/uiSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    ui: uiReducer,
+  },
   middleware: (gDM) => gDM(),
 });
 

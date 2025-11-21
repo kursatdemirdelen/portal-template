@@ -6,6 +6,8 @@ import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
 import { appRoutes } from "@/shared/config/routes";
 import { layoutStyles } from "@/shared/styles/componentStyles";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
+import { setSidebarCollapsed } from "@/shared/store/uiSlice";
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
@@ -34,6 +36,8 @@ interface AppLayoutProps {
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const sidebarCollapsed = useAppSelector((state) => state.ui.sidebarCollapsed);
 
   const visibleRoutes = appRoutes
     .filter((route) => route.layout === "app" && route.showInMenu !== false)
@@ -101,7 +105,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <Layout style={layoutStyles.appLayout.container}>
-      <Sider breakpoint="lg" collapsedWidth={64} theme="dark">
+      <Sider
+        breakpoint="lg"
+        collapsedWidth={64}
+        theme="dark"
+        collapsed={sidebarCollapsed}
+        onCollapse={(value) => dispatch(setSidebarCollapsed(value))}
+      >
         <div style={layoutStyles.appLayout.sider.logo}>Portal</div>
 
         <Menu
