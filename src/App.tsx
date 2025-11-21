@@ -1,5 +1,6 @@
 import React from "react";
-import { AppProviders, AppRouter } from "@/app";
+import { AppProviders } from "@/app/providers/AppProviders";
+import { AppRouter } from "@/app/router/AppRouter";
 
 const App: React.FC = () => {
   return (

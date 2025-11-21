@@ -20,6 +20,7 @@ import {
 } from "@/features/assignments";
 import { TimeTrackingPage } from "@/features/time-tracking";
 import { LeavesPage } from "@/features/leaves";
+import { LoginPage } from "@/features/auth";
 import {
   TicketsCreatePage,
   CustomersPage,
@@ -49,10 +50,15 @@ export interface AppRoute {
   groupRoot?: boolean;
 }
 
-const EmptyPage: ComponentType = () => null;
-
 // TODO: Gerçek sayfalar eklendikçe placeholder rotalar gerçek bileşenlerle bağlanacak.
 export const appRoutes: AppRoute[] = [
+  {
+    path: "/login",
+    label: "Giriş Yap",
+    component: LoginPage,
+    layout: "auth",
+    showInMenu: false,
+  },
   {
     path: "/dashboard",
     label: "Dashboard",
