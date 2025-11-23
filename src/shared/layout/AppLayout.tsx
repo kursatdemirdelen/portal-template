@@ -21,10 +21,10 @@ const GROUP_ORDER: string[] = [
   "Biletler",
   "Projeler",
   "Zimmetler",
-  "\u00c7al\u0131\u015fma & Tatil",
-  "Kullan\u0131c\u0131lar",
-  "M\u00fc\u015fteri",
-  "\u0130\u015flemler",
+  "Çalışma & Tatil",
+  "Kullanıcılar",
+  "Müşteri",
+  "İşlemler",
   "Ayarlar",
   "Profil",
 ];
@@ -95,7 +95,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     { key: "profile", icon: <UserOutlined />, label: "Profil" },
     { key: "settings", icon: <SettingOutlined />, label: "Ayarlar" },
     { type: "divider" },
-    { key: "logout", icon: <LogoutOutlined />, label: "\u00c7\u0131k\u0131\u015f Yap", danger: true },
+    { key: "logout", icon: <LogoutOutlined />, label: "Çıkış Yap", danger: true },
   ];
 
   const handleUserMenuClick: MenuProps["onClick"] = (e) => {
