@@ -369,66 +369,6 @@ export const LogsPage = () => (
   </PageContainer>
 );
 
-// Profil
-export const ProfilePage = () => (
-  <PageContainer title="Profil" subtitle="Hesap ayarları">
-    <Row gutter={[16, 16]}>
-      <Col xs={24} md={12}>
-        <Card title="Kişisel Bilgiler">
-          <List
-            dataSource={["Ad Soyad", "E-posta", "Rol", "Dil/Tema"]}
-            renderItem={(i) => <List.Item>{i}</List.Item>}
-          />
-        </Card>
-      </Col>
-      <Col xs={24} md={12}>
-        <Card title="Tercihler">
-          <List
-            dataSource={["Bildirim tercihleri", "Güvenlik", "İki aşamalı doğrulama"]}
-            renderItem={(i) => <List.Item>{i}</List.Item>}
-          />
-        </Card>
-      </Col>
-      <Col xs={24}>
-        <SectionCard variant="default">
-          <Typography.Text strong>Son Aktivite</Typography.Text>
-          <Timeline
-            items={[
-              { children: "Parola güncellendi" },
-              { children: "Bildirim tercihi e-posta olarak ayarlandı" },
-              { children: "Son giriş: 2025-01-22 09:10" },
-            ]}
-          />
-        </SectionCard>
-      </Col>
-      <Col xs={24} md={12}>
-        <SectionCard variant="default">
-          <Typography.Text strong>Güvenlik Durumu</Typography.Text>
-          <Divider />
-          <Space direction="vertical">
-            <Tag color={colorPalette.success}>İki aşamalı doğrulama aktif</Tag>
-            <Tag color={colorPalette.info}>Son parola değişimi: 20 gün önce</Tag>
-            <Tag color={colorPalette.warning}>Yedek kodları yenileyin</Tag>
-          </Space>
-        </SectionCard>
-      </Col>
-      <Col xs={24} md={12}>
-        <SectionCard variant="default">
-          <Typography.Text strong>Aktif Oturumlar</Typography.Text>
-          <List
-            dataSource={[
-              "Chrome • İstanbul • 10 dk önce",
-              "Mobile • iOS • 2 saat önce",
-              "Edge • Ankara • 1 gün önce",
-            ]}
-            renderItem={(i) => <List.Item>{i}</List.Item>}
-          />
-        </SectionCard>
-      </Col>
-    </Row>
-  </PageContainer>
-);
-
 // Çıkış
 export const LogoutPage = () => (
   <PlaceholderPage

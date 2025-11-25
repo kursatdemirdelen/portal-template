@@ -31,9 +31,9 @@ import {
   UserCreatePage,
   ApprovalsPage,
   LogsPage,
-  ProfilePage,
   LogoutPage,
 } from "@/features/placeholders";
+import { ProfilePage } from "@/features/profile";
 import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";
