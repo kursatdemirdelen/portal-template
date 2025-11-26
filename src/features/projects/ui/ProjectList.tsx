@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Tag, Progress, Button, Space } from "antd";
 import { TeamOutlined, CalendarOutlined } from "@ant-design/icons";
 import { SectionCard } from "@/shared/ui";
+import { colorPalette } from "@/shared/styles/styleConstants";
 import type { Project, ProjectStatus } from "../model/types";
 
 const statusColors: Record<ProjectStatus, string> = {
@@ -38,10 +39,10 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                   alignItems: "center",
                 }}
               >
-                <Tag color={statusColors[project.status]}>
-                  {project.status}
-                </Tag>
-                <span style={{ color: "#7f8c8d", fontSize: 12 }}>
+                <Tag color={statusColors[project.status]}>{project.status}</Tag>
+                <span
+                  style={{ color: colorPalette.textSecondary, fontSize: 12 }}
+                >
                   ID: {project.code ?? project.id}
                 </span>
               </div>
@@ -54,18 +55,24 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  <span style={{ fontSize: 12, color: "#7f8c8d" }}>
+                  <span
+                    style={{ fontSize: 12, color: colorPalette.textSecondary }}
+                  >
                     İlerleme
                   </span>
                   <span
-                    style={{ fontSize: 12, fontWeight: 600, color: "#5b7aed" }}
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: colorPalette.primary,
+                    }}
                   >
                     {project.progress}%
                   </span>
                 </div>
                 <Progress
                   percent={project.progress}
-                  strokeColor="#5b7aed"
+                  strokeColor={colorPalette.primary}
                   format={() => null}
                 />
               </div>
@@ -75,8 +82,15 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 6 }}
                   >
-                    <TeamOutlined style={{ color: "#5b7aed", fontSize: 14 }} />
-                    <span style={{ fontSize: 12, color: "#7f8c8d" }}>
+                    <TeamOutlined
+                      style={{ color: colorPalette.primary, fontSize: 14 }}
+                    />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: colorPalette.textSecondary,
+                      }}
+                    >
                       {project.teamSize} kişi
                     </span>
                   </div>
@@ -86,9 +100,14 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                     style={{ display: "flex", alignItems: "center", gap: 6 }}
                   >
                     <CalendarOutlined
-                      style={{ color: "#5b7aed", fontSize: 14 }}
+                      style={{ color: colorPalette.primary, fontSize: 14 }}
                     />
-                    <span style={{ fontSize: 12, color: "#7f8c8d" }}>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: colorPalette.textSecondary,
+                      }}
+                    >
                       {project.endDate}
                     </span>
                   </div>

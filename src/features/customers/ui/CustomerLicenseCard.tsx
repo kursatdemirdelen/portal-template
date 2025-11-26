@@ -17,6 +17,7 @@ import {
   CalendarOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { LicenseInfo } from "../model/types";
 import {
   LICENSE_TYPE_LABELS,
@@ -34,7 +35,7 @@ interface CustomerLicenseCardProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
 };
 
 export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {

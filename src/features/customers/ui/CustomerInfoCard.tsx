@@ -8,6 +8,7 @@ import {
   message,
 } from "antd";
 import { IdcardOutlined, CopyOutlined } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { Customer } from "../model/types";
 import { STATUS_LABELS, STATUS_COLORS } from "./constants";
 
@@ -19,7 +20,7 @@ interface CustomerInfoCardProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
 };
 
 export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {

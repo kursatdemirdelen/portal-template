@@ -1,5 +1,6 @@
 import { Card, Typography, Descriptions, Space } from "antd";
 import { UserOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { ContactPerson } from "../model/types";
 
 const { Text } = Typography;
@@ -10,7 +11,7 @@ interface CustomerContactCardProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
 };
 
 export const CustomerContactCard = ({ contact }: CustomerContactCardProps) => {

@@ -17,6 +17,7 @@ import {
   BankOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { Customer } from "../model/types";
 
 const { Text } = Typography;
@@ -27,7 +28,7 @@ interface CustomerCompanyCardProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
 };
 
 export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {

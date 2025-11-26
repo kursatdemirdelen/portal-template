@@ -1,5 +1,6 @@
 import { Table, Tag, Space, Button, Tooltip, Card, Typography } from "antd";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { ColumnsType } from "antd/es/table";
 import type { Customer, CustomerStatus } from "../model/types";
 import {
@@ -21,7 +22,7 @@ interface CustomerTableProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
   border: "none",
 };
 

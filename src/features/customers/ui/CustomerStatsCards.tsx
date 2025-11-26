@@ -5,6 +5,7 @@ import {
   ClockCircleOutlined,
   StopOutlined,
 } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 
 const { Text } = Typography;
 
@@ -21,7 +22,7 @@ interface CustomerStatsCardsProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
   border: "none",
 };
 
@@ -29,18 +30,22 @@ const statCardColors = {
   total: {
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     iconBg: "rgba(255,255,255,0.2)",
+    textColor: "#fff",
   },
   active: {
-    gradient: "linear-gradient(135deg, #52c41a 0%, #389e0d 100%)",
+    gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
     iconBg: "rgba(255,255,255,0.2)",
+    textColor: "#fff",
   },
   pending: {
-    gradient: "linear-gradient(135deg, #faad14 0%, #d48806 100%)",
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
     iconBg: "rgba(255,255,255,0.2)",
+    textColor: "#fff",
   },
   inactive: {
     gradient: "linear-gradient(135deg, #8c8c8c 0%, #595959 100%)",
     iconBg: "rgba(255,255,255,0.2)",
+    textColor: "#fff",
   },
 };
 
@@ -104,7 +109,7 @@ const StatCard = ({
           style={{
             fontSize: 24,
             fontWeight: 600,
-            color: "#fff",
+            color: statCardColors[colorKey].textColor,
             lineHeight: 1.2,
           }}
         >

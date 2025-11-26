@@ -4,6 +4,7 @@ import {
   FilterOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
+import { shadows } from "@/shared/styles/styleConstants";
 import type { CustomerFilters } from "../model/types";
 import { STATUS_LABELS, ALL_STATUSES } from "./constants";
 
@@ -19,7 +20,7 @@ interface CustomerFiltersBarProps {
 
 const cardStyle = {
   borderRadius: 12,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow: shadows.sm,
   border: "none",
 };
 

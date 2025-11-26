@@ -361,9 +361,9 @@ export const colorConfigs = {
       border: 'rgba(108, 92, 231, 0.3)',
     },
     'Done': {
-      bg: 'rgba(39, 174, 96, 0.12)',
-      text: '#27ae60',
-      border: 'rgba(39, 174, 96, 0.3)',
+      bg: 'rgba(16, 185, 129, 0.12)',
+      text: '#10b981',
+      border: 'rgba(16, 185, 129, 0.3)',
     },
     'Todo': {
       bg: 'rgba(149, 165, 166, 0.12)',
@@ -374,20 +374,20 @@ export const colorConfigs = {
 
   // Priority colors
   priority: {
-    'High': '#e74c3c',
-    'Medium': '#f39c12',
-    'Low': '#27ae60',
+    'High': '#ef4444',
+    'Medium': '#f59e0b',
+    'Low': '#10b981',
   },
 
   // Project status colors
   projectStatus: {
     'On Track': {
-      bg: 'rgba(39, 174, 96, 0.12)',
-      text: '#27ae60',
+      bg: 'rgba(16, 185, 129, 0.12)',
+      text: '#10b981',
     },
     'At Risk': {
-      bg: 'rgba(231, 76, 60, 0.12)',
-      text: '#e74c3c',
+      bg: 'rgba(239, 68, 68, 0.12)',
+      text: '#ef4444',
     },
     'Planning': {
       bg: 'rgba(91, 122, 237, 0.12)',
@@ -409,13 +409,13 @@ export const colorConfigs = {
     },
     green: {
       gradient: gradients.colorGreen,
-      accent: '#27ae60',
-      hover: 'rgba(39, 174, 96, 0.08)',
+      accent: '#10b981',
+      hover: 'rgba(16, 185, 129, 0.08)',
     },
     cyan: {
       gradient: gradients.colorCyan,
-      accent: '#3498db',
-      hover: 'rgba(52, 152, 219, 0.08)',
+      accent: '#3b82f6',
+      hover: 'rgba(59, 130, 246, 0.08)',
     },
   },
 } as const;

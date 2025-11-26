@@ -17,20 +17,21 @@ export const colorPalette = {
   secondary: '#f0ad4e', // Warm accent (minimal)
   accent: '#6c5ce7', // Purple accent (minimal)
 
-  // Status Colors
-  success: '#27ae60',
-  successLight: '#d5f4e6',
-  warning: '#f39c12',
-  warningLight: '#fef5e7',
-  error: '#e74c3c',
-  errorLight: '#fadbd8',
-  info: '#3498db',
+  // Status Colors - Unified and used across the app
+  success: '#10b981',      // Green (Notification, Status)
+  successLight: '#d1fae5', // Light green
+  warning: '#f59e0b',      // Amber (Notification, Status)
+  warningLight: '#fef3c7', // Light amber
+  error: '#ef4444',        // Red (Notification, Status)
+  errorLight: '#fee2e2',   // Light red
+  info: '#3b82f6',         // Blue (Notification, Status) - Note: different from primary
+  infoLight: '#dbeafe',    // Light blue
 
-  // Semantic
-  cyan: '#3498db',
-  green: '#27ae60',
-  orange: '#f39c12',
-  red: '#e74c3c',
+  // Semantic (aliased from above for clarity)
+  cyan: '#3b82f6',
+  green: '#10b981',
+  orange: '#f59e0b',
+  red: '#ef4444',
 
   // Text
   textPrimary: '#2c3e50', // Main text
@@ -53,6 +54,15 @@ export const backgrounds = {
   sidebarMenuHover: 'rgba(91, 122, 237, 0.12)',
   sidebarMenuActive: 'rgba(91, 122, 237, 0.2)',
   sidebarDivider: 'rgba(255, 255, 255, 0.08)',
+  // Status backgrounds
+  successBg: 'rgba(16, 185, 129, 0.12)',    // Success background
+  warningBg: 'rgba(245, 158, 11, 0.12)',    // Warning background
+  errorBg: 'rgba(239, 68, 68, 0.12)',       // Error background
+  infoBg: 'rgba(59, 130, 246, 0.12)',       // Info background
+  // Light neutral backgrounds for UI elements
+  neutral50: '#f9fafb',
+  neutral100: '#f3f4f6',
+  neutral200: '#e5e7eb',
 } as const;
 
 export const borderColors = {
@@ -60,6 +70,9 @@ export const borderColors = {
   medium: '#d0ddf7', // Medium blue border
   strong: '#c0cef5', // Strong blue border
   gray: '#ecf0f1', // Neutral border
+  // Neutral borders (used in lists, tables, etc.)
+  neutral: '#e2e8f0',
+  light_neutral: 'rgba(226, 232, 240, 0.8)',
 } as const;
 
 /* ===========================
@@ -78,13 +91,13 @@ export const gradients = {
   sidebarLogo: `linear-gradient(135deg, #5b7aed 0%, #6c5ce7 100%)`,
   sidebarActiveItem: `linear-gradient(90deg, rgba(91, 122, 237, 0.25) 0%, rgba(91, 122, 237, 0.05) 100%)`,
 
-  // Color-specific gradients for stat cards
+  // Color-specific gradients for stat cards (updated with new color palette)
   colorBlue: `linear-gradient(135deg, rgba(91, 122, 237, 0.08) 0%, rgba(123, 150, 245, 0.05) 100%)`,
-  colorGreen: `linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(46, 213, 115, 0.05) 100%)`,
-  colorOrange: `linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, rgba(245, 176, 65, 0.05) 100%)`,
+  colorGreen: `linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(52, 211, 153, 0.05) 100%)`,
+  colorOrange: `linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(251, 191, 36, 0.05) 100%)`,
   colorPurple: `linear-gradient(135deg, rgba(108, 92, 231, 0.08) 0%, rgba(155, 89, 182, 0.05) 100%)`,
-  colorRed: `linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(236, 112, 86, 0.05) 100%)`,
-  colorCyan: `linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(93, 173, 226, 0.05) 100%)`,
+  colorRed: `linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(252, 165, 165, 0.05) 100%)`,
+  colorCyan: `linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 197, 253, 0.05) 100%)`,
 
   // Avatar gradient
   avatarPrimary: `linear-gradient(135deg, #5b7aed 0%, #6c5ce7 100%)`,

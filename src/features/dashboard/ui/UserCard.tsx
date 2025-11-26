@@ -1,11 +1,12 @@
 import React, { memo, type CSSProperties } from "react";
-import { Avatar, Typography, Tag, theme, Tooltip, Button } from "antd";
+import { Typography, Tag, theme, Tooltip, Button } from "antd";
 import {
   MailOutlined,
   EnvironmentOutlined,
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { UserAvatar } from "@/shared/ui/UserAvatar";
 
 const { Text } = Typography;
 
@@ -200,9 +201,14 @@ export const UserCard: React.FC<UserCardProps> = memo(
 
         {/* Avatar + isim + şirket + mini istatistikler */}
         <div style={avatarWrapperStyle}>
-          <Avatar size={avatarSize} style={avatarStyle}>
-            {user.avatar}
-          </Avatar>
+          <UserAvatar
+            size={avatarSize}
+            user={{
+              name: user.name,
+              avatar: user.avatar,
+            }}
+            style={avatarStyle}
+          />
 
           <div style={{ marginTop: compact ? 12 : 16 }}>
             <Text
