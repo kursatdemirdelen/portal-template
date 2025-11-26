@@ -1,57 +1,85 @@
+/**
+ * Customers List Page - Müşteri Listesi
+ *
+ * Tüm müşterileri listeler, arama ve filtreleme imkanı sunar.
+ *
+ * @features
+ * - Müşteri listesi (tablo)
+ * - Arama ve durum filtresi
+ * - Müşteri oluşturma modalı
+ * - Detay sayfasına yönlendirme
+ * - Düzenleme modalı
+ */
+
 import React from "react";
-import { Row, Col, Statistic, List, Button, Avatar, Tag, Typography } from "antd";
-import { ApartmentOutlined } from "@ant-design/icons";
-import { PageContainer, SectionCard } from "@/shared/ui";
-import { colorPalette, spacing } from "@/shared/styles/styleConstants";
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { PageContainer } from "@/shared/ui";
+import {
+  CustomerStatsCards,
+  CustomerFiltersBar,
+  CustomerTable,
+  CustomerFormModal,
+} from "../ui";
+import { useCustomers } from "../hooks/useCustomers";
 
-const customers = [
-  { name: "Acme Corp", contact: "Zeynep Demir", projects: 5, status: "aktif", segment: "Enterprise" },
-  { name: "Globex", contact: "Ahmet Yılmaz", projects: 2, status: "beklemede", segment: "SMB" },
-  { name: "Initech", contact: "Can Şimşek", projects: 3, status: "aktif", segment: "Mid" },
-];
+const CustomersPage: React.FC = () => {
+  const {
+    customers,
+    filteredCustomers,
+    filters,
+    stats,
+    modalVisible,
+    editingCustomer,
+    form,
+    handleFilterChange,
+    handleResetFilters,
+    handleViewDetail,
+    handleEdit,
+    handleCreate,
+    handleSave,
+    handleModalClose,
+  } = useCustomers();
 
-const CustomersPage: React.FC = () => (
-  <PageContainer title="Müşteri" subtitle="Müşteri kayıtları">
-    <Row gutter={[16, 16]} style={{ marginBottom: spacing["2xl"] }}>
-      <Col xs={24} sm={12} md={8}>
-        <SectionCard variant="default">
-          <Statistic title="Toplam Müşteri" value={customers.length} />
-        </SectionCard>
-      </Col>
-      <Col xs={24} sm={12} md={8}>
-        <SectionCard variant="default">
-          <Statistic title="Aktif Proje" value={10} />
-        </SectionCard>
-      </Col>
-    </Row>
-    <SectionCard variant="default">
-      <List
-        itemLayout="horizontal"
-        dataSource={customers}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              <Button size="small" key="projects" icon={<ApartmentOutlined />}>
-                Projeler
-              </Button>,
-              <Button size="small" key="details">
-                Detay
-              </Button>,
-            ]}
-          >
-            <List.Item.Meta
-              avatar={<Avatar>{item.name.slice(0, 2).toUpperCase()}</Avatar>}
-              title={item.name}
-              description={`${item.contact} · ${item.projects} proje · ${item.segment}`}
-            />
-            <Tag color={item.status === "aktif" ? colorPalette.success : colorPalette.warning}>
-              {item.status === "aktif" ? "Aktif" : "Beklemede"}
-            </Tag>
-          </List.Item>
-        )}
+  return (
+    <PageContainer
+      title="Müşteri Listele"
+      subtitle="Sistemdeki tüm müşterileri görüntüleyin"
+      extra={
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
+          Müşteri Oluştur
+        </Button>
+      }
+    >
+      {/* Stats Cards */}
+      <CustomerStatsCards stats={stats} />
+
+      {/* Filters */}
+      <CustomerFiltersBar
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onReset={handleResetFilters}
+        filteredCount={filteredCustomers.length}
+        totalCount={customers.length}
       />
-    </SectionCard>
-  </PageContainer>
-);
+
+      {/* Table */}
+      <CustomerTable
+        customers={filteredCustomers}
+        onView={handleViewDetail}
+        onEdit={handleEdit}
+      />
+
+      {/* Form Modal */}
+      <CustomerFormModal
+        open={modalVisible}
+        editingCustomer={editingCustomer}
+        form={form}
+        onSave={handleSave}
+        onCancel={handleModalClose}
+      />
+    </PageContainer>
+  );
+};
 
 export default CustomersPage;

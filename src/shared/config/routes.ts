@@ -10,6 +10,7 @@ import {
   ToolOutlined,
   ProfileOutlined,
   SettingOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 import { TicketsPage, TicketsCreatePage } from "@/features/tickets";
@@ -21,9 +22,10 @@ import {
 import { TimeTrackingPage } from "@/features/time-tracking";
 import { LeavesPage } from "@/features/leaves";
 import { LoginPage, LogoutPage } from "@/features/auth";
-import { CustomersPage } from "@/features/customers";
-import { ParametersPage } from "@/features/parameters";
-import { UsersPage, UserCreatePage } from "@/features/users";
+import { CustomersPage, CustomerDetailPage } from "@/features/customers";
+import ParametersPage from "@/features/parameters/pages/ParametersPage";
+import UsersPage from "@/features/users/pages/UsersPage";
+import PermissionsPage from "@/features/permissions/pages/PermissionsPage";
 import { ApprovalsPage } from "@/features/approvals";
 import { LogsPage } from "@/features/logs";
 import { ProfilePage } from "@/features/profile";
@@ -95,6 +97,14 @@ export const appRoutes: AppRoute[] = [
     groupRoot: true,
   },
   {
+    path: "/customers/:id",
+    label: "Müşteri Detay",
+    component: CustomerDetailPage,
+    layout: "app",
+    roles: ["admin"],
+    showInMenu: false,
+  },
+  {
     path: "/parameters",
     label: "Parametreler Yönetimi",
     component: ParametersPage,
@@ -138,24 +148,33 @@ export const appRoutes: AppRoute[] = [
   },
   {
     path: "/users",
-    label: "Kullanıcı Listesi",
+    label: "Kullanıcılar",
     component: UsersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Kullanıcılar",
     menuIcon: TeamOutlined,
     groupRoot: true,
   },
   {
-    path: "/users/create",
-    label: "Kullanıcı Oluştur",
-    component: UserCreatePage,
+    path: "/permissions",
+    label: "Yetkilendirme",
+    component: PermissionsPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Kullanıcılar",
-    menuIcon: TeamOutlined,
+    menuIcon: LockOutlined,
+    groupRoot: true,
+  },
+  {
+    path: "/parameters",
+    label: "Parametreler",
+    component: ParametersPage,
+    layout: "app",
+    roles: ["admin"],
+    showInMenu: true,
+    menuIcon: SettingOutlined,
+    groupRoot: true,
   },
   {
     path: "/assignments",

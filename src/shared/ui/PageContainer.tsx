@@ -1,8 +1,11 @@
 import React, { type ReactNode } from "react";
-import { Typography, Breadcrumb, Button } from "antd";
+import { Typography, Breadcrumb, Button, Row, Col } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useBreadcrumbs, type BreadcrumbItem } from "@/shared/hooks/useBreadcrumbs";
+import {
+  useBreadcrumbs,
+  type BreadcrumbItem,
+} from "@/shared/hooks/useBreadcrumbs";
 import { layoutStyles } from "@/shared/styles/componentStyles";
 import { colorPalette } from "@/shared/styles/styleConstants";
 
@@ -39,14 +42,15 @@ export const PageContainer: React.FC<PageContainerProps> = ({
 }) => {
   const navigate = useNavigate();
   const paddingStyle = paddingConfig[padding];
-	  const routeBreadcrumbs = useBreadcrumbs();
+  const routeBreadcrumbs = useBreadcrumbs();
   const headerPadding = {
     top: Math.max(paddingStyle.top - 8, 12),
     bottom: Math.max(paddingStyle.bottom - 8, 12),
     horizontal: paddingStyle.horizontal,
   };
 
-  const resolvedBreadcrumbs = breadcrumbs ?? (useRouteBreadcrumbs ? routeBreadcrumbs : []);
+  const resolvedBreadcrumbs =
+    breadcrumbs ?? (useRouteBreadcrumbs ? routeBreadcrumbs : []);
 
   const breadcrumbItems = resolvedBreadcrumbs
     ? resolvedBreadcrumbs.map((item, idx) => ({
@@ -56,7 +60,8 @@ export const PageContainer: React.FC<PageContainerProps> = ({
             onClick={item.onClick || (() => item.href && navigate(item.href))}
             style={{
               cursor: item.onClick || item.href ? "pointer" : "default",
-              color: item.href || item.onClick ? colorPalette.primary : "inherit",
+              color:
+                item.href || item.onClick ? colorPalette.primary : "inherit",
             }}
           >
             {item.title}
@@ -65,8 +70,8 @@ export const PageContainer: React.FC<PageContainerProps> = ({
       }))
     : [];
 
-	  return (
-	    <div style={layoutStyles.pageContainer.root}>
+  return (
+    <div style={layoutStyles.pageContainer.root}>
       {/* Header Section */}
       <div
         style={{
@@ -104,65 +109,60 @@ export const PageContainer: React.FC<PageContainerProps> = ({
         )}
 
         {/* Title Section */}
-        <div style={layoutStyles.pageContainer.titleRow}>
-          <div style={{ flex: 1 }}>
-	            <div
-	              style={{
-	                display: "flex",
-	                alignItems: "center",
-	                gap: 12,
-	                marginBottom: subtitle ? 8 : 0,
-	              }}
-	            >
-              {showBackButton && (
-                <Button
-                  type="text"
-                  icon={<ArrowLeftOutlined />}
-                  onClick={() => navigate(-1)}
+        <Row gutter={[12, 12]} align="middle" justify="space-between">
+          <Col xs={24} sm={extra ? 16 : 24} md={extra ? 18 : 24}>
+            <div style={{ minWidth: 0 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: subtitle ? 4 : 0,
+                  flexWrap: "wrap" as const,
+                }}
+              >
+                {showBackButton && (
+                  <Button
+                    type="text"
+                    icon={<ArrowLeftOutlined />}
+                    onClick={() => navigate(-1)}
+                    style={{
+                      color: colorPalette.textSecondary,
+                      padding: "4px 8px",
+                      height: "auto",
+                    }}
+                  />
+                )}
+
+                {icon && (
+                  <div style={layoutStyles.pageContainer.icon}>{icon}</div>
+                )}
+
+                <Title level={3} style={layoutStyles.pageContainer.title}>
+                  {title}
+                </Title>
+              </div>
+
+              {subtitle && (
+                <Text
+                  type="secondary"
                   style={{
-                    color: colorPalette.textSecondary,
-                    padding: "4px 8px",
-                    height: "auto",
+                    ...layoutStyles.pageContainer.subtitle,
+                    display: "block",
                   }}
-                />
+                >
+                  {subtitle}
+                </Text>
               )}
-
-              {icon && (
-                <div style={layoutStyles.pageContainer.icon}>
-                  {icon}
-                </div>
-              )}
-	
-	              <Title level={2} style={layoutStyles.pageContainer.title}>
-	                {title}
-	              </Title>
-	            </div>
-
-	            {subtitle && (
-	              <Text
-	                type="secondary"
-	                style={{
-	                  ...layoutStyles.pageContainer.subtitle,
-	                  marginLeft: icon || showBackButton ? 40 : 0,
-	                  display: "block",
-	                }}
-	              >
-	                {subtitle}
-	              </Text>
-	            )}
-          </div>
+            </div>
+          </Col>
 
           {extra && (
-            <div
-              style={{
-                ...layoutStyles.pageContainer.actions,
-                paddingTop: icon ? 4 : 0,
-              }}
-            >
-              {extra}
-            </div>
+            <Col xs={24} sm={8} md={6} style={{ textAlign: "right" }}>
+              <div style={layoutStyles.pageContainer.actions}>{extra}</div>
+            </Col>
           )}
-        </div>
+        </Row>
       </div>
 
       {/* Content Section */}

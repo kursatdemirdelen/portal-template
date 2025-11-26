@@ -49,7 +49,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             { type: "email", message: "Geçerli bir e-posta girin" },
           ]}
         >
-          <Input size="large" prefix={<UserOutlined />} placeholder="ornek@portal.com" />
+          <Input
+            id="login-email"
+            size="large"
+            prefix={<UserOutlined />}
+            placeholder="ornek@portal.com"
+          />
         </Form.Item>
 
         <Form.Item
@@ -58,6 +63,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           rules={[{ required: true, message: "Şifrenizi girin" }]}
         >
           <Input.Password
+            id="login-password"
             size="large"
             prefix={<LockOutlined />}
             placeholder="********"

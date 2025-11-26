@@ -144,9 +144,10 @@ export const layoutStyles = {
     },
     titleRow: {
       display: 'flex',
+      flexWrap: 'wrap' as const,
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      gap: spacing.lg,
+      gap: spacing.md,
     },
     icon: {
       fontSize: 28,
@@ -160,14 +161,17 @@ export const layoutStyles = {
       gap: spacing.sm,
     },
     title: {
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 600,
       color: colorPalette.textPrimary,
       letterSpacing: '-0.5px',
+      margin: 0,
+      wordBreak: 'break-word' as const,
     },
     subtitle: {
       fontSize: 12,
       color: colorPalette.textSecondary,
+      wordBreak: 'break-word' as const,
     },
   },
 } as const;
