@@ -12,27 +12,20 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
-import { TicketsPage } from "@/features/tickets";
-import { ProjectsPage } from "@/features/projects";
+import { TicketsPage, TicketsCreatePage } from "@/features/tickets";
+import { ProjectsPage, ProjectTeamPage, ScrumBoardPage } from "@/features/projects";
 import {
   AssignmentInfoPage,
   AssignmentsPage,
 } from "@/features/assignments";
 import { TimeTrackingPage } from "@/features/time-tracking";
 import { LeavesPage } from "@/features/leaves";
-import { LoginPage } from "@/features/auth";
-import {
-  TicketsCreatePage,
-  CustomersPage,
-  ParametersPage,
-  ProjectTeamPage,
-  ScrumBoardPage,
-  UsersPage,
-  UserCreatePage,
-  ApprovalsPage,
-  LogsPage,
-  LogoutPage,
-} from "@/features/placeholders";
+import { LoginPage, LogoutPage } from "@/features/auth";
+import { CustomersPage } from "@/features/customers";
+import { ParametersPage } from "@/features/parameters";
+import { UsersPage, UserCreatePage } from "@/features/users";
+import { ApprovalsPage } from "@/features/approvals";
+import { LogsPage } from "@/features/logs";
 import { ProfilePage } from "@/features/profile";
 import type { Role } from "./roles";
 

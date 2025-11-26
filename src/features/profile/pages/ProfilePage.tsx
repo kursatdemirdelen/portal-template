@@ -127,24 +127,24 @@ const activityTimeline = [
 const sessions = [
   {
     id: "desktop",
-    label: "Chrome ? Windows",
-    location: "?stanbul ? 10 dk ?nce",
+    label: "Chrome - Windows",
+    location: "İstanbul - 10 dk önce",
     ip: "10.24.32.11",
     type: "desktop",
     trusted: true,
   },
   {
     id: "mobile",
-    label: "Portal Mobile ? iOS",
-    location: "Kad?k?y ? 2 saat ?nce",
+    label: "Portal Mobile - iOS",
+    location: "Kadıköy - 2 saat önce",
     ip: "10.18.10.4",
     type: "mobile",
     trusted: true,
   },
   {
     id: "edge",
-    label: "Edge ? Windows",
-    location: "Ankara ? 1 g?n ?nce",
+    label: "Edge - Windows",
+    location: "Ankara - 1 gün önce",
     ip: "10.44.12.98",
     type: "desktop",
     trusted: false,
@@ -252,7 +252,7 @@ const ProfilePage: React.FC = () => (
         <Row gutter={[24, 24]} style={{ marginTop: spacing["2xl"] }}>
           <Col xs={24} md={12}>
             <SectionCard title="İletişim ve Takım">
-              <Descriptions column={1} colon={false} labelStyle={{ width: 140 }}>
+              <Descriptions column={1} colon={false} styles={{ label: { width: 140 } }}>
                 <Descriptions.Item label={<Space><MailOutlined />E-posta</Space>}>
                   {profileSummary.email}
                 </Descriptions.Item>

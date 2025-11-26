@@ -15,7 +15,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           padding: 16,
         }}
       >
-        <Card style={{ width: 400, maxWidth: "100%" }} bordered={false}>
+        <Card style={{ width: 400, maxWidth: "100%" }} variant="borderless">
           <div style={{ marginBottom: 24, textAlign: "center" }}>
             <Title level={3} style={{ marginBottom: 4 }}>
               Portal Intellium

@@ -126,9 +126,9 @@ export const themeConfig: ThemeConfig = {
       darkItemBg: '#2c3e50',
       darkItemHoverBg: '#2e3a51', // daha yumuşak hover
       darkItemSelectedBg: 'rgba(91, 122, 237, 0.12)', // seçili için daha düşük opaklık
-      colorItemBgSelectedHorizontal: 'rgba(91, 122, 237, 0.12)',
+      horizontalItemSelectedBg: 'rgba(91, 122, 237, 0.12)',
       darkSubMenuItemBg: '#273347',
-      colorItemBgHover: 'rgba(91, 122, 237, 0.05)',
+      itemHoverBg: 'rgba(91, 122, 237, 0.05)',
       itemBorderRadius: 10,
       itemHeight: 38,
       itemPaddingInline: 12,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu, Avatar, Dropdown, Space, Typography } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
@@ -13,8 +13,6 @@ const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
 
 type MenuItem = Required<MenuProps>["items"][number];
-type MenuItemWithChildren = Extract<MenuItem, { children?: MenuProps["items"] }>;
-type MenuGroupItem = MenuItemWithChildren & { icon?: React.ReactNode };
 
 const GROUP_ORDER: string[] = [
   "Dashboard",
@@ -36,6 +34,7 @@ interface AppLayoutProps {
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const sidebarCollapsed = useAppSelector((state) => state.ui.sidebarCollapsed);
 
@@ -43,7 +42,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     .filter((route) => route.layout === "app" && route.showInMenu !== false)
     .filter((route) => (route.roles ? (user ? route.roles.includes(user.role) : false) : true));
 
-  const groupedItems: Record<string, MenuGroupItem> = {};
+  const groupedItems: Record<string, { icon?: React.ReactNode; children: MenuProps["items"] }> = {};
   const rootItems: NonNullable<MenuProps["items"]> = [];
   const groupIcons: Record<string, React.ReactNode | undefined> = {};
 
@@ -59,18 +58,20 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
     const item: MenuItem = {
       key: route.path,
-      label: <Link to={route.path}>{route.label ?? route.path}</Link>,
+      label: (
+        <span style={{ fontSize: 13, fontWeight: route.groupRoot ? 600 : 500 }}>
+          {route.label ?? route.path}
+        </span>
+      ),
       icon: Icon ? <Icon /> : undefined,
     };
 
     if (route.menuGroup) {
       if (!groupedItems[route.menuGroup]) {
         groupedItems[route.menuGroup] = {
-          key: `group-${route.menuGroup}`,
-          label: route.menuGroup,
-          children: [],
           icon: groupIcons[route.menuGroup],
-        } as MenuGroupItem;
+          children: [],
+        };
       } else if (!groupedItems[route.menuGroup].icon) {
         groupedItems[route.menuGroup].icon = groupIcons[route.menuGroup];
       }
@@ -83,13 +84,47 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     }
   });
 
-  const menuItems: MenuProps["items"] = [
-    ...rootItems,
-    ...GROUP_ORDER.filter((group) => groupedItems[group]).map((group) => groupedItems[group]),
-  ];
+  const flatGroupItems: MenuProps["items"] = [];
+  const nestedGroupItems: MenuProps["items"] = [];
+
+  const appendGroupItems = (group: string, groupData: { icon?: React.ReactNode; children: MenuProps["items"] }) => {
+    const children = groupData.children ?? [];
+    if (children.length <= 1) {
+      flatGroupItems.push(...children);
+    } else {
+      nestedGroupItems.push({
+        key: `group-${group}`,
+        label: <span style={{ fontSize: 12, letterSpacing: 0.2 }}>{group}</span>,
+        icon: groupData.icon,
+        children,
+      });
+    }
+  };
+
+  GROUP_ORDER.forEach((group) => {
+    const groupData = groupedItems[group];
+    if (!groupData) return;
+    appendGroupItems(group, groupData);
+  });
+
+  Object.entries(groupedItems).forEach(([group, groupData]) => {
+    if (GROUP_ORDER.includes(group)) return;
+    appendGroupItems(group, groupData);
+  });
+
+  const menuItems: MenuProps["items"] = [...rootItems, ...flatGroupItems, ...nestedGroupItems];
 
   const selectedGroupKey = visibleRoutes.find((route) => route.path === location.pathname)?.menuGroup;
-  const defaultOpenKeys = selectedGroupKey ? [`group-${selectedGroupKey}`] : [];
+  const defaultOpenKeys =
+    selectedGroupKey && (groupedItems[selectedGroupKey]?.children?.length ?? 0) > 1
+      ? [`group-${selectedGroupKey}`]
+      : [];
+
+  const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
+    if (typeof key === "string" && !key.startsWith("group-")) {
+      navigate(key);
+    }
+  };
 
   const userMenuItems: MenuProps["items"] = [
     { key: "profile", icon: <UserOutlined />, label: "Profil" },
@@ -111,6 +146,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         theme="dark"
         collapsed={sidebarCollapsed}
         onCollapse={(value) => dispatch(setSidebarCollapsed(value))}
+        style={{ borderRight: "none" }}
       >
         <div style={layoutStyles.appLayout.sider.logo}>Portal</div>
 
@@ -120,7 +156,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           selectedKeys={[location.pathname]}
           defaultOpenKeys={defaultOpenKeys}
           items={menuItems}
-          style={{ background: "transparent", paddingInline: 8, paddingBottom: 12 }}
+          onClick={handleMenuClick}
+          style={{
+            background: "transparent",
+            paddingInline: 8,
+            paddingBottom: 12,
+            borderInlineEnd: "none",
+          }}
+          inlineIndent={16}
         />
       </Sider>
 
