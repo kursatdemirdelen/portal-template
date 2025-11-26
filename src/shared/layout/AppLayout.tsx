@@ -1,7 +1,8 @@
 import React from "react";
 import { Layout } from "antd";
 import { useAppSelector } from "@/shared/hooks/useAppStore";
-import { Sidebar, contentStyles } from "./Sidebar";
+import { Sidebar } from "./Sidebar";
+import { contentStyles } from "./sidebarStyles";
 
 const { Content } = Layout;
 

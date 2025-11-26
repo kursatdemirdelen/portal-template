@@ -438,3 +438,41 @@ button {
     --border-color-strong: rgba(30, 41, 59, 0.3);
   }
 }
+/* ===========================
+   SIDEBAR CUSTOM STYLES
+   =========================== */
+/* Submenu chevron rotation animation */
+.ant-menu-submenu-open .ant-menu-submenu-title svg:last-child {
+  transform: rotate(90deg);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.ant-menu-submenu-title svg:last-child {
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Logo hover effect */
+.sidebar-logo-container:hover {
+  opacity: 0.85;
+  transition: opacity 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Smooth Sider collapse animation - Apple-like easing */
+.ant-layout-sider {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.ant-layout-sider-children {
+  transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Menu animations */
+.ant-menu-item, .ant-menu-submenu-title {
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+/* Sidebar footer animations */
+.ant-layout-sider .ant-layout-sider-children > div > div:last-child > div {
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+

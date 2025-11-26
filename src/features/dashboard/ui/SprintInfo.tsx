@@ -4,6 +4,11 @@
 
 import React from "react";
 import { Typography, Progress } from "antd";
+import {
+  colorPalette,
+  backgrounds,
+  borderColors,
+} from "@/shared/styles/styleConstants";
 
 const { Text } = Typography;
 
@@ -21,7 +26,9 @@ interface SprintInfoProps {
 }
 
 export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
-  const completionRate = Math.round((sprintInfo.completed / sprintInfo.total) * 100);
+  const completionRate = Math.round(
+    (sprintInfo.completed / sprintInfo.total) * 100
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -49,28 +56,34 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
           display: "flex",
           gap: 8,
           padding: "10px 12px",
-          background: "rgba(91, 122, 237, 0.08)",
+          background: colorPalette.primaryLighter,
           borderRadius: 8,
-          border: "1px solid #e8eefb",
+          border: `1px solid ${borderColors.light}`,
         }}
       >
         <div style={{ flex: 1 }}>
-          <Text type="secondary" style={{ fontSize: 11, color: "#7f8c8d" }}>
+          <Text
+            type="secondary"
+            style={{ fontSize: 11, color: colorPalette.textSecondary }}
+          >
             Başlangıç
           </Text>
           <div style={{ marginTop: 2 }}>
-            <Text style={{ fontSize: 12, color: "#2c3e50" }}>
+            <Text style={{ fontSize: 12, color: colorPalette.textPrimary }}>
               {sprintInfo.startedAt}
             </Text>
           </div>
         </div>
-        <div style={{ width: "1px", background: "#d0ddf7" }} />
+        <div style={{ width: "1px", background: borderColors.medium }} />
         <div style={{ flex: 1, textAlign: "right" }}>
-          <Text type="secondary" style={{ fontSize: 11, color: "#7f8c8d" }}>
+          <Text
+            type="secondary"
+            style={{ fontSize: 11, color: colorPalette.textSecondary }}
+          >
             Bitiş
           </Text>
           <div style={{ marginTop: 2 }}>
-            <Text style={{ fontSize: 12, color: "#2c3e50" }}>
+            <Text style={{ fontSize: 12, color: colorPalette.textPrimary }}>
               {sprintInfo.endsAt}
             </Text>
           </div>
@@ -87,14 +100,17 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
             marginBottom: 8,
           }}
         >
-          <Text type="secondary" style={{ fontSize: 12, color: "#7f8c8d" }}>
+          <Text
+            type="secondary"
+            style={{ fontSize: 12, color: colorPalette.textSecondary }}
+          >
             İlerleme
           </Text>
           <Text
             style={{
               fontSize: 12,
               fontWeight: 600,
-              color: "#27ae60",
+              color: colorPalette.success,
             }}
           >
             {completionRate}%
@@ -103,18 +119,18 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
         <Progress
           percent={completionRate}
           strokeColor={{
-            "0%": "#27ae60",
+            "0%": colorPalette.success,
             "50%": "#2edc82",
-            "100%": "#27ae60",
+            "100%": colorPalette.success,
           }}
           format={() => null}
-          trailColor="#e8eefb"
+          trailColor={colorPalette.primaryLighter}
         />
         <div
           style={{
             marginTop: 8,
             fontSize: 12,
-            color: "#7f8c8d",
+            color: colorPalette.textSecondary,
           }}
         >
           {sprintInfo.completed} / {sprintInfo.total} iş tamamlandı

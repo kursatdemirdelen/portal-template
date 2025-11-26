@@ -3,6 +3,8 @@ import type { Role } from "@/shared/config/roles";
 export interface AuthUser {
   id: string;
   name: string;
+  firstName?: string;
+  lastName?: string;
   role: Role;
   email?: string;
   avatar?: string;

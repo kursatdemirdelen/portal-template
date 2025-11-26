@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
-import { Table, Input, Select } from "antd";
+import { Table, Input, Select, Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
 import type { ColumnsType } from "antd/es/table";
 import { PageContainer, SectionCard, FilterToolbar } from "@/shared/ui";
 import { TicketStatusChips } from "@/features/tickets/ui/TicketStatusChips";
@@ -21,6 +23,7 @@ const requestTypeOptions = Array.from(
 ).map((type) => ({ label: type, value: type }));
 
 const TicketsPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>();
   const [requestTypeFilter, setRequestTypeFilter] = useState<string>();
@@ -137,6 +140,15 @@ const TicketsPage: React.FC = () => {
     <PageContainer
       title="Biletler"
       subtitle="Tüm istekleri tek yerden takip et"
+      extra={
+        <Button
+          type="primary"
+          icon={<Plus size={16} />}
+          onClick={() => navigate("/tickets/create")}
+        >
+          Yeni Bilet
+        </Button>
+      }
     >
       <SectionCard
         title="Tüm Biletler"

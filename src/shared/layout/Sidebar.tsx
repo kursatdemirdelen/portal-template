@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Avatar, Dropdown, Badge, Tooltip } from "antd";
+import { Layout, Menu, Dropdown, Tooltip } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Settings,
@@ -7,12 +7,12 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeft,
-  UserCircle,
+  User,
   Building2,
-  ChevronDown,
 } from "lucide-react";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
+import { UserAvatar } from "@/shared/ui/UserAvatar";
 import { appRoutes } from "@/shared/config/routes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
 import { setSidebarCollapsed } from "@/shared/store/uiSlice";
@@ -29,6 +29,7 @@ const styles = {
     top: 0,
     bottom: 0,
     zIndex: 100,
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
   },
   container: {
     display: "flex",
@@ -40,15 +41,23 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: 12,
+    justifyContent: "center",
   },
   logoIcon: {
-    width: 32,
-    height: 32,
+    width: 48,
+    height: 48,
     borderRadius: 8,
     background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
+    position: "relative" as const,
+  },
+  logoImage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover" as const,
   },
   menu: {
     flex: 1,
@@ -57,36 +66,38 @@ const styles = {
   },
   footer: {
     marginTop: "auto",
-    padding: 12,
+    padding: "12px",
     borderTop: "1px solid rgba(255,255,255,0.06)",
     display: "flex",
     flexDirection: "column" as const,
-    gap: 4,
+    gap: 8,
   },
   footerBtn: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     gap: 10,
-    padding: "10px 12px",
+    padding: 0,
     borderRadius: 8,
     cursor: "pointer",
     color: "rgba(255,255,255,0.6)",
     transition: "all 0.15s",
+    height: 40,
+    width: "100%",
+  },
+  profileCard: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    padding: 0,
+    borderRadius: 8,
+    cursor: "pointer",
+    transition: "all 0.2s ease",
+    height: 40,
+    width: "100%",
   },
 };
-
-// Menu group order
-const GROUP_ORDER = [
-  "Dashboard",
-  "Biletler",
-  "Projeler",
-  "Zimmetler",
-  "Çalışma & Tatil",
-  "Kullanıcılar",
-  "Müşteri",
-  "İşlemler",
-  "Ayarlar",
-];
 
 export const Sidebar: React.FC = () => {
   const { user } = useAuth();
@@ -94,6 +105,8 @@ export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((s) => s.ui.sidebarCollapsed);
+  const logoUrl = useAppSelector((s) => s.ui.logoUrl);
+  const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
   const toggle = () => dispatch(setSidebarCollapsed(!collapsed));
 
@@ -104,7 +117,10 @@ export const Sidebar: React.FC = () => {
       r.roles ? (user ? r.roles.includes(user.role) : false) : true
     );
 
-  const grouped: Record<string, MenuProps["items"]> = {};
+  const grouped: Record<
+    string,
+    { icon?: React.ReactNode; items: MenuProps["items"] }
+  > = {};
   const rootItems: MenuProps["items"] = [];
 
   visibleRoutes.forEach((route) => {
@@ -118,27 +134,27 @@ export const Sidebar: React.FC = () => {
     };
 
     if (route.menuGroup) {
-      if (!grouped[route.menuGroup]) grouped[route.menuGroup] = [];
-      grouped[route.menuGroup]!.push(item);
+      if (!grouped[route.menuGroup]) {
+        grouped[route.menuGroup] = { items: [] };
+      }
+      if (route.groupRoot && Icon) {
+        grouped[route.menuGroup]!.icon = <Icon size={16} />;
+      }
+      grouped[route.menuGroup]!.items!.push(item);
     } else {
       rootItems.push(item);
     }
   });
 
-  const menuItems: MenuProps["items"] = [...rootItems];
-  GROUP_ORDER.forEach((group) => {
-    const items = grouped[group];
-    if (!items) return;
-    if (items.length === 1) {
-      menuItems.push(items[0]);
-    } else {
-      menuItems.push({
-        key: `g-${group}`,
-        label: group,
-        children: items,
-      });
-    }
-  });
+  const menuItems: MenuProps["items"] = [
+    ...rootItems,
+    ...Object.entries(grouped).map(([groupName, groupData]) => ({
+      key: `group-${groupName}`,
+      icon: groupData.icon,
+      label: groupName,
+      children: groupData.items,
+    })),
+  ];
 
   const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
     if (!key.startsWith("g-")) navigate(key);
@@ -146,7 +162,7 @@ export const Sidebar: React.FC = () => {
 
   // User dropdown
   const userMenu: MenuProps["items"] = [
-    { key: "profile", icon: <UserCircle size={16} />, label: "Profil" },
+    { key: "profile", icon: <User size={16} />, label: "Profil" },
     {
       key: "notifications",
       icon: <BellRing size={16} />,
@@ -160,6 +176,7 @@ export const Sidebar: React.FC = () => {
   const handleUserMenu: MenuProps["onClick"] = ({ key }) => {
     if (key === "logout") navigate("/logout");
     else if (key === "profile") navigate("/profile");
+    else if (key === "notifications") navigate("/notifications");
   };
 
   return (
@@ -169,12 +186,17 @@ export const Sidebar: React.FC = () => {
       collapsed={collapsed}
       style={styles.sider}
       trigger={null}
+      collapsible
     >
       <div style={styles.container}>
         {/* Logo */}
         <div style={styles.logo}>
           <div style={styles.logoIcon}>
-            <Building2 size={18} color="#fff" />
+            {logoUrl ? (
+              <img src={logoUrl} alt="Logo" style={styles.logoImage} />
+            ) : (
+              <Building2 size={24} color="#fff" />
+            )}
           </div>
           {!collapsed && (
             <span style={{ color: "#fff", fontSize: 15, fontWeight: 600 }}>
@@ -189,6 +211,8 @@ export const Sidebar: React.FC = () => {
             mode="inline"
             theme="dark"
             selectedKeys={[location.pathname]}
+            openKeys={openKeys}
+            onOpenChange={setOpenKeys}
             items={menuItems}
             onClick={handleMenuClick}
             style={{ background: "transparent", border: "none" }}
@@ -225,68 +249,50 @@ export const Sidebar: React.FC = () => {
               menu={{ items: userMenu, onClick: handleUserMenu }}
               placement="topRight"
               trigger={["click"]}
-              overlayStyle={{ minWidth: 180 }}
+              overlayStyle={{ minWidth: 200 }}
             >
               <Tooltip title={collapsed ? user.name : ""} placement="right">
                 <div
-                  style={{
-                    ...styles.footerBtn,
-                    background: "rgba(99,102,241,0.08)",
-                    border: "1px solid rgba(99,102,241,0.2)",
-                  }}
+                  style={styles.profileCard}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(99,102,241,0.15)";
-                    e.currentTarget.style.borderColor = "rgba(99,102,241,0.3)";
+                    e.currentTarget.style.background =
+                      "rgba(255, 255, 255, 0.04)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(99,102,241,0.08)";
-                    e.currentTarget.style.borderColor = "rgba(99,102,241,0.2)";
+                    e.currentTarget.style.background = "transparent";
                   }}
                 >
-                  <Badge count={3} size="small" offset={[-4, 4]}>
-                    <Avatar
-                      size={36}
-                      src={user.avatar}
-                      style={{
-                        background: user.avatar
-                          ? "transparent"
-                          : "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {!user.avatar && <UserCircle size={20} color="#fff" />}
-                    </Avatar>
-                  </Badge>
+                  <UserAvatar
+                    size={32}
+                    user={{
+                      name: user.name,
+                      avatar: user.avatar,
+                    }}
+                    backgroundColor="#334155"
+                  />
                   {!collapsed && (
-                    <>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div
-                          style={{
-                            color: "#fff",
-                            fontSize: 13,
-                            fontWeight: 500,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {user.name}
-                        </div>
-                        <div
-                          style={{
-                            color: "rgba(255,255,255,0.5)",
-                            fontSize: 11,
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {user.role}
-                        </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          color: "#fff",
+                          fontSize: 13,
+                          fontWeight: 500,
+                          lineHeight: "1.2",
+                        }}
+                      >
+                        {user.name}
                       </div>
-                      <ChevronDown
-                        size={14}
-                        style={{ color: "rgba(255,255,255,0.4)" }}
-                      />
-                    </>
+                      <div
+                        style={{
+                          color: "rgba(255,255,255,0.45)",
+                          fontSize: 11,
+                          marginTop: 2,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {user.role}
+                      </div>
+                    </div>
                   )}
                 </div>
               </Tooltip>
@@ -296,21 +302,4 @@ export const Sidebar: React.FC = () => {
       </div>
     </Sider>
   );
-};
-
-// Content styles export
-export const contentStyles = {
-  layout: {
-    marginLeft: 220,
-    minHeight: "100vh",
-    background: "#f8fafc",
-    transition: "margin-left 0.2s",
-  },
-  layoutCollapsed: {
-    marginLeft: 64,
-  },
-  content: {
-    padding: 20,
-    minHeight: "100vh",
-  },
 };

@@ -4,7 +4,8 @@
 
 import React, { useState } from "react";
 import { Row, Col, Typography } from "antd";
-import { colorConfigs } from "@/shared/styles/componentStyles";
+import { colorConfigs, hoverEffects } from "@/shared/styles/componentStyles";
+import { colorPalette, shadows } from "@/shared/styles/styleConstants";
 
 const { Text } = Typography;
 
@@ -22,13 +23,20 @@ interface DashboardStatCardsProps {
   stats: Stat[];
 }
 
-export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats }) => {
+export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
+  stats,
+}) => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const getTrendStyle = (trend: "up" | "down" | "neutral") => {
-    if (trend === "up") return { color: "#27ae60", bg: "rgba(39, 174, 96, 0.12)" };
-    if (trend === "down") return { color: "#e74c3c", bg: "rgba(231, 76, 60, 0.12)" };
-    return { color: "#95a5a6", bg: "transparent" };
+    if (trend === "up")
+      return {
+        color: colorPalette.success,
+        bg: `${colorPalette.successLight}30`,
+      };
+    if (trend === "down")
+      return { color: colorPalette.error, bg: `${colorPalette.errorLight}30` };
+    return { color: colorPalette.textTertiary, bg: "transparent" };
   };
 
   return (
@@ -43,13 +51,17 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({ stats })
             <div
               style={{
                 background: isHovered ? colorScheme.gradient : "#ffffff",
-                border: `1px solid ${isHovered ? colorScheme.accent + "40" : "#e8eefb"}`,
+                border: `1px solid ${
+                  isHovered
+                    ? colorScheme.accent + "40"
+                    : colorPalette.primaryLighter
+                }`,
                 borderRadius: 12,
                 padding: 12,
                 cursor: "pointer",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-                boxShadow: isHovered ? `0 12px 24px ${colorScheme.accent}20` : "0 2px 8px rgba(0, 0, 0, 0.08)",
+                boxShadow: isHovered ? `${shadows.hover}` : shadows.sm,
                 minHeight: 120,
                 display: "flex",
                 flexDirection: "column",

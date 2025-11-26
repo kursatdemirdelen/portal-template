@@ -18,7 +18,7 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 const initialState: AuthState = {
   user: {
     id: "1",
-    name: "Kürşat (Admin)",
+    name: "Kürşat Demirdelen",
     role: "admin",
     email: "kursat@example.com",
   },
@@ -26,7 +26,9 @@ const initialState: AuthState = {
   isLoading: false,
 };
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [state, setState] = useState<AuthState>(initialState);
 
   const login = (user: AuthUser) => {

@@ -1,17 +1,18 @@
 import type { ComponentType } from "react";
 import {
-  DashboardOutlined,
-  TagsOutlined,
-  FolderOpenOutlined,
-  TeamOutlined,
-  CalendarOutlined,
-  SolutionOutlined,
-  CustomerServiceOutlined,
-  ToolOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-  LockOutlined,
-} from "@ant-design/icons";
+  LayoutDashboard,
+  Ticket,
+  FolderKanban,
+  Users,
+  Calendar,
+  Package,
+  Building,
+  CheckSquare,
+  FileText,
+  User,
+  Cog,
+  ShieldCheck,
+} from "lucide-react";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 import { TicketsPage, TicketsCreatePage } from "@/features/tickets";
 import { ProjectsPage, ProjectTeamPage, ScrumBoardPage } from "@/features/projects";
@@ -29,6 +30,7 @@ import PermissionsPage from "@/features/permissions/pages/PermissionsPage";
 import { ApprovalsPage } from "@/features/approvals";
 import { LogsPage } from "@/features/logs";
 import { ProfilePage } from "@/features/profile";
+import { NotificationsPage } from "@/features/notifications";
 import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";
@@ -61,8 +63,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
-    menuIcon: DashboardOutlined,
-    groupRoot: true,
+    menuIcon: LayoutDashboard,
   },
   {
     path: "/tickets/create",
@@ -70,9 +71,7 @@ export const appRoutes: AppRoute[] = [
     component: TicketsCreatePage,
     layout: "app",
     roles: ["admin", "worker"],
-    showInMenu: true,
-    menuGroup: "Biletler",
-    menuIcon: TagsOutlined,
+    showInMenu: false,
   },
   {
     path: "/tickets",
@@ -81,20 +80,16 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
-    menuGroup: "Biletler",
-    menuIcon: TagsOutlined,
-    groupRoot: true,
+    menuIcon: Ticket,
   },
   {
     path: "/customers",
-    label: "Müşteri",
+    label: "Müşteriler",
     component: CustomersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Müşteri",
-    menuIcon: CustomerServiceOutlined,
-    groupRoot: true,
+    menuIcon: Building,
   },
   {
     path: "/customers/:id",
@@ -106,14 +101,12 @@ export const appRoutes: AppRoute[] = [
   },
   {
     path: "/parameters",
-    label: "Parametreler Yönetimi",
+    label: "Ayarlar",
     component: ParametersPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuGroup: "Ayarlar",
-    menuIcon: SettingOutlined,
-    groupRoot: true,
+    menuIcon: Cog,
   },
   {
     path: "/projects",
@@ -122,9 +115,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "Projeler",
-    menuIcon: FolderOpenOutlined,
-    groupRoot: true,
+    menuIcon: FolderKanban,
   },
   {
     path: "/project-team",
@@ -132,9 +123,7 @@ export const appRoutes: AppRoute[] = [
     component: ProjectTeamPage,
     layout: "app",
     roles: ["admin", "worker"],
-    showInMenu: true,
-    menuGroup: "Projeler",
-    menuIcon: FolderOpenOutlined,
+    showInMenu: false,
   },
   {
     path: "/scrum-board",
@@ -142,9 +131,7 @@ export const appRoutes: AppRoute[] = [
     component: ScrumBoardPage,
     layout: "app",
     roles: ["admin", "worker"],
-    showInMenu: true,
-    menuGroup: "Projeler",
-    menuIcon: FolderOpenOutlined,
+    showInMenu: false,
   },
   {
     path: "/users",
@@ -153,8 +140,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuIcon: TeamOutlined,
-    groupRoot: true,
+    menuIcon: Users,
   },
   {
     path: "/permissions",
@@ -163,18 +149,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuIcon: LockOutlined,
-    groupRoot: true,
-  },
-  {
-    path: "/parameters",
-    label: "Parametreler",
-    component: ParametersPage,
-    layout: "app",
-    roles: ["admin"],
-    showInMenu: true,
-    menuIcon: SettingOutlined,
-    groupRoot: true,
+    menuIcon: ShieldCheck,
   },
   {
     path: "/assignments",
@@ -183,9 +158,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker", "user"],
     showInMenu: true,
-    menuGroup: "Zimmetler",
-    menuIcon: SolutionOutlined,
-    groupRoot: true,
+    menuIcon: Package,
   },
   {
     path: "/assignments/info",
@@ -193,9 +166,7 @@ export const appRoutes: AppRoute[] = [
     component: AssignmentInfoPage,
     layout: "app",
     roles: ["admin", "worker"],
-    showInMenu: true,
-    menuGroup: "Zimmetler",
-    menuIcon: SolutionOutlined,
+    showInMenu: false,
   },
   {
     path: "/approvals",
@@ -204,9 +175,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "İşlemler",
-    menuIcon: ToolOutlined,
-    groupRoot: true,
+    menuIcon: CheckSquare,
   },
   {
     path: "/time-tracking",
@@ -215,9 +184,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "Çalışma & Tatil",
-    menuIcon: CalendarOutlined,
-    groupRoot: true,
+    menuIcon: Calendar,
   },
   {
     path: "/leaves",
@@ -226,8 +193,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin", "worker"],
     showInMenu: true,
-    menuGroup: "Çalışma & Tatil",
-    menuIcon: CalendarOutlined,
+    menuIcon: Calendar,
   },
   {
     path: "/logs",
@@ -236,7 +202,7 @@ export const appRoutes: AppRoute[] = [
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
-    menuIcon: ToolOutlined,
+    menuIcon: FileText,
   },
   {
     path: "/profile",
@@ -246,7 +212,7 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: false,
     menuGroup: "Profil",
-    menuIcon: ProfileOutlined,
+    menuIcon: User,
     groupRoot: true,
   },
   {
@@ -257,6 +223,14 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker", "user"],
     showInMenu: false,
     menuGroup: "Profil",
-    menuIcon: ProfileOutlined,
+    menuIcon: User,
+  },
+  {
+    path: "/notifications",
+    label: "Bildirimler",
+    component: NotificationsPage,
+    layout: "app",
+    roles: ["admin", "worker", "user"],
+    showInMenu: false,
   },
 ];
