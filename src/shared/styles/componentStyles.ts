@@ -158,6 +158,7 @@ export const layoutStyles = {
     actions: {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'flex-end',
       gap: spacing.sm,
     },
     title: {

@@ -73,19 +73,28 @@ src/
 │   ├── router/                   # Router ve ProtectedRoute
 │   └── store.ts                  # Redux store
 │
-├── features/                     # İş alanları (feature-based)
+├── features/                     # İş alanları (feature-based, modüler)
 │   ├── parameters/               # Sistem parametreleri yönetimi
 │   │   ├── model/                # Tipler ve veri modelleri
 │   │   │   ├── types.ts          # TypeScript interface/types
 │   │   │   └── index.ts          # Barrel exports
-│   │   ├── ui/                   # UI bileşenleri ve sabitler
+│   │   ├── ui/                   # UI bileşenleri
 │   │   │   ├── constants.ts      # Label/color mappings
+│   │   │   ├── ParameterStatsCards.tsx
+│   │   │   ├── ParameterFiltersBar.tsx
+│   │   │   ├── ParameterTable.tsx
+│   │   │   ├── ParameterFormModal.tsx
 │   │   │   └── index.ts          # Barrel exports
-│   │   ├── pages/                # Sayfa bileşenleri
+│   │   ├── hooks/                # State yönetimi
+│   │   │   ├── useParameters.tsx # Custom hook
+│   │   │   └── index.ts
+│   │   ├── pages/                # Sayfa bileşenleri (kompakt)
 │   │   │   └── ParametersPage.tsx
 │   │   └── index.ts              # Feature exports
-│   ├── users/                    # Kullanıcı yönetimi
-│   ├── permissions/              # Yetki yönetimi
+│   ├── users/                    # Kullanıcı yönetimi (modüler)
+│   ├── permissions/              # Yetki yönetimi (modüler)
+│   ├── logs/                     # Sistem logları (modüler)
+│   ├── customers/                # Müşteri yönetimi (modüler)
 │   ├── tickets/                  # Bilet sistemi
 │   └── ...                       # Diğer features
 │
@@ -114,7 +123,7 @@ src/
 
 ## Feature Mimarisi
 
-Her feature aşağıdaki standart yapıyı takip eder:
+Her feature aşağıdaki standart modüler yapıyı takip eder:
 
 ```
 features/<feature-name>/
@@ -124,15 +133,29 @@ features/<feature-name>/
 │
 ├── ui/                           # UI KATMANI
 │   ├── constants.ts              # Labels, colors, UI mappings
-│   ├── <Component>.tsx           # Reusable UI components
-│   └── index.ts                  # export * from './constants'
+│   ├── <Feature>StatsCards.tsx   # İstatistik kartları
+│   ├── <Feature>FiltersBar.tsx   # Filtre araç çubuğu
+│   ├── <Feature>Table.tsx        # Ana tablo bileşeni
+│   ├── <Feature>FormModal.tsx    # CRUD modalı
+│   └── index.ts                  # Barrel exports
+│
+├── hooks/                        # STATE KATMANI
+│   ├── use<Feature>.ts           # State yönetimi hook'u
+│   └── index.ts                  # Barrel exports
 │
 ├── pages/                        # SAYFA KATMANI
-│   └── <Feature>Page.tsx         # Ana sayfa bileşeni
+│   └── <Feature>Page.tsx         # Kompakt ana sayfa (~60-100 satır)
 │
 ├── mockData.ts                   # Geçici mock data (opsiyonel)
 └── index.ts                      # Feature exports
 ```
+
+### Modüler Yapı Avantajları
+
+- **Küçük dosyalar:** Sayfa bileşenleri 60-100 satır (eskiden 400-800 satır)
+- **Tekrar kullanılabilirlik:** UI bileşenleri farklı sayfalarda kullanılabilir
+- **Test edilebilirlik:** Hook'lar ve bileşenler bağımsız test edilebilir
+- **Separation of Concerns:** Her dosya tek bir sorumluluk taşır
 
 ### Katman Sorumlulukları
 
@@ -140,8 +163,12 @@ features/<feature-name>/
 |--------|-------|------------|
 | **model/** | `types.ts` | Domain entities, API request/response types |
 | **ui/** | `constants.ts` | UI labels, colors, dropdown options |
-| **ui/** | `*.tsx` | Reusable table/form components |
-| **pages/** | `*Page.tsx` | Full page components with logic |
+| **ui/** | `*StatsCards.tsx` | İstatistik kart bileşenleri |
+| **ui/** | `*FiltersBar.tsx` | Filtre ve aksiyon araç çubuğu |
+| **ui/** | `*Table.tsx` | Tablo bileşeni |
+| **ui/** | `*FormModal.tsx` | Form modal bileşeni |
+| **hooks/** | `use*.ts` | State yönetimi ve iş mantığı |
+| **pages/** | `*Page.tsx` | Bileşen kompozisyonu (kompakt) |
 
 ---
 
@@ -245,9 +272,33 @@ import { tableStyles, toolbarStyles } from '@/shared/styles/componentStyles';
 1. **Klasör oluştur:** `features/<feature-name>/`
 2. **Model tanımla:** `model/types.ts` içinde types
 3. **UI sabitleri:** `ui/constants.ts` içinde labels/colors
-4. **Sayfa yaz:** `pages/<Feature>Page.tsx`
-5. **Route ekle:** `shared/config/routes.ts`
-6. **Service oluştur:** `shared/api/<feature>Service.ts` (opsiyonel)
+4. **UI bileşenleri:** `ui/` altında kompakt bileşenler
+5. **Hook yaz:** `hooks/use<Feature>.ts` içinde state yönetimi
+6. **Sayfa yaz:** `pages/<Feature>Page.tsx` (sadece kompozisyon)
+7. **Route ekle:** `shared/config/routes.ts`
+8. **Service oluştur:** `shared/api/<feature>Service.ts` (opsiyonel)
+
+### Modüler Yapı Pattern'i
+
+```typescript
+// pages/<Feature>Page.tsx - Kompakt sayfa (örnek)
+import { PageContainer } from "@/shared/ui";
+import { StatsCards, FiltersBar, Table, FormModal } from "../ui";
+import { useFeature } from "../hooks/useFeature";
+
+const FeaturePage: React.FC = () => {
+  const { data, filters, handlers } = useFeature();
+
+  return (
+    <PageContainer title="Feature">
+      <StatsCards stats={data.stats} />
+      <FiltersBar filters={filters} onFilter={handlers.filter} />
+      <Table data={data.items} onAction={handlers.action} />
+      <FormModal {...handlers.modal} />
+    </PageContainer>
+  );
+};
+```
 
 ### Kod Standartları
 
@@ -282,3 +333,7 @@ style: Stil değişikliği
 ## Lisans
 
 Bu proje özel kullanım için hazırlanmıştır.
+
+---
+
+*Son güncelleme: 26 Kasım 2025*

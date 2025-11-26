@@ -7,11 +7,11 @@ Bu liste, projeyi Ant Design 5 + React 19 mimarisiyle uyumlu, ölçeklenebilir v
 ## 📊 İlerleme Özeti
 
 | Kategori | Tamamlanan | Bekleyen | Toplam |
-|----------|------------|----------|--------|
-| Mimari | 6 | 1 | 7 |
+|----------|------------|----------|---------|
+| Mimari | 10 | 1 | 11 |
 | API Katmanı | 3 | 4 | 7 |
 | UI/UX | 4 | 2 | 6 |
-| Features | 4 | 7 | 11 |
+| Features | 8 | 3 | 11 |
 | Test & Docs | 3 | 3 | 6 |
 
 ---
@@ -25,6 +25,10 @@ Bu liste, projeyi Ant Design 5 + React 19 mimarisiyle uyumlu, ölçeklenebilir v
 - [x] Permissions feature model/ui yapısı
 - [x] Barrel exports (index.ts) tüm feature'larda
 - [x] **Customers feature modüler refactoring** (CustomersPage 839 satır → 80 satır + componentler + hook)
+- [x] **Logs feature modüler refactoring** (LogsPage 446 satır → 65 satır + componentler + hook)
+- [x] **Users feature modüler refactoring** (UsersPage 445 satır → 85 satır + componentler + hook)
+- [x] **Permissions feature modüler refactoring** (PermissionsPage 425 satır → 80 satır + componentler + hook)
+- [x] **Parameters feature modüler refactoring** (ParametersPage 650 satır → 105 satır + componentler + hook)
 
 ### API Katmanı
 - [x] `parameterService.ts` - Mock CRUD + bulk operations
@@ -74,9 +78,10 @@ Bu liste, projeyi Ant Design 5 + React 19 mimarisiyle uyumlu, ölçeklenebilir v
 ### 3.1 Admin Paneli (Öncelik: Yüksek)
 | Feature | Durum | Açıklama |
 |---------|-------|----------|
-| Parameters | ✅ Tamamlandı | API-driven, CRUD, bulk ops, export |
-| Users | 🔄 Mock Data | UsersPage async'e çevrilmeli |
-| Permissions | 🔄 Mock Data | PermissionsPage async'e çevrilmeli |
+| Parameters | ✅ Tamamlandı | Modüler yapı, API-driven, CRUD, bulk ops, export |
+| Users | ✅ Tamamlandı | Modüler yapı, async API entegrasyonu |
+| Permissions | ✅ Tamamlandı | Modüler yapı, rol/izin matrisi |
+| Logs | ✅ Tamamlandı | Modüler yapı, filtreleme, CSV export |
 
 ### 3.2 Core Features (Öncelik: Orta)
 | Feature | Durum | Eksikler |
@@ -90,7 +95,7 @@ Bu liste, projeyi Ant Design 5 + React 19 mimarisiyle uyumlu, ölçeklenebilir v
 | Feature | Durum | Eksikler |
 |---------|-------|----------|
 | Leaves | 📋 Placeholder | Talep formu, onay akışı |
-| Customers | ✅ Tamamlandı | Modern UI, modüler yapı, responsive |
+| Customers | ✅ Tamamlandı | Modüler yapı, Modern UI, responsive |
 | Approvals | 📋 Placeholder | Workflow, notifications |
 | Dashboard | ⚠️ Static Data | Widget'lar API'ye bağlanmalı |
 

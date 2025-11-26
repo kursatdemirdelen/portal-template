@@ -16,10 +16,11 @@ Bu doküman her feature için mevcut durum ve eksik işlevlerin özetini içerir
 ### Hızlı Özet
 
 | Feature | Durum | Öncelik |
-|---------|-------|---------|
+|---------|-------|----------|
 | Parameters | ✅ Tamamlandı | Admin |
-| Users | 🔄 Geliştirildi | Admin |
-| Permissions | 🔄 Geliştirildi | Admin |
+| Users | ✅ Tamamlandı | Admin |
+| Permissions | ✅ Tamamlandı | Admin |
+| Logs | ✅ Tamamlandı | Admin |
 | **Customers** | ✅ **Tamamlandı** | Secondary |
 | Tickets | 📋 Placeholder | Core |
 | Projects | 📋 Placeholder | Core |
@@ -35,7 +36,7 @@ Bu doküman her feature için mevcut durum ve eksik işlevlerin özetini içerir
 
 ### ✅ Parameters (Sistem Parametreleri)
 
-**Durum:** Tamamlandı
+**Durum:** Tamamlandı (Modüler Yapı)
 
 **Mevcut Özellikler:**
 - Kategori tabları (Sistem, Bildirim, SLA, Bilet)
@@ -49,9 +50,18 @@ Bu doküman her feature için mevcut durum ve eksik işlevlerin özetini içerir
 **Dosya Yapısı:**
 ```
 features/parameters/
-├── model/types.ts     # Parameter, GetRequest, GetResponse...
-├── ui/constants.ts    # CATEGORY_LABELS, STATUS_COLORS...
-├── pages/ParametersPage.tsx
+├── model/types.ts          # Parameter, GetRequest, GetResponse...
+├── ui/
+│   ├── constants.ts         # CATEGORY_LABELS, STATUS_COLORS...
+│   ├── ParameterStatsCards.tsx
+│   ├── ParameterFiltersBar.tsx
+│   ├── ParameterTable.tsx
+│   ├── ParameterFormModal.tsx
+│   └── index.ts
+├── hooks/
+│   ├── useParameters.tsx    # State yönetimi hook'u
+│   └── index.ts
+├── pages/ParametersPage.tsx # ~105 satır (kompakt)
 └── index.ts
 ```
 
@@ -59,64 +69,102 @@ features/parameters/
 
 ---
 
-### 🔄 Users (Kullanıcı Yönetimi)
+### ✅ Users (Kullanıcı Yönetimi)
 
-**Durum:** Geliştirildi (Mock data ile çalışıyor)
+**Durum:** Tamamlandı (Modüler Yapı)
 
 **Mevcut Özellikler:**
 - Kullanıcı listesi (tablo)
 - Rol ve durum filtreleri
-- Toplu seçim
+- Toplu seçim ve durum değiştirme
 - CRUD modal
-
-**Eksikler:**
-- [ ] Async API entegrasyonu (userService kullanımı)
-- [ ] Avatar upload
-- [ ] Şifre sıfırlama
-- [ ] Aktivite log
+- Async API entegrasyonu
 
 **Dosya Yapısı:**
 ```
 features/users/
-├── model/types.ts     # User, UserRole, UserStatus...
-├── ui/constants.ts    # ROLE_LABELS, STATUS_COLORS...
-├── pages/UsersPage.tsx
-├── pages/UserCreatePage.tsx
-├── mockData.ts        # Geçici mock
+├── model/types.ts          # User, UserRole, UserStatus...
+├── ui/
+│   ├── constants.ts         # ROLE_LABELS, STATUS_COLORS...
+│   ├── UserStatsCards.tsx
+│   ├── UserFiltersBar.tsx
+│   ├── UserTable.tsx
+│   ├── UserFormModal.tsx
+│   └── index.ts
+├── hooks/
+│   ├── useUsers.ts          # State yönetimi hook'u
+│   └── index.ts
+├── pages/
+│   ├── UsersPage.tsx        # ~85 satır (kompakt)
+│   └── UserCreatePage.tsx
+├── mockData.ts
 └── index.ts
 ```
 
-**API Servisi:** `shared/api/userService.ts` (hazır, sayfa entegre edilmeli)
-
 ---
 
-### 🔄 Permissions (Yetki Yönetimi)
+### ✅ Permissions (Yetki Yönetimi)
 
-**Durum:** Geliştirildi (Mock data ile çalışıyor)
+**Durum:** Tamamlandı (Modüler Yapı)
 
 **Mevcut Özellikler:**
 - Rol listesi ve seçimi
 - Modül bazlı izin matrisi
 - İzin toggle (checkbox)
 - Rol istatistikleri
-
-**Eksikler:**
-- [ ] Async API entegrasyonu (permissionService kullanımı)
-- [ ] Yeni rol oluşturma
-- [ ] Rol kopyalama
-- [ ] İzin grupları
+- Rol kopyalama ve silme
 
 **Dosya Yapısı:**
 ```
 features/permissions/
-├── model/types.ts     # Permission, RolePermissionMap...
-├── ui/constants.ts    # MODULE_LABELS, ACTION_COLORS...
-├── pages/PermissionsPage.tsx
-├── mockData.ts        # Geçici mock
+├── model/types.ts           # Permission, RolePermissionMap...
+├── ui/
+│   ├── constants.ts          # MODULE_LABELS, ACTION_COLORS...
+│   ├── PermissionStatsCards.tsx
+│   ├── RoleSelector.tsx
+│   ├── PermissionMatrixTable.tsx
+│   ├── RolesSummaryTable.tsx
+│   └── index.ts
+├── hooks/
+│   ├── usePermissions.ts     # State yönetimi hook'u
+│   └── index.ts
+├── pages/PermissionsPage.tsx # ~80 satır (kompakt)
+├── mockData.ts
 └── index.ts
 ```
 
-**API Servisi:** `shared/api/permissionService.ts` (hazır, sayfa entegre edilmeli)
+---
+
+### ✅ Logs (Sistem Logları)
+
+**Durum:** Tamamlandı (Modüler Yapı)
+
+**Mevcut Özellikler:**
+- Log listesi (tablo)
+- Seviye ve kaynak filtreleri
+- Tarih aralığı seçimi
+- Arama
+- Log detay modalı
+- CSV export
+
+**Dosya Yapısı:**
+```
+features/logs/
+├── model/types.ts          # LogEntry, LogLevel, LogSource...
+├── ui/
+│   ├── constants.ts         # LOG_LEVEL_LABELS, LOG_SOURCE_COLORS...
+│   ├── LogStatsCards.tsx
+│   ├── LogFiltersBar.tsx
+│   ├── LogTable.tsx
+│   ├── LogDetailModal.tsx
+│   └── index.ts
+├── hooks/
+│   ├── useLogs.ts           # State yönetimi hook'u
+│   └── index.ts
+├── pages/LogsPage.tsx       # ~65 satır (kompakt)
+├── mockData.ts
+└── index.ts
+```
 
 ---
 
