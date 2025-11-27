@@ -1,3 +1,10 @@
+/**
+ * Notifications Mock Data
+ * 
+ * Kullanıcı isimleri merkezi mockData ile tutarlıdır.
+ * @see @/shared/data/mockData.ts
+ */
+
 import { Notification } from "./types";
 
 export const mockNotifications: Notification[] = [
@@ -44,5 +51,14 @@ export const mockNotifications: Notification[] = [
     read: true,
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(), // 5 days ago
     link: "/profile",
+  },
+  {
+    id: "6",
+    title: "Yeni Bilet Atandı",
+    message: "TCK-1243 numaralı bilet size atandı.",
+    type: "info",
+    read: false,
+    date: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), // 3 hours ago
+    link: "/tickets/TCK-1243",
   },
 ];
