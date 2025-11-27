@@ -1,7 +1,12 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import { Typography } from "antd";
 import { cardStyles } from "@/shared/styles/componentStyles";
-import { borderColors, colorPalette, gradients } from "@/shared/styles/styleConstants";
+import {
+  borderColors,
+  colorPalette,
+  gradients,
+  spacing,
+} from "@/shared/styles/styleConstants";
 
 const { Title, Text } = Typography;
 
@@ -64,6 +69,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
         ...cardStyles.sectionCard.container,
         background: config.background,
         border: showBorder ? config.border : "none",
+        marginBottom: spacing.md,
         ...style,
       }}
     >
@@ -88,9 +94,11 @@ export const SectionCard: React.FC<SectionCardProps> = ({
             style={{
               padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
               ...cardStyles.sectionCard.header,
+              flexWrap: "wrap",
+              gap: 12,
             }}
           >
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: "1 1 auto", minWidth: 0 }}>
               <div
                 style={{
                   display: "flex",
@@ -136,6 +144,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
+                  flexWrap: "wrap",
+                  flex: "0 0 auto",
                 }}
               >
                 {extra}

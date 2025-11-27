@@ -4,11 +4,23 @@ import { Avatar as AntAvatar, AvatarProps } from "antd";
 interface UserAvatarProps extends AvatarProps {
   initials?: string;
   backgroundColor?: string;
+  avatarUrl?: string;
   user?: {
     name?: string;
     avatar?: string;
+    avatarUrl?: string;
   };
 }
+
+/**
+ * Generate random avatar URL from DiceBear API
+ * Uses consistent seed based on name for stable avatars
+ * TODO: Gerçek avatar URL'leri eklendiğinde aktif edilecek
+ */
+const getRandomAvatar = (): string => {
+  // Şimdilik devre dışı - gerçek datalarla doldurulacak
+  return "";
+};
 
 /**
  * Centralized User Avatar Component
@@ -17,6 +29,7 @@ interface UserAvatarProps extends AvatarProps {
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   initials,
   backgroundColor = "#334155",
+  avatarUrl,
   user,
   size = 32,
   ...props
@@ -34,12 +47,15 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     return "?";
   };
 
+  const avatarSrc =
+    avatarUrl || user?.avatarUrl || user?.avatar || getRandomAvatar();
+
   return (
     <AntAvatar
       size={size}
-      src={user?.avatar}
+      src={avatarSrc || undefined}
       style={{
-        background: user?.avatar ? "transparent" : backgroundColor,
+        background: avatarSrc ? "transparent" : backgroundColor,
         color: "#fff",
         flexShrink: 0,
         fontSize: typeof size === "number" ? size / 2 : 14,
