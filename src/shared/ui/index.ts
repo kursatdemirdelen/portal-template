@@ -5,3 +5,4 @@ export * from "./PlaceholderPage";
 export * from "./FilterToolbar";
 export * from "./RoleBadge";
 export * from "./UserAvatar";
+export * from "./InfoItem";
