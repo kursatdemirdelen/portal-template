@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout, Menu, Dropdown, Tooltip } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -9,15 +9,65 @@ import {
   PanelLeft,
   User,
   Building2,
+  X,
 } from "lucide-react";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
 import { UserAvatar } from "@/shared/ui/UserAvatar";
 import { appRoutes } from "@/shared/config/routes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
-import { setSidebarCollapsed } from "@/shared/store/uiSlice";
+import {
+  setSidebarCollapsed,
+  setSidebarMobileOpen,
+} from "@/shared/store/uiSlice";
+import {
+  SIDEBAR_WIDTH,
+  SIDEBAR_COLLAPSED_WIDTH,
+  MOBILE_BREAKPOINT,
+  TABLET_BREAKPOINT,
+  SIDEBAR_TRANSITION,
+} from "./sidebarStyles";
 
 const { Sider } = Layout;
+
+// Custom hook for responsive behavior
+const useResponsiveSidebar = () => {
+  const dispatch = useAppDispatch();
+  const [isMobile, setIsMobile] = React.useState(
+    window.innerWidth < MOBILE_BREAKPOINT
+  );
+  const [isTablet, setIsTablet] = React.useState(
+    window.innerWidth >= MOBILE_BREAKPOINT &&
+      window.innerWidth < TABLET_BREAKPOINT
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const newIsMobile = width < MOBILE_BREAKPOINT;
+      const newIsTablet =
+        width >= MOBILE_BREAKPOINT && width < TABLET_BREAKPOINT;
+
+      setIsMobile(newIsMobile);
+      setIsTablet(newIsTablet);
+
+      // Auto-collapse on tablet, close mobile drawer on desktop
+      if (newIsMobile) {
+        dispatch(setSidebarMobileOpen(false));
+      } else if (newIsTablet) {
+        dispatch(setSidebarCollapsed(true));
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [dispatch]);
+
+  return { isMobile, isTablet };
+};
 
 // Styles
 const styles = {
@@ -29,7 +79,27 @@ const styles = {
     top: 0,
     bottom: 0,
     zIndex: 100,
-    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: SIDEBAR_TRANSITION,
+  },
+  siderMobile: {
+    transform: "translateX(-100%)",
+  },
+  siderMobileOpen: {
+    transform: "translateX(0)",
+  },
+  overlay: {
+    position: "fixed" as const,
+    inset: 0,
+    background: "rgba(0, 0, 0, 0.5)",
+    backdropFilter: "blur(2px)",
+    zIndex: 99,
+    opacity: 0,
+    visibility: "hidden" as const,
+    transition: "all 0.3s ease",
+  },
+  overlayVisible: {
+    opacity: 1,
+    visibility: "visible" as const,
   },
   container: {
     display: "flex",
@@ -42,6 +112,7 @@ const styles = {
     alignItems: "center",
     gap: 12,
     justifyContent: "center",
+    transition: SIDEBAR_TRANSITION,
   },
   logoIcon: {
     width: 48,
@@ -53,11 +124,30 @@ const styles = {
     justifyContent: "center",
     overflow: "hidden",
     position: "relative" as const,
+    flexShrink: 0,
+    transition: SIDEBAR_TRANSITION,
+  },
+  logoIconCollapsed: {
+    width: 40,
+    height: 40,
   },
   logoImage: {
     width: "100%",
     height: "100%",
     objectFit: "cover" as const,
+  },
+  logoText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: 600,
+    opacity: 1,
+    whiteSpace: "nowrap" as const,
+    overflow: "hidden",
+    transition: "opacity 0.2s ease, width 0.3s ease",
+  },
+  logoTextHidden: {
+    opacity: 0,
+    width: 0,
   },
   menu: {
     flex: 1,
@@ -97,6 +187,21 @@ const styles = {
     height: 40,
     width: "100%",
   },
+  mobileCloseBtn: {
+    position: "absolute" as const,
+    top: 16,
+    right: 16,
+    width: 32,
+    height: 32,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    cursor: "pointer",
+    color: "rgba(255,255,255,0.6)",
+    background: "rgba(255,255,255,0.05)",
+    transition: "all 0.15s",
+  },
 };
 
 export const Sidebar: React.FC = () => {
@@ -105,10 +210,14 @@ export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((s) => s.ui.sidebarCollapsed);
+  const mobileOpen = useAppSelector((s) => s.ui.sidebarMobileOpen);
   const logoUrl = useAppSelector((s) => s.ui.logoUrl);
   const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
+  const { isMobile } = useResponsiveSidebar();
+
   const toggle = () => dispatch(setSidebarCollapsed(!collapsed));
+  const closeMobile = () => dispatch(setSidebarMobileOpen(false));
 
   // Build menu items from routes
   const visibleRoutes = appRoutes
@@ -157,7 +266,11 @@ export const Sidebar: React.FC = () => {
   ];
 
   const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
-    if (!key.startsWith("g-")) navigate(key);
+    if (!key.startsWith("g-")) {
+      navigate(key);
+      // Close mobile drawer on navigation
+      if (isMobile) closeMobile();
+    }
   };
 
   // User dropdown
@@ -177,129 +290,190 @@ export const Sidebar: React.FC = () => {
     if (key === "logout") navigate("/logout");
     else if (key === "profile") navigate("/profile");
     else if (key === "notifications") navigate("/notifications");
+    // Close mobile drawer
+    if (isMobile) closeMobile();
+  };
+
+  // Calculate sidebar styles for mobile/desktop
+  const getSiderStyle = () => {
+    const base = { ...styles.sider };
+    if (isMobile) {
+      return {
+        ...base,
+        ...styles.siderMobile,
+        ...(mobileOpen ? styles.siderMobileOpen : {}),
+      };
+    }
+    return base;
   };
 
   return (
-    <Sider
-      width={220}
-      collapsedWidth={64}
-      collapsed={collapsed}
-      style={styles.sider}
-      trigger={null}
-      collapsible
-    >
-      <div style={styles.container}>
-        {/* Logo */}
-        <div style={styles.logo}>
-          <div style={styles.logoIcon}>
-            {logoUrl ? (
-              <img src={logoUrl} alt="Logo" style={styles.logoImage} />
-            ) : (
-              <Building2 size={24} color="#fff" />
-            )}
-          </div>
-          {!collapsed && (
-            <span style={{ color: "#fff", fontSize: 15, fontWeight: 600 }}>
-              Portal
-            </span>
-          )}
-        </div>
+    <>
+      {/* Mobile overlay */}
+      {isMobile && (
+        <div
+          style={{
+            ...styles.overlay,
+            ...(mobileOpen ? styles.overlayVisible : {}),
+          }}
+          onClick={closeMobile}
+        />
+      )}
 
-        {/* Menu */}
-        <div style={styles.menu}>
-          <Menu
-            mode="inline"
-            theme="dark"
-            selectedKeys={[location.pathname]}
-            openKeys={openKeys}
-            onOpenChange={setOpenKeys}
-            items={menuItems}
-            onClick={handleMenuClick}
-            style={{ background: "transparent", border: "none" }}
-            inlineIndent={16}
-          />
-        </div>
-
-        {/* Footer */}
-        <div style={styles.footer}>
-          {/* Collapse */}
-          <Tooltip title={collapsed ? "Genişlet" : ""} placement="right">
+      <Sider
+        width={SIDEBAR_WIDTH}
+        collapsedWidth={SIDEBAR_COLLAPSED_WIDTH}
+        collapsed={isMobile ? false : collapsed}
+        style={getSiderStyle()}
+        trigger={null}
+        collapsible
+      >
+        <div style={styles.container}>
+          {/* Mobile close button */}
+          {isMobile && mobileOpen && (
             <div
-              style={styles.footerBtn}
-              onClick={toggle}
+              style={styles.mobileCloseBtn}
+              onClick={closeMobile}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
+                (e.currentTarget.style.background = "rgba(255,255,255,0.1)")
               }
               onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "transparent")
+                (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
               }
             >
-              {collapsed ? (
-                <PanelLeft size={18} />
-              ) : (
-                <PanelLeftClose size={18} />
-              )}
-              {!collapsed && <span style={{ fontSize: 13 }}>Daralt</span>}
+              <X size={18} />
             </div>
-          </Tooltip>
+          )}
 
-          {/* User */}
-          {user && (
-            <Dropdown
-              menu={{ items: userMenu, onClick: handleUserMenu }}
-              placement="topRight"
-              trigger={["click"]}
-              overlayStyle={{ minWidth: 200 }}
+          {/* Logo */}
+          <div style={styles.logo}>
+            <div
+              style={{
+                ...styles.logoIcon,
+                ...(collapsed && !isMobile ? styles.logoIconCollapsed : {}),
+              }}
             >
-              <Tooltip title={collapsed ? user.name : ""} placement="right">
+              {logoUrl ? (
+                <img src={logoUrl} alt="Logo" style={styles.logoImage} />
+              ) : (
+                <Building2
+                  size={collapsed && !isMobile ? 20 : 24}
+                  color="#fff"
+                />
+              )}
+            </div>
+            <span
+              style={{
+                ...styles.logoText,
+                ...(collapsed && !isMobile ? styles.logoTextHidden : {}),
+              }}
+            >
+              Portal
+            </span>
+          </div>
+
+          {/* Menu */}
+          <div style={styles.menu}>
+            <Menu
+              mode="inline"
+              theme="dark"
+              selectedKeys={[location.pathname]}
+              openKeys={openKeys}
+              onOpenChange={setOpenKeys}
+              items={menuItems}
+              onClick={handleMenuClick}
+              style={{ background: "transparent", border: "none" }}
+              inlineIndent={16}
+            />
+          </div>
+
+          {/* Footer */}
+          <div style={styles.footer}>
+            {/* Collapse - only show on desktop */}
+            {!isMobile && (
+              <Tooltip title={collapsed ? "Genişlet" : ""} placement="right">
                 <div
-                  style={styles.profileCard}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "rgba(255, 255, 255, 0.04)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                  }}
+                  style={styles.footerBtn}
+                  onClick={toggle}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background =
+                      "rgba(255,255,255,0.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
                 >
-                  <UserAvatar
-                    size={32}
-                    user={{
-                      name: user.name,
-                      avatar: user.avatar,
-                    }}
-                    backgroundColor="#334155"
-                  />
-                  {!collapsed && (
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          color: "#fff",
-                          fontSize: 13,
-                          fontWeight: 500,
-                          lineHeight: "1.2",
-                        }}
-                      >
-                        {user.name}
-                      </div>
-                      <div
-                        style={{
-                          color: "rgba(255,255,255,0.45)",
-                          fontSize: 11,
-                          marginTop: 2,
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        {user.role}
-                      </div>
-                    </div>
+                  {collapsed ? (
+                    <PanelLeft size={18} />
+                  ) : (
+                    <PanelLeftClose size={18} />
                   )}
+                  {!collapsed && <span style={{ fontSize: 13 }}>Daralt</span>}
                 </div>
               </Tooltip>
-            </Dropdown>
-          )}
+            )}
+
+            {/* User */}
+            {user && (
+              <Dropdown
+                menu={{ items: userMenu, onClick: handleUserMenu }}
+                placement="topRight"
+                trigger={["click"]}
+                overlayStyle={{ minWidth: 200 }}
+              >
+                <Tooltip
+                  title={collapsed && !isMobile ? user.name : ""}
+                  placement="right"
+                >
+                  <div
+                    style={styles.profileCard}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255, 255, 255, 0.04)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "transparent";
+                    }}
+                  >
+                    <UserAvatar
+                      size={32}
+                      user={{
+                        name: user.name,
+                        avatar: user.avatar,
+                      }}
+                      backgroundColor="#334155"
+                    />
+                    {(!collapsed || isMobile) && (
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div
+                          style={{
+                            color: "#fff",
+                            fontSize: 13,
+                            fontWeight: 500,
+                            lineHeight: "1.2",
+                          }}
+                        >
+                          {user.name}
+                        </div>
+                        <div
+                          style={{
+                            color: "rgba(255,255,255,0.45)",
+                            fontSize: 11,
+                            marginTop: 2,
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {user.role}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </Tooltip>
+              </Dropdown>
+            )}
+          </div>
         </div>
-      </div>
-    </Sider>
+      </Sider>
+    </>
   );
 };
