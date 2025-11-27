@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { Row, Col, Typography } from "antd";
-import { colorConfigs, hoverEffects } from "@/shared/styles/componentStyles";
+import { colorConfigs } from "@/shared/styles/componentStyles";
 import { colorPalette, shadows } from "@/shared/styles/styleConstants";
 
 const { Text } = Typography;

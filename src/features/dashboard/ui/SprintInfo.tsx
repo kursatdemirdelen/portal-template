@@ -4,11 +4,7 @@
 
 import React from "react";
 import { Typography, Progress } from "antd";
-import {
-  colorPalette,
-  backgrounds,
-  borderColors,
-} from "@/shared/styles/styleConstants";
+import { colorPalette, borderColors } from "@/shared/styles/styleConstants";
 
 const { Text } = Typography;
 

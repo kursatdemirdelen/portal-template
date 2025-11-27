@@ -1,28 +1,12 @@
 import React from "react";
-import { Typography, Tag, Avatar } from "antd";
-import { RoleBadge } from "@/shared/ui";
+import { Typography, Tag } from "antd";
+import { RoleBadge, UserAvatar } from "@/shared/ui";
 import { colorPalette } from "@/shared/styles/styleConstants";
 import { listStyles } from "@/shared/styles/componentStyles";
 import { getTeamStatusStyle } from "@/shared/styles/styleHelpers";
+import { getUserByName, type ProjectTeam } from "@/shared/data/mockData";
 
 const { Text } = Typography;
-
-interface TeamMember {
-  name: string;
-  initials: string;
-  color: string;
-  avatarUrl?: string;
-}
-
-export interface ProjectTeam {
-  id: string;
-  name: string;
-  projectName: string;
-  role: string;
-  members: number;
-  status: "Aktif" | "Beklemede";
-  people: TeamMember[];
-}
 
 interface ProjectTeamsProps {
   teams: ProjectTeam[];
@@ -35,30 +19,29 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
 
     return (
       <div style={listStyles.teamList.avatarRow}>
-        <Avatar.Group
-          max={{
-            count: 3,
-            style: {
-              background: colorPalette.primaryLighter,
-              color: colorPalette.primary,
-            },
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
           }}
-          size={44}
         >
-          {visible.map((person) => (
-            <Avatar
-              key={person.name}
-              size={40}
-              src={person.avatarUrl}
-              style={{
-                ...listStyles.teamList.avatar,
-                background: person.color,
-              }}
-            >
-              {person.initials}
-            </Avatar>
-          ))}
-        </Avatar.Group>
+          {visible.map((person) => {
+            const userInfo = getUserByName(person.name);
+            return (
+              <UserAvatar
+                key={person.name}
+                size={40}
+                backgroundColor={person.color}
+                avatarUrl={userInfo?.avatarUrl}
+                user={{ name: person.name }}
+                style={{
+                  marginLeft: -8,
+                  border: "2px solid white",
+                }}
+              />
+            );
+          })}
+        </div>
 
         {remaining > 0 && (
           <Tag
@@ -105,7 +88,9 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({ teams }) => {
                     ...listStyles.teamList.statusTag,
                     background: statusStyle.bg,
                     color: statusStyle.text,
-                    border: statusStyle.border ? `1px solid ${statusStyle.border}` : "none",
+                    border: statusStyle.border
+                      ? `1px solid ${statusStyle.border}`
+                      : "none",
                   }}
                 >
                   {team.status}

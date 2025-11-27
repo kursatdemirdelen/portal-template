@@ -7,16 +7,18 @@ import {
   ActiveProjects,
   type Project,
   ProjectTeams,
-  type ProjectTeam,
   TicketDistributionCard,
 } from "@/features/dashboard";
 import {
   TicketStatusChips,
   RecentTickets,
   TICKET_STATUS_META,
+} from "@/features/tickets";
+import {
   getRecentTicketsForDepartment,
   getTicketsByDepartment,
-} from "@/features/tickets";
+  mockProjectTeams,
+} from "@/shared/data/mockData";
 
 const DashboardPage: React.FC = () => {
   const activeProjects: Project[] = [
@@ -37,81 +39,6 @@ const DashboardPage: React.FC = () => {
       code: "PRJ-021",
       progress: 23,
       status: "Planning",
-    },
-  ];
-
-  const projectTeams: ProjectTeam[] = [
-    {
-      id: "team-01",
-      name: "Portal Support Team",
-      projectName: "Portal Müşteri Destek",
-      role: "Product Owner",
-      members: 6,
-      status: "Aktif",
-      people: [
-        {
-          name: "Zeynep Ünlü",
-          initials: "ZU",
-          color: "#fde047",
-          avatarUrl: "https://i.pravatar.cc/48?img=5",
-        },
-        {
-          name: "Kursat Demirdelen",
-          initials: "KD",
-          color: "#c084fc",
-          avatarUrl: "https://i.pravatar.cc/48?img=12",
-        },
-        {
-          name: "Ahmet Kaya",
-          initials: "AK",
-          color: "#60a5fa",
-          avatarUrl: "https://i.pravatar.cc/48?img=15",
-        },
-      ],
-    },
-    {
-      id: "team-02",
-      name: "Albaraka Team",
-      projectName: "Albaraka Bütçe Planlama",
-      role: "Delivery Lead",
-      members: 5,
-      status: "Aktif",
-      people: [
-        {
-          name: "Mehmet Can",
-          initials: "MC",
-          color: "#f472b6",
-          avatarUrl: "https://i.pravatar.cc/48?img=20",
-        },
-        {
-          name: "Selin Ak",
-          initials: "SA",
-          color: "#38bdf8",
-          avatarUrl: "https://i.pravatar.cc/48?img=32",
-        },
-      ],
-    },
-    {
-      id: "team-03",
-      name: "CoLAB Team",
-      projectName: "Portal-CoLAB",
-      role: "Danışman",
-      members: 7,
-      status: "Beklemede",
-      people: [
-        {
-          name: "Onur Aydın",
-          initials: "OA",
-          color: "#fb7185",
-          avatarUrl: "https://i.pravatar.cc/48?img=46",
-        },
-        {
-          name: "Nisa Turan",
-          initials: "NT",
-          color: "#34d399",
-          avatarUrl: "https://i.pravatar.cc/48?img=52",
-        },
-      ],
     },
   ];
 
@@ -203,7 +130,9 @@ const DashboardPage: React.FC = () => {
             extra={<TicketStatusChips summary={ticketStatusSummary} />}
             style={{ height: "100%", minHeight: 180 }}
           >
-            <RecentTickets tickets={recentTickets} />
+            <div style={{ maxHeight: 400, overflow: "auto" }}>
+              <RecentTickets tickets={recentTickets} />
+            </div>
           </SectionCard>
         </Col>
 
@@ -233,7 +162,7 @@ const DashboardPage: React.FC = () => {
             title="Proje Ekipleri"
             style={{ height: "100%", minHeight: 200 }}
           >
-            <ProjectTeams teams={projectTeams} />
+            <ProjectTeams teams={mockProjectTeams} />
           </SectionCard>
         </Col>
 
