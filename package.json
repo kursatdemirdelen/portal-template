@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.10.1",
+    "@tiptap/extension-placeholder": "^3.11.1",
+    "@tiptap/react": "^3.11.1",
+    "@tiptap/starter-kit": "^3.11.1",
     "antd": "^5.29.1",
     "axios": "^1.13.2",
     "lucide-react": "^0.555.0",
