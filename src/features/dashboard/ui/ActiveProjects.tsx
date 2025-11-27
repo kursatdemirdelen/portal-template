@@ -21,19 +21,20 @@ interface ActiveProjectsProps {
 
 export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[12, 12]}>
       {projects.map((project) => {
         const projectColor = getProjectStatusStyle(project.status);
 
         return (
-          <Col key={project.code} xs={24} sm={12} lg={8}>
+          <Col key={project.code} xs={24} sm={12} xxl={8}>
             <div
               style={{
                 background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
                 border: "1px solid #e8eefb",
-                borderRadius: 12,
-                padding: 16,
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.06)",
+                borderRadius: 10,
+                padding: 12,
+                height: "100%",
+                minHeight: 100,
               }}
             >
               {/* Header */}
@@ -42,36 +43,41 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  marginBottom: 12,
+                  marginBottom: 8,
+                  gap: 8,
                 }}
               >
-                <div>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <Text
                     style={{
                       color: "#2c3e50",
                       fontWeight: 600,
                       display: "block",
-                      fontSize: 14,
+                      fontSize: 13,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
                     }}
                   >
                     {project.name}
                   </Text>
                   <Text
                     type="secondary"
-                    style={{ fontSize: 12, marginTop: 2, display: "block", color: "#7f8c8d" }}
+                    style={{ fontSize: 11, color: "#7f8c8d" }}
                   >
                     {project.code}
                   </Text>
                 </div>
                 <div
                   style={{
-                    padding: "4px 10px",
+                    padding: "3px 8px",
                     background: projectColor.bg,
                     borderRadius: 4,
-                    fontSize: 11,
+                    fontSize: 10,
                     color: projectColor.text,
                     fontWeight: 600,
                     whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                 >
                   {project.status}
@@ -84,17 +90,20 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
                   percent={project.progress}
                   strokeColor="#5b7aed"
                   trailColor="#e8eefb"
+                  size="small"
                   format={() => null}
                 />
                 <div
                   style={{
-                    marginTop: 8,
+                    marginTop: 4,
                     display: "flex",
                     justifyContent: "space-between",
-                    fontSize: 12,
+                    fontSize: 11,
                   }}
                 >
-                  <Text type="secondary" style={{ color: "#7f8c8d" }}>Tamamlanma</Text>
+                  <Text type="secondary" style={{ color: "#7f8c8d" }}>
+                    Tamamlanma
+                  </Text>
                   <Text style={{ color: "#5b7aed", fontWeight: 600 }}>
                     {project.progress}%
                   </Text>

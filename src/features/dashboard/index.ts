@@ -3,6 +3,7 @@ export * from "./ui/UserCard";
 export * from "./ui/TicketDistributionCard";
 export * from "./ui/ProjectTeams";
 export * from "./ui/ActiveProjects";
+export * from "./ui/QuickActions";
 export * from "./ui/SprintInfo"; // varsa
 
 // Page

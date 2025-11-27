@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Col } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Select } from "antd";
 import { PageContainer, SectionCard } from "@/shared/ui";
 import {
   UserCard,
@@ -8,6 +8,8 @@ import {
   type Project,
   ProjectTeams,
   TicketDistributionCard,
+  QuickActions,
+  type UserRole,
 } from "@/features/dashboard";
 import {
   TicketStatusChips,
@@ -21,6 +23,9 @@ import {
 } from "@/shared/data/mockData";
 
 const DashboardPage: React.FC = () => {
+  // Test için rol seçimi
+  const [testRole, setTestRole] = useState<UserRole>("developer");
+
   const activeProjects: Project[] = [
     {
       name: "Portal Intellium",
@@ -43,13 +48,16 @@ const DashboardPage: React.FC = () => {
   ];
 
   const currentUser: UserInfo = {
-    name: "Kursat Demirdelen",
-    role: "Developer",
+    name: "Kürşat Demirdelen",
+    role: "Senior Developer",
     department: "Portal Squad",
     email: "kursat.demirdelen@portal.com",
-    lastLogin: "20.11.2025 09:24",
     avatar: "KD",
-    company: "Intellium Bilişim Teknolojileri A.Ş.",
+    avatarUrl: "https://i.pravatar.cc/150?img=68",
+    company: "Intellium",
+    weeklyProgress: 72,
+    statusText: "Çevrimiçi",
+    statusColor: "#10b981",
     stats: {
       openTickets: 8,
       todayClosed: 2,
@@ -100,7 +108,7 @@ const DashboardPage: React.FC = () => {
     >
       {/* ÜST SATIR */}
       <Row gutter={[8, 8]} style={{ marginBottom: 24 }} align="stretch">
-        {/* PROFİL */}
+        {/* PROFİL + SEÇ: SECENEK 1 - Profil altı vertical quick actions */}
         <Col
           xs={{ span: 24, order: 2 }}
           md={{ span: 12, order: 2 }}
@@ -114,6 +122,30 @@ const DashboardPage: React.FC = () => {
             style={{ height: "100%", minHeight: 180 }}
           >
             <UserCard user={currentUser} />
+            <div style={{ marginTop: 12 }}>
+              <QuickActions role={testRole} variant="compact" />
+            </div>
+            {/* Geçici rol seçici */}
+            <div
+              style={{
+                marginTop: 12,
+                paddingTop: 12,
+                borderTop: "1px dashed #e8eefb",
+              }}
+            >
+              <Select
+                value={testRole}
+                onChange={setTestRole}
+                size="small"
+                style={{ width: "100%" }}
+                options={[
+                  { value: "admin", label: "👑 Admin" },
+                  { value: "manager", label: "👔 Manager" },
+                  { value: "developer", label: "💻 Developer" },
+                  { value: "user", label: "👤 User" },
+                ]}
+              />
+            </div>
           </SectionCard>
         </Col>
 
@@ -160,9 +192,10 @@ const DashboardPage: React.FC = () => {
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <SectionCard
             title="Proje Ekipleri"
-            style={{ height: "100%", minHeight: 200 }}
+            padding="small"
+            style={{ height: "100%" }}
           >
-            <ProjectTeams teams={mockProjectTeams} />
+            <ProjectTeams teams={mockProjectTeams} maxTeams={4} />
           </SectionCard>
         </Col>
 
@@ -170,7 +203,7 @@ const DashboardPage: React.FC = () => {
           <SectionCard
             title="Aktif Projeler"
             variant="elevated"
-            style={{ height: "100%", minHeight: 200 }}
+            style={{ height: "100%" }}
           >
             <ActiveProjects projects={activeProjects} />
           </SectionCard>

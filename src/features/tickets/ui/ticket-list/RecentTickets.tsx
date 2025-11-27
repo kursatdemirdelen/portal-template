@@ -1,6 +1,5 @@
 import React, { memo, useState } from "react";
 import { Typography } from "antd";
-import { tableStyles } from "@/shared/styles/componentStyles";
 import {
   getRequestTypeStyle,
   getStatusStyle,
@@ -33,7 +32,7 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
             <div
               key={item.id}
               style={{
-                padding: "12px 16px",
+                padding: "8px 8px",
                 background: isHovered
                   ? "linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%)"
                   : index % 2 === 0

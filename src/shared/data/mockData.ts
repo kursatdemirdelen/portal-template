@@ -221,7 +221,9 @@ export const mockCustomers = [
 ] as const;
 
 // Biletler - Tutarlı ve gerçekçi (Basit format - dashboard/sidebar için)
+// Her kullanıcıya dengeli dağıtılmış biletler
 export const mockTickets: Ticket[] = [
+  // Portal Squad biletleri (Ahmet, Can, Fatih)
   {
     id: "TCK-1243",
     title: "Dashboard yükleme sorunu",
@@ -235,104 +237,157 @@ export const mockTickets: Ticket[] = [
   },
   {
     id: "TCK-1242",
-    title: "Yeni rapor özelliği",
+    title: "Sidebar responsive sorunu",
     customer: "TechStart",
-    requestType: "Özellik",
+    requestType: "Hata",
     status: "İşlemde",
-    assignee: "Zeynep Ünal",
-    avatar: "ZÜ",
-    project: "API Gateway",
+    assignee: "Can Şimşek",
+    avatar: "CŞ",
+    project: "Portal Intellium",
     createdAt: "2024-03-19T14:20:00Z",
   },
   {
     id: "TCK-1241",
-    title: "API dokümantasyonu eksik",
+    title: "Kullanıcı profil sayfası eksik",
     customer: "InnovateCo",
-    requestType: "Dokümantasyon",
-    status: "Çözüldü",
-    assignee: "Mehmet Can",
-    avatar: "MC",
-    project: "API Gateway",
+    requestType: "Özellik",
+    status: "Açık",
+    assignee: "Fatih Aksu",
+    avatar: "FA",
+    project: "Portal Intellium",
     createdAt: "2024-03-18T09:15:00Z",
   },
   {
     id: "TCK-1240",
-    title: "Kullanıcı arayüzü iyileştirme",
+    title: "Tablo pagination hatası",
     customer: "Digital Solutions",
-    requestType: "Tasarım",
-    status: "İşlemde",
-    assignee: "Burak Kaya",
-    avatar: "BK",
-    project: "Portal Intellium",
+    requestType: "Hata",
+    status: "Çözüldü",
+    assignee: "Can Şimşek",
+    avatar: "CŞ",
+    project: "Portal Support",
     createdAt: "2024-03-17T11:45:00Z",
   },
   {
     id: "TCK-1239",
-    title: "Performans optimizasyonu gerekli",
+    title: "Dark mode implementasyonu",
     customer: "Cloud Systems",
-    requestType: "Performans",
-    status: "Açık",
+    requestType: "Özellik",
+    status: "İşlemde",
     assignee: "Ahmet Yılmaz",
     avatar: "AY",
-    project: "Mobile Core",
+    project: "Portal Intellium",
     createdAt: "2024-03-16T08:30:00Z",
   },
+  // API Squad biletleri (Zeynep, Mehmet)
   {
     id: "TCK-1238",
-    title: "Güvenlik açığı tespit edildi",
+    title: "API rate limiting gerekli",
     customer: "Acme Corp",
     requestType: "Güvenlik",
     status: "İşlemde",
-    assignee: "Mehmet Can",
-    avatar: "MC",
+    assignee: "Zeynep Ünal",
+    avatar: "ZÜ",
     project: "API Gateway",
     createdAt: "2024-03-15T16:20:00Z",
   },
   {
     id: "TCK-1237",
-    title: "Login sayfası çöküyor",
+    title: "Endpoint dokümantasyonu eksik",
     customer: "TechStart",
-    requestType: "Hata",
-    status: "Çözüldü",
-    assignee: "Zeynep Ünal",
-    avatar: "ZÜ",
-    project: "Portal Support",
+    requestType: "Dokümantasyon",
+    status: "Açık",
+    assignee: "Mehmet Can",
+    avatar: "MC",
+    project: "API Gateway",
     createdAt: "2024-03-14T13:10:00Z",
   },
   {
     id: "TCK-1236",
-    title: "Mobil uygulama push notification",
+    title: "GraphQL schema güncelleme",
     customer: "InnovateCo",
     requestType: "Özellik",
-    status: "İşlemde",
-    assignee: "Ahmet Yılmaz",
-    avatar: "AY",
-    project: "Mobile Core",
+    status: "Çözüldü",
+    assignee: "Zeynep Ünal",
+    avatar: "ZÜ",
+    project: "API Gateway",
     createdAt: "2024-03-13T10:00:00Z",
+  },
+  // Product Team biletleri (Ayşe)
+  {
+    id: "TCK-1235",
+    title: "Yeni özellik roadmap planlaması",
+    customer: "Digital Solutions",
+    requestType: "Özellik",
+    status: "İşlemde",
+    assignee: "Ayşe Demir",
+    avatar: "AD",
+    project: "Portal Intellium",
+    createdAt: "2024-03-12T09:00:00Z",
+  },
+  // Design Team biletleri (Burak)
+  {
+    id: "TCK-1234",
+    title: "UI/UX iyileştirme önerileri",
+    customer: "Cloud Systems",
+    requestType: "Tasarım",
+    status: "Açık",
+    assignee: "Burak Kaya",
+    avatar: "BK",
+    project: "Portal Intellium",
+    createdAt: "2024-03-11T14:30:00Z",
+  },
+  // Quality Team biletleri (Elif, Melis)
+  {
+    id: "TCK-1233",
+    title: "E2E test senaryoları yazılmalı",
+    customer: "Acme Corp",
+    requestType: "Performans",
+    status: "İşlemde",
+    assignee: "Elif Yıldız",
+    avatar: "EY",
+    project: "Portal Intellium",
+    createdAt: "2024-03-10T11:00:00Z",
+  },
+  {
+    id: "TCK-1232",
+    title: "Regresyon test raporu",
+    customer: "TechStart",
+    requestType: "Dokümantasyon",
+    status: "Çözüldü",
+    assignee: "Melis Kara",
+    avatar: "MK",
+    project: "Portal Support",
+    createdAt: "2024-03-09T15:45:00Z",
   },
 ];
 
 // Detaylı biletler - TicketsPage için (accessibleDepartments ile)
-export const mockTicketRecords: TicketRecord[] = mockTickets.map((ticket) => ({
-  ...ticket,
-  requestType: ticket.requestType === "Hata" ? "Report a BUG" :
-               ticket.requestType === "Özellik" ? "Suggest a New Feature" :
-               ticket.requestType === "Dokümantasyon" ? "Technical Support" :
-               ticket.requestType === "Performans" ? "Suggest Improvement" :
-               ticket.requestType === "Güvenlik" ? "Technical Support" :
-               ticket.requestType === "Tasarım" ? "Suggest Improvement" :
-               "Technical Support",
-  status: ticket.status === "Açık" ? "Yeni İstek" :
-          ticket.status === "İşlemde" ? "Atanan" :
-          ticket.status === "Çözüldü" ? "Çözümlenen" :
-          ticket.status,
-  accessibleDepartments: [
-    ticket.assignee.includes("Ahmet") || ticket.assignee.includes("Burak") ? "Portal Squad" : "",
-    ticket.assignee.includes("Zeynep") || ticket.assignee.includes("Mehmet") ? "API Squad" : "",
-    ticket.assignee.includes("Elif") ? "Quality Team" : "",
-    "Product Team", // Product team her şeyi görebilir
-  ].filter(Boolean),
-}));
+// Her kullanıcının departmanına göre erişim hakları belirlenir
+export const mockTicketRecords: TicketRecord[] = mockTickets.map((ticket) => {
+  // Assignee'nin departmanını bul
+  const assigneeUser = mockUsers.find((u) => u.name === ticket.assignee);
+  const assigneeDepartment = assigneeUser?.department || "Portal Squad";
+
+  return {
+    ...ticket,
+    requestType: ticket.requestType === "Hata" ? "Report a BUG" :
+                 ticket.requestType === "Özellik" ? "Suggest a New Feature" :
+                 ticket.requestType === "Dokümantasyon" ? "Technical Support" :
+                 ticket.requestType === "Performans" ? "Suggest Improvement" :
+                 ticket.requestType === "Güvenlik" ? "Technical Support" :
+                 ticket.requestType === "Tasarım" ? "Suggest Improvement" :
+                 "Technical Support",
+    status: ticket.status === "Açık" ? "Yeni İstek" :
+            ticket.status === "İşlemde" ? "Atanan" :
+            ticket.status === "Çözüldü" ? "Çözümlenen" :
+            ticket.status,
+    accessibleDepartments: [
+      assigneeDepartment,
+      "Product Team", // Product team her şeyi görebilir
+    ].filter((d, i, arr) => arr.indexOf(d) === i), // unique
+  };
+});
 
 // Departmanlar
 export const mockDepartments = [
@@ -374,6 +429,9 @@ export const mockProjectTeams: ProjectTeam[] = [
       { name: "Ahmet Yılmaz", initials: "AY", color: "#3498db" },
       { name: "Can Şimşek", initials: "CŞ", color: "#e67e22" },
       { name: "Fatih Aksu", initials: "FA", color: "#8e44ad" },
+      { name: "Zeynep Ünal", initials: "ZÜ", color: "#9b59b6" },
+      { name: "Mehmet Can", initials: "MC", color: "#e74c3c" },
+      { name: "Elif Yıldız", initials: "EY", color: "#27ae60" },
     ],
   },
   {
@@ -386,6 +444,9 @@ export const mockProjectTeams: ProjectTeam[] = [
     people: [
       { name: "Zeynep Ünal", initials: "ZÜ", color: "#9b59b6" },
       { name: "Mehmet Can", initials: "MC", color: "#e74c3c" },
+      { name: "Burak Kaya", initials: "BK", color: "#16a085" },
+      { name: "Melis Kara", initials: "MK", color: "#c0392b" },
+      { name: "Ayşe Demir", initials: "AD", color: "#f39c12" },
     ],
   },
   {
@@ -397,6 +458,8 @@ export const mockProjectTeams: ProjectTeam[] = [
     status: "Aktif",
     people: [
       { name: "Burak Kaya", initials: "BK", color: "#16a085" },
+      { name: "Can Şimşek", initials: "CŞ", color: "#e67e22" },
+      { name: "Fatih Aksu", initials: "FA", color: "#8e44ad" },
     ],
   },
   {
@@ -409,6 +472,8 @@ export const mockProjectTeams: ProjectTeam[] = [
     people: [
       { name: "Elif Yıldız", initials: "EY", color: "#27ae60" },
       { name: "Melis Kara", initials: "MK", color: "#c0392b" },
+      { name: "Ahmet Yılmaz", initials: "AY", color: "#3498db" },
+      { name: "Zeynep Ünal", initials: "ZÜ", color: "#9b59b6" },
     ],
   },
   {
@@ -420,6 +485,8 @@ export const mockProjectTeams: ProjectTeam[] = [
     status: "Aktif",
     people: [
       { name: "Ayşe Demir", initials: "AD", color: "#f39c12" },
+      { name: "Mehmet Can", initials: "MC", color: "#e74c3c" },
+      { name: "Burak Kaya", initials: "BK", color: "#16a085" },
     ],
   },
 ];
@@ -449,14 +516,17 @@ export const getRecentTickets = (count: number = 5): Ticket[] => {
   return mockTickets.slice(0, count);
 };
 
+// Türkçe karakter normalize helper
+const normalizeString = (str: string): string => str.normalize("NFC").toLowerCase();
+
 export const getRecentTicketsForDepartment = (
   department: string,
   limit = 6
 ): Ticket[] => {
   const departmentUsers = mockUsers.filter((u) => u.department === department);
-  const userNames = departmentUsers.map((u) => u.name);
+  const userNames = departmentUsers.map((u) => normalizeString(u.name));
   return mockTickets
-    .filter((ticket) => userNames.includes(ticket.assignee))
+    .filter((ticket) => userNames.includes(normalizeString(ticket.assignee)))
     .slice(0, limit);
 };
 
