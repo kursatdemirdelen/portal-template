@@ -102,6 +102,19 @@
 }
 
 /* ===========================
+   TABLE ROW HOVER EFFECTS
+   =========================== */
+.table-row-hover:hover {
+  background-color: var(--bg-tertiary) !important;
+  transition: background-color 150ms ease;
+  cursor: pointer;
+}
+
+.table-row-hover td {
+  transition: all 150ms ease;
+}
+
+/* ===========================
    RESET & BASE STYLES
    =========================== */
 *,

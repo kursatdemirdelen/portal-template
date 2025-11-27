@@ -154,9 +154,11 @@ export const typography = {
   fontFamilyMono: `"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace`,
 
   fontSize: {
+    xxs: 11,
     xs: 12,
     sm: 13,
     base: 14,
+    md: 15,
     lg: 16,
     xl: 18,
     '2xl': 20,
@@ -187,6 +189,7 @@ export const transitions = {
   fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
   base: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
   slow: '500ms cubic-bezier(0.4, 0, 0.2, 1)',
+  subtle: '220ms ease',
 } as const;
 
 /* ===========================
@@ -218,3 +221,52 @@ export const zIndex = {
   tooltip: 1070,
   notification: 1080,
 } as const;
+
+/* ===========================
+   ICON SIZES (UNIFIED)
+   =========================== */
+
+export const ICON_SIZES = {
+  sm: 14,
+  md: 16,
+  lg: 20,
+  xl: 24,
+} as const;
+
+/* ===========================
+   THEME OBJECT (Aggregated)
+   =========================== */
+
+export const theme = {
+  colors: {
+    primary: colorPalette.primary,
+    text: {
+      primary: colorPalette.textPrimary,
+      secondary: colorPalette.textSecondary,
+      muted: colorPalette.textMuted,
+    },
+    border: {
+      subtle: borderColors.gray,
+      strong: borderColors.medium,
+    },
+    surface: {
+      base: backgrounds.card,
+      alt: backgrounds.cardAlt,
+      soft: backgrounds.neutral100,
+    },
+    status: {
+      success: colorPalette.success,
+      warning: colorPalette.warning,
+      error: colorPalette.error,
+      info: colorPalette.info,
+    },
+  },
+  typography,
+  spacing,
+  radius,
+  shadows,
+  transitions,
+  iconSizes: ICON_SIZES,
+} as const;
+
+export type AppTheme = typeof theme;
