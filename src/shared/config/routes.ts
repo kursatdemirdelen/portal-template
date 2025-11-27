@@ -14,7 +14,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
-import { TicketsPage, TicketsCreatePage } from "@/features/tickets";
+import { TicketsPage, NewTicketPage, TicketDetailPage } from "@/features/tickets";
 import { ProjectsPage, ProjectTeamPage, ScrumBoardPage } from "@/features/projects";
 import {
   AssignmentInfoPage,
@@ -68,9 +68,17 @@ export const appRoutes: AppRoute[] = [
   {
     path: "/tickets/create",
     label: "Bilet Oluştur",
-    component: TicketsCreatePage,
+    component: NewTicketPage,
     layout: "app",
     roles: ["admin", "worker"],
+    showInMenu: false,
+  },
+  {
+    path: "/tickets/:id",
+    label: "Bilet Detay",
+    component: TicketDetailPage,
+    layout: "app",
+    roles: ["admin", "worker", "user"],
     showInMenu: false,
   },
   {
