@@ -7,7 +7,7 @@
 import React from "react";
 import { Table } from "antd";
 import { SectionCard } from "@/shared/ui/SectionCard";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { backgrounds, colors as colorPalette } from "@/shared/styles";
 import type { PermissionModule, Permission, RolePermissionMap } from "../model";
 import { MODULE_LABELS, ALL_MODULES } from "./constants";
 
@@ -140,7 +140,7 @@ export const PermissionMatrixTable: React.FC<PermissionMatrixTableProps> = ({
           style={{
             marginTop: 16,
             padding: "8px 12px",
-            backgroundColor: "#f5f5f5",
+            backgroundColor: backgrounds.neutral100,
             borderRadius: 4,
           }}
         >

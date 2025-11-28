@@ -2,13 +2,14 @@ import React from "react";
 import { Row, Col, Tag, Progress, Button, Space } from "antd";
 import { TeamOutlined, CalendarOutlined } from "@ant-design/icons";
 import { SectionCard } from "@/shared/ui";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 import type { Project, ProjectStatus } from "../model/types";
 
 const statusColors: Record<ProjectStatus, string> = {
   Active: "success",
   "On Hold": "warning",
   Completed: "default",
+  Planning: "processing",
 };
 
 export interface ProjectListProps {

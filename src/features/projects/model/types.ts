@@ -1,13 +1,24 @@
-export type ProjectStatus = "Active" | "On Hold" | "Completed";
+/**
+ * Projects Feature - Type Definitions
+ * ====================================
+ * 
+ * Bu dosya, Projects feature'ının TypeScript type'larını içerir.
+ * Temel tipler @/shared/types'dan import edilir.
+ */
 
-export interface Project {
-  id: string;
-  name: string;
-  code: string;
-  status: ProjectStatus;
-  progress: number;
-  teamSize: number;
-  startDate: string;
-  endDate: string;
-  description: string;
-}
+// Shared types'dan re-export
+export type { 
+  ProjectStatus, 
+  Project, 
+  ProjectOption,
+  DashboardProject,
+  ProjectTeam,
+  ProjectTeamMember,
+  GetProjectsRequest,
+  CreateProjectRequest,
+  UpdateProjectRequest,
+  GetProjectsResponse,
+  CreateProjectResponse,
+  UpdateProjectResponse,
+  ProjectStats,
+} from '@/shared/types';

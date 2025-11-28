@@ -3,6 +3,7 @@
  */
 
 import type { ParameterCategory } from '../model/types';
+import { colors } from '@/shared/styles';
 
 export const CATEGORY_LABELS: Record<ParameterCategory, string> = {
   system: 'Sistem',
@@ -19,10 +20,10 @@ export const CATEGORY_DESCRIPTIONS: Record<ParameterCategory, string> = {
 };
 
 export const CATEGORY_COLORS: Record<ParameterCategory, string> = {
-  system: '#5b7aed',
-  notification: '#f39c12',
-  sla: '#e74c3c',
-  ticket: '#27ae60',
+  system: colors.primary,
+  notification: colors.warning,
+  sla: colors.error,
+  ticket: colors.success,
 };
 
 /**
@@ -45,6 +46,6 @@ export const STATUS_LABELS: Record<string, string> = {
 };
 
 export const STATUS_COLORS: Record<string, string> = {
-  active: '#27ae60',
-  inactive: '#f39c12',
+  active: colors.success,
+  inactive: colors.warning,
 };

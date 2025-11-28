@@ -3,6 +3,7 @@
  */
 
 import type { PermissionModule, PermissionAction } from '../model';
+import { colors, avatarColors } from '@/shared/styles';
 
 // Module Labels
 export const MODULE_LABELS: Record<PermissionModule, string> = {
@@ -13,6 +14,9 @@ export const MODULE_LABELS: Record<PermissionModule, string> = {
   users: 'Kullanıcılar',
   parameters: 'Parametreler',
   reports: 'Raporlar',
+  customers: 'Müşteriler',
+  leaves: 'İzinler',
+  approvals: 'Onaylar',
 };
 
 // Module Descriptions
@@ -24,17 +28,23 @@ export const MODULE_DESCRIPTIONS: Record<PermissionModule, string> = {
   users: 'Kullanıcı yönetimi',
   parameters: 'Sistem parametreleri',
   reports: 'Raporlama ve analiz',
+  customers: 'Müşteri yönetimi',
+  leaves: 'İzin talep ve yönetimi',
+  approvals: 'Onay süreçleri',
 };
 
 // Module Colors
 export const MODULE_COLORS: Record<PermissionModule, string> = {
-  tickets: '#3b82f6',
-  projects: '#8b5cf6',
-  assignments: '#ec4899',
-  'time-tracking': '#f59e0b',
-  users: '#ef4444',
-  parameters: '#14b8a6',
-  reports: '#6366f1',
+  tickets: colors.info,
+  projects: colors.accent,
+  assignments: avatarColors.deepPurple,
+  'time-tracking': colors.warning,
+  users: colors.error,
+  parameters: avatarColors.teal,
+  reports: colors.primary,
+  customers: colors.success,
+  leaves: avatarColors.cyan,
+  approvals: avatarColors.deepOrange,
 };
 
 // Action Labels
@@ -44,6 +54,7 @@ export const ACTION_LABELS: Record<PermissionAction, string> = {
   edit: 'Düzenle',
   delete: 'Sil',
   export: 'Dışa Aktar',
+  approve: 'Onayla',
 };
 
 // Action Descriptions
@@ -53,29 +64,31 @@ export const ACTION_DESCRIPTIONS: Record<PermissionAction, string> = {
   edit: 'Mevcut kayıtları düzenleme yeteneği',
   delete: 'Kayıtları silme yeteneği',
   export: 'Verileri dışarı aktarma yeteneği',
+  approve: 'Onay verme yeteneği',
 };
 
 // Action Colors
 export const ACTION_COLORS: Record<PermissionAction, string> = {
-  view: '#22c55e',
-  create: '#3b82f6',
-  edit: '#f59e0b',
-  delete: '#ef4444',
-  export: '#8b5cf6',
+  view: colors.success,
+  create: colors.info,
+  edit: colors.warning,
+  delete: colors.error,
+  export: colors.accent,
+  approve: avatarColors.deepOrange,
 };
 
 // Permission Status Colors
 export const PERMISSION_STATUS_COLORS = {
-  enabled: '#22c55e',
-  disabled: '#6b7280',
+  enabled: colors.success,
+  disabled: colors.textSecondary,
 };
 
 // Role Colors
 export const ROLE_COLORS = {
-  admin: '#ef4444',
-  manager: '#f97316',
-  worker: '#3b82f6',
-  user: '#8b5cf6',
+  admin: colors.error,
+  manager: colors.warning,
+  worker: colors.info,
+  user: colors.accent,
 };
 
 // All Modules List

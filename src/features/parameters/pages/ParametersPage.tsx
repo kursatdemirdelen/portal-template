@@ -20,6 +20,7 @@ import {
 } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { PageContainer } from "@/shared/ui/PageContainer";
+import { colors as colorPalette, borderColors } from "@/shared/styles";
 import { useAuth } from "@/features/auth";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
 import { setLogoUrl } from "@/shared/store/uiSlice";
@@ -122,7 +123,9 @@ const ParametersPage: React.FC = () => {
           >
             <Space direction="vertical" size="middle" style={{ width: "100%" }}>
               <div>
-                <p style={{ marginBottom: 8, color: "#666" }}>
+                <p
+                  style={{ marginBottom: 8, color: colorPalette.textSecondary }}
+                >
                   Sistemde kullanılacak logo görselini yükleyebilirsiniz. Logo
                   sidebar'da görünecektir.
                 </p>
@@ -146,7 +149,7 @@ const ParametersPage: React.FC = () => {
                     style={{
                       maxWidth: 200,
                       maxHeight: 100,
-                      border: "1px solid #d9d9d9",
+                      border: `1px solid ${borderColors.neutral}`,
                       borderRadius: 8,
                       padding: 8,
                     }}

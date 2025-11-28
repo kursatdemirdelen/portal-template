@@ -6,7 +6,7 @@
 
 import React from "react";
 import { Row, Col, Statistic } from "antd";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 
 interface PermissionStatsCardsProps {
   totalRoles: number;

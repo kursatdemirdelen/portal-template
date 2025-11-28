@@ -3,66 +3,38 @@
  * ======================================
  * 
  * Bu dosya, Permissions/Roles feature'ının tüm TypeScript type'larını içerir.
+ * Temel tipler @/shared/types'dan re-export edilir.
  * 
  * 📦 İÇERİK:
  * 
- * 1. DOMAIN TYPES (Core Entities)
+ * 1. DOMAIN TYPES (Core Entities) - from @/shared/types
  *    - Permission          → Tek bir izin kaydı
  *    - PermissionModule    → Modül tipi (tickets, projects, users, vb.)
  *    - PermissionAction    → Eylem tipi (view, create, edit, delete, export)
  *    - RolePermissionMap   → Rol-izin eşlemesi
+ *    - PermissionStats     → İstatistik özeti
+ * 
+ * 2. LOCAL TYPES (Feature Specific)
  *    - PermissionRequest   → İzin kontrolü request
- * 
- * 2. API REQUEST TYPES
- *    - GetPermissionsRequest         → Liste sorgusu
- *    - GetRolePermissionsRequest     → Rol izinleri sorgusu
- *    - CreatePermissionRequest       → Yeni izin oluşturma
- *    - UpdatePermissionRequest       → İzin güncelleme
- *    - UpdateRolePermissionsRequest  → Rol izinleri güncelleme
- *    - BulkUpdatePermissionsRequest  → Toplu güncelleme
- * 
- * 3. API RESPONSE TYPES
- *    - GetPermissionsResponse        → Paginated liste yanıtı
- *    - GetRolePermissionsResponse    → Rol izinleri yanıtı
- *    - PermissionStats               → İstatistik özeti
+ *    - API Request/Response types
  * 
  * 🔧 BACKEND ENTEGRASYONU:
  * Bu type'lar backend API response'larıyla uyumlu olmalıdır.
- * 
- * 📁 KULLANIM:
- * - Service:  shared/api/permissionService.ts
- * - Page:     features/permissions/pages/PermissionsPage.tsx
- * - UI:       features/permissions/ui/constants.ts (labels için)
  */
 
-export type PermissionModule = 
-  | 'tickets' 
-  | 'projects' 
-  | 'assignments' 
-  | 'time-tracking' 
-  | 'users' 
-  | 'parameters' 
-  | 'reports';
+// Re-export shared types
+export type {
+  PermissionModule,
+  PermissionAction,
+  Permission,
+  RolePermissionMap,
+  PermissionStats,
+} from '@/shared/types';
 
-export type PermissionAction = 'view' | 'create' | 'edit' | 'delete' | 'export';
+// Import for local use
+import type { PermissionModule, PermissionAction, Permission, RolePermissionMap } from '@/shared/types';
 
-export interface Permission {
-  id: string;
-  module: PermissionModule;
-  action: PermissionAction;
-  description: string;
-  isEnabled: boolean;
-}
-
-export interface RolePermissionMap {
-  id: string;
-  roleId: string;
-  roleName: string;
-  permissions: Permission[];
-  description: string;
-  isSystem: boolean; // System roles (admin) cannot be deleted
-}
-
+// Local types
 export interface PermissionRequest {
   module: PermissionModule;
   action: PermissionAction;
@@ -138,11 +110,4 @@ export interface BulkUpdatePermissionsResponse {
   permissions: Permission[];
 }
 
-export interface PermissionStats {
-  totalPermissions: number;
-  totalRoles: number;
-  systemRoles: number;
-  enabledPermissions: number;
-  byModule: Record<PermissionModule, number>;
-  lastModified: string;
-}
+// PermissionStats is re-exported from @/shared/types above

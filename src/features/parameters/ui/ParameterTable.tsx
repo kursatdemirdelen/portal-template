@@ -8,7 +8,7 @@ import React from "react";
 import { Table, Button, Space, Tag, Tabs } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { SectionCard } from "@/shared/ui/SectionCard";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette, backgrounds } from "@/shared/styles";
 import type {
   Parameter,
   ParameterCategory,
@@ -56,7 +56,7 @@ export const ParameterTable: React.FC<ParameterTableProps> = ({
       render: (key: string) => (
         <code
           style={{
-            backgroundColor: "#f5f5f5",
+            backgroundColor: backgrounds.neutral100,
             padding: "2px 6px",
             borderRadius: 3,
           }}

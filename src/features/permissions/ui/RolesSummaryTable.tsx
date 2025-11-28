@@ -7,7 +7,7 @@
 import React from "react";
 import { Table, Tag } from "antd";
 import { SectionCard } from "@/shared/ui/SectionCard";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 import type { RolePermissionMap, Permission } from "../model";
 
 interface RolesSummaryTableProps {
