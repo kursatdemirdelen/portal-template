@@ -352,7 +352,7 @@ export async function getUserStats(): Promise<UserStats> {
 
   // Count by department
   userDatabase.forEach((u) => {
-    if (u.department) {
+    if (u.department && stats.byDepartment) {
       stats.byDepartment[u.department] = (stats.byDepartment[u.department] || 0) + 1;
     }
   });

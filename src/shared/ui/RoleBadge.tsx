@@ -1,8 +1,14 @@
 import React from "react";
 import { Tag } from "antd";
-import { getRoleStyle } from "@/shared/styles/styleHelpers";
+import { getRoleStyle } from "@/shared/styles";
 
-type RoleVariant = "admin" | "manager" | "user" | "customer" | "support" | string;
+type RoleVariant =
+  | "admin"
+  | "manager"
+  | "user"
+  | "customer"
+  | "support"
+  | string;
 
 interface RoleBadgeProps {
   role: RoleVariant;

@@ -6,8 +6,8 @@ import {
   useBreadcrumbs,
   type BreadcrumbItem,
 } from "@/shared/hooks/useBreadcrumbs";
-import { layoutStyles } from "@/shared/styles/componentStyles";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { layoutStyles } from "@/shared/styles/helpers";
+import { colors } from "@/shared/styles";
 
 const { Title, Text } = Typography;
 
@@ -60,8 +60,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
             onClick={item.onClick || (() => item.href && navigate(item.href))}
             style={{
               cursor: item.onClick || item.href ? "pointer" : "default",
-              color:
-                item.href || item.onClick ? colorPalette.primary : "inherit",
+              color: item.href || item.onClick ? colors.primary : "inherit",
             }}
           >
             {item.title}
@@ -95,7 +94,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
                     onClick={() => navigate("/")}
                     style={{
                       cursor: "pointer",
-                      color: colorPalette.primary,
+                      color: colors.primary,
                     }}
                   >
                     Home
@@ -127,7 +126,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
                     icon={<ArrowLeftOutlined />}
                     onClick={() => navigate(-1)}
                     style={{
-                      color: colorPalette.textSecondary,
+                      color: colors.textSecondary,
                       padding: "4px 8px",
                       height: "auto",
                     }}

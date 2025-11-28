@@ -5,6 +5,7 @@ import {
   ArrowDownOutlined,
   MinusOutlined,
 } from "@ant-design/icons";
+import { colors, gradients, avatarColors, hexToRgba } from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -24,6 +25,14 @@ interface StatCardProps {
   style?: React.CSSProperties;
 }
 
+const createColorVariant = (gradient: string, accent: string) => ({
+  gradient,
+  accent,
+  border: hexToRgba(accent, 0.3),
+  icon: hexToRgba(accent, 0.6),
+  hover: hexToRgba(accent, 0.18),
+});
+
 const colorConfig: Record<
   CardColor,
   {
@@ -34,54 +43,12 @@ const colorConfig: Record<
     hover: string;
   }
 > = {
-  blue: {
-    gradient:
-      "linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%)",
-    border: "rgba(59, 130, 246, 0.3)",
-    icon: "rgba(59, 130, 246, 0.6)",
-    accent: "#3b82f6",
-    hover: "rgba(59, 130, 246, 0.18)",
-  },
-  purple: {
-    gradient:
-      "linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)",
-    border: "rgba(139, 92, 246, 0.3)",
-    icon: "rgba(139, 92, 246, 0.6)",
-    accent: "#8b5cf6",
-    hover: "rgba(139, 92, 246, 0.18)",
-  },
-  green: {
-    gradient:
-      "linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(74, 222, 128, 0.08) 100%)",
-    border: "rgba(34, 197, 94, 0.3)",
-    icon: "rgba(34, 197, 94, 0.6)",
-    accent: "#22c55e",
-    hover: "rgba(34, 197, 94, 0.18)",
-  },
-  orange: {
-    gradient:
-      "linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(251, 146, 60, 0.08) 100%)",
-    border: "rgba(249, 115, 22, 0.3)",
-    icon: "rgba(249, 115, 22, 0.6)",
-    accent: "#f97316",
-    hover: "rgba(249, 115, 22, 0.18)",
-  },
-  red: {
-    gradient:
-      "linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(248, 113, 113, 0.08) 100%)",
-    border: "rgba(239, 68, 68, 0.3)",
-    icon: "rgba(239, 68, 68, 0.6)",
-    accent: "#ef4444",
-    hover: "rgba(239, 68, 68, 0.18)",
-  },
-  cyan: {
-    gradient:
-      "linear-gradient(135deg, rgba(34, 211, 238, 0.12) 0%, rgba(165, 243, 252, 0.08) 100%)",
-    border: "rgba(34, 211, 238, 0.3)",
-    icon: "rgba(34, 211, 238, 0.6)",
-    accent: "#22d3ee",
-    hover: "rgba(34, 211, 238, 0.18)",
-  },
+  blue: createColorVariant(gradients.colorBlue, colors.info),
+  purple: createColorVariant(gradients.colorPurple, colors.accent),
+  green: createColorVariant(gradients.colorGreen, colors.success),
+  orange: createColorVariant(gradients.colorOrange, colors.warning),
+  red: createColorVariant(gradients.colorRed, colors.error),
+  cyan: createColorVariant(gradients.colorCyan, avatarColors.cyan),
 };
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -99,7 +66,16 @@ export const StatCard: React.FC<StatCardProps> = ({
   const config = colorConfig[color];
 
   const trendColor =
-    trend === "up" ? "#22c55e" : trend === "down" ? "#ef4444" : "#9ca3af";
+    trend === "up"
+      ? colors.success
+      : trend === "down"
+      ? colors.error
+      : colors.textTertiary;
+
+  const iconSurface = {
+    background: hexToRgba(config.accent, 0.08),
+    border: `1px solid ${hexToRgba(config.accent, 0.2)}`,
+  };
 
   const trendIcon =
     trend === "up" ? (
@@ -174,8 +150,8 @@ export const StatCard: React.FC<StatCardProps> = ({
               width: 32,
               height: 32,
               borderRadius: 8,
-              background: `${config.accent}15`,
-              border: `1px solid ${config.accent}30`,
+              background: iconSurface.background,
+              border: iconSurface.border,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -206,7 +182,7 @@ export const StatCard: React.FC<StatCardProps> = ({
             style={{
               fontSize: 28,
               fontWeight: 700,
-              color: "#374151",
+              color: colors.textPrimary,
               lineHeight: 1,
               letterSpacing: "-0.5px",
             }}

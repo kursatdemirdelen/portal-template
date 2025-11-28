@@ -1,19 +1,14 @@
 import React, { type ReactNode, type CSSProperties } from "react";
-import { Typography } from "antd";
-import { cardStyles } from "@/shared/styles/componentStyles";
-import {
-  borderColors,
-  colorPalette,
-  gradients,
-  spacing,
-} from "@/shared/styles/styleConstants";
+import { Typography, Spin } from "antd";
+import { cardStyles } from "@/shared/styles/helpers";
+import { colors, gradients, spacing, borderColors } from "@/shared/styles";
 
 const { Title, Text } = Typography;
 
 type Variant = "default" | "elevated" | "subtle" | "gradient";
 
-interface SectionCardProps {
-  title?: string;
+export interface SectionCardProps {
+  title?: ReactNode;
   subtitle?: string;
   extra?: ReactNode;
   children: ReactNode;
@@ -22,6 +17,7 @@ interface SectionCardProps {
   border?: boolean;
   padding?: "small" | "medium" | "large";
   style?: CSSProperties;
+  loading?: boolean;
 }
 
 const variantConfig = {
@@ -59,119 +55,122 @@ export const SectionCard: React.FC<SectionCardProps> = ({
   border: showBorder = true,
   padding = "medium",
   style,
+  loading = false,
 }) => {
   const config = variantConfig[variant];
   const paddingSize = paddingConfig[padding];
 
   return (
-    <div
-      style={{
-        ...cardStyles.sectionCard.container,
-        background: config.background,
-        border: showBorder ? config.border : "none",
-        marginBottom: spacing.md,
-        ...style,
-      }}
-    >
-      {/* Background decoration */}
+    <Spin spinning={loading}>
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "1px",
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(91, 122, 237, 0.2) 50%, transparent 100%)",
-          pointerEvents: "none",
+          ...cardStyles.sectionCard.container,
+          background: config.background,
+          border: showBorder ? config.border : "none",
+          marginBottom: spacing.md,
+          ...style,
         }}
-      />
+      >
+        {/* Background decoration */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "1px",
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(91, 122, 237, 0.2) 50%, transparent 100%)",
+            pointerEvents: "none",
+          }}
+        />
 
-      {/* Header section */}
-      {title && (
-        <>
-          <div
-            style={{
-              padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
-              ...cardStyles.sectionCard.header,
-              flexWrap: "wrap",
-              gap: 12,
-            }}
-          >
-            <div style={{ flex: "1 1 auto", minWidth: 0 }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: subtitle ? 4 : 0,
-                }}
-              >
-                {icon && (
-                  <div
-                    style={{
-                      fontSize: 20,
-                      color: colorPalette.primary,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    {icon}
-                  </div>
-                )}
-                <Title level={4} style={cardStyles.sectionCard.title}>
-                  {title}
-                </Title>
-              </div>
-              {subtitle && (
-                <Text
-                  type="secondary"
+        {/* Header section */}
+        {title && (
+          <>
+            <div
+              style={{
+                padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
+                ...cardStyles.sectionCard.header,
+                flexWrap: "wrap",
+                gap: 12,
+              }}
+            >
+              <div style={{ flex: "1 1 auto", minWidth: 0 }}>
+                <div
                   style={{
-                    fontSize: 12,
-                    marginLeft: icon ? 32 : 0,
-                    display: "block",
-                    color: colorPalette.textSecondary,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    marginBottom: subtitle ? 4 : 0,
                   }}
                 >
-                  {subtitle}
-                </Text>
+                  {icon && (
+                    <div
+                      style={{
+                        fontSize: 20,
+                        color: colors.primary,
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {icon}
+                    </div>
+                  )}
+                  <Title level={4} style={cardStyles.sectionCard.title}>
+                    {title}
+                  </Title>
+                </div>
+                {subtitle && (
+                  <Text
+                    type="secondary"
+                    style={{
+                      fontSize: 12,
+                      marginLeft: icon ? 32 : 0,
+                      display: "block",
+                      color: colors.textSecondary,
+                    }}
+                  >
+                    {subtitle}
+                  </Text>
+                )}
+              </div>
+
+              {extra && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    flexWrap: "wrap",
+                    flex: "0 0 auto",
+                  }}
+                >
+                  {extra}
+                </div>
               )}
             </div>
 
-            {extra && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  flexWrap: "wrap",
-                  flex: "0 0 auto",
-                }}
-              >
-                {extra}
-              </div>
-            )}
-          </div>
+            <div
+              style={{
+                height: "1px",
+                background:
+                  "linear-gradient(90deg, transparent 0%, rgba(91, 122, 237, 0.15) 100%)",
+                margin: `${paddingSize}px 0 0 0`,
+              }}
+            />
+          </>
+        )}
 
-          <div
-            style={{
-              height: "1px",
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(91, 122, 237, 0.15) 100%)",
-              margin: `${paddingSize}px 0 0 0`,
-            }}
-          />
-        </>
-      )}
-
-      {/* Content section */}
-      <div
-        style={{
-          padding: `${paddingSize}px`,
-        }}
-      >
-        {children}
+        {/* Content section */}
+        <div
+          style={{
+            padding: `${paddingSize}px`,
+          }}
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </Spin>
   );
 };

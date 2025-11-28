@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Tooltip } from "antd";
-import { spacing, typography } from "@/shared/styles/styleConstants";
+import { spacing, typography, colors } from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -77,7 +77,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
           style={{
             fontSize: compact ? 12 : typography.fontSize.base,
             fontWeight: 500,
-            color: "#1f2937",
+            color: colors.textPrimary,
             display: "flex",
             alignItems: "center",
             gap: 6,

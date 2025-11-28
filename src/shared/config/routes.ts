@@ -12,6 +12,7 @@ import {
   User,
   Cog,
   ShieldCheck,
+  UsersRound,
 } from "lucide-react";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 import { TicketsPage, NewTicketPage, TicketDetailPage } from "@/features/tickets";
@@ -31,6 +32,7 @@ import { ApprovalsPage } from "@/features/approvals";
 import { LogsPage } from "@/features/logs";
 import { ProfilePage } from "@/features/profile";
 import { NotificationsPage } from "@/features/notifications";
+import { ProjectTeamListPage, ProjectTeamDetailPage, ProjectTeamCreatePage, ProjectTeamEditPage } from "@/features/project-teams";
 import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";
@@ -124,6 +126,39 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuIcon: FolderKanban,
+  },
+  {
+    path: "/project-teams",
+    label: "Proje Ekipleri",
+    component: ProjectTeamListPage,
+    layout: "app",
+    roles: ["admin", "worker"],
+    showInMenu: true,
+    menuIcon: UsersRound,
+  },
+  {
+    path: "/project-teams/create",
+    label: "Proje Ekibi Oluştur",
+    component: ProjectTeamCreatePage,
+    layout: "app",
+    roles: ["admin", "worker"],
+    showInMenu: false,
+  },
+  {
+    path: "/project-teams/:id",
+    label: "Proje Ekip Detayı",
+    component: ProjectTeamDetailPage,
+    layout: "app",
+    roles: ["admin", "worker"],
+    showInMenu: false,
+  },
+  {
+    path: "/project-teams/:id/edit",
+    label: "Proje Ekibi Düzenle",
+    component: ProjectTeamEditPage,
+    layout: "app",
+    roles: ["admin", "worker"],
+    showInMenu: false,
   },
   {
     path: "/project-team",

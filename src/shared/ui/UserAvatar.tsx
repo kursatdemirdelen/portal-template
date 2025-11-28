@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar as AntAvatar, AvatarProps } from "antd";
+import { avatarColors, backgrounds } from "@/shared/styles";
 
 interface UserAvatarProps extends AvatarProps {
   initials?: string;
@@ -28,7 +29,7 @@ const getRandomAvatar = (): string => {
  */
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   initials,
-  backgroundColor = "#334155",
+  backgroundColor = avatarColors.indigo,
   avatarUrl,
   user,
   size = 32,
@@ -56,7 +57,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       src={avatarSrc || undefined}
       style={{
         background: avatarSrc ? "transparent" : backgroundColor,
-        color: "#fff",
+        color: backgrounds.card,
         flexShrink: 0,
         fontSize: typeof size === "number" ? size / 2 : 14,
         fontWeight: 600,
