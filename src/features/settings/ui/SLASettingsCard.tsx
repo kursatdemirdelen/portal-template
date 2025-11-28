@@ -68,6 +68,8 @@ const SLARow: React.FC<{
           Yanıt:
         </Text>
         <Select
+          id={`sla-priority-${label}-response`}
+          name={`sla-priority-${label}-response`}
           size="small"
           value={responseValue}
           onChange={onResponseChange}
@@ -80,6 +82,8 @@ const SLARow: React.FC<{
           Çözüm:
         </Text>
         <Select
+          id={`sla-priority-${label}-resolution`}
+          name={`sla-priority-${label}-resolution`}
           size="small"
           value={resolutionValue}
           onChange={onResolutionChange}
@@ -143,6 +147,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
               </div>
               <Space>
                 <InputNumber
+                  id="sla-responseTimeHours"
+                  name="sla-responseTimeHours"
                   min={1}
                   max={168}
                   value={data.responseTimeHours}
@@ -151,6 +157,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                 />
                 <Text type="secondary">saat</Text>
                 <Switch
+                  id="sla-responseTimeEnabled"
+                  name="sla-responseTimeEnabled"
                   size="small"
                   checked={data.responseTimeEnabled}
                   onChange={(v) => onChange("responseTimeEnabled", v)}
@@ -177,6 +185,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
               </div>
               <Space>
                 <InputNumber
+                  id="sla-resolutionTimeHours"
+                  name="sla-resolutionTimeHours"
                   min={1}
                   max={720}
                   value={data.resolutionTimeHours}
@@ -185,6 +195,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                 />
                 <Text type="secondary">saat</Text>
                 <Switch
+                  id="sla-resolutionTimeEnabled"
+                  name="sla-resolutionTimeEnabled"
                   size="small"
                   checked={data.resolutionTimeEnabled}
                   onChange={(v) => onChange("resolutionTimeEnabled", v)}
@@ -210,6 +222,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
             <Text strong>Öncelik Bazlı SLA</Text>
           </Space>
           <Switch
+            id="sla-prioritySLAEnabled"
+            name="sla-prioritySLAEnabled"
             checked={data.prioritySLAEnabled}
             onChange={(v) => onChange("prioritySLAEnabled", v)}
           />
@@ -320,6 +334,8 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                 >
                   <Text>SLA süresinin</Text>
                   <InputNumber
+                    id="sla-escalationThresholdPercent"
+                    name="sla-escalationThresholdPercent"
                     min={50}
                     max={100}
                     value={data.escalationThresholdPercent}

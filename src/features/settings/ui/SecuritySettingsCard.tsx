@@ -69,6 +69,8 @@ export const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({
             </Text>
             <Space>
               <InputNumber
+                id="security-sessionTimeoutMinutes"
+                name="security-sessionTimeoutMinutes"
                 min={5}
                 max={480}
                 value={data.sessionTimeoutMinutes}
@@ -89,6 +91,7 @@ export const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({
             >
               <Text>Beni Hatırla</Text>
               <Switch
+                id="security-rememberMeEnabled"
                 checked={data.rememberMeEnabled}
                 onChange={(v) => onChange("rememberMeEnabled", v)}
               />
@@ -128,6 +131,7 @@ export const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({
             </div>
           </Space>
           <Switch
+            id="security-twoFactorRequired"
             checked={data.twoFactorRequired}
             onChange={(v) => onChange("twoFactorRequired", v)}
           />
@@ -155,6 +159,8 @@ export const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({
               Minimum Uzunluk
             </Text>
             <InputNumber
+              id="security-passwordMinLength"
+              name="security-passwordMinLength"
               min={6}
               max={32}
               value={data.passwordMinLength}
@@ -171,6 +177,8 @@ export const SecuritySettingsCard: React.FC<SecuritySettingsCardProps> = ({
             </Text>
             <Space>
               <InputNumber
+                id="security-maxLoginAttempts"
+                name="security-maxLoginAttempts"
                 min={3}
                 max={10}
                 value={data.maxLoginAttempts}

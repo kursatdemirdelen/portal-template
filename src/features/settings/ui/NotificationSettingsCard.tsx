@@ -95,6 +95,8 @@ export const NotificationSettingsCard: React.FC<
             </div>
           </div>
           <Switch
+            id="notification-emailEnabled"
+            name="notification-emailEnabled"
             checked={data.emailEnabled}
             onChange={(checked) => onChange("emailEnabled", checked)}
           />
@@ -145,6 +147,8 @@ export const NotificationSettingsCard: React.FC<
               </div>
             </div>
             <Select
+              id="notification-emailDigestFrequency"
+              name="notification-emailDigestFrequency"
               value={data.emailDigestFrequency}
               onChange={(value) => onChange("emailDigestFrequency", value)}
               options={DIGEST_OPTIONS}

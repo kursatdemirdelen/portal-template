@@ -5,7 +5,6 @@
 import React, { useState } from "react";
 import {
   Card,
-  Switch,
   Select,
   Space,
   Typography,
@@ -28,7 +27,7 @@ import {
 } from "@/shared/styles";
 import type { TicketSettings } from "../model/types";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface TicketSettingsCardProps {
   data: TicketSettings;
@@ -42,7 +41,8 @@ const TagList: React.FC<{
   onRemove: (item: string) => void;
   placeholder: string;
   color?: string;
-}> = ({ items, onAdd, onRemove, placeholder, color = "blue" }) => {
+  idPrefix: string;
+}> = ({ items, onAdd, onRemove, placeholder, color = "blue", idPrefix }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleAdd = () => {
@@ -76,6 +76,8 @@ const TagList: React.FC<{
       </div>
       <Space.Compact style={{ width: "100%" }}>
         <Input
+          id={`${idPrefix}-ticket-tag-input`}
+          name={`${idPrefix}-ticket-tag-input`}
           size="small"
           placeholder={placeholder}
           value={inputValue}
@@ -94,6 +96,8 @@ export const TicketSettingsCard: React.FC<TicketSettingsCardProps> = ({
   onChange,
   minHeight,
 }) => {
+  // Use a unique id prefix for each card instance (could use a random string or a prop if needed)
+  const idPrefix = `ticket-settings-${data.defaultRequestType || "default"}`;
   const handleAddRequestType = (type: string) => {
     onChange("requestTypes", [...data.requestTypes, type]);
   };
@@ -153,6 +157,7 @@ export const TicketSettingsCard: React.FC<TicketSettingsCardProps> = ({
             onRemove={handleRemoveRequestType}
             placeholder="Yeni istek türü ekle..."
             color="blue"
+            idPrefix={idPrefix + "-requestType"}
           />
           <div style={{ marginTop: spacing.md }}>
             <Space>
@@ -193,6 +198,7 @@ export const TicketSettingsCard: React.FC<TicketSettingsCardProps> = ({
             onRemove={handleRemoveStatus}
             placeholder="Yeni durum ekle..."
             color="cyan"
+            idPrefix={idPrefix + "-status"}
           />
           <div style={{ marginTop: spacing.md }}>
             <Space>

@@ -44,12 +44,14 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
       <Descriptions
         column={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}
         size="small"
-        labelStyle={{
-          fontWeight: 500,
-          color: colors.textSecondary,
-          padding: "6px 8px",
+        styles={{
+          label: {
+            fontWeight: 500,
+            color: colors.textSecondary,
+            padding: "6px 8px",
+          },
+          content: { color: colors.textPrimary, padding: "6px 8px" },
         }}
-        contentStyle={{ color: colors.textPrimary, padding: "6px 8px" }}
       >
         <Descriptions.Item label="Kısa Ad">
           <Text strong>{customer.shortName}</Text>

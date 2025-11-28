@@ -81,6 +81,8 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
               Başlangıç
             </Text>
             <TimePicker
+              id="workhours-workStartTime"
+              name="workhours-workStartTime"
               value={dayjs(data.workStartTime, "HH:mm")}
               onChange={(time) =>
                 onChange("workStartTime", time?.format("HH:mm") || "09:00")
@@ -97,6 +99,8 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
               Bitiş
             </Text>
             <TimePicker
+              id="workhours-workEndTime"
+              name="workhours-workEndTime"
               value={dayjs(data.workEndTime, "HH:mm")}
               onChange={(time) =>
                 onChange("workEndTime", time?.format("HH:mm") || "18:00")
@@ -170,6 +174,8 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
             <Text strong>Öğle Arası</Text>
           </Space>
           <Switch
+            id="workhours-breakEnabled"
+            name="workhours-breakEnabled"
             checked={data.breakEnabled}
             onChange={(v) => onChange("breakEnabled", v)}
           />
@@ -185,6 +191,8 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
                 Başlangıç
               </Text>
               <TimePicker
+                id="workhours-breakStartTime"
+                name="workhours-breakStartTime"
                 value={dayjs(data.breakStartTime, "HH:mm")}
                 onChange={(time) =>
                   onChange("breakStartTime", time?.format("HH:mm") || "12:00")
@@ -201,6 +209,8 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
                 Bitiş
               </Text>
               <TimePicker
+                id="workhours-breakEndTime"
+                name="workhours-breakEndTime"
                 value={dayjs(data.breakEndTime, "HH:mm")}
                 onChange={(time) =>
                   onChange("breakEndTime", time?.format("HH:mm") || "13:00")

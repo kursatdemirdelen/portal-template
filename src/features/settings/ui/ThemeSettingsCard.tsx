@@ -250,6 +250,8 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
               Yazı Boyutu
             </Text>
             <Select
+              id="theme-fontSize"
+              name="theme-fontSize"
               value={data.fontSize}
               onChange={(v) => onChange("fontSize", v)}
               options={FONT_SIZE_OPTIONS}
@@ -264,6 +266,8 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
               Yazı Tipi
             </Text>
             <Select
+              id="theme-fontFamily"
+              name="theme-fontFamily"
               value={data.fontFamily}
               onChange={(v) => onChange("fontFamily", v)}
               options={[
@@ -296,6 +300,8 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
           <Text>Animasyonlar</Text>
         </Space>
         <Switch
+          id="theme-animationsEnabled"
+          name="theme-animationsEnabled"
           size="small"
           checked={data.animationsEnabled}
           onChange={(v) => onChange("animationsEnabled", v)}

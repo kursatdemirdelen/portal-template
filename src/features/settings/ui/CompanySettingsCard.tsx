@@ -236,6 +236,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               </Text>
               {editing ? (
                 <Input
+                  id="company-name"
+                  name="company-name"
                   size="small"
                   value={formData.name}
                   onChange={(e) =>
@@ -262,6 +264,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               </Text>
               {editing ? (
                 <Input
+                  id="company-shortName"
+                  name="company-shortName"
                   size="small"
                   value={formData.shortName}
                   onChange={(e) =>
@@ -287,6 +291,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               <div style={{ marginTop: 2 }}>
                 {editing ? (
                   <Input
+                    id="company-website"
+                    name="company-website"
                     size="small"
                     value={formData.website}
                     onChange={(e) =>
@@ -308,6 +314,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               <div style={{ marginTop: 2 }}>
                 {editing ? (
                   <Input
+                    id="company-email"
+                    name="company-email"
                     size="small"
                     value={formData.email}
                     onChange={(e) =>
@@ -329,6 +337,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               <div style={{ marginTop: 2 }}>
                 {editing ? (
                   <Input
+                    id="company-phone"
+                    name="company-phone"
                     size="small"
                     value={formData.phone}
                     onChange={(e) =>
@@ -350,6 +360,8 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
               <div style={{ marginTop: 2 }}>
                 {editing ? (
                   <Input
+                    id="company-address"
+                    name="company-address"
                     size="small"
                     value={formData.address}
                     onChange={(e) =>
