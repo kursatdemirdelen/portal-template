@@ -71,7 +71,6 @@ const TicketDetailPage: React.FC = () => {
             status={ticket.status}
             resolved={ticket.resolved}
             assignee={ticket.assignee}
-            project={ticket.project}
             assignedDate={ticket.assignedDate}
             resolvedAt={ticket.resolvedAt}
           />

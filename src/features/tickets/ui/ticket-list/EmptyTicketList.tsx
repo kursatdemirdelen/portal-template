@@ -1,7 +1,7 @@
 import React from "react";
 import { Empty, Button } from "antd";
 import { FolderX, Search } from "lucide-react";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 
 interface EmptyTicketListProps {
   hasFilters?: boolean;

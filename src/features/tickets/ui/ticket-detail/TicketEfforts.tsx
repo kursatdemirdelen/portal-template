@@ -12,7 +12,7 @@ import {
 import type { TicketEffort } from "../../model/types";
 import { SectionCard } from "@/shared/ui";
 import { Clock, Plus, Trash2 } from "lucide-react";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import { ticketDetailStyles } from "../shared/ticketDetailStyles";
 import type { Dayjs } from "dayjs";
 
@@ -38,6 +38,7 @@ export const TicketEfforts: React.FC<TicketEffortsProps> = ({
   onAddEffort,
 }) => {
   const [showForm, setShowForm] = useState(false);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -166,7 +167,7 @@ export const TicketEfforts: React.FC<TicketEffortsProps> = ({
       )}
       <div>
         {efforts.map((effort) => {
-          const [isHovered, setIsHovered] = useState(false);
+          const isHovered = hoveredId === effort.id;
           return (
             <div
               key={effort.id}
@@ -174,8 +175,8 @@ export const TicketEfforts: React.FC<TicketEffortsProps> = ({
                 ...ticketDetailStyles.effortItem,
                 ...(isHovered && ticketDetailStyles.effortItemHover),
               }}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+              onMouseEnter={() => setHoveredId(effort.id)}
+              onMouseLeave={() => setHoveredId(null)}
             >
               <div style={ticketDetailStyles.effortHeader}>
                 <div style={ticketDetailStyles.effortTime}>

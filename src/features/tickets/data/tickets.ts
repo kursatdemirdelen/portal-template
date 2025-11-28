@@ -3,7 +3,7 @@ import {
   mockTicketRecords,
   getTicketsByDepartment as getCentralTickets,
   getRecentTicketsForDepartment as getCentralRecentTickets,
-} from "@/shared/data/mockData";
+} from "@/shared/data/mocks";
 
 // Merkezi mock data kullan
 const TICKETS: TicketRecord[] = mockTicketRecords;

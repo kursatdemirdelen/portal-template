@@ -1,14 +1,27 @@
 import React, { memo } from "react";
-import { theme } from "@/shared/styles/styleConstants";
-import type { TicketStatusMeta } from "../model/status";
+import {
+  colors,
+  spacing,
+  radius,
+  typography,
+  backgrounds,
+} from "@/shared/styles";
+
+interface StatusChipItem {
+  key: string;
+  label: string;
+  count: number;
+  color?: string;
+  bg?: string;
+}
 
 interface TicketStatusChipsProps {
-  summary: Array<TicketStatusMeta & { count: number }>;
+  summary: StatusChipItem[];
 }
 
 const chipsContainerStyle: React.CSSProperties = {
   display: "flex",
-  gap: theme.spacing.md,
+  gap: spacing.md,
   flexWrap: "wrap",
   justifyContent: "flex-end",
 };
@@ -16,20 +29,20 @@ const chipsContainerStyle: React.CSSProperties = {
 const chipBaseStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
-  gap: theme.spacing.xs,
-  padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-  borderRadius: theme.radius.full,
-  fontSize: theme.typography.fontSize.xs,
-  fontWeight: theme.typography.fontWeight.semibold,
+  gap: spacing.xs,
+  padding: `${spacing.xs}px ${spacing.md}px`,
+  borderRadius: radius.full,
+  fontSize: typography.fontSize.xs,
+  fontWeight: typography.fontWeight.semibold,
 };
 
 const chipCountStyle: React.CSSProperties = {
-  background: theme.colors.surface.base,
-  color: theme.colors.text.primary,
-  borderRadius: theme.radius.full,
-  padding: `2px ${theme.spacing.xs}px`,
-  fontSize: theme.typography.fontSize.xxs,
-  fontWeight: theme.typography.fontWeight.bold,
+  background: backgrounds.card,
+  color: colors.textPrimary,
+  borderRadius: radius.full,
+  padding: `2px ${spacing.xs}px`,
+  fontSize: typography.fontSize.xxs,
+  fontWeight: typography.fontWeight.bold,
   opacity: 0.95,
 };
 

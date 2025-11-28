@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Table, Button, Grid, Select, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
@@ -12,7 +12,7 @@ import {
   EmptyTicketList,
   createTicketColumns,
 } from "@/features/tickets/ui/ticket-list";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import {
   allTickets,
   type TicketRecord,
@@ -266,11 +266,10 @@ const TicketsPage: React.FC = () => {
                   current={currentPage}
                   pageSize={pageSize}
                   total={filteredTickets.length}
-                  onChange={(page, size) => {
+                  onChange={(page) => {
                     setCurrentPage(page);
-                    setPageSize(size);
                   }}
-                  showSizeChanger
+                  showSizeChanger={false}
                   showTotal={(total) => `Toplam ${total} bilet`}
                   size="small"
                 />
@@ -286,7 +285,7 @@ const TicketsPage: React.FC = () => {
               pageSize: TABLE_CONFIG.DEFAULT_PAGE_SIZE,
               showSizeChanger: TABLE_CONFIG.SHOW_SIZE_CHANGER,
               showTotal: (total) => `Toplam ${total} bilet`,
-              pageSizeOptions: TABLE_CONFIG.PAGE_SIZE_OPTIONS,
+              pageSizeOptions: [...TABLE_CONFIG.PAGE_SIZE_OPTIONS],
             }}
             scroll={{ x: 1000 }}
             size="middle"

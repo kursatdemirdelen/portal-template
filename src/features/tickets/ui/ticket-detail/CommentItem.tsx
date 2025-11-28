@@ -4,7 +4,7 @@ import { MessageSquare } from "lucide-react";
 import { UserAvatar } from "@/shared/ui";
 import { ticketDetailStyles } from "../shared/ticketDetailStyles";
 import type { TicketComment } from "../../model/types";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 const { Text } = Typography;
 
@@ -22,7 +22,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   onReply,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const avatarInfo = getAvatarByName(comment.author);
+  const avatarInfo = getAvatarByName(comment.user);
 
   return (
     <div
@@ -37,13 +37,13 @@ export const CommentItem: React.FC<CommentItemProps> = ({
         <div style={ticketDetailStyles.commentAvatar}>
           <UserAvatar
             size={32}
-            user={{ name: comment.author }}
+            user={{ name: comment.user }}
             backgroundColor={avatarInfo.color}
             avatarUrl={avatarInfo.avatarUrl}
           />
         </div>
         <div style={ticketDetailStyles.commentAuthorInfo}>
-          <Text style={ticketDetailStyles.commentAuthor}>{comment.author}</Text>
+          <Text style={ticketDetailStyles.commentAuthor}>{comment.user}</Text>
           <Text style={ticketDetailStyles.commentDate}>
             {new Date(comment.createdAt).toLocaleDateString("tr-TR", {
               day: "2-digit",

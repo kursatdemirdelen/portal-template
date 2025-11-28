@@ -11,7 +11,7 @@ import {
 import type { TicketAttachment } from "../../model/types";
 import { SectionCard } from "@/shared/ui";
 import { ticketDetailStyles } from "../shared/ticketDetailStyles";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 
 const { Text } = Typography;
 

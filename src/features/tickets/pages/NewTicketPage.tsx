@@ -21,10 +21,10 @@ import {
 } from "@/features/tickets/ui/forms/TicketFormSteps";
 import { TicketSidebar } from "@/features/tickets/ui/TicketSidebar";
 import {
-  mockProjects,
+  mockProjectOptions,
   requestTypeOptions,
   getRecentTickets,
-} from "@/shared/data/mockData";
+} from "@/shared/data/mocks";
 
 interface TicketFormData {
   title: string;
@@ -158,7 +158,7 @@ const NewTicketPage: React.FC = () => {
               {currentStep === 1 && (
                 <StepTwo
                   requestTypeOptions={[...requestTypeOptions]}
-                  projectOptions={[...mockProjects]}
+                  projectOptions={[...mockProjectOptions]}
                   aiSuggested
                 />
               )}

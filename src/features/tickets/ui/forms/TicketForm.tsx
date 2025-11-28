@@ -21,6 +21,7 @@ import {
   PRIORITY_LABELS,
   ALLOWED_FILE_TYPES,
 } from "../../model/constants";
+import { mockUsers, mockProjectOptions } from "@/shared/data/mocks";
 
 const { TextArea } = Input;
 
@@ -57,20 +58,16 @@ export const TicketForm: React.FC<TicketFormProps> = ({
   const [form] = Form.useForm<TicketFormData>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  // Mock data - gerçek uygulamada API'den gelecek
-  const assigneeOptions = [
-    { label: "Ahmet Yılmaz", value: "Ahmet Yılmaz" },
-    { label: "Zeynep Ünlü", value: "Zeynep Ünlü" },
-    { label: "Kürşat Demirdelen", value: "Kürşat Demirdelen" },
-    { label: "Mehmet Can", value: "Mehmet Can" },
-  ];
+  // Merkezi mock verilerden seçenekler oluştur
+  const assigneeOptions = mockUsers.map((user) => ({
+    label: user.name,
+    value: user.name,
+  }));
 
-  const projectOptions = [
-    { label: "Portal Intellium", value: "Portal Intellium" },
-    { label: "Portal Support", value: "Portal Support" },
-    { label: "Mobile Core", value: "Mobile Core" },
-    { label: "API Gateway", value: "API Gateway" },
-  ];
+  const projectOptions = mockProjectOptions.map((project) => ({
+    label: project.label,
+    value: project.label,
+  }));
 
   const requestTypeOptions = Object.entries(REQUEST_TYPE_LABELS).map(
     ([value, label]) => ({

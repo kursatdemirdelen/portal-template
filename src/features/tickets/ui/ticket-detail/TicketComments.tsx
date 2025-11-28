@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography } from "antd";
 import { SectionCard } from "@/shared/ui";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import { CommentList } from "./CommentList";
 import { CommentForm } from "./CommentForm";
 import type { TicketComment } from "../../model/types";

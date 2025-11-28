@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 
 /**
  * Ticket Detail Sol Kolon Kartları için Merkezi Stil Sistemi
@@ -217,7 +217,7 @@ export const ticketDetailStyles = {
 
   commentItemHover: {
     background: theme.colors.surface.soft,
-    borderColor: theme.colors.border.default,
+    borderColor: theme.colors.border.strong,
   } as CSSProperties,
 
   commentHeader: {

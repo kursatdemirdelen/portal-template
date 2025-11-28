@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Space, Dropdown, Tag } from "antd";
 import { EditOutlined, MoreOutlined } from "@ant-design/icons";
 import { AlertCircle, Clock, CheckCircle, Archive } from "lucide-react";
-import { getStatusStyle } from "@/shared/styles/styleHelpers";
+import { getStatusStyle } from "@/shared/styles";
 import type { MenuProps } from "antd";
 
 interface TicketHeaderProps {

@@ -1,10 +1,17 @@
 import type { ColumnsType } from "antd/es/table";
-import { theme } from "@/shared/styles/styleConstants";
-import { getStatusStyle } from "@/shared/styles/styleHelpers";
+import {
+  colors,
+  spacing,
+  radius,
+  typography,
+  transitions,
+  theme,
+} from "@/shared/styles";
+import { getStatusStyle } from "@/shared/styles";
 import { UserAvatar } from "@/shared/ui";
 import { formatTicketDate } from "@/features/tickets/model";
 import type { TicketRecord } from "@/features/tickets";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 export function createTicketColumns(
   navigate: (path: string) => void,
@@ -23,9 +30,9 @@ export function createTicketColumns(
         <span
           style={{
             fontWeight: theme.typography.fontWeight.semibold,
-            color: theme.colors.primary,
+            color: colors.primary,
             cursor: "pointer",
-            transition: theme.transitions.fast,
+            transition: transitions.fast,
           }}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
@@ -74,12 +81,12 @@ export function createTicketColumns(
           <span
             style={{
               padding: "2px 10px",
-              borderRadius: theme.radius.full,
+              borderRadius: radius.full,
               background: style.bg,
               border: `1px solid ${style.border}`,
               color: style.text,
-              fontWeight: theme.typography.fontWeight.semibold,
-              fontSize: theme.typography.fontSize.xs,
+              fontWeight: typography.fontWeight.semibold,
+              fontSize: typography.fontSize.xs,
               display: "inline-block",
             }}
           >
@@ -105,7 +112,7 @@ export function createTicketColumns(
             style={{
               display: "flex",
               alignItems: "center",
-              gap: theme.spacing.xs,
+              gap: spacing.xs,
             }}
           >
             <UserAvatar
@@ -116,7 +123,7 @@ export function createTicketColumns(
             />
             <span
               style={{
-                fontSize: theme.typography.fontSize.sm,
+                fontSize: typography.fontSize.sm,
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -148,7 +155,7 @@ export function createTicketColumns(
         return (
           <span
             title={fullDateTime}
-            style={{ fontSize: theme.typography.fontSize.sm }}
+            style={{ fontSize: typography.fontSize.sm }}
           >
             {formattedDate}
           </span>

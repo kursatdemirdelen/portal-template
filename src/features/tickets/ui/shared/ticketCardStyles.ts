@@ -1,5 +1,11 @@
 import { CSSProperties } from "react";
-import { theme } from "@/shared/styles/styleConstants";
+import {
+  backgrounds,
+  colors,
+  hexToRgba,
+  shadows,
+  theme,
+} from "@/shared/styles";
 
 /**
  * Ticket Detail Sidebar Card Styles
@@ -25,7 +31,7 @@ export const ticketCardStyles = {
     width: 24,
     height: 24,
     borderRadius: 6,
-    background: "rgba(91, 122, 237, 0.08)",
+    background: hexToRgba(colors.primary, 0.08),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -67,17 +73,17 @@ export const ticketCardStyles = {
     alignItems: "center",
     gap: 10,
     padding: 10,
-    background: "linear-gradient(135deg, rgba(91, 122, 237, 0.05) 0%, rgba(91, 122, 237, 0.02) 100%)",
+    background: `linear-gradient(135deg, ${hexToRgba(colors.primary, 0.05)} 0%, ${hexToRgba(colors.primary, 0.02)} 100%)`,
     borderRadius: 8,
-    border: "1px solid rgba(91, 122, 237, 0.12)",
+    border: `1px solid ${hexToRgba(colors.primary, 0.12)}`,
     marginBottom: 10,
     transition: "all 0.15s ease",
     cursor: "pointer",
   } as CSSProperties,
 
   projectHeaderHover: {
-    background: "linear-gradient(135deg, rgba(91, 122, 237, 0.08) 0%, rgba(91, 122, 237, 0.04) 100%)",
-    borderColor: "rgba(91, 122, 237, 0.2)",
+    background: `linear-gradient(135deg, ${hexToRgba(colors.primary, 0.08)} 0%, ${hexToRgba(colors.primary, 0.04)} 100%)`,
+    borderColor: hexToRgba(colors.primary, 0.2),
     transform: "translateY(-1px)",
   } as CSSProperties,
 
@@ -85,12 +91,12 @@ export const ticketCardStyles = {
     width: 36,
     height: 36,
     borderRadius: 8,
-    background: "#ffffff",
+    background: backgrounds.card,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    border: "1px solid rgba(91, 122, 237, 0.15)",
-    boxShadow: "0 2px 4px rgba(91, 122, 237, 0.08)",
+    border: `1px solid ${hexToRgba(colors.primary, 0.15)}`,
+    boxShadow: shadows.sm,
   } as CSSProperties,
 
   projectInfo: {
@@ -178,7 +184,7 @@ export const ticketCardStyles = {
     width: 36,
     height: 36,
     borderRadius: "50%",
-    background: "#ffffff",
+    background: backgrounds.card,
     border: `2px solid ${theme.colors.border.subtle}`,
     display: "flex",
     alignItems: "center",
@@ -273,7 +279,7 @@ export const ticketCardStyles = {
 export const getMetaIconBoxStyle = (isHovered: boolean): CSSProperties => ({
   ...ticketCardStyles.metaIconBox,
   ...(isHovered && {
-    background: "rgba(91, 122, 237, 0.15)",
+    background: hexToRgba(colors.primary, 0.15),
     transform: "scale(1.05)",
   }),
 });

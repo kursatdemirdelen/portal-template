@@ -1,10 +1,15 @@
 import React, { memo, useState } from "react";
 import { Typography } from "antd";
 import {
+  backgrounds,
+  borderColors,
+  colors,
+  gradients,
+  hexToRgba,
   getRequestTypeStyle,
   getStatusStyle,
-} from "@/shared/styles/styleHelpers";
-import { getAvatarByName, getUserByName } from "@/shared/data/mockData";
+} from "@/shared/styles";
+import { getAvatarByName, getUserByName } from "@/shared/data/mocks";
 import { UserAvatar } from "@/shared/ui/UserAvatar";
 import type { Ticket } from "../../model/types";
 import { formatTicketDate } from "../../model/utils";
@@ -34,14 +39,14 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
               style={{
                 padding: "8px 8px",
                 background: isHovered
-                  ? "linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%)"
+                  ? gradients.colorBlue
                   : index % 2 === 0
-                  ? "#fafbfc"
-                  : "#ffffff",
-                borderLeft: isHovered
-                  ? "3px solid #5b7aed"
-                  : "3px solid transparent",
-                borderBottom: "1px solid #f0f0f0",
+                  ? backgrounds.neutral50
+                  : backgrounds.card,
+                borderLeft: `3px solid ${
+                  isHovered ? colors.primary : "transparent"
+                }`,
+                borderBottom: `1px solid ${borderColors.light}`,
                 cursor: "pointer",
                 transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
@@ -59,7 +64,11 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
               >
                 <Text
                   strong
-                  style={{ fontSize: 11, color: "#5b7aed", fontWeight: 600 }}
+                  style={{
+                    fontSize: 11,
+                    color: colors.primary,
+                    fontWeight: 600,
+                  }}
                 >
                   {item.id}
                 </Text>
@@ -86,7 +95,7 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                   fontSize: 13,
                   display: "block",
                   marginBottom: 6,
-                  color: "#1a1a1a",
+                  color: colors.textPrimary,
                   lineHeight: "1.3",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
@@ -115,7 +124,7 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                     fontSize: 10,
                     fontWeight: 600,
                     whiteSpace: "nowrap",
-                    boxShadow: `0 1px 2px ${typeBadge.text}20`,
+                    boxShadow: `0 1px 2px ${hexToRgba(typeBadge.text, 0.2)}`,
                   }}
                 >
                   {item.requestType}
@@ -142,16 +151,14 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                   alignItems: "center",
                   gap: 6,
                   paddingTop: 6,
-                  borderTop: "1px solid #f0f0f0",
+                  borderTop: `1px solid ${borderColors.light}`,
                 }}
               >
                 <UserAvatar
                   size={20}
                   backgroundColor={avatarInfo.color}
                   avatarUrl={userInfo?.avatarUrl}
-                  user={{
-                    name: item.assignee,
-                  }}
+                  user={{ name: item.assignee }}
                   style={{
                     fontSize: 9,
                     fontWeight: 600,
@@ -161,7 +168,7 @@ export const RecentTickets: React.FC<RecentTicketsProps> = memo(
                 <Text
                   style={{
                     fontSize: 10,
-                    color: "#666",
+                    color: colors.textSecondary,
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",

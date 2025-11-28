@@ -1,13 +1,10 @@
 import React from "react";
 import { Card, Tag, Tooltip } from "antd";
-import { theme } from "@/shared/styles/styleConstants";
-import {
-  getStatusStyle,
-  getRequestTypeStyle,
-} from "@/shared/styles/styleHelpers";
+import { theme } from "@/shared/styles";
+import { getStatusStyle, getRequestTypeStyle } from "@/shared/styles";
 import { UserAvatar } from "@/shared/ui";
 import { formatTicketDate } from "@/features/tickets/model";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 export interface TicketListCardProps {
   id: string;

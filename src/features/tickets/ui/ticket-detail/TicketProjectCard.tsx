@@ -3,7 +3,7 @@ import { Typography, Progress, Tag } from "antd";
 import { FolderKanban, Users, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { SectionCard } from "@/shared/ui";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import { ticketCardStyles } from "../shared/ticketCardStyles";
 
 const { Text } = Typography;

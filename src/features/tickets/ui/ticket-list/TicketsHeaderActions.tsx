@@ -1,12 +1,18 @@
 import React from "react";
 import { Button } from "antd";
-import { Plus, FileSpreadsheet, RotateCcw } from "lucide-react";
+import { FileSpreadsheet, RotateCcw } from "lucide-react";
 import { TicketStatusChips } from "./TicketStatusChips";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 
 interface TicketsHeaderActionsProps {
   isMobile: boolean;
-  summary: Array<{ key: string; label: string; count: number; color?: string }>;
+  summary: Array<{
+    key: string;
+    label: string;
+    count: number;
+    color?: string;
+    bg?: string;
+  }>;
   showReset: boolean;
   onReset: () => void;
   onExport: () => void;

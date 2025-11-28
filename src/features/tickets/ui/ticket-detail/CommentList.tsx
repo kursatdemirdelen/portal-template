@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "antd";
 import { MessageSquare } from "lucide-react";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import { ticketDetailStyles } from "../shared/ticketDetailStyles";
 import { CommentItem } from "./CommentItem";
 import type { TicketComment } from "../../model/types";

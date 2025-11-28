@@ -2,18 +2,50 @@ import React, { useState } from "react";
 import { Tag, Typography } from "antd";
 import { CheckCircle, Clock, Calendar, User } from "lucide-react";
 import { UserAvatar, SectionCard } from "@/shared/ui";
-import { getStatusStyle } from "@/shared/styles/styleHelpers";
-import { theme } from "@/shared/styles/styleConstants";
+import { getStatusStyle, theme } from "@/shared/styles";
 import { ticketCardStyles } from "../shared/ticketCardStyles";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 const { Text } = Typography;
+
+// Declare MetaItemComponent at module scope to satisfy ESLint rules
+const MetaItemComponent: React.FC<{
+  id: string;
+  icon: React.ReactNode;
+  label: string;
+  hoveredItem: string | null;
+  setHoveredItem: (id: string | null) => void;
+  children?: React.ReactNode;
+}> = ({ id, icon, label, hoveredItem, setHoveredItem, children }) => (
+  <div
+    style={ticketCardStyles.metaItem}
+    onMouseEnter={() => setHoveredItem(id)}
+    onMouseLeave={() => setHoveredItem(null)}
+  >
+    <div
+      style={{
+        ...ticketCardStyles.metaIconBox,
+        ...(hoveredItem === id && {
+          background: "rgba(91, 122, 237, 0.15)",
+          transform: "scale(1.05)",
+        }),
+      }}
+    >
+      {icon}
+    </div>
+    <div style={ticketCardStyles.metaContent}>
+      <Text type="secondary" style={ticketCardStyles.metaLabel}>
+        {label}
+      </Text>
+      <div style={ticketCardStyles.metaValue}>{children}</div>
+    </div>
+  </div>
+);
 
 interface TicketMetaCardProps {
   status: string;
   resolved: boolean;
   assignee: string;
-  project: string;
   assignedDate: string;
   resolvedAt?: string;
   loading?: boolean;
@@ -23,7 +55,6 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
   status,
   resolved,
   assignee,
-  project,
   assignedDate,
   resolvedAt,
   loading = false,
@@ -32,46 +63,10 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
   const avatarInfo = getAvatarByName(assignee);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  const MetaItem = ({
-    id,
-    icon,
-    label,
-    children,
-  }: {
-    id: string;
-    icon: React.ReactNode;
-    label: string;
-    children: React.ReactNode;
-  }) => (
-    <div
-      style={ticketCardStyles.metaItem}
-      onMouseEnter={() => setHoveredItem(id)}
-      onMouseLeave={() => setHoveredItem(null)}
-    >
-      <div
-        style={{
-          ...ticketCardStyles.metaIconBox,
-          ...(hoveredItem === id && {
-            background: "rgba(91, 122, 237, 0.15)",
-            transform: "scale(1.05)",
-          }),
-        }}
-      >
-        {icon}
-      </div>
-      <div style={ticketCardStyles.metaContent}>
-        <Text type="secondary" style={ticketCardStyles.metaLabel}>
-          {label}
-        </Text>
-        <div style={ticketCardStyles.metaValue}>{children}</div>
-      </div>
-    </div>
-  );
-
   return (
     <SectionCard title="Bilgiler" loading={loading}>
       <div style={ticketCardStyles.metaContainer}>
-        <MetaItem
+        <MetaItemComponent
           id="status"
           icon={
             <div
@@ -82,6 +77,8 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
             />
           }
           label="Durum"
+          hoveredItem={hoveredItem}
+          setHoveredItem={setHoveredItem}
         >
           <Tag
             style={{
@@ -93,9 +90,9 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
           >
             {status}
           </Tag>
-        </MetaItem>
+        </MetaItemComponent>
 
-        <MetaItem
+        <MetaItemComponent
           id="resolution"
           icon={
             resolved ? (
@@ -105,6 +102,8 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
             )
           }
           label="Çözüm"
+          hoveredItem={hoveredItem}
+          setHoveredItem={setHoveredItem}
         >
           <Text
             style={{
@@ -124,12 +123,14 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
               })}
             </Text>
           )}
-        </MetaItem>
+        </MetaItemComponent>
 
-        <MetaItem
+        <MetaItemComponent
           id="assignee"
           icon={<User size={13} color={theme.colors.primary} />}
           label="Atanan"
+          hoveredItem={hoveredItem}
+          setHoveredItem={setHoveredItem}
         >
           <div style={ticketCardStyles.avatarGroup}>
             <UserAvatar
@@ -140,12 +141,14 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
             />
             <Text style={ticketCardStyles.avatarName}>{assignee}</Text>
           </div>
-        </MetaItem>
+        </MetaItemComponent>
 
-        <MetaItem
+        <MetaItemComponent
           id="date"
           icon={<Calendar size={13} color={theme.colors.text.secondary} />}
           label="Atanma"
+          hoveredItem={hoveredItem}
+          setHoveredItem={setHoveredItem}
         >
           <Text style={ticketCardStyles.metaValue}>
             {new Date(assignedDate).toLocaleDateString("tr-TR", {
@@ -153,7 +156,7 @@ export const TicketMetaCard: React.FC<TicketMetaCardProps> = ({
               month: "short",
             })}
           </Text>
-        </MetaItem>
+        </MetaItemComponent>
       </div>
     </SectionCard>
   );

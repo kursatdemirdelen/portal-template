@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Typography } from "antd";
 import { UserAvatar, SectionCard } from "@/shared/ui";
-import { theme } from "@/shared/styles/styleConstants";
+import { theme } from "@/shared/styles";
 import { ticketCardStyles } from "../shared/ticketCardStyles";
 import type { TicketHistoryItem } from "../../model/types";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 const { Text } = Typography;
 

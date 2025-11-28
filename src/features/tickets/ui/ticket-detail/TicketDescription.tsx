@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Tag } from "antd";
 import { UserAvatar, SectionCard } from "@/shared/ui";
 import { ticketDetailStyles } from "../shared/ticketDetailStyles";
-import { getAvatarByName } from "@/shared/data/mockData";
+import { getAvatarByName } from "@/shared/data/mocks";
 
 const { Text } = Typography;
 

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { TicketRecord } from "../model/types";
 import { TICKET_STATUS_META } from "../model/status";
-import { TICKET_STATUS, URGENT_REQUEST_TYPES } from "../model/constants";
+import { TICKET_STATUS } from "../model/constants";
 
 export interface UseTicketStatsOptions {
   tickets: TicketRecord[];
