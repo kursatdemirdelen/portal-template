@@ -173,7 +173,7 @@ export const mockUsers: MockUser[] = [
     phone: "+90 532 111 2233",
     avatar: "KD",
     avatarColor: avatarColors.indigo,
-    avatarUrl: "https://i.pravatar.cc/150?img=11",
+    avatarUrl: "https://i.pravatar.cc/150?img=12",
     role: "worker",
     status: "active",
     department: "Portal Squad",

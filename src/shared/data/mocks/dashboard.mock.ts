@@ -25,7 +25,7 @@ export const mockCurrentUser: DashboardUserInfo = {
   department: "Portal Squad",
   email: "kursat.demirdelen@portal.com",
   avatar: "KD",
-  avatarUrl: "https://i.pravatar.cc/150?img=11",
+  avatarUrl: "https://i.pravatar.cc/150?img=12",
   company: "Intellium",
   weeklyProgress: 72,
   statusText: "Çevrimiçi",

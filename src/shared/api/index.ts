@@ -7,13 +7,11 @@
  * 📁 DOSYA YAPISI:
  * - httpClient.ts     → Axios base instance (interceptors, base URL)
  * - apiClient.ts      → Generic helper fonksiyonlar (get, post, put, delete)
- * - parameterService  → Sistem parametreleri CRUD
  * - userService       → Kullanıcı yönetimi CRUD
  * - permissionService → İzin ve rol yönetimi CRUD
  * 
  * 🔧 KULLANIM:
  * ```typescript
- * import { getParameters, createParameter } from '@/shared/api/parameterService';
  * import { getUsers } from '@/shared/api/userService';
  * ```
  * 

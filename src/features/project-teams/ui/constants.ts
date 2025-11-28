@@ -76,7 +76,7 @@ export const AVAILABLE_USERS = [
   { id: "USER008", name: "Ayşe Demir", email: "ayse.demir@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=44", color: avatarColors.orange },
   { id: "USER009", name: "Melis Kara", email: "melis.kara@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=25", color: avatarColors.darkRed },
   { id: "USER010", name: "Ali Öztürk", email: "ali.ozturk@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=60", color: colors.textPrimary },
-  { id: "USER011", name: "Kürşat Demirdelen", email: "kursat.demirdelen@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=11", color: avatarColors.indigo },
+  { id: "USER011", name: "Kürşat Demirdelen", email: "kursat.demirdelen@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=12", color: avatarColors.indigo },
   { id: "USER012", name: "Emre Şahin", email: "emre.sahin@portal.com", avatarUrl: "https://i.pravatar.cc/150?img=12", color: avatarColors.amber },
 ] as const;
 

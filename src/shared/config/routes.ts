@@ -25,7 +25,7 @@ import { TimeTrackingPage } from "@/features/time-tracking";
 import { LeavesPage } from "@/features/leaves";
 import { LoginPage, LogoutPage } from "@/features/auth";
 import { CustomersPage, CustomerDetailPage } from "@/features/customers";
-import ParametersPage from "@/features/parameters/pages/ParametersPage";
+import { SettingsPage } from "@/features/settings";
 import UsersPage from "@/features/users/pages/UsersPage";
 import PermissionsPage from "@/features/permissions/pages/PermissionsPage";
 import { ApprovalsPage } from "@/features/approvals";
@@ -110,9 +110,9 @@ export const appRoutes: AppRoute[] = [
     showInMenu: false,
   },
   {
-    path: "/parameters",
+    path: "/settings",
     label: "Ayarlar",
-    component: ParametersPage,
+    component: SettingsPage,
     layout: "app",
     roles: ["admin"],
     showInMenu: true,
