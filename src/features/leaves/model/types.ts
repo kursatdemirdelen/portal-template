@@ -11,3 +11,13 @@ export interface Holiday {
   title: string;
   type: HolidayType;
 }
+
+export interface LeaveRequest {
+  id: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  days: number;
+  description: string;
+  status: 'pending' | 'approved' | 'rejected';
+}

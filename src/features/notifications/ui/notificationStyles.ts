@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { colorPalette, backgrounds } from "@/shared/styles/styleConstants";
+import { colors as colorPalette, backgrounds } from "@/shared/styles";
 
 export const notificationStyles = {
   container: {
@@ -82,7 +82,7 @@ export const notificationStyles = {
     fontSize: 11,
     fontWeight: 600,
     background: colorPalette.primary,
-    color: "#fff",
+    color: backgrounds.card,
   } as CSSProperties,
 
   emptyState: {

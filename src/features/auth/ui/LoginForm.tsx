@@ -1,6 +1,12 @@
 import React from "react";
 import { Form, Input, Button, Typography } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  colors as colorPalette,
+  backgrounds,
+  borderColors,
+  shadows,
+} from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -26,16 +32,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         margin: "0 auto",
         padding: "32px 28px",
         borderRadius: 16,
-        border: "1px solid #e5e7eb",
-        background: "#fff",
-        boxShadow: "0 10px 30px rgba(15, 23, 42, 0.08)",
+        border: `1px solid ${borderColors.neutral}`,
+        background: backgrounds.card,
+        boxShadow: shadows.lg,
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 24 }}>
-        <Text style={{ fontSize: 20, fontWeight: 600, color: "#0f172a" }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 600,
+            color: colorPalette.textPrimary,
+          }}
+        >
           Portal'a Giriş
         </Text>
-        <p style={{ color: "#64748b", margin: "8px 0 0" }}>
+        <p style={{ color: colorPalette.textSecondary, margin: "8px 0 0" }}>
           Kullanıcı bilgilerinizle oturum açın.
         </p>
       </div>

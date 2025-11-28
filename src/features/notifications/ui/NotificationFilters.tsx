@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Segmented } from "antd";
-import { notificationStyles } from "./notificationStyles";
+import { borderColors } from "@/shared/styles";
 
 type NotificationFilter = "all" | "unread" | "success" | "warning" | "error";
 
@@ -23,7 +23,7 @@ export const NotificationFilters: React.FC<NotificationFiltersProps> = ({
         alignItems: "center",
         paddingBottom: 16,
         marginBottom: 16,
-        borderBottom: "1px solid #e2e8f0",
+        borderBottom: `1px solid ${borderColors.neutral}`,
         gap: 12,
       }}
     >

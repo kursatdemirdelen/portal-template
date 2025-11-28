@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Tag, Space, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { AssignmentDetail } from "../model/types";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 
 const statusLabels: Record<AssignmentDetail["status"], string> = {
   active: "Aktif",
@@ -12,8 +12,8 @@ const statusLabels: Record<AssignmentDetail["status"], string> = {
 
 const statusColors: Record<AssignmentDetail["status"], string> = {
   active: colorPalette.primary,
-  maintenance: "#faad14",
-  returned: "#52c41a",
+  maintenance: colorPalette.warning,
+  returned: colorPalette.success,
 };
 
 const columns: ColumnsType<AssignmentDetail> = [
@@ -30,7 +30,12 @@ const columns: ColumnsType<AssignmentDetail> = [
       <Tag color={statusColors[status]}>{statusLabels[status]}</Tag>
     ),
   },
-  { title: "Teslim", dataIndex: "checkoutDate", key: "checkoutDate", width: 120 },
+  {
+    title: "Teslim",
+    dataIndex: "checkoutDate",
+    key: "checkoutDate",
+    width: 120,
+  },
   { title: "Bitiş", dataIndex: "dueDate", key: "dueDate", width: 120 },
 ];
 

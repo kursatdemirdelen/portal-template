@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Typography, List } from "antd";
+import { gradients, shadows } from "@/shared/styles";
 
 const checklist = [
   "Auth logout çağrısını tetikleyin",
@@ -14,14 +15,14 @@ const LogoutPage: React.FC = () => (
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "linear-gradient(135deg, #f8f9fa 0%, #f0f3f7 100%)",
+      background: gradients.bgPrimary,
       padding: 24,
     }}
   >
     <Card
       title="Çıkış"
       variant="borderless"
-      style={{ maxWidth: 460, width: "100%", boxShadow: "0 10px 30px rgba(0,0,0,0.08)" }}
+      style={{ maxWidth: 460, width: "100%", boxShadow: shadows.lg }}
     >
       <Typography.Paragraph type="secondary">
         Oturumu sonlandırma işlemini gerçek auth logout aksiyonuyla bağlayın.

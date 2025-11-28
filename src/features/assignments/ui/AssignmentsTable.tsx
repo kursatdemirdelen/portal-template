@@ -10,7 +10,7 @@ import type { Assignment } from "../model/types";
 import {
   getAssignmentPriorityMeta,
   getAssignmentStatusMeta,
-} from "@/shared/styles/styleHelpers";
+} from "@/shared/styles";
 
 const columns: ColumnsType<Assignment> = [
   { title: "Zimmet ID", dataIndex: "id", key: "id", width: 100 },
@@ -22,7 +22,12 @@ const columns: ColumnsType<Assignment> = [
     width: 200,
     ellipsis: true,
   },
-  { title: "Atanan Kişi", dataIndex: "assignedTo", key: "assignedTo", width: 120 },
+  {
+    title: "Atanan Kişi",
+    dataIndex: "assignedTo",
+    key: "assignedTo",
+    width: 120,
+  },
   { title: "Atayan", dataIndex: "assignedBy", key: "assignedBy", width: 120 },
   { title: "Başlama", dataIndex: "startDate", key: "startDate", width: 110 },
   { title: "Bitiş", dataIndex: "dueDate", key: "dueDate", width: 110 },
@@ -52,9 +57,24 @@ const columns: ColumnsType<Assignment> = [
     width: 140,
     render: () => (
       <Space size="small">
-        <Button type="text" size="small" icon={<EyeOutlined />} title="Görüntüle" />
-        <Button type="text" size="small" icon={<EditOutlined />} title="Düzenle" />
-        <Button type="text" size="small" icon={<CheckCircleOutlined />} title="Tamamla" />
+        <Button
+          type="text"
+          size="small"
+          icon={<EyeOutlined />}
+          title="Görüntüle"
+        />
+        <Button
+          type="text"
+          size="small"
+          icon={<EditOutlined />}
+          title="Düzenle"
+        />
+        <Button
+          type="text"
+          size="small"
+          icon={<CheckCircleOutlined />}
+          title="Tamamla"
+        />
       </Space>
     ),
   },

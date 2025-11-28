@@ -2,8 +2,13 @@ import React from "react";
 import { Row, Col, Statistic, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { SectionCard } from "@/shared/ui";
-import { colorPalette, spacing } from "@/shared/styles/styleConstants";
-import type { Holiday, LeaveBalance, HolidayType } from "../model/types";
+import { colors as colorPalette, spacing } from "@/shared/styles";
+import type {
+  Holiday,
+  LeaveBalance,
+  HolidayType,
+  LeaveRequest,
+} from "../model/types";
 
 const holidayTypeLabel: Record<HolidayType, string> = {
   official: "Resmi Tatil",
@@ -13,14 +18,41 @@ const holidayTypeLabel: Record<HolidayType, string> = {
 
 const holidayTypeColor: Record<HolidayType, string> = {
   official: colorPalette.primary,
-  company: "#faad14",
-  personal: "#52c41a",
+  company: colorPalette.warning,
+  personal: colorPalette.success,
 };
 
 const balanceColumns: ColumnsType<LeaveBalance> = [
   { title: "İzin Tipi", dataIndex: "type", key: "type", width: 180 },
   { title: "Kullanılan", dataIndex: "used", key: "used", width: 120 },
   { title: "Kalan", dataIndex: "remaining", key: "remaining", width: 120 },
+];
+
+const requestColumns: ColumnsType<LeaveRequest> = [
+  { title: "Tip", dataIndex: "type", key: "type" },
+  { title: "Başlangıç", dataIndex: "startDate", key: "startDate" },
+  { title: "Bitiş", dataIndex: "endDate", key: "endDate" },
+  { title: "Gün", dataIndex: "days", key: "days" },
+  {
+    title: "Durum",
+    dataIndex: "status",
+    key: "status",
+    render: (status: string) => {
+      const color =
+        status === "approved"
+          ? "success"
+          : status === "rejected"
+          ? "error"
+          : "warning";
+      const text =
+        status === "approved"
+          ? "Onaylandı"
+          : status === "rejected"
+          ? "Reddedildi"
+          : "Bekliyor";
+      return <Tag color={color}>{text}</Tag>;
+    },
+  },
 ];
 
 const holidayColumns: ColumnsType<Holiday> = [
@@ -40,9 +72,14 @@ const holidayColumns: ColumnsType<Holiday> = [
 interface LeaveListProps {
   balances: LeaveBalance[];
   holidays: Holiday[];
+  leaves?: LeaveRequest[];
 }
 
-export const LeaveList: React.FC<LeaveListProps> = ({ balances, holidays }) => {
+export const LeaveList: React.FC<LeaveListProps> = ({
+  balances,
+  holidays,
+  leaves = [],
+}) => {
   const totalRemaining = balances.reduce(
     (sum, item) => sum + item.remaining,
     0
@@ -54,7 +91,11 @@ export const LeaveList: React.FC<LeaveListProps> = ({ balances, holidays }) => {
       <Row gutter={[16, 16]} style={{ marginBottom: spacing["2xl"] }}>
         <Col xs={24} sm={12} md={12} lg={6}>
           <SectionCard variant="default">
-            <Statistic title="Toplam Kalan İzin" value={totalRemaining} suffix="gün" />
+            <Statistic
+              title="Toplam Kalan İzin"
+              value={totalRemaining}
+              suffix="gün"
+            />
           </SectionCard>
         </Col>
         <Col xs={24} sm={12} md={12} lg={6}>
@@ -73,7 +114,7 @@ export const LeaveList: React.FC<LeaveListProps> = ({ balances, holidays }) => {
         </Col>
       </Row>
 
-      <SectionCard variant="default">
+      <SectionCard title="İzin Bakiyeleri" style={{ marginBottom: spacing.lg }}>
         <Table
           columns={balanceColumns}
           dataSource={balances}
@@ -83,7 +124,21 @@ export const LeaveList: React.FC<LeaveListProps> = ({ balances, holidays }) => {
         />
       </SectionCard>
 
-      <SectionCard variant="default">
+      {leaves.length > 0 && (
+        <SectionCard
+          title="İzin Taleplerim"
+          style={{ marginBottom: spacing.lg }}
+        >
+          <Table
+            columns={requestColumns}
+            dataSource={leaves}
+            rowKey="id"
+            pagination={false}
+          />
+        </SectionCard>
+      )}
+
+      <SectionCard title="Tatil Takvimi">
         <Table
           columns={holidayColumns}
           dataSource={holidays}

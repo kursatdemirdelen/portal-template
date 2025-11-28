@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Empty } from "antd";
 import { CheckCheck } from "lucide-react";
+import { colors as colorPalette, borderColors } from "@/shared/styles";
 import { Notification } from "../model/types";
 import { NotificationItem } from "./NotificationItem";
 
@@ -34,14 +35,14 @@ export const NotificationList: React.FC<NotificationListProps> = ({
             alignItems: "center",
             paddingBottom: 12,
             marginBottom: 16,
-            borderBottom: "1px solid #e2e8f0",
+            borderBottom: `1px solid ${borderColors.neutral}`,
           }}
         >
           <span
             style={{
               fontSize: 12,
               fontWeight: 600,
-              color: "#64748b",
+              color: colorPalette.textSecondary,
               textTransform: "uppercase",
               letterSpacing: "0.5px",
             }}

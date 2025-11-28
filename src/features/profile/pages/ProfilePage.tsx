@@ -31,149 +31,46 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { PageContainer, SectionCard } from "@/shared/ui";
-import { colorPalette, spacing } from "@/shared/styles/styleConstants";
+import { colors as colorPalette, spacing } from "@/shared/styles";
+import {
+  mockProfileSummary,
+  mockProfileStats,
+  mockNotificationPreferences,
+  mockSecurityChecklist,
+  mockActivityTimeline,
+  mockSessions,
+  mockConnectedApps,
+} from "@/shared/data/mocks";
 
 const { Text, Title } = Typography;
 
-const profileSummary = {
-  name: "Kürşat Demirdelen",
-  title: "Dijital Portal Ürün Yöneticisi",
-  email: "kursat.demirdelen@portal.dev",
-  phone: "+90 555 123 45 67",
-  location: "İstanbul, Türkiye",
-  timezone: "GMT+3 · TR",
-  squad: ["Merkez Portal Takımı", "Deneyim Platformu"],
-  languages: ["Türkçe", "İngilizce"],
-  manager: "Elif Kaya",
-  startDate: "Mayıs 2020",
+// Icon mapper for connected apps
+const getAppIcon = (iconType: string) => {
+  switch (iconType) {
+    case "slack":
+      return <SlackOutlined />;
+    case "api":
+      return <ApiOutlined />;
+    case "github":
+      return <GithubOutlined />;
+    default:
+      return <CloudOutlined />;
+  }
 };
 
-const statHighlights = [
-  { label: "Kapatılan talepler", value: "128", helper: "Son 30 günde +12%" },
-  { label: "Aktif projeler", value: "6", helper: "Portal, CRM, İK" },
-  { label: "Eğitim kredisi", value: "18", helper: "2 modülle kullanılabilir" },
-];
-
-const preferenceToggles = [
-  {
-    key: "productUpdates",
-    label: "Ürün güncellemeleri",
-    description: "Versiyon notları ve planlı bakım duyuruları",
-    channel: "E-posta",
-    enabled: true,
-  },
-  {
-    key: "ticketMentions",
-    label: "Ticket mention uyarısı",
-    description: "Adınız geçen yorumlarda anlık mobil bildirim",
-    channel: "Mobil bildirim",
-    enabled: true,
-  },
-  {
-    key: "digest",
-    label: "Haftalık özet",
-    description: "Takım aktivitesi ve sprint raporu",
-    channel: "E-posta",
-    enabled: false,
-  },
-];
-
-const securityChecklist = [
-  {
-    label: "İki adımlı doğrulama",
-    status: "Aktif",
-    tone: colorPalette.success,
-  },
-  {
-    label: "Kilitli oturumlar",
-    status: "Yok",
-    tone: colorPalette.success,
-  },
-  {
-    label: "Yedek kodlar",
-    status: "30 gün önce yenilendi",
-    tone: colorPalette.warning,
-  },
-  {
-    label: "Cihaz güveni",
-    status: "3 yetkili cihaz",
-    tone: colorPalette.info,
-  },
-];
-
-const activityTimeline = [
-  {
-    title: "Bildirim tercihleri güncellendi",
-    time: "Bugün, 09:24",
-    detail: "Slack mention tetikleyicisi aktifleştirildi",
-  },
-  {
-    title: "Yeni cihaz doğrulandı",
-    time: "Dün, 21:12",
-    detail: "iOS uygulamasından giriş onaylandı",
-  },
-  {
-    title: "Takım odağı güncellendi",
-    time: "22 Şubat",
-    detail: "Deneyim Platformu ekibine atandı",
-  },
-  {
-    title: "Güvenlik taraması tamamlandı",
-    time: "18 Şubat",
-    detail: "Parola ve token setleri yenilendi",
-  },
-];
-
-const sessions = [
-  {
-    id: "desktop",
-    label: "Chrome - Windows",
-    location: "İstanbul - 10 dk önce",
-    ip: "10.24.32.11",
-    type: "desktop",
-    trusted: true,
-  },
-  {
-    id: "mobile",
-    label: "Portal Mobile - iOS",
-    location: "Kadıköy - 2 saat önce",
-    ip: "10.18.10.4",
-    type: "mobile",
-    trusted: true,
-  },
-  {
-    id: "edge",
-    label: "Edge - Windows",
-    location: "Ankara - 1 gün önce",
-    ip: "10.44.12.98",
-    type: "desktop",
-    trusted: false,
-  },
-];
-
-const connectedApps = [
-  {
-    id: "slack",
-    name: "Slack",
-    description: "Mention ve ticket bildirimleri",
-    status: "Gerçek zamanlı",
-    icon: <SlackOutlined />,
-  },
-  {
-    id: "jira",
-    name: "Jira Cloud",
-    description: "Sprint planlama ve issue senkronu",
-    status: "Günde 3 kez",
-    icon: <ApiOutlined />,
-  },
-  {
-    id: "github",
-    name: "GitHub",
-    description: "Pull request ve deploy bağlantıları",
-    status: "Aktif",
-    icon: <GithubOutlined />,
-  },
-];
+// Tone mapper for security checklist
+const getToneColor = (tone: string) => {
+  switch (tone) {
+    case "success":
+      return colorPalette.success;
+    case "warning":
+      return colorPalette.warning;
+    case "info":
+      return colorPalette.info;
+    default:
+      return colorPalette.textSecondary;
+  }
+};
 
 const ProfilePage: React.FC = () => (
   <PageContainer
@@ -210,18 +107,20 @@ const ProfilePage: React.FC = () => (
               <Space direction="vertical" size={spacing.sm}>
                 <div>
                   <Title level={3} style={{ marginBottom: 4 }}>
-                    {profileSummary.name}
+                    {mockProfileSummary.name}
                   </Title>
-                  <Text type="secondary">{profileSummary.title}</Text>
+                  <Text type="secondary">{mockProfileSummary.title}</Text>
                 </div>
                 <Space wrap>
                   <Tag color={colorPalette.primary}>Admin</Tag>
                   <Tag icon={<TeamOutlined />} color={colorPalette.info}>
-                    {profileSummary.squad[0]}
+                    {mockProfileSummary.squad[0]}
                   </Tag>
-                  <Tag color={colorPalette.success}>{profileSummary.location}</Tag>
+                  <Tag color={colorPalette.success}>
+                    {mockProfileSummary.location}
+                  </Tag>
                   <Tag icon={<SettingOutlined />} color={colorPalette.warning}>
-                    {profileSummary.timezone}
+                    {mockProfileSummary.timezone}
                   </Tag>
                 </Space>
               </Space>
@@ -231,7 +130,7 @@ const ProfilePage: React.FC = () => (
           <Divider />
 
           <Row gutter={[16, 16]}>
-            {statHighlights.map((stat) => (
+            {mockProfileStats.map((stat) => (
               <Col xs={24} sm={8} key={stat.label}>
                 <div>
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -240,7 +139,9 @@ const ProfilePage: React.FC = () => (
                   <Title level={4} style={{ margin: 4 }}>
                     {stat.value}
                   </Title>
-                  <Text style={{ fontSize: 12, color: colorPalette.textSecondary }}>
+                  <Text
+                    style={{ fontSize: 12, color: colorPalette.textSecondary }}
+                  >
                     {stat.helper}
                   </Text>
                 </div>
@@ -252,28 +153,60 @@ const ProfilePage: React.FC = () => (
         <Row gutter={[24, 24]} style={{ marginTop: spacing["2xl"] }}>
           <Col xs={24} md={12}>
             <SectionCard title="İletişim ve Takım">
-              <Descriptions column={1} colon={false} styles={{ label: { width: 140 } }}>
-                <Descriptions.Item label={<Space><MailOutlined />E-posta</Space>}>
-                  {profileSummary.email}
+              <Descriptions
+                column={1}
+                colon={false}
+                styles={{ label: { width: 140 } }}
+              >
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <MailOutlined />
+                      E-posta
+                    </Space>
+                  }
+                >
+                  {mockProfileSummary.email}
                 </Descriptions.Item>
-                <Descriptions.Item label={<Space><QrcodeOutlined />Telefon</Space>}>
-                  {profileSummary.phone}
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <QrcodeOutlined />
+                      Telefon
+                    </Space>
+                  }
+                >
+                  {mockProfileSummary.phone}
                 </Descriptions.Item>
-                <Descriptions.Item label={<Space><TeamOutlined />Takımlar</Space>}>
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <TeamOutlined />
+                      Takımlar
+                    </Space>
+                  }
+                >
                   <Space wrap>
-                    {profileSummary.squad.map((team) => (
+                    {mockProfileSummary.squad.map((team) => (
                       <Tag key={team}>{team}</Tag>
                     ))}
                   </Space>
                 </Descriptions.Item>
-                <Descriptions.Item label={<Space><SettingOutlined />Yönetici</Space>}>
-                  {profileSummary.manager}
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <SettingOutlined />
+                      Yönetici
+                    </Space>
+                  }
+                >
+                  {mockProfileSummary.manager}
                 </Descriptions.Item>
                 <Descriptions.Item label="Dil">
-                  {profileSummary.languages.join(", ")}
+                  {mockProfileSummary.languages.join(", ")}
                 </Descriptions.Item>
                 <Descriptions.Item label="Başlangıç">
-                  {profileSummary.startDate}
+                  {mockProfileSummary.startDate}
                 </Descriptions.Item>
               </Descriptions>
             </SectionCard>
@@ -281,7 +214,7 @@ const ProfilePage: React.FC = () => (
           <Col xs={24} md={12}>
             <SectionCard title="Bildirim Tercihleri">
               <List
-                dataSource={preferenceToggles}
+                dataSource={mockNotificationPreferences}
                 split={false}
                 renderItem={(pref) => (
                   <List.Item
@@ -299,7 +232,12 @@ const ProfilePage: React.FC = () => (
                       description={
                         <div>
                           <Text>{pref.description}</Text>
-                          <div style={{ fontSize: 12, color: colorPalette.textSecondary }}>
+                          <div
+                            style={{
+                              fontSize: 12,
+                              color: colorPalette.textSecondary,
+                            }}
+                          >
                             Kanal: {pref.channel}
                           </div>
                         </div>
@@ -316,13 +254,22 @@ const ProfilePage: React.FC = () => (
           <Col xs={24} lg={12}>
             <SectionCard title="Son Aktivite">
               <Timeline
-                items={activityTimeline.map((item) => ({
+                items={mockActivityTimeline.map((item) => ({
                   dot: <LockOutlined style={{ color: colorPalette.primary }} />,
                   children: (
                     <div>
                       <Text strong>{item.title}</Text>
-                      <div style={{ fontSize: 12, color: colorPalette.textSecondary }}>{item.detail}</div>
-                      <div style={{ fontSize: 12, marginTop: 4 }}>{item.time}</div>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          color: colorPalette.textSecondary,
+                        }}
+                      >
+                        {item.detail}
+                      </div>
+                      <div style={{ fontSize: 12, marginTop: 4 }}>
+                        {item.time}
+                      </div>
                     </div>
                   ),
                 }))}
@@ -353,20 +300,39 @@ const ProfilePage: React.FC = () => (
 
       <Col xs={24} xl={8}>
         <SectionCard title="Güvenlik durumu" extra={<Text strong>%86</Text>}>
-          <Space direction="vertical" size={spacing.lg} style={{ width: "100%" }}>
+          <Space
+            direction="vertical"
+            size={spacing.lg}
+            style={{ width: "100%" }}
+          >
             <div style={{ textAlign: "center" }}>
-              <Progress type="dashboard" percent={86} strokeColor={colorPalette.success} />
+              <Progress
+                type="dashboard"
+                percent={86}
+                strokeColor={colorPalette.success}
+              />
               <Text type="secondary">Güvenlik kontrol listesi</Text>
             </div>
             <List
-              dataSource={securityChecklist}
+              dataSource={mockSecurityChecklist}
               split={false}
               renderItem={(item) => (
-                <List.Item key={item.label} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <List.Item
+                  key={item.label}
+                  style={{ paddingLeft: 0, paddingRight: 0 }}
+                >
                   <List.Item.Meta
-                    avatar={<LockOutlined style={{ color: item.tone, fontSize: 16 }} />}
+                    avatar={
+                      <LockOutlined
+                        style={{ color: getToneColor(item.tone), fontSize: 16 }}
+                      />
+                    }
                     title={item.label}
-                    description={<Text style={{ color: colorPalette.textSecondary }}>{item.status}</Text>}
+                    description={
+                      <Text style={{ color: colorPalette.textSecondary }}>
+                        {item.status}
+                      </Text>
+                    }
                   />
                 </List.Item>
               )}
@@ -374,9 +340,12 @@ const ProfilePage: React.FC = () => (
           </Space>
         </SectionCard>
 
-        <SectionCard title="Aktif oturumlar" style={{ marginTop: spacing["2xl"] }}>
+        <SectionCard
+          title="Aktif oturumlar"
+          style={{ marginTop: spacing["2xl"] }}
+        >
           <List
-            dataSource={sessions}
+            dataSource={mockSessions}
             renderItem={(session) => (
               <List.Item
                 key={session.id}
@@ -389,9 +358,13 @@ const ProfilePage: React.FC = () => (
                 <List.Item.Meta
                   avatar={
                     session.type === "desktop" ? (
-                      <LaptopOutlined style={{ fontSize: 18, color: colorPalette.primary }} />
+                      <LaptopOutlined
+                        style={{ fontSize: 18, color: colorPalette.primary }}
+                      />
                     ) : (
-                      <MobileOutlined style={{ fontSize: 18, color: colorPalette.primary }} />
+                      <MobileOutlined
+                        style={{ fontSize: 18, color: colorPalette.primary }}
+                      />
                     )
                   }
                   title={
@@ -416,20 +389,32 @@ const ProfilePage: React.FC = () => (
           />
         </SectionCard>
 
-        <SectionCard title="Bağlı servisler" style={{ marginTop: spacing["2xl"] }}>
+        <SectionCard
+          title="Bağlı servisler"
+          style={{ marginTop: spacing["2xl"] }}
+        >
           <List
-            dataSource={connectedApps}
+            dataSource={mockConnectedApps}
             renderItem={(app) => (
               <List.Item
                 key={app.id}
                 actions={[
-                  <Button type="link" size="small" icon={<CloudOutlined />} key="manage">
+                  <Button
+                    type="link"
+                    size="small"
+                    icon={<CloudOutlined />}
+                    key="manage"
+                  >
                     Ayarları yönet
                   </Button>,
                 ]}
               >
                 <List.Item.Meta
-                  avatar={<div style={{ fontSize: 18, color: colorPalette.primary }}>{app.icon}</div>}
+                  avatar={
+                    <div style={{ fontSize: 18, color: colorPalette.primary }}>
+                      {getAppIcon(app.iconType)}
+                    </div>
+                  }
                   title={app.name}
                   description={
                     <div style={{ fontSize: 12 }}>

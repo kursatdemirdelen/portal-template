@@ -7,7 +7,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import type { TimeEntry } from "../model/types";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import { colors as colorPalette } from "@/shared/styles";
 
 const columns: ColumnsType<TimeEntry> = [
   { title: "Tarih", dataIndex: "date", key: "date", width: 110 },
@@ -34,7 +34,11 @@ const columns: ColumnsType<TimeEntry> = [
     key: "status",
     width: 120,
     render: (status: TimeEntry["status"]) => (
-      <Tag color={status === "completed" ? "#52c41a" : colorPalette.primary}>
+      <Tag
+        color={
+          status === "completed" ? colorPalette.success : colorPalette.primary
+        }
+      >
         {status === "completed" ? "Tamamlandı" : "Devam Ediyor"}
       </Tag>
     ),
@@ -54,11 +58,26 @@ const columns: ColumnsType<TimeEntry> = [
     render: (_: unknown, record: TimeEntry) => (
       <Space size="small">
         {record.status === "in-progress" ? (
-          <Button type="text" size="small" icon={<PauseCircleOutlined />} title="Duraklat" />
+          <Button
+            type="text"
+            size="small"
+            icon={<PauseCircleOutlined />}
+            title="Duraklat"
+          />
         ) : (
-          <Button type="text" size="small" icon={<PlayCircleOutlined />} title="Başlat" />
+          <Button
+            type="text"
+            size="small"
+            icon={<PlayCircleOutlined />}
+            title="Başlat"
+          />
         )}
-        <Button type="text" size="small" icon={<DeleteOutlined />} title="Sil" />
+        <Button
+          type="text"
+          size="small"
+          icon={<DeleteOutlined />}
+          title="Sil"
+        />
       </Space>
     ),
   },

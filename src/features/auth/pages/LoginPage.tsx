@@ -1,4 +1,5 @@
 import React from "react";
+import { gradients } from "@/shared/styles";
 import { LoginForm } from "../ui/LoginForm";
 import { useAuth } from "../hooks/useAuth";
 
@@ -12,7 +13,7 @@ const LoginPage: React.FC = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%)",
+        background: gradients.bgElevated,
         padding: 24,
       }}
     >
