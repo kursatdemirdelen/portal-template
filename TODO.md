@@ -6,22 +6,22 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 ## 🧹 Temizlik
 
-- [ ] `shared/ui/PlaceholderPage.tsx` - Kullanılmıyor, silinecek
-- [ ] `shared/ui/index.ts` → PlaceholderPage export kaldırılacak
+- [x] `shared/ui/PlaceholderPage.tsx` - ✅ Silindi
+- [x] `shared/ui/index.ts` → ✅ PlaceholderPage export kaldırıldı
 
 ---
 
 ## 🔧 Feature Geliştirmeleri
 
 ### Approvals (Onaylar)
-- [ ] Onay listesi tablosu
-- [ ] Durum filtreleri (Bekleyen, Onaylanan, Reddedilen)
-- [ ] Onay/Red aksiyonları
+- [x] Onay listesi tablosu
+- [x] Durum filtreleri (Bekleyen, Onaylanan, Reddedilen)
+- [x] Onay/Red aksiyonları
 
 ### Leaves (İzinler)
-- [ ] İzin talebi formu
-- [ ] Onay süreci (yönetici onayı)
-- [ ] Takvim görünümü
+- [x] İzin talebi formu
+- [x] Onay süreci (yönetici onayı)
+- [x] Takvim görünümü
 
 ### Time Tracking (Zaman Takibi)
 - [ ] Aktif timer (başlat/durdur)
@@ -48,9 +48,9 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 - [ ] Button loading state
 
 ### Empty States
-- [ ] Boş liste görselleri
-- [ ] "Veri bulunamadı" mesajları
-- [ ] Aksiyon önerileri
+- [x] Boş liste görselleri ✅ (EmptyTicketList)
+- [x] "Veri bulunamadı" mesajları ✅
+- [x] Aksiyon önerileri ✅ (Yeni bilet oluştur butonu)
 
 ### Error Handling
 - [ ] Global error boundary
@@ -59,8 +59,8 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 ### Genel
 - [ ] Dark mode desteği (opsiyonel)
-- [ ] Animasyon tutarlılığı
-- [ ] Mobil görünüm iyileştirmeleri
+- [x] Animasyon tutarlılığı ✅ (hover efektleri, transitions)
+- [x] Mobil görünüm iyileştirmeleri ✅ (responsive grid, breakpoints)
 
 ---
 
@@ -68,13 +68,19 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 - [ ] Bilet trend grafiği (haftalık/aylık)
 - [ ] Proje ilerleme grafiği
-- [ ] Hızlı aksiyon butonları
+- [x] Hızlı aksiyon butonları ✅ (QuickActions - rol bazlı)
 - [ ] Son aktiviteler timeline
 - [ ] Mini takvim widget
 
 ---
 
 ## 🛠️ Kod Kalitesi
+
+### Build Optimizasyonu
+- [ ] Code Splitting / Lazy Loading (Bundle 2MB → ~200-300KB chunks)
+  - React.lazy ile route bazlı splitting
+  - Vite config'de vendor chunks (react, antd, utils)
+  - Suspense fallback'ler
 
 ### Ortak Hook'lar
 - [ ] `useDebounce` - Arama gecikmesi
@@ -129,4 +135,4 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 ---
 
-*Son güncelleme: 27 Kasım 2025*
+*Son güncelleme: 28 Kasım 2025*

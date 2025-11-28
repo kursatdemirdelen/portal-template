@@ -102,10 +102,11 @@ features/<feature>/
 
 | Dosya | İçerik |
 |-------|--------|
-| `styleConstants.ts` | Renk, spacing, typography token'ları |
-| `styleHelpers.ts` | Durum renkleri, badge stilleri |
-| `componentStyles.ts` | Tablo, toolbar ortak stilleri |
+| `tokens.ts` | Renk, spacing, radius, shadow gibi tasarım token'ları |
+| `helpers.ts` | Durum renkleri, etiket stilleri, layout yardımcıları |
+| `appTheme.ts` | Token'lar üstünden oluşturulan semantik tema objesi |
 | `theme.ts` | Ant Design tema ayarları |
+| `globals.css` | Uygulama genelinde kullanılan CSS değişkenleri |
 
 ## 📱 Responsive Tasarım
 
@@ -121,7 +122,7 @@ features/<feature>/
 
 ## 📊 Merkezi Mock Data
 
-Tüm mock veriler `shared/data/mockData.ts` içinde:
+Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 
 - 10 kullanıcı (avatar, rol, departman)
 - Projeler ve takımlar
