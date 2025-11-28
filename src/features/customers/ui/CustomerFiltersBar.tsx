@@ -4,7 +4,7 @@ import {
   FilterOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { colors, shadows } from "@/shared/styles";
 import type { CustomerFilters } from "../model/types";
 import { STATUS_LABELS, ALL_STATUSES } from "./constants";
 
@@ -48,7 +48,7 @@ export const CustomerFiltersBar = ({
         <Col xs={24} sm={12} md={8}>
           <Input
             placeholder="Müşteri adı, yetkili kişi ara..."
-            prefix={<SearchOutlined style={{ color: "#bfbfbf" }} />}
+            prefix={<SearchOutlined style={{ color: colors.textTertiary }} />}
             value={filters.search}
             onChange={(e) => onFilterChange("search", e.target.value)}
             allowClear

@@ -1,5 +1,12 @@
 import React, { memo, useMemo, type CSSProperties } from "react";
 import { Typography } from "antd";
+import {
+  backgrounds,
+  borderColors,
+  colors,
+  hexToRgba,
+  shadows,
+} from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -29,20 +36,20 @@ const chartWrapperStyle: CSSProperties = {
   height: 180,
   borderRadius: "50%",
   position: "relative",
-  boxShadow: "0 8px 18px rgba(15, 23, 42, 0.12)",
+  boxShadow: shadows.lg,
 };
 
 const chartInnerStyle: CSSProperties = {
   position: "absolute",
   inset: 22,
   borderRadius: "50%",
-  background: "#fff",
+  background: backgrounds.card,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
   gap: 2,
-  color: "#0f172a",
+  color: colors.textPrimary,
 };
 
 const totalLabelStyle: CSSProperties = {
@@ -52,7 +59,7 @@ const totalLabelStyle: CSSProperties = {
 
 const totalSubtitleStyle: CSSProperties = {
   fontSize: 10,
-  color: "#94a3b8",
+  color: colors.textSecondary,
   textTransform: "uppercase",
   letterSpacing: 0.45,
 };
@@ -71,8 +78,8 @@ const legendItemStyle: CSSProperties = {
   justifyContent: "space-between",
   padding: "8px 10px",
   borderRadius: 6,
-  border: "1px solid #edf2ff",
-  background: "#fdfdff",
+  border: `1px solid ${borderColors.light}`,
+  background: backgrounds.cardAlt,
 };
 
 const legendLeftStyle: CSSProperties = {
@@ -90,12 +97,12 @@ const colorDotBaseStyle: CSSProperties = {
 
 const labelTextStyle: CSSProperties = {
   fontWeight: 600,
-  color: "#0f172a",
+  color: colors.textPrimary,
 };
 
 const valueTextStyle: CSSProperties = {
   fontWeight: 600,
-  color: "#334155",
+  color: colors.textSecondary,
 };
 
 /* ---- Helper ---- */
@@ -105,7 +112,10 @@ function buildConicGradient(items: DistributionItem[]): string {
 
   if (total === 0) {
     // fallback: tek renk hafif gri bir daire
-    return "conic-gradient(#e2e8f0 0deg 360deg)";
+    return `conic-gradient(${hexToRgba(
+      colors.textSecondary,
+      0.15
+    )} 0deg 360deg)`;
   }
 
   const { stops } = items.reduce(

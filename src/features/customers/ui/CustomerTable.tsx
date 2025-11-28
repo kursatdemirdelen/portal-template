@@ -1,6 +1,6 @@
 import { Table, Tag, Space, Button, Tooltip, Card, Typography } from "antd";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { colors, shadows } from "@/shared/styles";
 import type { ColumnsType } from "antd/es/table";
 import type { Customer, CustomerStatus } from "../model/types";
 import {
@@ -52,7 +52,9 @@ export const CustomerTable = ({
       sorter: (a, b) => a.shortName.localeCompare(b.shortName),
       render: (shortName: string, record: Customer) => (
         <div style={{ cursor: "pointer" }} onClick={() => onView(record)}>
-          <div style={{ fontWeight: 600, color: "#1f1f1f" }}>{shortName}</div>
+          <div style={{ fontWeight: 600, color: colors.textPrimary }}>
+            {shortName}
+          </div>
           <Text type="secondary" style={{ fontSize: 12 }} ellipsis>
             {record.name}
           </Text>
@@ -133,7 +135,7 @@ export const CustomerTable = ({
               size="small"
               icon={<EyeOutlined style={{ fontSize: 16 }} />}
               onClick={() => onView(record)}
-              style={{ color: "#1890ff" }}
+              style={{ color: colors.info }}
             />
           </Tooltip>
           <Tooltip title="Düzenle">
@@ -142,7 +144,7 @@ export const CustomerTable = ({
               size="small"
               icon={<EditOutlined style={{ fontSize: 16 }} />}
               onClick={() => onEdit(record)}
-              style={{ color: "#52c41a" }}
+              style={{ color: colors.success }}
             />
           </Tooltip>
         </Space>

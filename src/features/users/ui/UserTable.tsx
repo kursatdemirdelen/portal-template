@@ -15,6 +15,7 @@ import {
   STATUS_LABELS,
   STATUS_COLORS,
 } from "./constants";
+import { colors } from "@/shared/styles";
 
 interface UserTableProps {
   users: User[];
@@ -56,7 +57,9 @@ export const UserTable: React.FC<UserTableProps> = ({
           <Avatar icon={<UserOutlined />} src={record.avatar} />
           <div>
             <div style={{ fontWeight: 500 }}>{record.name}</div>
-            <div style={{ fontSize: 12, color: "#888" }}>{record.email}</div>
+            <div style={{ fontSize: 12, color: colors.textSecondary }}>
+              {record.email}
+            </div>
           </div>
         </Space>
       ),

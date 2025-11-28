@@ -8,7 +8,7 @@ import {
   message,
 } from "antd";
 import { IdcardOutlined, CopyOutlined } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { colors, shadows } from "@/shared/styles";
 import type { Customer } from "../model/types";
 import { STATUS_LABELS, STATUS_COLORS } from "./constants";
 
@@ -33,7 +33,7 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
     <Card
       title={
         <Space>
-          <IdcardOutlined style={{ color: "#1890ff" }} />
+          <IdcardOutlined style={{ color: colors.info }} />
           <span>Temel Bilgiler</span>
         </Space>
       }
@@ -46,10 +46,10 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
         size="small"
         labelStyle={{
           fontWeight: 500,
-          color: "#666",
+          color: colors.textSecondary,
           padding: "6px 8px",
         }}
-        contentStyle={{ color: "#333", padding: "6px 8px" }}
+        contentStyle={{ color: colors.textPrimary, padding: "6px 8px" }}
       >
         <Descriptions.Item label="Kısa Ad">
           <Text strong>{customer.shortName}</Text>
@@ -73,7 +73,7 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
                 <CopyOutlined
                   style={{
                     cursor: "pointer",
-                    color: "#1890ff",
+                    color: colors.info,
                     fontSize: 12,
                   }}
                   onClick={() =>

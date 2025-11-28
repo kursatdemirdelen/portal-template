@@ -1,6 +1,6 @@
 import { Card, Typography, Tag, Space, Row, Col, Avatar } from "antd";
 import { CrownOutlined } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { backgrounds, gradients, hexToRgba, shadows } from "@/shared/styles";
 import type { Customer } from "../model/types";
 import {
   STATUS_LABELS,
@@ -25,7 +25,7 @@ export const CustomerHeroCard = ({ customer }: CustomerHeroCardProps) => {
     <Card
       style={{
         ...cardStyle,
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: gradients.sidebarLogo,
         border: "none",
       }}
       styles={{ body: { padding: "20px 24px" } }}
@@ -37,10 +37,10 @@ export const CustomerHeroCard = ({ customer }: CustomerHeroCardProps) => {
               <Avatar
                 size={{ xs: 48, sm: 56, md: 64 }}
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.2)",
+                  backgroundColor: hexToRgba(backgrounds.card, 0.2),
                   fontSize: 22,
                   fontWeight: 600,
-                  border: "2px solid rgba(255,255,255,0.3)",
+                  border: `2px solid ${hexToRgba(backgrounds.card, 0.3)}`,
                 }}
               >
                 {customer.shortName.substring(0, 2).toUpperCase()}
@@ -49,13 +49,16 @@ export const CustomerHeroCard = ({ customer }: CustomerHeroCardProps) => {
             <Col flex="auto" style={{ minWidth: 0 }}>
               <Title
                 level={4}
-                style={{ color: "#fff", margin: 0, fontSize: 18 }}
+                style={{ color: backgrounds.card, margin: 0, fontSize: 18 }}
                 ellipsis
               >
                 {customer.shortName}
               </Title>
               <Text
-                style={{ color: "rgba(255,255,255,0.85)", fontSize: 13 }}
+                style={{
+                  color: hexToRgba(backgrounds.card, 0.85),
+                  fontSize: 13,
+                }}
                 ellipsis
               >
                 {customer.name}
@@ -95,19 +98,25 @@ export const CustomerHeroCard = ({ customer }: CustomerHeroCardProps) => {
         <Col xs={24} md={8}>
           <div
             style={{
-              background: "rgba(255,255,255,0.15)",
+              background: hexToRgba(backgrounds.card, 0.15),
               borderRadius: 10,
               padding: "12px 16px",
               backdropFilter: "blur(10px)",
               textAlign: "center",
             }}
           >
-            <Text style={{ color: "rgba(255,255,255,0.9)", fontSize: 12 }}>
+            <Text
+              style={{ color: hexToRgba(backgrounds.card, 0.9), fontSize: 12 }}
+            >
               Müşteri ID
             </Text>
             <Title
               level={4}
-              style={{ color: "#fff", margin: "2px 0 0 0", fontSize: 20 }}
+              style={{
+                color: backgrounds.card,
+                margin: "2px 0 0 0",
+                fontSize: 20,
+              }}
             >
               #{customer.id.toString().padStart(4, "0")}
             </Title>

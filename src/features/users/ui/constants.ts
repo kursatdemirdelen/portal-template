@@ -3,6 +3,7 @@
  */
 
 import type { UserRole, UserStatus } from '../model';
+import { colors } from '@/shared/styles';
 
 // Role Labels
 export const ROLE_LABELS: Record<UserRole, string> = {
@@ -22,10 +23,10 @@ export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
 
 // Role Colors
 export const ROLE_COLORS: Record<UserRole, string> = {
-  admin: '#ef4444',
-  manager: '#f97316',
-  worker: '#3b82f6',
-  user: '#8b5cf6',
+  admin: colors.error,
+  manager: colors.warning,
+  worker: colors.info,
+  user: colors.accent,
 };
 
 // Status Labels
@@ -37,9 +38,9 @@ export const STATUS_LABELS: Record<UserStatus, string> = {
 
 // Status Colors
 export const STATUS_COLORS: Record<UserStatus, string> = {
-  active: '#22c55e',
-  inactive: '#6b7280',
-  suspended: '#f59e0b',
+  active: colors.success,
+  inactive: colors.textSecondary,
+  suspended: colors.warning,
 };
 
 // Department Common Values

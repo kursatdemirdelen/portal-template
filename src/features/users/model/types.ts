@@ -3,14 +3,15 @@
  * =================================
  * 
  * Bu dosya, Users feature'ının tüm TypeScript type'larını içerir.
+ * Temel tipler @/shared/types'dan import edilir.
  * 
  * 📦 İÇERİK:
  * 
  * 1. DOMAIN TYPES (Core Entities)
- *    - User             → Tek bir kullanıcı kaydı
- *    - UserRole         → Rol tipi (admin, manager, worker, user)
- *    - UserStatus       → Durum (active, inactive, suspended)
- *    - RoleInfo         → Rol detay bilgisi
+ *    - User             → Tek bir kullanıcı kaydı (@/shared/types'dan)
+ *    - UserRole         → Rol tipi (@/shared/types'dan)
+ *    - UserStatus       → Durum (@/shared/types'dan)
+ *    - RoleInfo         → Rol detay bilgisi (@/shared/types'dan)
  * 
  * 2. API REQUEST TYPES
  *    - GetUsersRequest          → Liste sorgusu (filter, pagination)
@@ -35,70 +36,27 @@
  * - UI:       features/users/ui/constants.ts (labels için)
  */
 
-export type UserRole = 'admin' | 'manager' | 'worker' | 'user';
-export type UserStatus = 'active' | 'inactive' | 'suspended';
+// Temel tipler shared types'dan re-export edilir
+export type { 
+  UserRole, 
+  UserStatus, 
+  User, 
+  UserCreateInput, 
+  RoleInfo,
+  MockUser,
+  GetUsersRequest,
+  GetUsersResponse,
+  CreateUserRequest,
+  CreateUserResponse,
+  UserStats,
+} from '@/shared/types';
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  role: UserRole;
-  status: UserStatus;
-  department?: string;
-  createdAt: string;
-  updatedAt: string;
-  lastLogin?: string;
-  avatar?: string;
-}
+// Feature-specific extended types (shared types'ı genişletir)
+import type { UserRole, UserStatus, User } from '@/shared/types';
 
-export interface UserCreateInput {
-  name: string;
-  email: string;
-  phone?: string;
-  role: UserRole;
-  department?: string;
-}
-
-export interface RoleInfo {
-  id: UserRole;
-  name: string;
-  description: string;
-  permissionCount: number;
-}
-
-// API Request/Response Models
-export interface GetUsersRequest {
-  page?: number;
-  limit?: number;
-  search?: string;
-  role?: UserRole;
-  status?: UserStatus;
-  department?: string;
-}
-
-export interface GetUsersResponse {
-  data: User[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
-
-export interface CreateUserRequest {
-  name: string;
-  email: string;
-  phone?: string;
-  role: UserRole;
-  department?: string;
-}
-
-export interface CreateUserResponse {
-  id: string;
-  message: string;
-  user: User;
-}
-
+/**
+ * Kullanıcı güncelleme isteği
+ */
 export interface UpdateUserRequest {
   id: string;
   name?: string;
@@ -109,15 +67,24 @@ export interface UpdateUserRequest {
   department?: string;
 }
 
+/**
+ * Kullanıcı güncelleme yanıtı
+ */
 export interface UpdateUserResponse {
   message: string;
   user: User;
 }
 
+/**
+ * Kullanıcı silme isteği
+ */
 export interface DeleteUserRequest {
   id: string;
 }
 
+/**
+ * Toplu kullanıcı güncelleme isteği
+ */
 export interface BulkUpdateUsersRequest {
   userIds: string[];
   status?: UserStatus;
@@ -125,13 +92,19 @@ export interface BulkUpdateUsersRequest {
   department?: string;
 }
 
+/**
+ * Toplu kullanıcı güncelleme yanıtı
+ */
 export interface BulkUpdateUsersResponse {
   message: string;
   updatedCount: number;
   users: User[];
 }
 
-export interface UserStats {
+/**
+ * Feature-specific UserStats (byDepartment ve lastModified ekli)
+ */
+export interface UserStatsExtended {
   total: number;
   active: number;
   inactive: number;

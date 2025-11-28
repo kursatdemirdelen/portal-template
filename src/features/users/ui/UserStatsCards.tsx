@@ -11,6 +11,7 @@ import {
   TeamOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
+import { colors } from "@/shared/styles";
 
 interface UserStats {
   total: number;
@@ -40,7 +41,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
             title="Aktif Kullanıcı"
             value={stats.active}
             prefix={<UserOutlined />}
-            valueStyle={{ color: "#52c41a" }}
+            valueStyle={{ color: colors.success }}
           />
         </Card>
       </Col>
@@ -50,7 +51,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
             title="Yönetici Sayısı"
             value={stats.admins}
             prefix={<SafetyCertificateOutlined />}
-            valueStyle={{ color: "#1890ff" }}
+            valueStyle={{ color: colors.info }}
           />
         </Card>
       </Col>

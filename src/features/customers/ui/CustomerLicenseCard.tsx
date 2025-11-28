@@ -17,7 +17,7 @@ import {
   CalendarOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { backgrounds, borderColors, colors, shadows } from "@/shared/styles";
 import type { LicenseInfo } from "../model/types";
 import {
   LICENSE_TYPE_LABELS,
@@ -68,7 +68,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
     <Card
       title={
         <Space>
-          <SafetyCertificateOutlined style={{ color: "#eb2f96" }} />
+          <SafetyCertificateOutlined style={{ color: colors.accent }} />
           <span>Lisans Bilgileri</span>
         </Space>
       }
@@ -108,7 +108,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
                 <Text
                   strong
                   style={{
-                    color: daysRemaining < 30 ? "#ff4d4f" : "#52c41a",
+                    color: daysRemaining < 30 ? colors.error : colors.success,
                     fontSize: 14,
                   }}
                 >
@@ -120,10 +120,10 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
               percent={Math.round(licenseProgress)}
               strokeColor={
                 licenseProgress > 80
-                  ? "#ff4d4f"
+                  ? colors.error
                   : licenseProgress > 60
-                  ? "#faad14"
-                  : "#52c41a"
+                  ? colors.warning
+                  : colors.success
               }
               showInfo={false}
             />
@@ -136,13 +136,15 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
             <Col span={12}>
               <div
                 style={{
-                  background: "#f6ffed",
+                  background: backgrounds.successBg,
                   borderRadius: 8,
                   padding: "12px",
                   textAlign: "center",
                 }}
               >
-                <CalendarOutlined style={{ color: "#52c41a", fontSize: 16 }} />
+                <CalendarOutlined
+                  style={{ color: colors.success, fontSize: 16 }}
+                />
                 <Text
                   type="secondary"
                   style={{ fontSize: 12, display: "block", marginTop: 4 }}
@@ -157,13 +159,15 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
             <Col span={12}>
               <div
                 style={{
-                  background: "#fff2f0",
+                  background: backgrounds.errorBg,
                   borderRadius: 8,
                   padding: "12px",
                   textAlign: "center",
                 }}
               >
-                <CalendarOutlined style={{ color: "#ff4d4f", fontSize: 16 }} />
+                <CalendarOutlined
+                  style={{ color: colors.error, fontSize: 16 }}
+                />
                 <Text
                   type="secondary"
                   style={{ fontSize: 12, display: "block", marginTop: 4 }}
@@ -197,10 +201,10 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
           {/* Lisans Anahtarı */}
           <div
             style={{
-              background: "#fafafa",
+              background: backgrounds.neutral50,
               borderRadius: 8,
               padding: "12px 14px",
-              border: "1px solid #f0f0f0",
+              border: `1px solid ${borderColors.neutral}`,
             }}
           >
             <Text
@@ -220,7 +224,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
                   <CopyOutlined
                     style={{
                       cursor: "pointer",
-                      color: "#1890ff",
+                      color: colors.info,
                       fontSize: 14,
                     }}
                     onClick={() =>
@@ -235,7 +239,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
       ) : (
         <div style={{ textAlign: "center", padding: 40 }}>
           <SafetyCertificateOutlined
-            style={{ fontSize: 48, color: "#d9d9d9" }}
+            style={{ fontSize: 48, color: colors.textMuted }}
           />
           <div style={{ marginTop: 16 }}>
             <Text type="secondary">Lisans bilgisi yok</Text>

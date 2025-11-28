@@ -2,21 +2,19 @@
  * Users Mock Data - Re-exported from central mock data
  * 
  * Bu dosya geriye dönük uyumluluk için merkezi mock data'yı re-export eder.
- * Yeni kodlarda doğrudan @/shared/data/mockData kullanılmalıdır.
+ * Yeni kodlarda doğrudan @/shared/data/mocks kullanılmalıdır.
  */
 
 import {
   mockUsers as centralMockUsers,
   getUserStats as getCentralUserStats,
-  getUsersByRole as getCentralUsersByRole,
-  getUsersByStatus as getCentralUsersByStatus,
-  type MockUser,
-} from "@/shared/data/mockData";
+} from "@/shared/data/mocks";
 
 import type { User } from "./model";
+import type { MockUser, UserStatus } from "@/shared/types";
 
 // Merkezi kullanıcıları User tipine dönüştür
-export const mockUsers: User[] = centralMockUsers.map((u) => ({
+export const mockUsers: User[] = centralMockUsers.map((u: MockUser) => ({
   id: u.id,
   name: u.name,
   email: u.email,
@@ -36,6 +34,6 @@ export const getUsersByRole = (role: string): User[] => {
   return mockUsers.filter((u) => u.role === role);
 };
 
-export const getUsersByStatus = (status: string): User[] => {
+export const getUsersByStatus = (status: UserStatus): User[] => {
   return mockUsers.filter((u) => u.status === status);
 };

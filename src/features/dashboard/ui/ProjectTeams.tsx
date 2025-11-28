@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Row, Col, Typography, theme } from "antd";
 import { UserAvatar } from "@/shared/ui";
-import { colorPalette, spacing } from "@/shared/styles/styleConstants";
-import { getTeamStatusStyle } from "@/shared/styles/styleHelpers";
-import { getUserByName, type ProjectTeam } from "@/shared/data/mockData";
+import {
+  backgrounds,
+  borderColors,
+  colors as colorPalette,
+  getTeamStatusStyle,
+  gradients,
+} from "@/shared/styles";
+import { getUserByName } from "@/shared/data/mocks";
+import type { ProjectTeam } from "@/shared/types";
 
 const { Text } = Typography;
+
+// Re-export type for backward compatibility
+export type { ProjectTeam } from "@/shared/types";
 
 interface ProjectTeamsProps {
   teams: ProjectTeam[];
@@ -50,7 +59,7 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({
               user={{ name: person.name }}
               style={{
                 marginLeft: index === 0 ? 0 : -8,
-                border: "2px solid white",
+                border: `2px solid ${token.colorBgContainer}`,
               }}
             />
           );
@@ -61,13 +70,13 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({
               width: 28,
               height: 28,
               borderRadius: "50%",
-              background: colorPalette.primaryLighter,
+              background: backgrounds.hover,
               color: colorPalette.primary,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               marginLeft: -8,
-              border: "2px solid white",
+              border: `2px solid ${token.colorBgContainer}`,
               fontSize: 11,
               fontWeight: 600,
             }}
@@ -92,10 +101,10 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({
               onMouseLeave={() => setHoveredId(null)}
               style={{
                 background: isHovered
-                  ? "#f8fafc"
-                  : "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+                  ? backgrounds.neutral100
+                  : gradients.bgCard,
                 border: `1px solid ${
-                  isHovered ? colorPalette.primaryLight : "#e8eefb"
+                  isHovered ? colorPalette.primaryLight : borderColors.light
                 }`,
                 borderRadius: 10,
                 padding: 12,

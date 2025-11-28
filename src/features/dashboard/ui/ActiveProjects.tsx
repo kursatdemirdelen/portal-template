@@ -4,19 +4,22 @@
 
 import React from "react";
 import { Row, Col, Typography, Progress } from "antd";
-import { getProjectStatusStyle } from "@/shared/styles/styleHelpers";
+import {
+  backgrounds,
+  borderColors,
+  colors,
+  getProjectStatusStyle,
+  gradients,
+} from "@/shared/styles";
+import type { DashboardProject } from "@/shared/types";
 
 const { Text } = Typography;
 
-export interface Project {
-  name: string;
-  code: string;
-  progress: number;
-  status: string;
-}
+// Re-export type for backward compatibility
+export type { DashboardProject as Project } from "@/shared/types";
 
 interface ActiveProjectsProps {
-  projects: Project[];
+  projects: DashboardProject[];
 }
 
 export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
@@ -29,8 +32,8 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
           <Col key={project.code} xs={24} sm={12} xxl={8}>
             <div
               style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
-                border: "1px solid #e8eefb",
+                background: gradients.bgCard,
+                border: `1px solid ${borderColors.light}`,
                 borderRadius: 10,
                 padding: 12,
                 height: "100%",
@@ -50,7 +53,7 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <Text
                     style={{
-                      color: "#2c3e50",
+                      color: colors.textPrimary,
                       fontWeight: 600,
                       display: "block",
                       fontSize: 13,
@@ -63,7 +66,7 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
                   </Text>
                   <Text
                     type="secondary"
-                    style={{ fontSize: 11, color: "#7f8c8d" }}
+                    style={{ fontSize: 11, color: colors.textSecondary }}
                   >
                     {project.code}
                   </Text>
@@ -88,8 +91,8 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
               <div>
                 <Progress
                   percent={project.progress}
-                  strokeColor="#5b7aed"
-                  trailColor="#e8eefb"
+                  strokeColor={colors.primary}
+                  trailColor={backgrounds.neutral100}
                   size="small"
                   format={() => null}
                 />
@@ -101,10 +104,13 @@ export const ActiveProjects: React.FC<ActiveProjectsProps> = ({ projects }) => {
                     fontSize: 11,
                   }}
                 >
-                  <Text type="secondary" style={{ color: "#7f8c8d" }}>
+                  <Text
+                    type="secondary"
+                    style={{ color: colors.textSecondary }}
+                  >
                     Tamamlanma
                   </Text>
-                  <Text style={{ color: "#5b7aed", fontWeight: 600 }}>
+                  <Text style={{ color: colors.primary, fontWeight: 600 }}>
                     {project.progress}%
                   </Text>
                 </div>

@@ -1,6 +1,6 @@
 import { Card, Typography, Descriptions, Space } from "antd";
 import { UserOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { colors, shadows } from "@/shared/styles";
 import type { ContactPerson } from "../model/types";
 
 const { Text } = Typography;
@@ -19,7 +19,7 @@ export const CustomerContactCard = ({ contact }: CustomerContactCardProps) => {
     <Card
       title={
         <Space>
-          <UserOutlined style={{ color: "#52c41a" }} />
+          <UserOutlined style={{ color: colors.success }} />
           <span>Yetkili Kişi</span>
         </Space>
       }
@@ -33,10 +33,10 @@ export const CustomerContactCard = ({ contact }: CustomerContactCardProps) => {
           size="small"
           labelStyle={{
             fontWeight: 500,
-            color: "#666",
+            color: colors.textSecondary,
             padding: "6px 8px",
           }}
-          contentStyle={{ color: "#333", padding: "6px 8px" }}
+          contentStyle={{ color: colors.textPrimary, padding: "6px 8px" }}
         >
           <Descriptions.Item label="Ad Soyad">
             <Text strong>{contact.name}</Text>

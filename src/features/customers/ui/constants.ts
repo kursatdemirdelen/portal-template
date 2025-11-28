@@ -3,6 +3,7 @@
  */
 
 import type { CustomerStatus, LicenseType, LicenseStatus } from '../model/types';
+import { colors } from '@/shared/styles';
 
 // Status Labels
 export const STATUS_LABELS: Record<CustomerStatus, string> = {
@@ -13,9 +14,9 @@ export const STATUS_LABELS: Record<CustomerStatus, string> = {
 
 // Status Colors (Ant Design Tag colors)
 export const STATUS_COLORS: Record<CustomerStatus, string> = {
-  active: 'green',
-  inactive: 'default',
-  pending: 'orange',
+  active: colors.success,
+  inactive: colors.textSecondary,
+  pending: colors.warning,
 };
 
 // License Type Labels
@@ -28,10 +29,10 @@ export const LICENSE_TYPE_LABELS: Record<LicenseType, string> = {
 
 // License Type Colors
 export const LICENSE_TYPE_COLORS: Record<LicenseType, string> = {
-  trial: 'default',
-  standard: 'blue',
-  premium: 'purple',
-  enterprise: 'gold',
+  trial: colors.textSecondary,
+  standard: colors.primary,
+  premium: colors.accent,
+  enterprise: colors.warning,
 };
 
 // License Status Labels
@@ -43,9 +44,9 @@ export const LICENSE_STATUS_LABELS: Record<LicenseStatus, string> = {
 
 // License Status Colors
 export const LICENSE_STATUS_COLORS: Record<LicenseStatus, string> = {
-  active: 'green',
-  expired: 'red',
-  suspended: 'orange',
+  active: colors.success,
+  expired: colors.error,
+  suspended: colors.warning,
 };
 
 // Türkiye şehirleri (en yaygın olanlar)

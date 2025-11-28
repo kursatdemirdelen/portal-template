@@ -3,13 +3,10 @@ import { Row, Col, Select } from "antd";
 import { PageContainer, SectionCard } from "@/shared/ui";
 import {
   UserCard,
-  type UserInfo,
   ActiveProjects,
-  type Project,
   ProjectTeams,
   TicketDistributionCard,
   QuickActions,
-  type UserRole,
 } from "@/features/dashboard";
 import {
   TicketStatusChips,
@@ -17,53 +14,21 @@ import {
   TICKET_STATUS_META,
 } from "@/features/tickets";
 import {
+  mockProjectTeams,
+  mockActiveProjects,
+  mockCurrentUser,
   getRecentTicketsForDepartment,
   getTicketsByDepartment,
-  mockProjectTeams,
-} from "@/shared/data/mockData";
+} from "@/shared/data/mocks";
+import type { DashboardUserRole } from "@/shared/types";
+import { borderColors, colors } from "@/shared/styles";
 
 const DashboardPage: React.FC = () => {
   // Test için rol seçimi
-  const [testRole, setTestRole] = useState<UserRole>("developer");
+  const [testRole, setTestRole] = useState<DashboardUserRole>("developer");
 
-  const activeProjects: Project[] = [
-    {
-      name: "Portal Intellium",
-      code: "PRJ-001",
-      progress: 76,
-      status: "On Track",
-    },
-    {
-      name: "Client Ticket Portal",
-      code: "PRJ-014",
-      progress: 42,
-      status: "At Risk",
-    },
-    {
-      name: "Scrumboard Revamp",
-      code: "PRJ-021",
-      progress: 23,
-      status: "Planning",
-    },
-  ];
-
-  const currentUser: UserInfo = {
-    name: "Kürşat Demirdelen",
-    role: "Senior Developer",
-    department: "Portal Squad",
-    email: "kursat.demirdelen@portal.com",
-    avatar: "KD",
-    avatarUrl: "https://i.pravatar.cc/150?img=68",
-    company: "Intellium",
-    weeklyProgress: 72,
-    statusText: "Çevrimiçi",
-    statusColor: "#10b981",
-    stats: {
-      openTickets: 8,
-      todayClosed: 2,
-      activeProjects: 3,
-    },
-  };
+  const currentUser = mockCurrentUser;
+  const activeProjects = mockActiveProjects;
 
   const accessibleTickets = getTicketsByDepartment(currentUser.department);
   const recentTickets = getRecentTicketsForDepartment(
@@ -77,20 +42,20 @@ const DashboardPage: React.FC = () => {
       value: accessibleTickets.filter(
         (ticket) => ticket.status === "Yeni İstek"
       ).length,
-      color: "#3b82f6",
+      color: colors.info,
     },
     {
       label: "Atanan",
       value: accessibleTickets.filter((ticket) => ticket.status === "Atanan")
         .length,
-      color: "#f97316",
+      color: colors.warning,
     },
     {
       label: "Çözümlenen",
       value: accessibleTickets.filter(
         (ticket) => ticket.status === "Çözümlenen"
       ).length,
-      color: "#22c55e",
+      color: colors.success,
     },
   ];
 
@@ -130,7 +95,7 @@ const DashboardPage: React.FC = () => {
               style={{
                 marginTop: 12,
                 paddingTop: 12,
-                borderTop: "1px dashed #e8eefb",
+                borderTop: `1px dashed ${borderColors.light}`,
               }}
             >
               <Select

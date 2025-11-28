@@ -1,5 +1,6 @@
 import { Modal, Form, Input, Select, Row, Col, Divider } from "antd";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { borderColors } from "@/shared/styles";
 import type { FormInstance } from "antd";
 import type { Customer } from "../model/types";
 import {
@@ -43,7 +44,10 @@ export const CustomerFormModal = ({
       cancelText="İptal"
       width={800}
       styles={{
-        header: { borderBottom: "1px solid #f0f0f0", paddingBottom: 12 },
+        header: {
+          borderBottom: `1px solid ${borderColors.light}`,
+          paddingBottom: 12,
+        },
         body: { maxHeight: "60vh", overflowY: "auto" },
       }}
     >

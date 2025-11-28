@@ -5,30 +5,22 @@
 import React, { memo, type CSSProperties } from "react";
 import { Typography, theme, Tooltip } from "antd";
 import { UserAvatar } from "@/shared/ui/UserAvatar";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import {
+  backgrounds,
+  colors as colorPalette,
+  gradients,
+  hexToRgba,
+  shadows,
+} from "@/shared/styles";
+import type { DashboardUserInfo } from "@/shared/types";
 
 const { Text } = Typography;
 
-export interface UserInfo {
-  name: string;
-  role: string;
-  department: string;
-  email: string;
-  avatar: string;
-  avatarUrl?: string;
-  company: string;
-  stats?: {
-    openTickets: number;
-    todayClosed: number;
-    activeProjects: number;
-  };
-  weeklyProgress?: number;
-  statusText?: string;
-  statusColor?: string;
-}
+// Re-export type for backward compatibility
+export type { DashboardUserInfo as UserInfo } from "@/shared/types";
 
 interface UserCardProps {
-  user: UserInfo;
+  user: DashboardUserInfo;
   className?: string;
   style?: CSSProperties;
 }
@@ -53,7 +45,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
         <div
           style={{
             height: 96,
-            background: `linear-gradient(135deg, ${colorPalette.primary} 0%, ${colorPalette.primaryLight} 40%, #a78bfa 70%, #c4b5fd 100%)`,
+            background: gradients.sidebarLogo,
             position: "relative",
           }}
         >
@@ -66,7 +58,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
               width: 96,
               height: 96,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.1)",
+              background: hexToRgba(backgrounds.card, 0.1),
             }}
           />
           <div
@@ -77,7 +69,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
               width: 64,
               height: 64,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.08)",
+              background: hexToRgba(backgrounds.card, 0.08),
             }}
           />
         </div>
@@ -100,7 +92,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
                 avatarUrl={user.avatarUrl}
                 style={{
                   border: `3px solid ${token.colorBgContainer}`,
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+                  boxShadow: shadows.hover,
                 }}
               />
               <Tooltip title={statusText}>
@@ -154,7 +146,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
             <div
               style={{
                 display: "flex",
-                background: colorPalette.primaryLighter,
+                background: backgrounds.hover,
                 borderRadius: 12,
                 padding: "16px 8px",
                 marginBottom: 24,
@@ -168,7 +160,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
               <div
                 style={{
                   width: 1,
-                  background: colorPalette.primary + "20",
+                  background: hexToRgba(colorPalette.primary, 0.12),
                 }}
               />
               <StatItem
@@ -179,7 +171,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
               <div
                 style={{
                   width: 1,
-                  background: colorPalette.primary + "20",
+                  background: hexToRgba(colorPalette.primary, 0.12),
                 }}
               />
               <StatItem

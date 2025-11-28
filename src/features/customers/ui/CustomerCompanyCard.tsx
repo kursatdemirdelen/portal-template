@@ -17,7 +17,7 @@ import {
   BankOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import { colors, shadows } from "@/shared/styles";
 import type { Customer } from "../model/types";
 
 const { Text } = Typography;
@@ -41,7 +41,7 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
     <Card
       title={
         <Space>
-          <FileTextOutlined style={{ color: "#722ed1" }} />
+          <FileTextOutlined style={{ color: colors.accent }} />
           <span>Firma Bilgileri</span>
         </Space>
       }
@@ -56,7 +56,7 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
             type="inner"
             title={
               <Space size={6}>
-                <EnvironmentOutlined style={{ color: "#fa8c16" }} />
+                <EnvironmentOutlined style={{ color: colors.warning }} />
                 <span>Adres</span>
               </Space>
             }
@@ -86,7 +86,7 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
             type="inner"
             title={
               <Space size={6}>
-                <GlobalOutlined style={{ color: "#13c2c2" }} />
+                <GlobalOutlined style={{ color: colors.info }} />
                 <span>İletişim</span>
               </Space>
             }
@@ -132,7 +132,7 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
               type="inner"
               title={
                 <Space size={6}>
-                  <BankOutlined style={{ color: "#1890ff" }} />
+                  <BankOutlined style={{ color: colors.info }} />
                   <span>Banka Bilgileri</span>
                 </Space>
               }
@@ -175,7 +175,7 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
                           <CopyOutlined
                             style={{
                               cursor: "pointer",
-                              color: "#1890ff",
+                              color: colors.info,
                               fontSize: 11,
                             }}
                             onClick={() =>

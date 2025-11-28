@@ -5,7 +5,13 @@ import {
   ClockCircleOutlined,
   StopOutlined,
 } from "@ant-design/icons";
-import { shadows } from "@/shared/styles/styleConstants";
+import {
+  backgrounds,
+  colors,
+  gradients,
+  hexToRgba,
+  shadows,
+} from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -28,24 +34,27 @@ const cardStyle = {
 
 const statCardColors = {
   total: {
-    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    iconBg: "rgba(255,255,255,0.2)",
-    textColor: "#fff",
+    gradient: gradients.sidebarLogo,
+    iconBg: hexToRgba(backgrounds.card, 0.2),
+    textColor: backgrounds.card,
   },
   active: {
-    gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-    iconBg: "rgba(255,255,255,0.2)",
-    textColor: "#fff",
+    gradient: gradients.colorGreen,
+    iconBg: hexToRgba(backgrounds.card, 0.2),
+    textColor: backgrounds.card,
   },
   pending: {
-    gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-    iconBg: "rgba(255,255,255,0.2)",
-    textColor: "#fff",
+    gradient: gradients.colorOrange,
+    iconBg: hexToRgba(backgrounds.card, 0.2),
+    textColor: backgrounds.card,
   },
   inactive: {
-    gradient: "linear-gradient(135deg, #8c8c8c 0%, #595959 100%)",
-    iconBg: "rgba(255,255,255,0.2)",
-    textColor: "#fff",
+    gradient: `linear-gradient(135deg, ${hexToRgba(
+      colors.textSecondary,
+      0.25
+    )} 0%, ${hexToRgba(colors.textPrimary, 0.2)} 100%)`,
+    iconBg: hexToRgba(backgrounds.card, 0.2),
+    textColor: backgrounds.card,
   },
 };
 
@@ -88,6 +97,7 @@ const StatCard = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          color: backgrounds.card,
         }}
       >
         {icon}
@@ -95,7 +105,7 @@ const StatCard = ({
       <div style={{ minWidth: 0, flex: 1 }}>
         <Text
           style={{
-            color: "rgba(255,255,255,0.85)",
+            color: hexToRgba(backgrounds.card, 0.85),
             fontSize: 12,
             display: "block",
             whiteSpace: "nowrap",
@@ -127,7 +137,9 @@ export const CustomerStatsCards = ({ stats }: CustomerStatsCardsProps) => {
         <StatCard
           title="Toplam Müşteri"
           value={stats.total}
-          icon={<TeamOutlined style={{ fontSize: 20, color: "#fff" }} />}
+          icon={
+            <TeamOutlined style={{ fontSize: 20, color: backgrounds.card }} />
+          }
           colorKey="total"
         />
       </Col>
@@ -135,7 +147,11 @@ export const CustomerStatsCards = ({ stats }: CustomerStatsCardsProps) => {
         <StatCard
           title="Aktif"
           value={stats.active}
-          icon={<CheckCircleOutlined style={{ fontSize: 20, color: "#fff" }} />}
+          icon={
+            <CheckCircleOutlined
+              style={{ fontSize: 20, color: backgrounds.card }}
+            />
+          }
           colorKey="active"
         />
       </Col>
@@ -143,7 +159,11 @@ export const CustomerStatsCards = ({ stats }: CustomerStatsCardsProps) => {
         <StatCard
           title="Beklemede"
           value={stats.pending}
-          icon={<ClockCircleOutlined style={{ fontSize: 20, color: "#fff" }} />}
+          icon={
+            <ClockCircleOutlined
+              style={{ fontSize: 20, color: backgrounds.card }}
+            />
+          }
           colorKey="pending"
         />
       </Col>
@@ -151,7 +171,9 @@ export const CustomerStatsCards = ({ stats }: CustomerStatsCardsProps) => {
         <StatCard
           title="Pasif"
           value={stats.inactive}
-          icon={<StopOutlined style={{ fontSize: 20, color: "#fff" }} />}
+          icon={
+            <StopOutlined style={{ fontSize: 20, color: backgrounds.card }} />
+          }
           colorKey="inactive"
         />
       </Col>

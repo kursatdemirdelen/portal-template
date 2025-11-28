@@ -15,9 +15,17 @@ import {
   ClockCircleOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { colorPalette } from "@/shared/styles/styleConstants";
+import {
+  backgrounds,
+  borderColors,
+  colors,
+  hexToRgba,
+  shadows,
+} from "@/shared/styles";
+import type { DashboardUserRole } from "@/shared/types";
 
-export type UserRole = "admin" | "manager" | "developer" | "user";
+// Re-export type for backward compatibility
+export type { DashboardUserRole as UserRole } from "@/shared/types";
 
 interface QuickAction {
   key: string;
@@ -28,40 +36,40 @@ interface QuickAction {
 }
 
 interface QuickActionsProps {
-  role?: UserRole;
+  role?: DashboardUserRole;
   variant?: "horizontal" | "vertical" | "compact";
 }
 
 // Role bazlı aksiyonlar - Sidebar'da olmayan veya hızlı erişimi önemli özellikler
-const ROLE_ACTIONS: Record<UserRole, QuickAction[]> = {
+const ROLE_ACTIONS: Record<DashboardUserRole, QuickAction[]> = {
   admin: [
     {
       key: "new-ticket",
       label: "Yeni Bilet",
       icon: <PlusCircleOutlined />,
       path: "/tickets/create",
-      color: colorPalette.primary,
+      color: colors.primary,
     },
     {
       key: "permissions",
       label: "Yetkilendirme",
       icon: <SafetyCertificateOutlined />,
       path: "/permissions",
-      color: colorPalette.accent,
+      color: colors.accent,
     },
     {
       key: "scrum",
       label: "Scrum Board",
       icon: <ProjectOutlined />,
       path: "/scrum-board",
-      color: colorPalette.info,
+      color: colors.info,
     },
     {
       key: "settings",
       label: "Ayarlar",
       icon: <SettingOutlined />,
       path: "/parameters",
-      color: colorPalette.warning,
+      color: colors.warning,
     },
   ],
   manager: [
@@ -70,28 +78,28 @@ const ROLE_ACTIONS: Record<UserRole, QuickAction[]> = {
       label: "Yeni Bilet",
       icon: <PlusCircleOutlined />,
       path: "/tickets/create",
-      color: colorPalette.primary,
+      color: colors.primary,
     },
     {
       key: "approvals",
       label: "Bekleyen Onaylar",
       icon: <CheckCircleOutlined />,
       path: "/approvals",
-      color: colorPalette.success,
+      color: colors.success,
     },
     {
       key: "assignments",
       label: "Zimmet",
       icon: <InboxOutlined />,
       path: "/assignments",
-      color: colorPalette.info,
+      color: colors.info,
     },
     {
       key: "profile",
       label: "Profil",
       icon: <UserOutlined />,
       path: "/profile",
-      color: colorPalette.accent,
+      color: colors.accent,
     },
   ],
   developer: [
@@ -100,28 +108,28 @@ const ROLE_ACTIONS: Record<UserRole, QuickAction[]> = {
       label: "Yeni Bilet",
       icon: <PlusCircleOutlined />,
       path: "/tickets/create",
-      color: colorPalette.primary,
+      color: colors.primary,
     },
     {
       key: "time-entry",
       label: "Puantaj",
       icon: <ClockCircleOutlined />,
       path: "/time-tracking",
-      color: colorPalette.warning,
+      color: colors.warning,
     },
     {
       key: "assignments",
       label: "Zimmet",
       icon: <InboxOutlined />,
       path: "/assignments",
-      color: colorPalette.info,
+      color: colors.info,
     },
     {
       key: "profile",
       label: "Profil",
       icon: <UserOutlined />,
       path: "/profile",
-      color: colorPalette.accent,
+      color: colors.accent,
     },
   ],
   user: [
@@ -130,21 +138,21 @@ const ROLE_ACTIONS: Record<UserRole, QuickAction[]> = {
       label: "Yeni Bilet",
       icon: <PlusCircleOutlined />,
       path: "/tickets/create",
-      color: colorPalette.primary,
+      color: colors.primary,
     },
     {
       key: "scrum",
       label: "Scrum Board",
       icon: <ProjectOutlined />,
       path: "/scrum-board",
-      color: colorPalette.info,
+      color: colors.info,
     },
     {
       key: "profile",
       label: "Profil",
       icon: <UserOutlined />,
       path: "/profile",
-      color: colorPalette.accent,
+      color: colors.accent,
     },
   ],
 };
@@ -185,10 +193,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
                   justifyContent: "center",
                   padding: 10,
                   background: isHovered
-                    ? `linear-gradient(135deg, ${action.color}20 0%, ${action.color}10 100%)`
-                    : colorPalette.primaryLighter,
+                    ? `linear-gradient(135deg, ${hexToRgba(
+                        action.color,
+                        0.18
+                      )} 0%, ${hexToRgba(action.color, 0.08)} 100%)`
+                    : backgrounds.hover,
                   border: `1px solid ${
-                    isHovered ? action.color + "40" : "transparent"
+                    isHovered
+                      ? hexToRgba(action.color, 0.35)
+                      : borderColors.light
                   }`,
                   borderRadius: 10,
                   cursor: "pointer",
@@ -238,10 +251,13 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
               gap: isVertical ? 10 : 6,
               padding: isVertical ? "10px 16px" : "12px 8px",
               background: isHovered
-                ? `linear-gradient(135deg, ${action.color}15 0%, ${action.color}08 100%)`
-                : colorPalette.primaryLighter,
+                ? `linear-gradient(135deg, ${hexToRgba(
+                    action.color,
+                    0.15
+                  )} 0%, ${hexToRgba(action.color, 0.06)} 100%)`
+                : backgrounds.hover,
               border: `1px solid ${
-                isHovered ? action.color + "30" : "transparent"
+                isHovered ? hexToRgba(action.color, 0.3) : borderColors.light
               }`,
               borderRadius: 12,
               cursor: "pointer",
@@ -249,7 +265,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
               flex: isVertical ? undefined : 1,
               minWidth: isVertical ? undefined : 80,
               transform: isHovered ? "translateY(-2px)" : "none",
-              boxShadow: isHovered ? `0 4px 12px ${action.color}20` : "none",
+              boxShadow: isHovered ? shadows.cardHover(action.color) : "none",
             }}
           >
             <div
@@ -258,8 +274,11 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
                 height: isVertical ? 32 : 36,
                 borderRadius: 10,
                 background: isHovered
-                  ? `linear-gradient(135deg, ${action.color} 0%, ${action.color}cc 100%)`
-                  : `${action.color}15`,
+                  ? `linear-gradient(135deg, ${action.color} 0%, ${hexToRgba(
+                      action.color,
+                      0.8
+                    )} 100%)`
+                  : hexToRgba(action.color, 0.15),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -269,7 +288,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
               <span
                 style={{
                   fontSize: isVertical ? 16 : 18,
-                  color: isHovered ? "#fff" : action.color,
+                  color: isHovered ? backgrounds.card : action.color,
                   display: "flex",
                   transition: "all 200ms ease",
                 }}
@@ -281,7 +300,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
               style={{
                 fontSize: 11,
                 fontWeight: 500,
-                color: isHovered ? action.color : colorPalette.textSecondary,
+                color: isHovered ? action.color : colors.textSecondary,
                 whiteSpace: "nowrap",
                 transition: "all 200ms ease",
               }}

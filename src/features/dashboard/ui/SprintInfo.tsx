@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Typography, Progress } from "antd";
-import { colorPalette, borderColors } from "@/shared/styles/styleConstants";
+import { backgrounds, borderColors, colors } from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -30,14 +30,17 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       {/* Sprint Goal */}
       <div>
-        <Text type="secondary" style={{ fontSize: 12, color: "#7f8c8d" }}>
+        <Text
+          type="secondary"
+          style={{ fontSize: 12, color: colors.textSecondary }}
+        >
           Hedef
         </Text>
         <div style={{ marginTop: 6 }}>
           <Text
             style={{
               fontSize: 13,
-              color: "#2c3e50",
+              color: colors.textPrimary,
               lineHeight: 1.5,
             }}
           >
@@ -52,7 +55,7 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
           display: "flex",
           gap: 8,
           padding: "10px 12px",
-          background: colorPalette.primaryLighter,
+          background: backgrounds.hover,
           borderRadius: 8,
           border: `1px solid ${borderColors.light}`,
         }}
@@ -60,12 +63,12 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
         <div style={{ flex: 1 }}>
           <Text
             type="secondary"
-            style={{ fontSize: 11, color: colorPalette.textSecondary }}
+            style={{ fontSize: 11, color: colors.textSecondary }}
           >
             Başlangıç
           </Text>
           <div style={{ marginTop: 2 }}>
-            <Text style={{ fontSize: 12, color: colorPalette.textPrimary }}>
+            <Text style={{ fontSize: 12, color: colors.textPrimary }}>
               {sprintInfo.startedAt}
             </Text>
           </div>
@@ -74,12 +77,12 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
         <div style={{ flex: 1, textAlign: "right" }}>
           <Text
             type="secondary"
-            style={{ fontSize: 11, color: colorPalette.textSecondary }}
+            style={{ fontSize: 11, color: colors.textSecondary }}
           >
             Bitiş
           </Text>
           <div style={{ marginTop: 2 }}>
-            <Text style={{ fontSize: 12, color: colorPalette.textPrimary }}>
+            <Text style={{ fontSize: 12, color: colors.textPrimary }}>
               {sprintInfo.endsAt}
             </Text>
           </div>
@@ -98,7 +101,7 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
         >
           <Text
             type="secondary"
-            style={{ fontSize: 12, color: colorPalette.textSecondary }}
+            style={{ fontSize: 12, color: colors.textSecondary }}
           >
             İlerleme
           </Text>
@@ -106,7 +109,7 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
             style={{
               fontSize: 12,
               fontWeight: 600,
-              color: colorPalette.success,
+              color: colors.success,
             }}
           >
             {completionRate}%
@@ -115,18 +118,18 @@ export const SprintInfo: React.FC<SprintInfoProps> = ({ sprintInfo }) => {
         <Progress
           percent={completionRate}
           strokeColor={{
-            "0%": colorPalette.success,
-            "50%": "#2edc82",
-            "100%": colorPalette.success,
+            "0%": colors.success,
+            "50%": colors.green,
+            "100%": colors.success,
           }}
           format={() => null}
-          trailColor={colorPalette.primaryLighter}
+          trailColor={backgrounds.neutral100}
         />
         <div
           style={{
             marginTop: 8,
             fontSize: 12,
-            color: colorPalette.textSecondary,
+            color: colors.textSecondary,
           }}
         >
           {sprintInfo.completed} / {sprintInfo.total} iş tamamlandı

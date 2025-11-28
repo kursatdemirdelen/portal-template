@@ -4,8 +4,14 @@
 
 import React, { useState } from "react";
 import { Row, Col, Typography } from "antd";
-import { colorConfigs } from "@/shared/styles/componentStyles";
-import { colorPalette, shadows } from "@/shared/styles/styleConstants";
+import {
+  backgrounds,
+  borderColors,
+  colorConfigs,
+  colors,
+  hexToRgba,
+  shadows,
+} from "@/shared/styles";
 
 const { Text } = Typography;
 
@@ -31,12 +37,12 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
   const getTrendStyle = (trend: "up" | "down" | "neutral") => {
     if (trend === "up")
       return {
-        color: colorPalette.success,
-        bg: `${colorPalette.successLight}30`,
+        color: colors.success,
+        bg: hexToRgba(colors.success, 0.15),
       };
     if (trend === "down")
-      return { color: colorPalette.error, bg: `${colorPalette.errorLight}30` };
-    return { color: colorPalette.textTertiary, bg: "transparent" };
+      return { color: colors.error, bg: hexToRgba(colors.error, 0.15) };
+    return { color: colors.textTertiary, bg: "transparent" };
   };
 
   return (
@@ -50,18 +56,18 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
           <Col key={stat.key} xs={12} sm={12} md={12} lg={12} xl={6}>
             <div
               style={{
-                background: isHovered ? colorScheme.gradient : "#ffffff",
+                background: isHovered ? colorScheme.gradient : backgrounds.card,
                 border: `1px solid ${
                   isHovered
-                    ? colorScheme.accent + "40"
-                    : colorPalette.primaryLighter
+                    ? hexToRgba(colorScheme.accent, 0.35)
+                    : borderColors.light
                 }`,
                 borderRadius: 12,
                 padding: 12,
                 cursor: "pointer",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-                boxShadow: isHovered ? `${shadows.hover}` : shadows.sm,
+                boxShadow: isHovered ? shadows.hover : shadows.sm,
                 minHeight: 120,
                 display: "flex",
                 flexDirection: "column",
@@ -86,7 +92,7 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
                     fontWeight: 500,
                     textTransform: "uppercase",
                     letterSpacing: "0.3px",
-                    color: "#7f8c8d",
+                    color: colors.textSecondary,
                   }}
                 >
                   {stat.title}
@@ -96,8 +102,8 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
                     width: 28,
                     height: 28,
                     borderRadius: 6,
-                    background: `${colorScheme.accent}15`,
-                    border: `1px solid ${colorScheme.accent}40`,
+                    background: hexToRgba(colorScheme.accent, 0.12),
+                    border: `1px solid ${hexToRgba(colorScheme.accent, 0.3)}`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -117,7 +123,7 @@ export const DashboardStatCards: React.FC<DashboardStatCardsProps> = ({
                   style={{
                     fontSize: 22,
                     fontWeight: 700,
-                    color: "#2c3e50",
+                    color: colors.textPrimary,
                     lineHeight: 1,
                   }}
                 >
