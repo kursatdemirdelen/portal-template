@@ -1,82 +1,100 @@
 /**
- * Style Constants - Merkezileştirilmiş stil konfigürasyonları
- * TODO: Kullanılmayan sabitleri temizle, tema mappingini (AntD tokenları) bu kaynaktan türet.
+ * Design Tokens - Merkezileştirilmiş stil konfigürasyonları
+ * Renkler, spacing, radius, shadow, typography tümü burada tanımlanır
  */
 
 /* ===========================
-   RENK PALETLERI
+   AVATAR RENKLERİ
    =========================== */
 
-export const colorPalette = {
+export const avatarColors = {
+  blue: '#3498db',
+  purple: '#9b59b6',
+  red: '#e74c3c',
+  orange: '#f39c12',
+  teal: '#16a085',
+  green: '#27ae60',
+  deepOrange: '#e67e22',
+  cyan: '#1abc9c',
+  deepPurple: '#8e44ad',
+  darkRed: '#c0392b',
+  indigo: '#5b7aed',
+  amber: '#fa8c16',
+  neutral: '#95a5a6',
+} as const;
+
+export const avatarColorsList = Object.values(avatarColors);
+
+/* ===========================
+   RENK PALETLERI (Colors)
+   =========================== */
+
+export const colors = {
   // Primary - Mavi pastel
-  primary: '#5b7aed', // Main blue
-  primaryLight: '#7b96f5', // Light blue for hover
-  primaryLighter: '#e8eefb', // Very light for backgrounds
+  primary: '#5b7aed',
+  primaryLight: '#7b96f5',
+  primaryLighter: '#e8eefb',
 
   // Complementary - Minimal use
-  secondary: '#f0ad4e', // Warm accent (minimal)
-  accent: '#6c5ce7', // Purple accent (minimal)
+  secondary: '#f0ad4e',
+  accent: '#6c5ce7',
 
-  // Status Colors - Unified and used across the app
-  success: '#10b981',      // Green (Notification, Status)
-  successLight: '#d1fae5', // Light green
-  warning: '#f59e0b',      // Amber (Notification, Status)
-  warningLight: '#fef3c7', // Light amber
-  error: '#ef4444',        // Red (Notification, Status)
-  errorLight: '#fee2e2',   // Light red
-  info: '#3b82f6',         // Blue (Notification, Status) - Note: different from primary
-  infoLight: '#dbeafe',    // Light blue
+  // Status Colors
+  success: '#10b981',
+  successLight: '#d1fae5',
+  warning: '#f59e0b',
+  warningLight: '#fef3c7',
+  error: '#ef4444',
+  errorLight: '#fee2e2',
+  info: '#3b82f6',
+  infoLight: '#dbeafe',
 
-  // Semantic (aliased from above for clarity)
+  // Semantic
   cyan: '#3b82f6',
   green: '#10b981',
   orange: '#f59e0b',
   red: '#ef4444',
 
   // Text
-  textPrimary: '#2c3e50', // Main text
-  textSecondary: '#7f8c8d', // Secondary text
-  textTertiary: '#95a5a6', // Tertiary text
-  textMuted: '#bdc3c7', // Muted text
+  textPrimary: '#2c3e50',
+  textSecondary: '#7f8c8d',
+  textTertiary: '#95a5a6',
+  textMuted: '#bdc3c7',
 } as const;
 
 export const backgrounds = {
-  page: '#f8f9fa', // Main page background
-  card: '#ffffff', // Card background
-  cardAlt: '#f0f3f7', // Alternative card (light blue tint)
-  sidebar: '#1e2a3a', // Sidebar dark (modern deep blue)
-  sidebarGradient: 'linear-gradient(180deg, #1e2a3a 0%, #0f1722 100%)', // Sidebar gradient
-  topbar: '#ffffff', // Topbar white
-  hover: '#e8eefb', // Hover state
-  input: '#f8f9fa', // Input field
+  page: '#f8f9fa',
+  card: '#ffffff',
+  cardAlt: '#f0f3f7',
+  sidebar: '#1e2a3a',
+  sidebarGradient: 'linear-gradient(180deg, #1e2a3a 0%, #0f1722 100%)',
+  topbar: '#ffffff',
+  hover: '#e8eefb',
+  input: '#f8f9fa',
   overlay: 'rgba(0, 0, 0, 0.1)',
-  // Sidebar specific
   sidebarMenuHover: 'rgba(91, 122, 237, 0.12)',
   sidebarMenuActive: 'rgba(91, 122, 237, 0.2)',
   sidebarDivider: 'rgba(255, 255, 255, 0.08)',
-  // Status backgrounds
-  successBg: 'rgba(16, 185, 129, 0.12)',    // Success background
-  warningBg: 'rgba(245, 158, 11, 0.12)',    // Warning background
-  errorBg: 'rgba(239, 68, 68, 0.12)',       // Error background
-  infoBg: 'rgba(59, 130, 246, 0.12)',       // Info background
-  // Light neutral backgrounds for UI elements
+  successBg: 'rgba(16, 185, 129, 0.12)',
+  warningBg: 'rgba(245, 158, 11, 0.12)',
+  errorBg: 'rgba(239, 68, 68, 0.12)',
+  infoBg: 'rgba(59, 130, 246, 0.12)',
   neutral50: '#f9fafb',
   neutral100: '#f3f4f6',
   neutral200: '#e5e7eb',
 } as const;
 
 export const borderColors = {
-  light: '#e8eefb', // Light blue border
-  medium: '#d0ddf7', // Medium blue border
-  strong: '#c0cef5', // Strong blue border
-  gray: '#ecf0f1', // Neutral border
-  // Neutral borders (used in lists, tables, etc.)
+  light: '#e8eefb',
+  medium: '#d0ddf7',
+  strong: '#c0cef5',
+  gray: '#ecf0f1',
   neutral: '#e2e8f0',
-  light_neutral: 'rgba(226, 232, 240, 0.8)',
+  lightNeutral: 'rgba(226, 232, 240, 0.8)',
 } as const;
 
 /* ===========================
-   GRADYENTLER
+   GRADYENTLER (Gradients)
    =========================== */
 
 export const gradients = {
@@ -91,7 +109,7 @@ export const gradients = {
   sidebarLogo: `linear-gradient(135deg, #5b7aed 0%, #6c5ce7 100%)`,
   sidebarActiveItem: `linear-gradient(90deg, rgba(91, 122, 237, 0.25) 0%, rgba(91, 122, 237, 0.05) 100%)`,
 
-  // Color-specific gradients for stat cards (updated with new color palette)
+  // Color-specific gradients
   colorBlue: `linear-gradient(135deg, rgba(91, 122, 237, 0.08) 0%, rgba(123, 150, 245, 0.05) 100%)`,
   colorGreen: `linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(52, 211, 153, 0.05) 100%)`,
   colorOrange: `linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(251, 191, 36, 0.05) 100%)`,
@@ -104,7 +122,7 @@ export const gradients = {
 } as const;
 
 /* ===========================
-   SHADOW'LAR
+   SHADOW'LAR (Shadows)
    =========================== */
 
 export const shadows = {
@@ -223,10 +241,10 @@ export const zIndex = {
 } as const;
 
 /* ===========================
-   ICON SIZES (UNIFIED)
+   ICON SIZES
    =========================== */
 
-export const ICON_SIZES = {
+export const iconSizes = {
   sm: 14,
   md: 16,
   lg: 20,
@@ -234,39 +252,22 @@ export const ICON_SIZES = {
 } as const;
 
 /* ===========================
-   THEME OBJECT (Aggregated)
+   COMPOSITE THEME OBJECT
    =========================== */
 
-export const theme = {
-  colors: {
-    primary: colorPalette.primary,
-    text: {
-      primary: colorPalette.textPrimary,
-      secondary: colorPalette.textSecondary,
-      muted: colorPalette.textMuted,
-    },
-    border: {
-      subtle: borderColors.gray,
-      strong: borderColors.medium,
-    },
-    surface: {
-      base: backgrounds.card,
-      alt: backgrounds.cardAlt,
-      soft: backgrounds.neutral100,
-    },
-    status: {
-      success: colorPalette.success,
-      warning: colorPalette.warning,
-      error: colorPalette.error,
-      info: colorPalette.info,
-    },
-  },
-  typography,
+export const tokens = {
+  colors,
+  backgrounds,
+  borderColors,
+  gradients,
+  shadows,
   spacing,
   radius,
-  shadows,
+  typography,
   transitions,
-  iconSizes: ICON_SIZES,
+  breakpoints,
+  zIndex,
+  iconSizes,
 } as const;
 
-export type AppTheme = typeof theme;
+export type Tokens = typeof tokens;

@@ -1,7 +1,18 @@
 /**
  * Shared Styles - Barrel Export
+ * Merkezileştirilmiş stil ve tema kaynakları
  */
 
-export * from './styleConstants';
-export * from './componentStyles';
-export * from './styleHelpers';
+// Design Tokens
+export * from './tokens';
+export { antdTheme } from './theme';
+
+// Semantic theme object built on tokens
+export { theme } from './appTheme';
+export type { AppTheme } from './appTheme';
+
+// Reusable style helpers
+export * from './helpers';
+
+// Utility helpers
+export { hexToRgba } from './colorUtils';
