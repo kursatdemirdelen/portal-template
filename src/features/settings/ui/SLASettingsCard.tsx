@@ -27,13 +27,22 @@ import {
 import type { SLASettings } from "../model/types";
 import { SLA_OPTIONS } from "./constants";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface SLASettingsCardProps {
   data: SLASettings;
   onChange: (key: keyof SLASettings, value: unknown) => void;
   minHeight?: number;
 }
+
+const responsiveRowStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: `${spacing.sm}px 0`,
+  borderBottom: `1px solid ${borderColors.light}`,
+  flexWrap: "wrap",
+};
 
 const SLARow: React.FC<{
   label: string;
@@ -51,25 +60,30 @@ const SLARow: React.FC<{
   color,
 }) => (
   <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      padding: `${spacing.sm}px 0`,
-      borderBottom: `1px solid ${borderColors.light}`,
-    }}
+    style={responsiveRowStyle as React.CSSProperties}
+    className="sla-priority-row-responsive"
   >
-    <Tag color={color} style={{ minWidth: 80, textAlign: "center" }}>
+    <Tag
+      color={color}
+      style={{ minWidth: 80, textAlign: "center", marginBottom: 8 }}
+    >
       {label}
     </Tag>
-    <Space size="large">
-      <Space size="small">
+    <div
+      style={{
+        display: "flex",
+        flex: 1,
+        flexWrap: "wrap",
+        gap: 8,
+        minWidth: 0,
+      }}
+    >
+      <Space size="small" style={{ flex: 1, minWidth: 140 }}>
         <Text type="secondary" style={{ fontSize: 12, width: 50 }}>
           Yanıt:
         </Text>
         <Select
           id={`sla-priority-${label}-response`}
-          name={`sla-priority-${label}-response`}
           size="small"
           value={responseValue}
           onChange={onResponseChange}
@@ -77,13 +91,12 @@ const SLARow: React.FC<{
           style={{ width: 100 }}
         />
       </Space>
-      <Space size="small">
+      <Space size="small" style={{ flex: 1, minWidth: 140 }}>
         <Text type="secondary" style={{ fontSize: 12, width: 50 }}>
           Çözüm:
         </Text>
         <Select
           id={`sla-priority-${label}-resolution`}
-          name={`sla-priority-${label}-resolution`}
           size="small"
           value={resolutionValue}
           onChange={onResolutionChange}
@@ -91,7 +104,22 @@ const SLARow: React.FC<{
           style={{ width: 100 }}
         />
       </Space>
-    </Space>
+    </div>
+    <style>{`
+      @media (max-width: 600px) {
+        .sla-priority-row-responsive {
+          flex-direction: column !important;
+          align-items: stretch !important;
+        }
+        .sla-priority-row-responsive > .ant-tag {
+          margin-bottom: 8px;
+        }
+        .sla-priority-row-responsive > div {
+          flex-direction: column !important;
+          gap: 8px !important;
+        }
+      }
+    `}</style>
   </div>
 );
 
@@ -130,10 +158,12 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
         <Row gutter={[24, 16]}>
           <Col xs={24} md={12}>
             <div
+              className="sla-default-row-responsive"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div>
@@ -145,7 +175,7 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                   İlk yanıt için maksimum süre
                 </Text>
               </div>
-              <Space>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <InputNumber
                   id="sla-responseTimeHours"
                   name="sla-responseTimeHours"
@@ -158,20 +188,21 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                 <Text type="secondary">saat</Text>
                 <Switch
                   id="sla-responseTimeEnabled"
-                  name="sla-responseTimeEnabled"
                   size="small"
                   checked={data.responseTimeEnabled}
                   onChange={(v) => onChange("responseTimeEnabled", v)}
                 />
-              </Space>
+              </div>
             </div>
           </Col>
           <Col xs={24} md={12}>
             <div
+              className="sla-default-row-responsive"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <div>
@@ -183,7 +214,7 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                   Bilet çözümü için maksimum süre
                 </Text>
               </div>
-              <Space>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <InputNumber
                   id="sla-resolutionTimeHours"
                   name="sla-resolutionTimeHours"
@@ -196,14 +227,28 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
                 <Text type="secondary">saat</Text>
                 <Switch
                   id="sla-resolutionTimeEnabled"
-                  name="sla-resolutionTimeEnabled"
                   size="small"
                   checked={data.resolutionTimeEnabled}
                   onChange={(v) => onChange("resolutionTimeEnabled", v)}
                 />
-              </Space>
+              </div>
             </div>
           </Col>
+          <style>{`
+          @media (max-width: 600px) {
+            .sla-default-row-responsive {
+              flex-direction: column !important;
+              align-items: stretch !important;
+              gap: 8px !important;
+            }
+            .sla-default-row-responsive > div:last-child {
+              flex-direction: row;
+              justify-content: flex-start;
+              gap: 8px;
+              margin-top: 4px;
+            }
+          }
+        `}</style>
         </Row>
       </div>
 
@@ -223,7 +268,6 @@ export const SLASettingsCard: React.FC<SLASettingsCardProps> = ({
           </Space>
           <Switch
             id="sla-prioritySLAEnabled"
-            name="sla-prioritySLAEnabled"
             checked={data.prioritySLAEnabled}
             onChange={(v) => onChange("prioritySLAEnabled", v)}
           />

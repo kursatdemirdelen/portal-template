@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Card, Switch, Select, Space, Typography, Row, Col } from "antd";
+import { Card, Switch, Select, Typography } from "antd";
 import { Bell, Mail, Clock } from "lucide-react";
 import { SettingsCardHeader } from "./SettingsCardHeader";
 import {
@@ -96,13 +96,10 @@ export const NotificationSettingsCard: React.FC<
           </div>
           <Switch
             id="notification-emailEnabled"
-            name="notification-emailEnabled"
             checked={data.emailEnabled}
             onChange={(checked) => onChange("emailEnabled", checked)}
           />
         </div>
-        {/* Spacer to push digest to bottom if enabled */}
-        <div style={{ flex: 1 }} />
         {/* Bildirim Sıklığı */}
         {data.emailEnabled && (
           <div
@@ -115,7 +112,7 @@ export const NotificationSettingsCard: React.FC<
               borderRadius: radius.lg,
               border: `1px solid ${borderColors.light}`,
               minHeight: 72,
-              marginTop: spacing.lg,
+              marginTop: 0,
             }}
           >
             <div
@@ -148,7 +145,6 @@ export const NotificationSettingsCard: React.FC<
             </div>
             <Select
               id="notification-emailDigestFrequency"
-              name="notification-emailDigestFrequency"
               value={data.emailDigestFrequency}
               onChange={(value) => onChange("emailDigestFrequency", value)}
               options={DIGEST_OPTIONS}

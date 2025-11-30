@@ -17,7 +17,7 @@ import {
 import type { WorkHoursSettings, DayOfWeek } from "../model/types";
 import { WORK_DAY_OPTIONS } from "./constants";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface WorkHoursSettingsCardProps {
   data: WorkHoursSettings;
@@ -175,7 +175,6 @@ export const WorkHoursSettingsCard: React.FC<WorkHoursSettingsCardProps> = ({
           </Space>
           <Switch
             id="workhours-breakEnabled"
-            name="workhours-breakEnabled"
             checked={data.breakEnabled}
             onChange={(v) => onChange("breakEnabled", v)}
           />

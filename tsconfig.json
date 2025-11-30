@@ -13,8 +13,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "baseUrl": "./",
+    "noEmit": true, 
     "paths": {
       "@/*": ["./src/*"],
       "@app/*": ["./src/app/*"],

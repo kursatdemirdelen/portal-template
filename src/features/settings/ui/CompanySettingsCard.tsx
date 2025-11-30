@@ -121,19 +121,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
             Logo ve iletişim bilgileri
           </Text>
         </div>
-        <Button
-          type={editing ? "primary" : "default"}
-          size="small"
-          style={{
-            position: "absolute",
-            right: spacing.lg,
-            top: spacing.md,
-            borderRadius: radius.md,
-          }}
-          onClick={editing ? handleSave : () => setEditing(true)}
-        >
-          {editing ? "Kaydet" : "Düzenle"}
-        </Button>
+        {/* Düzenle/Kaydet butonu alta taşındı */}
       </div>
 
       <Row gutter={[24, 24]}>
@@ -222,7 +210,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
         {/* Info Section */}
         <Col xs={24} md={16}>
           <Row gutter={[0, 12]}>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Text
                 type="secondary"
                 style={{
@@ -250,7 +238,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
                 </Text>
               )}
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Text
                 type="secondary"
                 style={{
@@ -278,10 +266,10 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
                 </Text>
               )}
             </Col>
-            <Col span={24}>
+            <Col xs={24}>
               <Divider style={{ margin: `${spacing.sm}px 0` }} />
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Space>
                 <Globe size={14} color={colors.textSecondary} />
                 <Text type="secondary" style={{ fontSize: 13 }}>
@@ -304,7 +292,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
                 )}
               </div>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Space>
                 <Mail size={14} color={colors.textSecondary} />
                 <Text type="secondary" style={{ fontSize: 13 }}>
@@ -327,7 +315,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
                 )}
               </div>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Space>
                 <Phone size={14} color={colors.textSecondary} />
                 <Text type="secondary" style={{ fontSize: 13 }}>
@@ -350,7 +338,7 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
                 )}
               </div>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Space>
                 <MapPin size={14} color={colors.textSecondary} />
                 <Text type="secondary" style={{ fontSize: 13 }}>
@@ -376,6 +364,24 @@ export const CompanySettingsCard: React.FC<CompanySettingsCardProps> = ({
           </Row>
         </Col>
       </Row>
+      {/* Alta sabit Düzenle/Kaydet butonu */}
+      <div
+        style={{
+          width: "100%",
+          marginTop: 24,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Button
+          type={editing ? "primary" : "default"}
+          size="large"
+          style={{ width: "100%", maxWidth: 220, borderRadius: radius.md }}
+          onClick={editing ? handleSave : () => setEditing(true)}
+        >
+          {editing ? "Kaydet" : "Düzenle"}
+        </Button>
+      </div>
     </Card>
   );
 };

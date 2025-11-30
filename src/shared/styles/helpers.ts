@@ -587,7 +587,8 @@ export const layoutStyles = {
     breadcrumb: {
       fontSize: 12,
       color: colors.textSecondary,
-      marginBottom: spacing.sm,
+      marginBottom: spacing.md,
+
     },
     titleRow: {
       display: 'flex',
@@ -611,8 +612,7 @@ export const layoutStyles = {
     title: {
       fontSize: 18,
       fontWeight: 600,
-      color: colors.textPrimary,
-      letterSpacing: '-0.5px',
+      color: colors.textPrimary, 
       margin: 0,
       wordBreak: 'break-word' as const,
     },

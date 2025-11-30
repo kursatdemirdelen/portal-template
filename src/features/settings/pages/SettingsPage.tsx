@@ -148,60 +148,68 @@ const SettingsPage: React.FC = () => {
     message.info("Ayarlar sıfırlandı");
   };
 
-  // Render cards based on view
   const renderGeneralCards = () => (
     <Row gutter={[spacing.lg, spacing.lg]}>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
-        <CompanySettingsCard
-          data={companyInfo}
-          logoUrl={logoUrl}
-          onLogoChange={handleLogoChange}
-          onSave={handleCompanySave}
-          minHeight={CARD_HEIGHTS.company}
-        />
-      </Col>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
+      {/* SOL KOLON — THEME SETTINGS */}
+      <Col xs={24} sm={24} md={24} lg={24} xl={12}>
         <ThemeSettingsCard
           data={themeSettings}
           onChange={handleThemeChange}
           minHeight={CARD_HEIGHTS.theme}
         />
       </Col>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
-        <NotificationSettingsCard
-          data={notificationSettings}
-          onChange={handleNotificationChange}
-          minHeight={CARD_HEIGHTS.notifications}
-        />
+
+      {/* SAĞ KOLON — COMPANY + NOTIFICATION + WORK HOURS */}
+      <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+        <Space direction="vertical" size={spacing.lg} style={{ width: "100%" }}>
+          <CompanySettingsCard
+            data={companyInfo}
+            logoUrl={logoUrl}
+            onLogoChange={handleLogoChange}
+            onSave={handleCompanySave}
+            minHeight={CARD_HEIGHTS.company}
+          />
+
+          <NotificationSettingsCard
+            data={notificationSettings}
+            onChange={handleNotificationChange}
+            minHeight={CARD_HEIGHTS.notifications}
+          />
+        </Space>
       </Col>
     </Row>
   );
 
   const renderSystemCards = () => (
     <Row gutter={[spacing.lg, spacing.lg]}>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
+      {/* SLA SETTINGS → TAM genişlik */}
+      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={12}>
         <SLASettingsCard
           data={slaSettings}
           onChange={handleSLAChange}
           minHeight={CARD_HEIGHTS.sla}
         />
       </Col>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
+
+      {/* TICKET SETTINGS → yarım genişlik */}
+      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={12}>
         <TicketSettingsCard
           data={ticketSettings}
           onChange={handleTicketChange}
           minHeight={CARD_HEIGHTS.tickets}
         />
       </Col>
-      <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
+      {/* WORK HOURS SETTINGS → 12 genişlik */}
+      <Col xs={24} sm={24} md={24} lg={24} xl={12}>
         <WorkHoursSettingsCard
           data={workHoursSettings}
           onChange={handleWorkHoursChange}
           minHeight={CARD_HEIGHTS.workHours}
         />
       </Col>
+      {/* SECURITY SETTINGS → yarım genişlik (sadece admin) */}
       {isAdmin && (
-        <Col xs={24} lg={12} xl={12} style={{ height: "100%" }}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={12}>
           <SecuritySettingsCard
             data={securitySettings}
             onChange={handleSecurityChange}

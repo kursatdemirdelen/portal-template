@@ -3,18 +3,8 @@
  */
 
 import React from "react";
-import {
-  Card,
-  Switch,
-  Select,
-  Space,
-  Typography,
-  Row,
-  Col,
-  Divider,
-  ColorPicker,
-} from "antd";
-import { Palette, Sun, Moon, Monitor, Type, Sparkles } from "lucide-react";
+import { Card, Select, Space, Typography, Row, Col, ColorPicker } from "antd";
+import { Palette, Sun, Moon, Monitor, Type } from "lucide-react";
 import type { Color } from "antd/es/color-picker";
 import {
   colors,
@@ -60,6 +50,7 @@ const ThemeModeCard: React.FC<{
   return (
     <div
       onClick={onClick}
+      className="theme-mode-card-compact"
       style={{
         padding: spacing.lg,
         borderRadius: radius.lg,
@@ -68,6 +59,12 @@ const ThemeModeCard: React.FC<{
         cursor: "pointer",
         transition: "all 0.2s ease",
         textAlign: "center",
+        minHeight: 100,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
       }}
     >
       <div style={{ marginBottom: spacing.sm }}>{icons[mode]}</div>
@@ -79,6 +76,21 @@ const ThemeModeCard: React.FC<{
       >
         {labels[mode]}
       </Text>
+      <style>{`
+        @media (max-width: 600px) {
+          .theme-mode-card-compact {
+            padding: 4px !important;
+            min-height: 44px !important;
+          }
+          .theme-mode-card-compact .ant-typography {
+            font-size: 13px !important;
+          }
+          .theme-mode-card-compact svg {
+            width: 18px !important;
+            height: 18px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
@@ -101,6 +113,7 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
     >
       {/* Header */}
       <div
+        className="theme-settings-header-responsive"
         style={{
           display: "flex",
           alignItems: "center",
@@ -122,11 +135,12 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
             alignItems: "center",
             justifyContent: "center",
             boxShadow: `0 2px 8px 0 ${colors.accent}10`,
+            flexShrink: 0,
           }}
         >
           <Palette size={22} color={colors.accent} />
         </div>
-        <div>
+        <div style={{ flex: 1 }}>
           <Title
             level={5}
             style={{ margin: 0, fontWeight: 700, letterSpacing: 0.2 }}
@@ -138,32 +152,55 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
           </Text>
         </div>
       </div>
+      {/* Responsive header style */}
+      <style>{`
+        @media (max-width: 600px) {
+          .theme-settings-header-responsive {
+            flex-direction: row;
+            gap: 10px;
+            padding: 10px 8px;
+          }
+          .theme-settings-header-responsive > div:first-child {
+            order: 0;
+          }
+          .theme-settings-header-responsive > div:last-child {
+            order: 1;
+            text-align: right;
+          }
+        }
+      `}</style>
 
       {/* Theme Mode */}
       <Text strong style={{ display: "block", marginBottom: spacing.md }}>
         Tema Modu
       </Text>
       <Row gutter={16} style={{ marginBottom: spacing.xl }}>
-        <Col span={8}>
-          <ThemeModeCard
-            mode="light"
-            selected={data.mode === "light"}
-            onClick={() => onChange("mode", "light")}
-          />
+        <Col xs={24} md={8} style={{ marginBottom: 10 }}>
+          <div className="theme-mode-card-compact">
+            <ThemeModeCard
+              mode="light"
+              selected={data.mode === "light"}
+              onClick={() => onChange("mode", "light")}
+            />
+          </div>
         </Col>
-        <Col span={8}>
-          <ThemeModeCard
-            mode="dark"
-            selected={data.mode === "dark"}
-            onClick={() => onChange("mode", "dark")}
-          />
+        <Col xs={24} md={8} style={{ marginBottom: 10 }}>
+          <div className="theme-mode-card-compact">
+            <ThemeModeCard
+              mode="dark"
+              selected={data.mode === "dark"}
+              onClick={() => onChange("mode", "dark")}
+            />
+          </div>
         </Col>
-        <Col span={8}>
-          <ThemeModeCard
-            mode="system"
-            selected={data.mode === "system"}
-            onClick={() => onChange("mode", "system")}
-          />
+        <Col xs={24} md={8} style={{ marginBottom: 10 }}>
+          <div className="theme-mode-card-compact">
+            <ThemeModeCard
+              mode="system"
+              selected={data.mode === "system"}
+              onClick={() => onChange("mode", "system")}
+            />
+          </div>
         </Col>
       </Row>
 
@@ -179,8 +216,8 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
         <Text strong style={{ display: "block", marginBottom: spacing.md }}>
           Renkler
         </Text>
-        <Row gutter={[24, 16]}>
-          <Col xs={24} md={12}>
+        <Row gutter={[24, 12]}>
+          <Col xs={24} md={24}>
             <div
               style={{
                 display: "flex",
@@ -206,7 +243,7 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
               />
             </div>
           </Col>
-          <Col xs={24} md={12}>
+          <Col xs={24} md={24}>
             <div
               style={{
                 display: "flex",
@@ -251,7 +288,6 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
             </Text>
             <Select
               id="theme-fontSize"
-              name="theme-fontSize"
               value={data.fontSize}
               onChange={(v) => onChange("fontSize", v)}
               options={FONT_SIZE_OPTIONS}
@@ -267,7 +303,6 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
             </Text>
             <Select
               id="theme-fontFamily"
-              name="theme-fontFamily"
               value={data.fontFamily}
               onChange={(v) => onChange("fontFamily", v)}
               options={[
@@ -280,32 +315,6 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
             />
           </Col>
         </Row>
-      </div>
-
-      <Divider />
-
-      {/* Animations Toggle */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: spacing.sm,
-          background: backgrounds.neutral50,
-          borderRadius: radius.md,
-        }}
-      >
-        <Space>
-          <Sparkles size={14} color={colors.warning} />
-          <Text>Animasyonlar</Text>
-        </Space>
-        <Switch
-          id="theme-animationsEnabled"
-          name="theme-animationsEnabled"
-          size="small"
-          checked={data.animationsEnabled}
-          onChange={(v) => onChange("animationsEnabled", v)}
-        />
       </div>
     </Card>
   );
