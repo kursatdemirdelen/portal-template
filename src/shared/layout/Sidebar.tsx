@@ -10,6 +10,8 @@ import {
   User,
   Building2,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
@@ -19,6 +21,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
 import {
   setSidebarCollapsed,
   setSidebarMobileOpen,
+  toggleThemeMode,
 } from "@/shared/store/uiSlice";
 import {
   SIDEBAR_WIDTH,
@@ -212,12 +215,14 @@ export const Sidebar: React.FC = () => {
   const collapsed = useAppSelector((s) => s.ui.sidebarCollapsed);
   const mobileOpen = useAppSelector((s) => s.ui.sidebarMobileOpen);
   const logoUrl = useAppSelector((s) => s.ui.logoUrl);
+  const themeMode = useAppSelector((s) => s.ui.themeMode);
   const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
   const { isMobile } = useResponsiveSidebar();
 
   const toggle = () => dispatch(setSidebarCollapsed(!collapsed));
   const closeMobile = () => dispatch(setSidebarMobileOpen(false));
+  const toggleTheme = () => dispatch(toggleThemeMode());
 
   // Build menu items from routes
   const visibleRoutes = appRoutes
@@ -389,6 +394,33 @@ export const Sidebar: React.FC = () => {
 
           {/* Footer */}
           <div style={styles.footer}>
+            {/* Theme toggle */}
+            <Tooltip
+              title={
+                themeMode === "light"
+                  ? "Karanlık moda geç"
+                  : "Aydınlık moda geç"
+              }
+              placement={collapsed && !isMobile ? "right" : "top"}
+            >
+              <div
+                style={styles.footerBtn}
+                onClick={toggleTheme}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                {themeMode === "light" ? <Moon size={18} /> : <Sun size={18} />}
+                {!collapsed && (
+                  <span style={{ fontSize: 13 }}>
+                    {themeMode === "light" ? "Karanlık Mod" : "Aydınlık Mod"}
+                  </span>
+                )}
+              </div>
+            </Tooltip>
             {/* Collapse - only show on desktop */}
             {!isMobile && (
               <Tooltip title={collapsed ? "Genişlet" : ""} placement="right">

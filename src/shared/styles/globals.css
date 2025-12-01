@@ -105,6 +105,28 @@
   --z-notification: 1080;
 }
 
+/* Dark Theme Variables */
+:root[data-theme="dark"] {
+  /* Colors - Text */
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-text-muted: #475569;
+
+  /* Colors - Backgrounds */
+  --color-bg-page: #0b1220;
+  --color-bg-card: #0f172a;
+  --color-bg-card-alt: #111b31;
+  --color-bg-input: #0f172a;
+
+  /* Colors - Borders */
+  --color-border-light: #1f2a44;
+  --color-border-medium: #2a3a60;
+  --color-border-strong: #34507a;
+  --color-border-gray: #22314f;
+  --color-border-neutral: #203055;
+}
+
 /* Base Body Theme */
 body {
   margin: 0;

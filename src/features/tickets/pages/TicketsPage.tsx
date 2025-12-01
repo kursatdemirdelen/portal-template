@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Grid, Select, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 import type { ColumnsType } from "antd/es/table";
 import { PageContainer, SectionCard } from "@/shared/ui";
+import { Card } from "antd";
+import { TableSkeleton, CardSkeleton } from "@/shared/ui/Loaders";
 import {
   TicketListCard,
   StatsGrid,
@@ -44,6 +46,7 @@ const TicketsPage: React.FC = () => {
   const navigate = useNavigate();
   const screens = useBreakpoint();
   const isMobile = !screens.md;
+  const [loading, setLoading] = useState(false);
 
   // Mobile pagination & sorting state
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,6 +100,8 @@ const TicketsPage: React.FC = () => {
   const hasActiveFilters = Boolean(
     searchTerm || statusFilter || requestTypeFilter || assigneeFilter
   );
+
+  // NOTE: Şimdilik mock veri ile loading false; API'ye geçince setLoading(true)->fetch->false şeklinde kullanılacak.
 
   return (
     <PageContainer
@@ -152,7 +157,21 @@ const TicketsPage: React.FC = () => {
           onAssigneeChange={setAssigneeFilter}
         />
 
-        {isMobile ? (
+        {loading ? (
+          isMobile ? (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: theme.spacing.md }}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Card key={i}>
+                  <CardSkeleton />
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <TableSkeleton />
+            </Card>
+          )
+        ) : isMobile ? (
           <>
             {/* Sorting controls for mobile */}
             <div

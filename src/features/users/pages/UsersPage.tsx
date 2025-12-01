@@ -12,6 +12,9 @@
 
 import React from "react";
 import { PageContainer } from "@/shared/ui";
+import { Card } from "antd";
+import { TableSkeleton } from "@/shared/ui/Loaders";
+import { EmptyState } from "@/shared/ui/EmptyState";
 import {
   UserStatsCards,
   UserFiltersBar,
@@ -68,15 +71,30 @@ const UsersPage: React.FC = () => {
         onCreateClick={openCreateModal}
       />
 
-      {/* Users Table */}
-      <UserTable
-        users={filteredUsers}
-        loading={loading}
-        selectedRowKeys={selectedRowKeys}
-        onSelectionChange={setSelectedRowKeys}
-        onEdit={openEditModal}
-        onDelete={handleDelete}
-      />
+      {/* Users Table with standardized loading/empty states */}
+      {loading ? (
+        <Card>
+          <TableSkeleton />
+        </Card>
+      ) : filteredUsers.length === 0 ? (
+        <Card>
+          <EmptyState
+            title="Kullanıcı bulunamadı"
+            description="Filtreleri temizleyin veya yeni bir kullanıcı oluşturun."
+            actionText="Yeni Kullanıcı"
+            onAction={openCreateModal}
+          />
+        </Card>
+      ) : (
+        <UserTable
+          users={filteredUsers}
+          loading={loading}
+          selectedRowKeys={selectedRowKeys}
+          onSelectionChange={setSelectedRowKeys}
+          onEdit={openEditModal}
+          onDelete={handleDelete}
+        />
+      )}
 
       {/* Create/Edit Modal */}
       <UserFormModal

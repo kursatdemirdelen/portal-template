@@ -4,15 +4,18 @@ export interface UiState {
   sidebarCollapsed: boolean;
   sidebarMobileOpen: boolean;
   logoUrl: string | null;
+  themeMode: 'light' | 'dark';
 }
 
-// Load logo from localStorage
+// Load persisted values from localStorage
 const savedLogo = localStorage.getItem("appLogo");
+const savedTheme = (localStorage.getItem("appThemeMode") as 'light' | 'dark' | null) || 'light';
 
 const initialState: UiState = {
   sidebarCollapsed: false,
   sidebarMobileOpen: false,
   logoUrl: savedLogo || null,
+  themeMode: savedTheme,
 };
 
 const uiSlice = createSlice({
@@ -40,8 +43,16 @@ const uiSlice = createSlice({
         localStorage.removeItem("appLogo");
       }
     },
+    setThemeMode(state, action: PayloadAction<'light' | 'dark'>) {
+      state.themeMode = action.payload;
+      localStorage.setItem("appThemeMode", action.payload);
+    },
+    toggleThemeMode(state) {
+      state.themeMode = state.themeMode === 'light' ? 'dark' : 'light';
+      localStorage.setItem("appThemeMode", state.themeMode);
+    },
   },
 });
 
-export const { setSidebarCollapsed, toggleSidebar, setSidebarMobileOpen, toggleSidebarMobile, setLogoUrl } = uiSlice.actions;
+export const { setSidebarCollapsed, toggleSidebar, setSidebarMobileOpen, toggleSidebarMobile, setLogoUrl, setThemeMode, toggleThemeMode } = uiSlice.actions;
 export default uiSlice.reducer;

@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import React, { type ComponentType } from "react";
 import {
   LayoutDashboard,
   Ticket,
@@ -14,25 +14,46 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
-import DashboardPage from "@/features/dashboard/pages/DashboardPage";
-import { TicketsPage, NewTicketPage, TicketDetailPage } from "@/features/tickets";
-import { ProjectsPage, ProjectTeamPage, ScrumBoardPage } from "@/features/projects";
-import {
-  AssignmentInfoPage,
-  AssignmentsPage,
-} from "@/features/assignments";
-import { TimeTrackingPage } from "@/features/time-tracking";
-import { LeavesPage } from "@/features/leaves";
-import { LoginPage, LogoutPage } from "@/features/auth";
-import { CustomersPage, CustomerDetailPage } from "@/features/customers";
-import { SettingsPage } from "@/features/settings";
-import UsersPage from "@/features/users/pages/UsersPage";
-import PermissionsPage from "@/features/permissions/pages/PermissionsPage";
-import { ApprovalsPage } from "@/features/approvals";
-import { LogsPage } from "@/features/logs";
-import { ProfilePage } from "@/features/profile";
-import { NotificationsPage } from "@/features/notifications";
-import { ProjectTeamListPage, ProjectTeamDetailPage, ProjectTeamCreatePage, ProjectTeamEditPage } from "@/features/project-teams";
+// Route components are lazy-loaded to enable code-splitting
+const DashboardPage = React.lazy(() => import("@/features/dashboard/pages/DashboardPage"));
+const TicketsPage = React.lazy(() => import("@/features/tickets/pages/TicketsPage"));
+const NewTicketPage = React.lazy(() => import("@/features/tickets/pages/NewTicketPage"));
+const TicketDetailPage = React.lazy(() => import("@/features/tickets/pages/TicketDetailPage"));
+
+const ProjectsPage = React.lazy(() => import("@/features/projects/pages/ProjectsPage"));
+const ProjectTeamPage = React.lazy(() => import("@/features/projects/pages/ProjectTeamPage"));
+const ScrumBoardPage = React.lazy(() => import("@/features/projects/pages/ScrumBoardPage"));
+
+const AssignmentsPage = React.lazy(() => import("@/features/assignments/pages/AssignmentsPage"));
+const AssignmentInfoPage = React.lazy(() => import("@/features/assignments/pages/AssignmentInfoPage"));
+
+const TimeTrackingPage = React.lazy(() => import("@/features/time-tracking/pages/TimeTrackingPage"));
+const LeavesPage = React.lazy(() => import("@/features/leaves/pages/LeavesPage"));
+
+const LoginPage = React.lazy(() => import("@/features/auth/pages/LoginPage"));
+const LogoutPage = React.lazy(() => import("@/features/auth/pages/LogoutPage"));
+
+const CustomersPage = React.lazy(() => import("@/features/customers/pages/CustomersPage"));
+const CustomerDetailPage = React.lazy(() =>
+  import("@/features/customers/pages/CustomerDetailPage").then((m) => ({ default: m.CustomerDetailPage }))
+);
+
+const SettingsPage = React.lazy(() => import("@/features/settings/pages/SettingsPage"));
+
+const UsersPage = React.lazy(() => import("@/features/users/pages/UsersPage"));
+const PermissionsPage = React.lazy(() => import("@/features/permissions/pages/PermissionsPage"));
+
+const ApprovalsPage = React.lazy(() => import("@/features/approvals/pages/ApprovalsPage"));
+const LogsPage = React.lazy(() => import("@/features/logs/pages/LogsPage"));
+const ProfilePage = React.lazy(() => import("@/features/profile/pages/ProfilePage"));
+const NotificationsPage = React.lazy(() =>
+  import("@/features/notifications/pages/NotificationsPage").then((m) => ({ default: m.NotificationsPage }))
+);
+
+const ProjectTeamListPage = React.lazy(() => import("@/features/project-teams/pages/ProjectTeamListPage"));
+const ProjectTeamDetailPage = React.lazy(() => import("@/features/project-teams/pages/ProjectTeamDetailPage"));
+const ProjectTeamCreatePage = React.lazy(() => import("@/features/project-teams/pages/ProjectTeamCreatePage"));
+const ProjectTeamEditPage = React.lazy(() => import("@/features/project-teams/pages/ProjectTeamEditPage"));
 import type { Role } from "./roles";
 
 export type LayoutType = "app" | "auth";

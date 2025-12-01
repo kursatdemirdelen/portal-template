@@ -3,6 +3,7 @@ import React, {
   useContext,
   useMemo,
   useState,
+  useEffect,
   type ReactNode,
 } from "react";
 import type { AuthState, AuthUser } from "../model/types";
@@ -15,21 +16,38 @@ interface AuthContextValue extends AuthState {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-const initialState: AuthState = {
-  user: {
-    id: "1",
-    name: "Kürşat Demirdelen",
-    role: "admin",
-    email: "kursat@example.com",
-  },
-  isAuthenticated: true,
-  isLoading: false,
+const STORAGE_KEY = "auth_state";
+
+const getInitialState = (): AuthState => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as AuthState;
+      return { ...parsed, isLoading: false };
+    }
+  } catch {
+    // ignore
+  }
+  return { user: null, isAuthenticated: false, isLoading: false };
 };
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, setState] = useState<AuthState>(initialState);
+  const [state, setState] = useState<AuthState>(getInitialState);
+
+  // persist to localStorage
+  useEffect(() => {
+    try {
+      const toSave = JSON.stringify({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      });
+      localStorage.setItem(STORAGE_KEY, toSave);
+    } catch {
+      // ignore
+    }
+  }, [state.user, state.isAuthenticated]);
 
   const login = (user: AuthUser) => {
     setState({ user, isAuthenticated: true, isLoading: false });
@@ -37,6 +55,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = () => {
     setState({ user: null, isAuthenticated: false, isLoading: false });
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
   };
 
   const setLoading = (value: boolean) => {

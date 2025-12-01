@@ -9,4 +9,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          antd: ['antd'],
+          tiptap: ['@tiptap/react', '@tiptap/starter-kit', '@tiptap/extension-placeholder'],
+          icons: ['lucide-react'],
+          dayjs: ['dayjs'],
+        },
+      },
+    },
+  },
 });

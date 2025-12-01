@@ -1,24 +1,10 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Spin } from "antd";
 import { AppLayout } from "@/shared/layout/AppLayout";
 import { AuthLayout } from "@/shared/layout/AuthLayout";
 import { appRoutes } from "@/shared/config/routes";
 import { ProtectedRoute } from "./ProtectedRoute";
-
-// Loading fallback component
-const PageLoader: React.FC = () => (
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      minHeight: "400px",
-    }}
-  >
-    <Spin size="large" />
-  </div>
-);
+import { PageLoader } from "@/shared/ui/Loaders";
 
 // 404 Not Found page
 const NotFoundPage: React.FC = () => (
@@ -34,7 +20,9 @@ const NotFoundPage: React.FC = () => (
       color: "#2c3e50",
     }}
   >
-    <div style={{ fontSize: 64, fontWeight: "bold", color: "#5b7aed" }}>404</div>
+    <div style={{ fontSize: 64, fontWeight: "bold", color: "#5b7aed" }}>
+      404
+    </div>
     <div style={{ fontSize: 20 }}>Sayfa bulunamadı</div>
     <a
       href="/dashboard"

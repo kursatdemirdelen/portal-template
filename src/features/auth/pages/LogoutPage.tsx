@@ -1,42 +1,33 @@
-import React from "react";
-import { Card, Typography, List } from "antd";
-import { gradients, shadows } from "@/shared/styles";
+import React, { useEffect } from "react";
+import { gradients } from "@/shared/styles";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { PageLoader } from "@/shared/ui/Loaders";
 
-const checklist = [
-  "Auth logout çağrısını tetikleyin",
-  "Tokenları temizleyin",
-  "Login sayfasına yönlendirin",
-];
+const LogoutPage: React.FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-const LogoutPage: React.FC = () => (
-  <div
-    style={{
-      minHeight: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: gradients.bgPrimary,
-      padding: 24,
-    }}
-  >
-    <Card
-      title="Çıkış"
-      variant="borderless"
-      style={{ maxWidth: 460, width: "100%", boxShadow: shadows.lg }}
+  useEffect(() => {
+    logout();
+    const id = setTimeout(() => navigate("/login", { replace: true }), 300);
+    return () => clearTimeout(id);
+  }, [logout, navigate]);
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: gradients.bgPrimary,
+        padding: 24,
+      }}
     >
-      <Typography.Paragraph type="secondary">
-        Oturumu sonlandırma işlemini gerçek auth logout aksiyonuyla bağlayın.
-      </Typography.Paragraph>
-      <List
-        dataSource={checklist}
-        renderItem={(item) => (
-          <List.Item style={{ paddingLeft: 0 }}>
-            <Typography.Text>{item}</Typography.Text>
-          </List.Item>
-        )}
-      />
-    </Card>
-  </div>
-);
+      <PageLoader />
+    </div>
+  );
+};
 
 export default LogoutPage;
