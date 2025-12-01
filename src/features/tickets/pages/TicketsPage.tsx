@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table, Button, Grid, Select, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
@@ -46,7 +46,7 @@ const TicketsPage: React.FC = () => {
   const navigate = useNavigate();
   const screens = useBreakpoint();
   const isMobile = !screens.md;
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   // Mobile pagination & sorting state
   const [currentPage, setCurrentPage] = useState(1);
@@ -159,7 +159,13 @@ const TicketsPage: React.FC = () => {
 
         {loading ? (
           isMobile ? (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: theme.spacing.md }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: theme.spacing.md,
+              }}
+            >
               {Array.from({ length: 5 }).map((_, i) => (
                 <Card key={i}>
                   <CardSkeleton />

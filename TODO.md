@@ -43,7 +43,7 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 ## 🎨 UI/UX İyileştirmeleri
 
 ### Loading States
-- [ ] Sayfalarda Skeleton loader
+- [x] Sayfalarda Skeleton loader (Users, Tickets)
 - [ ] Tablo yüklenirken spinner
 - [ ] Button loading state
 
@@ -53,12 +53,12 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 - [x] Aksiyon önerileri ✅ (Yeni bilet oluştur butonu)
 
 ### Error Handling
-- [ ] Global error boundary
+- [x] Global error boundary
 - [ ] Hata sayfası (404, 500)
 - [ ] Toast bildirimleri (başarı/hata)
 
 ### Genel
-- [ ] Dark mode desteği (opsiyonel)
+- [x] Dark mode desteği (toggle + CSS vars)
 - [x] Animasyon tutarlılığı ✅ (hover efektleri, transitions)
 - [x] Mobil görünüm iyileştirmeleri ✅ (responsive grid, breakpoints)
 
@@ -77,10 +77,12 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 ## 🛠️ Kod Kalitesi
 
 ### Build Optimizasyonu
-- [ ] Code Splitting / Lazy Loading (Bundle 2MB → ~200-300KB chunks)
-  - React.lazy ile route bazlı splitting
-  - Vite config'de vendor chunks (react, antd, utils)
-  - Suspense fallback'ler
+- [x] Code Splitting / Lazy Loading
+  - [x] React.lazy ile route bazlı splitting
+  - [x] Vite config'de vendor chunks (react, antd, tiptap, icons)
+  - [x] Suspense fallback'ler
+  - [x] `chunkSizeWarningLimit` 1500
+  - [x] Gereksiz `dayjs` chunk kaldırıldı
 
 ### Ortak Hook'lar
 - [ ] `useDebounce` - Arama gecikmesi
@@ -133,6 +135,12 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 - Öncelik sırası ihtiyaca göre güncellenebilir
 - Her tamamlanan madde [x] ile işaretlenecek
 
+## ▶️ Yakın Yol Haritası
+- [ ] Tickets ve Users dışındaki sayfalarda Skeleton/Empty standardizasyonu
+- [ ] Ant Design chunk’larını daha ince bölme (`rc-*`, `@ant-design/icons`)
+- [ ] Auth ve permission servislerini mock’tan gerçek API’ye bağlama
+- [ ] ProtectedRoute ve önemli hook’lar için temel testler
+
 ---
 
-*Son güncelleme: 28 Kasım 2025*
+*Son güncelleme: 2 Aralık 2025*

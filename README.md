@@ -13,6 +13,9 @@ npm run dev
 
 # Production build
 npm run build
+
+# Lint kontrolü
+npm run lint
 ```
 
 ## 📦 Teknoloji Yığını
@@ -120,6 +123,14 @@ features/<feature>/
 - `ProtectedRoute` ile yetkisiz erişim engeli
 - `useAuth` hook ile kullanıcı bilgisi
 
+### Mock Giriş
+- E-posta ve şifre serbesttir (mock mod).
+- E-postadaki anahtar kelimeye göre rol atanır:
+    - `admin` → Admin
+    - `worker` → Worker
+    - Diğer → User
+- Oturum bilgisi `localStorage` içinde saklanır; Logout ile temizlenir.
+
 ## 📊 Merkezi Mock Data
 
 Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
@@ -137,6 +148,7 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 - Yorum ve efor takibi
 - Timeline görünümü
 - Rich text editör (Tiptap)
+ - Standart loading ve empty state (Skeleton + EmptyTicketList)
 
 ### Dashboard
 - İstatistik kartları
@@ -148,6 +160,28 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 - Otomatik responsive davranış
 - Smooth animasyonlar
 - Mobil drawer modu
+- Görünüm Ayarları: Basit tema presetleri (Default, Slate, Midnight, Ocean)
+    - Etki kapsamı: Sadece sidebar ve sayfa arkaplanı renkleri
+    - Kalıcılık: Seçim `localStorage` içinde saklanır (`appThemePreset`)
+
+### Hata Yönetimi
+- Global `ErrorBoundary` ile beklenmeyen hatalarda güvenli fallback.
+- 500 ekranı ve "Yenile" aksiyonu.
+
+### Performans
+- Route bazlı `React.lazy` ile kod bölme.
+- Vite Rollup `manualChunks` ile vendor split:
+    - `react`, `antd`, `tiptap`, `icons` ayrı chunk’lar.
+    - `chunkSizeWarningLimit` 1500.
+
+## 🎛️ Görünüm Ayarları
+
+- Preset Seçenekleri:
+    - `Default`: Açık arkaplan, koyu slate sidebar
+    - `Slate`: Biraz daha koyu arkaplan, slate sidebar
+    - `Midnight`: Koyu arkaplan ve sidebar (gece modu görünümü olmadan)
+    - `Ocean`: Mavi tonlu arkaplan ve derin mavi sidebar (marka uyumlu)
+- Not: Global dark mode yok; sadece sidebar ve arkaplan rengi özelleştirilir.
 
 ## 📝 Geliştirme Notları
 
@@ -168,6 +202,13 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 - ✅ Feature-based klasörleme
 - ✅ Küçük, tek sorumluluklu bileşenler
 
+## 🧪 Komutlar
+
+- `npm run dev`: Geliştirme sunucusu
+- `npm run build`: Production derleme
+- `npm run preview`: Production build önizleme
+- `npm run lint`: ESLint ile statik analiz
+
 ---
 
-*Son güncelleme: 27 Kasım 2025*
+*Son güncelleme: 2 Aralık 2025*

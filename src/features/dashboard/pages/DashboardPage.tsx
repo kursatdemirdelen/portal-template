@@ -72,7 +72,7 @@ const DashboardPage: React.FC = () => {
       padding="small"
     >
       {/* ÜST SATIR */}
-      <Row gutter={[8, 8]} style={{ marginBottom: 24 }} align="stretch">
+      <Row gutter={[8, 8]} style={{ marginBottom: 12 }} align="stretch">
         {/* PROFİL + SEÇ: SECENEK 1 - Profil altı vertical quick actions */}
         <Col
           xs={{ span: 24, order: 2 }}
@@ -158,7 +158,7 @@ const DashboardPage: React.FC = () => {
           <SectionCard
             title="Proje Ekipleri"
             padding="small"
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 340 }}
           >
             <ProjectTeams teams={mockProjectTeams} maxTeams={4} />
           </SectionCard>
@@ -168,7 +168,7 @@ const DashboardPage: React.FC = () => {
           <SectionCard
             title="Aktif Projeler"
             variant="elevated"
-            style={{ height: "100%" }}
+            style={{ height: "100%", minHeight: 340 }}
           >
             <ActiveProjects projects={activeProjects} />
           </SectionCard>

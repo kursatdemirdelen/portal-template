@@ -20,8 +20,8 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo): void {
-    // Optional: send to monitoring
-    // console.error("ErrorBoundary caught:", error, info);
+    // TODO: İzleme servisine gönderilebilir.
+    console.error("ErrorBoundary caught:", error, info);
   }
 
   handleReload = () => {

@@ -4,6 +4,10 @@
  */
 
 :root {
+    /* App theming presets */
+    --app-bg: var(--color-bg-page);
+    --sidebar-bg: #0f172a;
+    --sidebar-border: rgba(255,255,255,0.06);
   /* Colors - Primary */
   --color-primary: #5b7aed;
   --color-primary-light: #7b96f5;
@@ -135,7 +139,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
-  background-color: var(--color-bg-page);
+  background-color: var(--app-bg);
   transition: background-color var(--transition-base), color var(--transition-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

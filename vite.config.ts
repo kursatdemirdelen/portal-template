@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   build: {
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -18,7 +18,6 @@ export default defineConfig({
           antd: ['antd'],
           tiptap: ['@tiptap/react', '@tiptap/starter-kit', '@tiptap/extension-placeholder'],
           icons: ['lucide-react'],
-          dayjs: ['dayjs'],
         },
       },
     },

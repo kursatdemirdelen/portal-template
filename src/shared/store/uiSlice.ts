@@ -4,18 +4,18 @@ export interface UiState {
   sidebarCollapsed: boolean;
   sidebarMobileOpen: boolean;
   logoUrl: string | null;
-  themeMode: 'light' | 'dark';
+  themePreset: 'default' | 'slate' | 'midnight' | 'ocean';
 }
 
 // Load persisted values from localStorage
 const savedLogo = localStorage.getItem("appLogo");
-const savedTheme = (localStorage.getItem("appThemeMode") as 'light' | 'dark' | null) || 'light';
+const savedPreset = (localStorage.getItem("appThemePreset") as UiState['themePreset'] | null) || 'default';
 
 const initialState: UiState = {
   sidebarCollapsed: false,
   sidebarMobileOpen: false,
   logoUrl: savedLogo || null,
-  themeMode: savedTheme,
+  themePreset: savedPreset,
 };
 
 const uiSlice = createSlice({
@@ -43,16 +43,12 @@ const uiSlice = createSlice({
         localStorage.removeItem("appLogo");
       }
     },
-    setThemeMode(state, action: PayloadAction<'light' | 'dark'>) {
-      state.themeMode = action.payload;
-      localStorage.setItem("appThemeMode", action.payload);
-    },
-    toggleThemeMode(state) {
-      state.themeMode = state.themeMode === 'light' ? 'dark' : 'light';
-      localStorage.setItem("appThemeMode", state.themeMode);
+    setThemePreset(state, action: PayloadAction<UiState['themePreset']>) {
+      state.themePreset = action.payload;
+      localStorage.setItem("appThemePreset", action.payload);
     },
   },
 });
 
-export const { setSidebarCollapsed, toggleSidebar, setSidebarMobileOpen, toggleSidebarMobile, setLogoUrl, setThemeMode, toggleThemeMode } = uiSlice.actions;
+export const { setSidebarCollapsed, toggleSidebar, setSidebarMobileOpen, toggleSidebarMobile, setLogoUrl, setThemePreset } = uiSlice.actions;
 export default uiSlice.reducer;

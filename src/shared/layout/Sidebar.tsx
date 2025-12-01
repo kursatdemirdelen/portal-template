@@ -10,8 +10,6 @@ import {
   User,
   Building2,
   X,
-  Sun,
-  Moon,
 } from "lucide-react";
 import type { MenuProps } from "antd";
 import { useAuth } from "@/features/auth";
@@ -21,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/useAppStore";
 import {
   setSidebarCollapsed,
   setSidebarMobileOpen,
-  toggleThemeMode,
+  setThemePreset,
 } from "@/shared/store/uiSlice";
 import {
   SIDEBAR_WIDTH,
@@ -215,14 +213,15 @@ export const Sidebar: React.FC = () => {
   const collapsed = useAppSelector((s) => s.ui.sidebarCollapsed);
   const mobileOpen = useAppSelector((s) => s.ui.sidebarMobileOpen);
   const logoUrl = useAppSelector((s) => s.ui.logoUrl);
-  const themeMode = useAppSelector((s) => s.ui.themeMode);
+  const themePreset = useAppSelector((s) => s.ui.themePreset);
   const [openKeys, setOpenKeys] = React.useState<string[]>([]);
 
   const { isMobile } = useResponsiveSidebar();
 
   const toggle = () => dispatch(setSidebarCollapsed(!collapsed));
   const closeMobile = () => dispatch(setSidebarMobileOpen(false));
-  const toggleTheme = () => dispatch(toggleThemeMode());
+  const setPreset = (p: "default" | "slate" | "midnight" | "ocean") =>
+    dispatch(setThemePreset(p));
 
   // Build menu items from routes
   const visibleRoutes = appRoutes
@@ -301,7 +300,12 @@ export const Sidebar: React.FC = () => {
 
   // Calculate sidebar styles for mobile/desktop
   const getSiderStyle = () => {
-    const base = { ...styles.sider };
+    const base: React.CSSProperties = {
+      ...styles.sider,
+    } as React.CSSProperties;
+    // Apply preset variables
+    base.background = "var(--sidebar-bg)";
+    base.borderRight = `1px solid var(--sidebar-border)`;
     if (isMobile) {
       return {
         ...base,
@@ -394,33 +398,74 @@ export const Sidebar: React.FC = () => {
 
           {/* Footer */}
           <div style={styles.footer}>
-            {/* Theme toggle */}
-            <Tooltip
-              title={
-                themeMode === "light"
-                  ? "Karanlık moda geç"
-                  : "Aydınlık moda geç"
-              }
-              placement={collapsed && !isMobile ? "right" : "top"}
+            {/* Theme preset dropdown */}
+            <Dropdown
+              placement="top"
+              trigger={["click"]}
+              menu={{
+                items: [
+                  { key: "default", label: "Default" },
+                  { key: "slate", label: "Slate" },
+                  { key: "midnight", label: "Midnight" },
+                  { key: "ocean", label: "Ocean" },
+                ],
+                onClick: ({ key }) =>
+                  setPreset(key as "default" | "slate" | "midnight" | "ocean"),
+              }}
             >
-              <div
-                style={styles.footerBtn}
-                onClick={toggleTheme}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.background = "transparent")
-                }
+              <Tooltip
+                title={collapsed ? "Tema" : ""}
+                placement={collapsed ? "right" : "top"}
               >
-                {themeMode === "light" ? <Moon size={18} /> : <Sun size={18} />}
-                {!collapsed && (
-                  <span style={{ fontSize: 13 }}>
-                    {themeMode === "light" ? "Karanlık Mod" : "Aydınlık Mod"}
+                <div
+                  style={{
+                    ...styles.footerBtn,
+                    height: 36,
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background =
+                      "rgba(255,255,255,0.08)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background =
+                      "rgba(255,255,255,0.04)")
+                  }
+                >
+                  {/* Nice icon when collapsed */}
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    {/* Palette icon for theme */}
+                    {/* Reuse Building2 if Palette is not imported */}
+                    <span style={{ display: "inline-flex" }}>
+                      {/* Placeholder circle to avoid import changes */}
+                      <span
+                        style={{
+                          width: 14,
+                          height: 14,
+                          borderRadius: 999,
+                          background: "#fff",
+                          opacity: 0.85,
+                          display: "inline-block",
+                        }}
+                      />
+                    </span>
+                    {!collapsed && (
+                      <span style={{ fontSize: 12, opacity: 0.9 }}>
+                        {themePreset.charAt(0).toUpperCase() +
+                          themePreset.slice(1)}
+                      </span>
+                    )}
                   </span>
-                )}
-              </div>
-            </Tooltip>
+                </div>
+              </Tooltip>
+            </Dropdown>
             {/* Collapse - only show on desktop */}
             {!isMobile && (
               <Tooltip title={collapsed ? "Genişlet" : ""} placement="right">
