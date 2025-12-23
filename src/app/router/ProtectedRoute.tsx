@@ -16,7 +16,7 @@ const LoadingScreen: React.FC = () => (
       alignItems: "center",
       justifyContent: "center",
       minHeight: "100vh",
-      background: "#0d1117",
+      background: "var(--bg-primary)",
     }}
   >
     <Spin size="large" />
@@ -30,9 +30,9 @@ const UnauthorizedScreen: React.FC = () => (
       alignItems: "center",
       justifyContent: "center",
       minHeight: "100vh",
-      background: "#0d1117",
-      color: "#f0f9ff",
-      fontSize: 16,
+      background: "var(--bg-primary)",
+      color: "var(--text-primary)",
+      fontSize: "var(--font-size-lg)",
     }}
   >
     Yetkisiz erişim

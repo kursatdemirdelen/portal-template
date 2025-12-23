@@ -5,13 +5,13 @@
  * Bu modül, tüm API servislerini merkezi bir noktadan export eder.
  * 
  * 📁 DOSYA YAPISI:
- * - httpClient.ts     → Axios base instance (interceptors, base URL)
- * - apiClient.ts      → Generic helper fonksiyonlar (get, post, put, delete)
+ * - apiClient.ts      → Axios base instance ve helper fonksiyonlar (get, post)
  * - userService       → Kullanıcı yönetimi CRUD
  * - permissionService → İzin ve rol yönetimi CRUD
  * 
  * 🔧 KULLANIM:
  * ```typescript
+ * import { apiClient, apiGet, apiPost } from '@/shared/api';
  * import { getUsers } from '@/shared/api/userService';
  * ```
  * 
@@ -22,8 +22,7 @@
  * 4. Bu index.ts'e export ekle
  */
 
-// HTTP Layer
-export * from './httpClient';
+// HTTP Layer - Axios tabanlı tek client
 export * from './apiClient';
 
 // Feature Services
