@@ -8,6 +8,11 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 - [x] `shared/ui/PlaceholderPage.tsx` - ✅ Silindi
 - [x] `shared/ui/index.ts` → ✅ PlaceholderPage export kaldırıldı
+- [x] Mock API delays - ✅ Tüm `setTimeout` bloklarını kaldırıldı (userService, permissionService)
+- [x] TODO/FIXME yorumları - ✅ 9 actionable comment güncellendi ve açıklık sağlandı
+- [x] Style file consolidation - ✅ Merkezi `detailStyles.ts` sistemi oluşturuldu (550 satır)
+- [x] Duplicate components - ✅ 6 eski component silinip, paylaşılan sistem kuruldu
+- [x] Kod yorumları Türkçeleştirildi - ✅ Proje dilsel tutarlılığı sağlandı
 
 ---
 
@@ -155,6 +160,13 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 - [ ] Dashboard grafikleri ve trend analizi
 - [ ] Mobil/tablet optimizasyonları
 
+## 🧪 Komutlar
+
+- `npm run dev`: Geliştirme sunucusu
+- `npm run build`: Production derleme
+- `npm run preview`: Production build önizleme
+- `npm run lint`: ESLint ile statik analiz
+
 ---
 
-*Son güncelleme: 23 Aralık 2025*
+*Son güncelleme: 24 Aralık 2025*

@@ -125,6 +125,13 @@ features/<feature>/
 | `appTheme.ts` | Token'lar üstünden oluşturulan semantik tema objesi |
 | `theme.ts` | Ant Design tema ayarları |
 | `globals.css` | Uygulama genelinde kullanılan CSS değişkenleri |
+| `detailStyles.ts` | Merkezi detail page stil sistemi (550+ satır) |
+
+### Paylaşılan Formatters (`shared/utils/`)
+
+| Dosya | İçerik |
+|-------|--------|
+| `formatters.ts` | Tarih, durum, vb. ortak formatting fonksiyonları |
 
 ## 📱 Responsive Tasarım
 
@@ -198,20 +205,9 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
     - `Ocean`: Mavi tonlu arkaplan ve derin mavi sidebar (marka uyumlu)
 - Not: Global dark mode yok; sadece sidebar ve arkaplan rengi özelleştirilir.
 
-## �️ API Entegrasyonu Hazırlığı
+## ✅ API Entegrasyonu Hazırlığı
 
 Proje API entegrasyonuna hazır durumdadır:
-
-- ✅ **HTTP Client Consolidation**: Tek axios-based `apiClient` kulllanılıyor
-- ✅ **Mock Services**: `@shared/api/` altında merkezi API hizmetleri
-- ✅ **Error Handling**: Global error boundary ve hata gösterimi
-- ✅ **Path Aliases**: `@`, `@app`, `@features`, `@shared` kurulu
-
-### API Bağlantısında Yapılacaklar
-1. `VITE_API_URL` ortam değişkenini backend URL'i ile güncelle
-2. `src/shared/api/` servislerdeki mock `setTimeout` bloklarını kaldır
-3. Gerçek endpoint'ler ile servisleri güncelle
-4. Token/Auth interceptor'ları `apiClient` middleware'sine ekle
 
 ### Yeni Feature Ekleme
 
