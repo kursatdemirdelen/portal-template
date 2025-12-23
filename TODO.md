@@ -77,12 +77,13 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 ## 🛠️ Kod Kalitesi
 
 ### Build Optimizasyonu
-- [x] Code Splitting / Lazy Loading
+- [x] Code Splitting / Lazy Loading ✅
   - [x] React.lazy ile route bazlı splitting
   - [x] Vite config'de vendor chunks (react, antd, tiptap, icons)
   - [x] Suspense fallback'ler
   - [x] `chunkSizeWarningLimit` 1500
-  - [x] Gereksiz `dayjs` chunk kaldırıldı
+- [x] HTTP Client Consolidation ✅ (httpClient.ts silindi)
+- [x] CSS Refactoring ✅ (globals.css sadeleştirildi, duplicate'ler kaldırıldı)
 
 ### Ortak Hook'lar
 - [ ] `useDebounce` - Arama gecikmesi
@@ -131,16 +132,29 @@ Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
 
 ## 📝 Notlar
 
-- API entegrasyonu ayrı bir aşamada yapılacak
+- ✅ **API entegrasyonuna hazır**: HTTP client konsolide edildi, mock services merkezi noktada
+- ✅ **Kod kalitesi iyileşti**: CSS duplicate'leri temizlendi, hardcoded değerler ortadan kaldırıldı
 - Öncelik sırası ihtiyaca göre güncellenebilir
-- Her tamamlanan madde [x] ile işaretlenecek
 
 ## ▶️ Yakın Yol Haritası
-- [ ] Tickets ve Users dışındaki sayfalarda Skeleton/Empty standardizasyonu
-- [ ] Ant Design chunk’larını daha ince bölme (`rc-*`, `@ant-design/icons`)
-- [ ] Auth ve permission servislerini mock’tan gerçek API’ye bağlama
-- [ ] ProtectedRoute ve önemli hook’lar için temel testler
+
+**Yüksek Öncelik:**
+- [ ] Toast notifications (başarı/hata/uyarı)
+- [ ] Projects detay sayfası (Tickets gibi)
+- [ ] Time Tracking aktif timer
+- [ ] 404/500 error pages
+
+**Orta Öncelik:**
+- [ ] Tickets dışındaki sayfalarda Skeleton/Empty standardizasyonu
+- [ ] URL query params ile filtre saklama
+- [ ] Ortak hook'lar (`useDebounce`, `useLocalStorage`, `useMediaQuery`)
+
+**Düşük Öncelik:**
+- [ ] Ant Design icon chunk'ını optimize etme
+- [ ] Global arama (Cmd+K)
+- [ ] Dashboard grafikleri ve trend analizi
+- [ ] Mobil/tablet optimizasyonları
 
 ---
 
-*Son güncelleme: 2 Aralık 2025*
+*Son güncelleme: 23 Aralık 2025*

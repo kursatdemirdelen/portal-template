@@ -23,14 +23,29 @@ npm run lint
 | Amaç | Teknoloji |
 |------|-----------|
 | UI Framework | React 19 + Ant Design 5 |
-| Dil | TypeScript 5.9 |
+| Dil | TypeScript 5.9 (Strict Mode) |
 | Build Tool | Vite 7 (SWC) |
-| State | Redux Toolkit |
+| State Management | Redux Toolkit |
 | Routing | React Router DOM 7 |
-| HTTP | Axios |
-| Lint | ESLint 9 |
+| HTTP Client | Axios |
+| Editor | Tiptap 3 (Rich Text) |
+| Icons | Lucide React |
+| Linter | ESLint 9 |
 
-## 📁 Proje Yapısı
+## ⚙️ Ortam Kurulumu
+
+### Environment Değişkenleri
+
+`.env.example` dosyasını kopyalayarak `.env` oluşturun:
+
+```bash
+cp .env.example .env
+```
+
+**Temel Değişkenler:**
+- `VITE_API_URL` - Backend API base URL (default: `/api`)
+- `VITE_APP_NAME` - Uygulama adı
+- `VITE_ENABLE_MOCK` - Mock veri kullanımı (true/false)
 
 ```
 src/
@@ -183,7 +198,20 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
     - `Ocean`: Mavi tonlu arkaplan ve derin mavi sidebar (marka uyumlu)
 - Not: Global dark mode yok; sadece sidebar ve arkaplan rengi özelleştirilir.
 
-## 📝 Geliştirme Notları
+## �️ API Entegrasyonu Hazırlığı
+
+Proje API entegrasyonuna hazır durumdadır:
+
+- ✅ **HTTP Client Consolidation**: Tek axios-based `apiClient` kulllanılıyor
+- ✅ **Mock Services**: `@shared/api/` altında merkezi API hizmetleri
+- ✅ **Error Handling**: Global error boundary ve hata gösterimi
+- ✅ **Path Aliases**: `@`, `@app`, `@features`, `@shared` kurulu
+
+### API Bağlantısında Yapılacaklar
+1. `VITE_API_URL` ortam değişkenini backend URL'i ile güncelle
+2. `src/shared/api/` servislerdeki mock `setTimeout` bloklarını kaldır
+3. Gerçek endpoint'ler ile servisleri güncelle
+4. Token/Auth interceptor'ları `apiClient` middleware'sine ekle
 
 ### Yeni Feature Ekleme
 
@@ -194,13 +222,17 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 5. `pages/<Name>Page.tsx` ile sayfa
 6. `shared/config/routes.ts`'e route ekle
 
-### Kod Standartları
-
+### Build & Performance
+- ✅ Route-based code splitting (React.lazy)
+- ✅ Vendor chunk split: react, antd, tiptap, icons
+- ✅ CSS variables ile dinamik tema
 - ✅ TypeScript strict mode
-- ✅ ESLint kurallarına uyum
-- ✅ Barrel exports (index.ts)
-- ✅ Feature-based klasörleme
-- ✅ Küçük, tek sorumluluklu bileşenler
+
+### Stil Sistemi
+- Merkezi token'lar: `src/shared/styles/tokens.ts`
+- CSS variables: `src/index.css` (base), `globals.css` (overrides)
+- Tema presetleri: Default, Slate, Midnight, Ocean
+- Dark mode desteği
 
 ## 🧪 Komutlar
 
@@ -211,4 +243,4 @@ Tüm mock veriler `shared/data/mocks/` altında gruplanmıştır:
 
 ---
 
-*Son güncelleme: 2 Aralık 2025*
+*Son güncelleme: 23 Aralık 2025*
