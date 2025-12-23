@@ -17,7 +17,7 @@ import {
   CalendarOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
-import { backgrounds, borderColors, colors, shadows } from "@/shared/styles";
+import { colors } from "@/shared/styles";
 import type { LicenseInfo } from "../model/types";
 import {
   LICENSE_TYPE_LABELS,
@@ -25,6 +25,7 @@ import {
   LICENSE_STATUS_LABELS,
   LICENSE_STATUS_COLORS,
 } from "./constants";
+import { customerDetailStyles as styles } from "./customerDetailStyles";
 import dayjs from "dayjs";
 
 const { Text } = Typography;
@@ -32,11 +33,6 @@ const { Text } = Typography;
 interface CustomerLicenseCardProps {
   license?: LicenseInfo;
 }
-
-const cardStyle = {
-  borderRadius: 12,
-  boxShadow: shadows.sm,
-};
 
 export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
   const copyToClipboard = (text: string, label: string) => {
@@ -73,7 +69,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
         </Space>
       }
       size="small"
-      style={cardStyle}
+      style={styles.card}
     >
       {license ? (
         <Space direction="vertical" size={16} style={{ width: "100%" }}>
@@ -81,11 +77,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
           <div style={{ textAlign: "center", padding: "8px 0" }}>
             <Tag
               color={LICENSE_TYPE_COLORS[license.type]}
-              style={{
-                fontSize: 15,
-                padding: "8px 24px",
-                borderRadius: 20,
-              }}
+              style={styles.licenseTagLarge}
             >
               <CrownOutlined style={{ marginRight: 8 }} />
               {LICENSE_TYPE_LABELS[license.type]}
@@ -109,7 +101,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
                   strong
                   style={{
                     color: daysRemaining < 30 ? colors.error : colors.success,
-                    fontSize: 14,
+                    ...styles.textMd,
                   }}
                 >
                   {daysRemaining} gün kaldı
@@ -134,47 +126,27 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
           {/* Tarihler */}
           <Row gutter={[12, 12]}>
             <Col span={12}>
-              <div
-                style={{
-                  background: backgrounds.successBg,
-                  borderRadius: 8,
-                  padding: "12px",
-                  textAlign: "center",
-                }}
-              >
+              <div style={styles.licenseDateBox("success")}>
                 <CalendarOutlined
                   style={{ color: colors.success, fontSize: 16 }}
                 />
-                <Text
-                  type="secondary"
-                  style={{ fontSize: 12, display: "block", marginTop: 4 }}
-                >
+                <Text type="secondary" style={styles.licenseDateLabel}>
                   Başlangıç
                 </Text>
-                <Text strong style={{ fontSize: 14 }}>
+                <Text strong style={styles.licenseDateValue}>
                   {dayjs(license.startDate).format("DD.MM.YYYY")}
                 </Text>
               </div>
             </Col>
             <Col span={12}>
-              <div
-                style={{
-                  background: backgrounds.errorBg,
-                  borderRadius: 8,
-                  padding: "12px",
-                  textAlign: "center",
-                }}
-              >
+              <div style={styles.licenseDateBox("error")}>
                 <CalendarOutlined
                   style={{ color: colors.error, fontSize: 16 }}
                 />
-                <Text
-                  type="secondary"
-                  style={{ fontSize: 12, display: "block", marginTop: 4 }}
-                >
+                <Text type="secondary" style={styles.licenseDateLabel}>
                   Bitiş
                 </Text>
-                <Text strong style={{ fontSize: 14 }}>
+                <Text strong style={styles.licenseDateValue}>
                   {dayjs(license.endDate).format("DD.MM.YYYY")}
                 </Text>
               </div>
@@ -191,7 +163,7 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
             <Col>
               <Tag
                 color={LICENSE_STATUS_COLORS[license.status]}
-                style={{ margin: 0, fontSize: 13 }}
+                style={{ margin: 0, ...styles.textBase }}
               >
                 {LICENSE_STATUS_LABELS[license.status]}
               </Tag>
@@ -199,34 +171,20 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
           </Row>
 
           {/* Lisans Anahtarı */}
-          <div
-            style={{
-              background: backgrounds.neutral50,
-              borderRadius: 8,
-              padding: "12px 14px",
-              border: `1px solid ${borderColors.neutral}`,
-            }}
-          >
-            <Text
-              type="secondary"
-              style={{ fontSize: 12, display: "block", marginBottom: 6 }}
-            >
+          <div style={styles.licenseKeyBox}>
+            <Text type="secondary" style={styles.licenseKeyLabel}>
               Lisans Anahtarı
             </Text>
             <Row justify="space-between" align="middle">
               <Col>
-                <Text code style={{ fontSize: 13 }}>
+                <Text code style={styles.textBase}>
                   {license.key}
                 </Text>
               </Col>
               <Col>
                 <Tooltip title="Kopyala">
                   <CopyOutlined
-                    style={{
-                      cursor: "pointer",
-                      color: colors.info,
-                      fontSize: 14,
-                    }}
+                    style={{ ...styles.copyButton, fontSize: 14 }}
                     onClick={() =>
                       copyToClipboard(license.key, "Lisans anahtarı")
                     }
@@ -237,14 +195,12 @@ export const CustomerLicenseCard = ({ license }: CustomerLicenseCardProps) => {
           </div>
         </Space>
       ) : (
-        <div style={{ textAlign: "center", padding: 40 }}>
-          <SafetyCertificateOutlined
-            style={{ fontSize: 48, color: colors.textMuted }}
-          />
-          <div style={{ marginTop: 16 }}>
+        <div style={styles.emptyState}>
+          <SafetyCertificateOutlined style={styles.emptyIcon} />
+          <div style={styles.emptyText}>
             <Text type="secondary">Lisans bilgisi yok</Text>
           </div>
-          <Button type="primary" style={{ marginTop: 16 }}>
+          <Button type="primary" style={styles.emptyButton}>
             Lisans Ekle
           </Button>
         </div>

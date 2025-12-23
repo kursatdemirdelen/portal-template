@@ -8,20 +8,16 @@ import {
   message,
 } from "antd";
 import { IdcardOutlined, CopyOutlined } from "@ant-design/icons";
-import { colors, shadows } from "@/shared/styles";
+import { colors } from "@/shared/styles";
 import type { Customer } from "../model/types";
 import { STATUS_LABELS, STATUS_COLORS } from "./constants";
+import { customerDetailStyles as styles } from "./customerDetailStyles";
 
 const { Text } = Typography;
 
 interface CustomerInfoCardProps {
   customer: Customer;
 }
-
-const cardStyle = {
-  borderRadius: 12,
-  boxShadow: shadows.sm,
-};
 
 export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
   const copyToClipboard = (text: string, label: string) => {
@@ -38,19 +34,15 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
         </Space>
       }
       size="small"
-      style={{ ...cardStyle, height: "100%" }}
-      styles={{ body: { padding: "16px 20px" } }}
+      style={styles.cardFullHeight}
+      styles={{ body: styles.cardBody }}
     >
       <Descriptions
         column={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}
         size="small"
         styles={{
-          label: {
-            fontWeight: 500,
-            color: colors.textSecondary,
-            padding: "6px 8px",
-          },
-          content: { color: colors.textPrimary, padding: "6px 8px" },
+          label: styles.descriptionLabel,
+          content: styles.descriptionContent,
         }}
       >
         <Descriptions.Item label="Kısa Ad">
@@ -67,17 +59,13 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
         </Descriptions.Item>
         <Descriptions.Item label="Vergi No">
           <Space size={4}>
-            <Text code style={{ fontSize: 12 }}>
+            <Text code style={styles.textSm}>
               {customer.taxNumber || "-"}
             </Text>
             {customer.taxNumber && (
               <Tooltip title="Kopyala">
                 <CopyOutlined
-                  style={{
-                    cursor: "pointer",
-                    color: colors.info,
-                    fontSize: 12,
-                  }}
+                  style={styles.copyButton}
                   onClick={() =>
                     copyToClipboard(customer.taxNumber!, "Vergi No")
                   }

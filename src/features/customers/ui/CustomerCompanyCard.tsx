@@ -17,19 +17,15 @@ import {
   BankOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
-import { colors, shadows } from "@/shared/styles";
+import { colors } from "@/shared/styles";
 import type { Customer } from "../model/types";
+import { customerDetailStyles as styles } from "./customerDetailStyles";
 
 const { Text } = Typography;
 
 interface CustomerCompanyCardProps {
   customer: Customer;
 }
-
-const cardStyle = {
-  borderRadius: 12,
-  boxShadow: shadows.sm,
-};
 
 export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
   const copyToClipboard = (text: string, label: string) => {
@@ -46,8 +42,8 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
         </Space>
       }
       size="small"
-      style={cardStyle}
-      styles={{ body: { padding: "16px 20px" } }}
+      style={styles.card}
+      styles={{ body: styles.cardBody }}
     >
       <Row gutter={[16, 16]}>
         {/* Adres */}
@@ -61,18 +57,18 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
               </Space>
             }
             size="small"
-            style={{ borderRadius: 8, height: "100%" }}
-            styles={{ body: { padding: 12 } }}
+            style={styles.innerCard}
+            styles={{ body: styles.innerCardBody }}
           >
             <Space direction="vertical" size={4}>
-              <Text style={{ fontSize: 13 }}>{customer.address || "-"}</Text>
+              <Text style={styles.textBase}>{customer.address || "-"}</Text>
               <Space
                 split={<Divider type="vertical" style={{ margin: "0 4px" }} />}
               >
-                <Text type="secondary" style={{ fontSize: 12 }}>
+                <Text type="secondary" style={styles.textSm}>
                   {customer.city}
                 </Text>
-                <Text type="secondary" style={{ fontSize: 12 }}>
+                <Text type="secondary" style={styles.textSm}>
                   {customer.country}
                 </Text>
               </Space>
@@ -91,31 +87,31 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
               </Space>
             }
             size="small"
-            style={{ borderRadius: 8, height: "100%" }}
-            styles={{ body: { padding: 12 } }}
+            style={styles.innerCard}
+            styles={{ body: styles.innerCardBody }}
           >
             <Space direction="vertical" size={4}>
               <Space size={6}>
-                <PhoneOutlined style={{ fontSize: 12 }} />
-                <Text style={{ fontSize: 13 }}>{customer.phone || "-"}</Text>
+                <PhoneOutlined style={styles.textSm} />
+                <Text style={styles.textBase}>{customer.phone || "-"}</Text>
               </Space>
               <Space size={6}>
-                <MailOutlined style={{ fontSize: 12 }} />
+                <MailOutlined style={styles.textSm} />
                 <Text
                   copyable={!!customer.contact?.email}
-                  style={{ fontSize: 13 }}
+                  style={styles.textBase}
                 >
                   {customer.contact?.email || "-"}
                 </Text>
               </Space>
               {customer.website && (
                 <Space size={6}>
-                  <GlobalOutlined style={{ fontSize: 12 }} />
+                  <GlobalOutlined style={styles.textSm} />
                   <a
                     href={customer.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ fontSize: 13 }}
+                    style={styles.textBase}
                   >
                     {customer.website}
                   </a>
@@ -137,47 +133,43 @@ export const CustomerCompanyCard = ({ customer }: CustomerCompanyCardProps) => {
                 </Space>
               }
               size="small"
-              style={{ borderRadius: 8 }}
-              styles={{ body: { padding: 12 } }}
+              style={styles.innerCard}
+              styles={{ body: styles.innerCardBody }}
             >
               <Row gutter={[16, 8]}>
                 <Col xs={24} sm={8}>
-                  <Text type="secondary" style={{ fontSize: 11 }}>
+                  <Text type="secondary" style={styles.textXs}>
                     Banka
                   </Text>
                   <div>
-                    <Text strong style={{ fontSize: 13 }}>
+                    <Text strong style={styles.textBase}>
                       {customer.bank.bankName}
                     </Text>
                   </div>
                 </Col>
                 <Col xs={24} sm={8}>
-                  <Text type="secondary" style={{ fontSize: 11 }}>
+                  <Text type="secondary" style={styles.textXs}>
                     Hesap No
                   </Text>
                   <div>
-                    <Text code style={{ fontSize: 12 }}>
+                    <Text code style={styles.textSm}>
                       {customer.bank.accountNumber}
                     </Text>
                   </div>
                 </Col>
                 {customer.bank.iban && (
                   <Col xs={24} sm={8}>
-                    <Text type="secondary" style={{ fontSize: 11 }}>
+                    <Text type="secondary" style={styles.textXs}>
                       IBAN
                     </Text>
                     <div>
                       <Space size={4}>
-                        <Text code style={{ fontSize: 11 }}>
+                        <Text code style={styles.textXs}>
                           {customer.bank.iban}
                         </Text>
                         <Tooltip title="Kopyala">
                           <CopyOutlined
-                            style={{
-                              cursor: "pointer",
-                              color: colors.info,
-                              fontSize: 11,
-                            }}
+                            style={{ ...styles.copyButton, fontSize: 11 }}
                             onClick={() =>
                               copyToClipboard(customer.bank!.iban!, "IBAN")
                             }
