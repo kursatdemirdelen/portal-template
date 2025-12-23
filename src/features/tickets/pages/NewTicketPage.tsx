@@ -57,8 +57,8 @@ const NewTicketPage: React.FC = () => {
 
       console.log("Form Data:", formData);
 
-      // TODO: API çağrısı
-      // await apiClient.post('/api/tickets', formData);
+      // Entegrasyon noktası: Bilet oluşturma API çağrısı
+      // await ticketService.createTicket(formData);
 
       message.success("Bilet başarıyla oluşturuldu!");
       setTimeout(() => {

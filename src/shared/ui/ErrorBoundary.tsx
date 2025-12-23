@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo): void {
-    // TODO: İzleme servisine gönderilebilir.
+    // Hata izleme servisi entegre edilebilir
     console.error("ErrorBoundary caught:", error, info);
   }
 

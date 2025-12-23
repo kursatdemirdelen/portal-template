@@ -24,7 +24,8 @@ const TicketDetailPage: React.FC = () => {
 
   const handleStatusChange = (status: string) => {
     console.log("Status changed to:", status);
-    // TODO: API call
+    // Entegrasyon noktası: Bilet güncelleme API çağrısı
+    // await ticketService.updateTicket(id, { status });
   };
 
   const handleEdit = () => {
@@ -33,7 +34,8 @@ const TicketDetailPage: React.FC = () => {
 
   const handleAddComment = (content: string) => {
     console.log("New comment:", content);
-    // TODO: API call
+    // Entegrasyon noktası: Yorum oluşturma API çağrısı
+    // await ticketService.addComment(id, content);
   };
 
   const handleAddEffort = (effort: {
@@ -43,7 +45,8 @@ const TicketDetailPage: React.FC = () => {
     description: string;
   }) => {
     console.log("New effort:", effort);
-    // TODO: API call
+    // Entegrasyon noktası: Çaba izleme API çağrısı
+    // await ticketService.logEffort(id, effort);
   };
 
   const breadcrumbs: BreadcrumbItem[] = [

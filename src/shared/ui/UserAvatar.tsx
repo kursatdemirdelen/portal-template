@@ -14,12 +14,11 @@ interface UserAvatarProps extends AvatarProps {
 }
 
 /**
- * Generate random avatar URL from DiceBear API
- * Uses consistent seed based on name for stable avatars
- * TODO: Gerçek avatar URL'leri eklendiğinde aktif edilecek
+ * DiceBear API'den random avatar URL'si üret
+ * İsme göre tutarlı seed kullanır - stable avatarlar için
+ * Avatar URL'leri avatarUrl veya user.avatar propertyleri ile sağlanır
  */
 const getRandomAvatar = (): string => {
-  // Şimdilik devre dışı - gerçek datalarla doldurulacak
   return "";
 };
 

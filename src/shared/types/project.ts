@@ -21,6 +21,26 @@ export type ProjectStatus = 'Active' | 'On Hold' | 'Completed' | 'Planning';
  */
 export type ProjectProgressStatus = 'On Track' | 'At Risk' | 'Planning' | 'Delayed';
 
+/**
+ * Proje durum renklendirilmesi
+ */
+export const projectStatusColorMap: Record<ProjectStatus, string> = {
+  'Active': '#2563eb',      // Mavi - Devam Ediyor
+  'Completed': '#10b981',   // Yeşil - Tamamlandı
+  'On Hold': '#f59e0b',     // Turuncu - Beklemede
+  'Planning': '#6b7280',    // Gri - Planlama
+};
+
+/**
+ * Proje ilerleme durumu renklendirilmesi
+ */
+export const projectProgressStatusColorMap: Record<ProjectProgressStatus, string> = {
+  'On Track': '#10b981',    // Yeşil
+  'At Risk': '#f59e0b',     // Turuncu
+  'Planning': '#6b7280',    // Gri
+  'Delayed': '#ef4444',     // Kırmızı
+};
+
 // =============================================================================
 // ANA ENTITY TİPLERİ
 // =============================================================================
@@ -47,6 +67,11 @@ export interface Project {
   startDate: string;
   endDate: string;
   description: string;
+  manager: string;
+  customer: string;
+  category: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 /**

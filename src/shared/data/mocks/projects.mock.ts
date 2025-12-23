@@ -42,7 +42,12 @@ export const mockProjects: Project[] = [
     teamSize: 6,
     startDate: "2025-03-01",
     endDate: "2026-03-31",
-    description: "Kurumsal portal uygulaması - Ana ürün",
+    description: "Kurumsal portal uygulaması - Ana ürün. Kullanıcı yönetimi, proje takibi, raporlama ve iş akışı otomasyonu için kapsamlı bir platform.",
+    manager: "Ahmet Yılmaz",
+    customer: "Intellium Bilişim Teknolojileri A.Ş.",
+    category: "Enterprise",
+    createdAt: "2024-01-15",
+    updatedAt: "2024-12-20",
   },
   {
     id: "PRJ-002",
@@ -53,7 +58,12 @@ export const mockProjects: Project[] = [
     teamSize: 4,
     startDate: "2025-04-01",
     endDate: "2025-12-31",
-    description: "Müşteri destek portalı",
+    description: "Müşteri destek portalı - Hızlı ve etkili müşteri hizmetleri sunumu için tasarlandı.",
+    manager: "Zeynep Ünal",
+    customer: "Intellium Bilişim Teknolojileri A.Ş.",
+    category: "Support",
+    createdAt: "2024-02-20",
+    updatedAt: "2024-12-18",
   },
   {
     id: "PRJ-003",
@@ -64,7 +74,12 @@ export const mockProjects: Project[] = [
     teamSize: 3,
     startDate: "2025-06-01",
     endDate: "2026-02-28",
-    description: "iOS ve Android mobil uygulama",
+    description: "iOS ve Android mobil uygulama - Cross-platform mobil deneyimi sunmak için.",
+    manager: "Burak Kaya",
+    customer: "Digital Solutions Inc.",
+    category: "Mobile",
+    createdAt: "2024-04-10",
+    updatedAt: "2024-12-22",
   },
   {
     id: "PRJ-004",
@@ -75,7 +90,12 @@ export const mockProjects: Project[] = [
     teamSize: 5,
     startDate: "2025-01-15",
     endDate: "2025-12-15",
-    description: "Merkezi API yönetim sistemi",
+    description: "Merkezi API yönetim sistemi - Tüm API'lerin kontrolü ve optimizasyonu için.",
+    manager: "Mehmet Can",
+    customer: "Cloud Systems Ltd.",
+    category: "Infrastructure",
+    createdAt: "2023-12-01",
+    updatedAt: "2024-12-21",
   },
   {
     id: "PRJ-005",
@@ -86,7 +106,12 @@ export const mockProjects: Project[] = [
     teamSize: 3,
     startDate: "2025-09-01",
     endDate: "2026-04-30",
-    description: "Proje yönetim ve scrum board aracı",
+    description: "Proje yönetim ve scrum board aracı - Agile metodoloji ile proje yönetimini kolaylaştır.",
+    manager: "Can Şimşek",
+    customer: "Tech Innovation Group",
+    category: "Tool",
+    createdAt: "2024-07-05",
+    updatedAt: "2024-12-19",
   },
 ];
 
@@ -256,4 +281,20 @@ export const getProjectStats = () => {
  */
 export const getTeamById = (id: string): ProjectTeam | undefined => {
   return mockProjectTeams.find((t) => t.id === id);
+};
+
+/**
+ * Proje adına göre ilişkili ekipleri bul
+ */
+export const getTeamsByProjectName = (projectName: string): ProjectTeam[] => {
+  return mockProjectTeams.filter((t) => t.projectName === projectName);
+};
+
+/**
+ * Proje ID'sine göre ilişkili ekipleri bul
+ */
+export const getTeamsByProjectId = (projectId: string): ProjectTeam[] => {
+  const project = mockProjects.find((p) => p.id === projectId);
+  if (!project) return [];
+  return getTeamsByProjectName(project.name);
 };

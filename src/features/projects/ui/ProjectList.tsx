@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Row, Col, Tag, Progress, Button, Space } from "antd";
 import { TeamOutlined, CalendarOutlined } from "@ant-design/icons";
 import { SectionCard } from "@/shared/ui";
@@ -23,6 +24,12 @@ export const ProjectList: React.FC<ProjectListProps> = ({
   onDetails,
   onEdit,
 }) => {
+  const navigate = useNavigate();
+
+  const handleDetails = (project: Project) => {
+    onDetails?.(project);
+    navigate(`/projects/${project.id}`);
+  };
   return (
     <Row gutter={[16, 16]}>
       {projects.map((project) => (
@@ -120,7 +127,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                   type="text"
                   size="small"
                   style={{ flex: 1 }}
-                  onClick={() => onDetails?.(project)}
+                  onClick={() => handleDetails(project)}
                 >
                   Detaylar
                 </Button>

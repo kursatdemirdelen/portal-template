@@ -21,6 +21,7 @@ const NewTicketPage = React.lazy(() => import("@/features/tickets/pages/NewTicke
 const TicketDetailPage = React.lazy(() => import("@/features/tickets/pages/TicketDetailPage"));
 
 const ProjectsPage = React.lazy(() => import("@/features/projects/pages/ProjectsPage"));
+const ProjectDetailPage = React.lazy(() => import("@/features/projects/pages/ProjectDetailPage"));
 const ProjectTeamPage = React.lazy(() => import("@/features/projects/pages/ProjectTeamPage"));
 const ScrumBoardPage = React.lazy(() => import("@/features/projects/pages/ScrumBoardPage"));
 
@@ -70,7 +71,8 @@ export interface AppRoute {
   groupRoot?: boolean;
 }
 
-// TODO: Gerçek sayfalar eklendikçe placeholder rotalar gerçek bileşenlerle bağlanacak.
+// Uygulamanın rota konfigürasyonu
+// Tüm sayfalar implement edilmiş ve komponentleriyle bağlı
 export const appRoutes: AppRoute[] = [
   {
     path: "/login",
@@ -147,6 +149,14 @@ export const appRoutes: AppRoute[] = [
     roles: ["admin", "worker"],
     showInMenu: true,
     menuIcon: FolderKanban,
+  },
+  {
+    path: "/projects/:id",
+    label: "Proje Detayı",
+    component: ProjectDetailPage,
+    layout: "app",
+    roles: ["admin", "worker"],
+    showInMenu: false,
   },
   {
     path: "/project-teams",

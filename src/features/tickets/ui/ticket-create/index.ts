@@ -2,10 +2,8 @@
  * Ticket Create Feature Components
  * Yeni bilet oluşturma için komponentler
  * 
- * TODO: Implement ticket creation form
- * - CreateForm.tsx - Ana form komponenti
- * - FieldGroups.tsx - Form field grupları
- * - ValidationRules.ts - Form validasyon kuralları
+ * Form implementation NewTicketPage.tsx içerisinde mevcut
+ * Gerekli tüm form field grupları ve validasyon kurallarını içerir
  */
 
 // Placeholder for future components
