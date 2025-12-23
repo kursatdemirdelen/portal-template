@@ -62,9 +62,6 @@ import type {
 // 🔴 MOCK CONFIGURATION - Production'da kaldırılacak
 // ============================================
 
-// Simulated API delay (ms) - Backend entegrasyonunda kaldır
-const API_DELAY = 200;
-
 /**
  * In-memory mock database - All Permissions
  * 🔴 Production'da kaldırılacak - Veriler backend'den gelecek
@@ -154,8 +151,6 @@ const rolePermissionDatabase: RolePermissionMap[] = [
 export async function getPermissions(
   request: GetPermissionsRequest = {}
 ): Promise<GetPermissionsResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   let filtered = [...permissionDatabase];
 
   // Apply filters
@@ -195,8 +190,6 @@ export async function getPermissions(
  * Get single permission by ID
  */
 export async function getPermission(id: string): Promise<Permission> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const permission = permissionDatabase.find((p) => p.id === id);
   if (!permission) {
     throw new Error(`İzin bulunamadı: ${id}`);
@@ -210,8 +203,6 @@ export async function getPermission(id: string): Promise<Permission> {
 export async function getRolePermissions(
   request: GetRolePermissionsRequest
 ): Promise<GetRolePermissionsResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const rolePermissionMap = rolePermissionDatabase.find((r) => r.roleId === request.roleId);
   if (!rolePermissionMap) {
     throw new Error(`Rol bulunamadı: ${request.roleId}`);
@@ -229,8 +220,6 @@ export async function getRolePermissions(
 export async function createPermission(
   request: CreatePermissionRequest
 ): Promise<CreatePermissionResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   // Check if permission already exists
   if (permissionDatabase.some((p) => p.module === request.module && p.action === request.action)) {
     throw new Error(`Bu modül ve işlem kombinasyonu zaten mevcut`);
@@ -264,8 +253,6 @@ export async function createPermission(
 export async function updatePermission(
   request: UpdatePermissionRequest
 ): Promise<UpdatePermissionResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const permission = permissionDatabase.find((p) => p.id === request.id);
   if (!permission) {
     throw new Error(`İzin bulunamadı: ${request.id}`);
@@ -295,8 +282,6 @@ export async function updatePermission(
 export async function updateRolePermissions(
   request: UpdateRolePermissionsRequest
 ): Promise<UpdateRolePermissionsResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const rolePermissionMap = rolePermissionDatabase.find((r) => r.roleId === request.roleId);
   if (!rolePermissionMap) {
     throw new Error(`Rol bulunamadı: ${request.roleId}`);
@@ -320,8 +305,6 @@ export async function updateRolePermissions(
 export async function bulkUpdatePermissions(
   request: BulkUpdatePermissionsRequest
 ): Promise<BulkUpdatePermissionsResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const permissionsToUpdate = permissionDatabase.filter((p) => request.permissionIds.includes(p.id));
 
   if (permissionsToUpdate.length === 0) {
@@ -351,8 +334,6 @@ export async function bulkUpdatePermissions(
  * Get permission statistics
  */
 export async function getPermissionStats(): Promise<PermissionStats> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const byModule: Record<string, number> = {};
   permissionDatabase.forEach((p) => {
     byModule[p.module] = (byModule[p.module] || 0) + 1;
@@ -374,8 +355,6 @@ export async function getPermissionStats(): Promise<PermissionStats> {
 export async function exportPermissionsToCSV(
   permissionIds?: string[]
 ): Promise<{ csv: string; filename: string }> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   let permissionsToExport = permissionDatabase;
   if (permissionIds && permissionIds.length > 0) {
     permissionsToExport = permissionDatabase.filter((p) => permissionIds.includes(p.id));

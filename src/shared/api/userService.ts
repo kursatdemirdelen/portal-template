@@ -54,11 +54,9 @@ import type {
 } from '../../features/users/model';
 
 // ============================================
-// 🔴 MOCK CONFIGURATION - Production'da kaldırılacak
+// MOCK CONFIGURATION
+// Production'da kaldırılacak
 // ============================================
-
-// Simulated API delay (ms) - Backend entegrasyonunda kaldır
-const API_DELAY = 200;
 
 /**
  * In-memory mock database
@@ -149,8 +147,6 @@ const userDatabase: User[] = [
  * Get users with filtering and pagination
  */
 export async function getUsers(request: GetUsersRequest = {}): Promise<GetUsersResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   let filtered = [...userDatabase];
 
   // Apply filters
@@ -198,8 +194,6 @@ export async function getUsers(request: GetUsersRequest = {}): Promise<GetUsersR
  * Get single user by ID
  */
 export async function getUser(id: string): Promise<User> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const user = userDatabase.find((u) => u.id === id);
   if (!user) {
     throw new Error(`Kullanıcı bulunamadı: ${id}`);
@@ -211,8 +205,6 @@ export async function getUser(id: string): Promise<User> {
  * Create new user
  */
 export async function createUser(request: CreateUserRequest): Promise<CreateUserResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   // Validate email uniqueness
   if (userDatabase.some((u) => u.email === request.email)) {
     throw new Error(`Bu e-posta zaten kullanılıyor: ${request.email}`);
@@ -255,8 +247,6 @@ export async function createUser(request: CreateUserRequest): Promise<CreateUser
  * Update user
  */
 export async function updateUser(request: UpdateUserRequest): Promise<UpdateUserResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const user = userDatabase.find((u) => u.id === request.id);
   if (!user) {
     throw new Error(`Kullanıcı bulunamadı: ${request.id}`);
@@ -289,8 +279,6 @@ export async function updateUser(request: UpdateUserRequest): Promise<UpdateUser
  * Delete user
  */
 export async function deleteUser(request: DeleteUserRequest): Promise<{ message: string }> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const index = userDatabase.findIndex((u) => u.id === request.id);
   if (index === -1) {
     throw new Error(`Kullanıcı bulunamadı: ${request.id}`);
@@ -307,8 +295,6 @@ export async function deleteUser(request: DeleteUserRequest): Promise<{ message:
  * Bulk update users
  */
 export async function bulkUpdateUsers(request: BulkUpdateUsersRequest): Promise<BulkUpdateUsersResponse> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const usersToUpdate = userDatabase.filter((u) => request.userIds.includes(u.id));
 
   if (usersToUpdate.length === 0) {
@@ -333,8 +319,6 @@ export async function bulkUpdateUsers(request: BulkUpdateUsersRequest): Promise<
  * Get user statistics
  */
 export async function getUserStats(): Promise<UserStats> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   const stats: UserStats = {
     total: userDatabase.length,
     active: userDatabase.filter((u) => u.status === 'active').length,
@@ -364,8 +348,6 @@ export async function getUserStats(): Promise<UserStats> {
  * Export users to CSV
  */
 export async function exportUsersToCSV(userIds?: string[]): Promise<{ csv: string; filename: string }> {
-  await new Promise((resolve) => setTimeout(resolve, API_DELAY));
-
   let usersToExport = userDatabase;
   if (userIds && userIds.length > 0) {
     usersToExport = userDatabase.filter((u) => userIds.includes(u.id));
