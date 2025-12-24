@@ -6,6 +6,8 @@ import {
   backgrounds,
   borderColors,
   shadows,
+  spacing,
+  radius,
 } from "@/shared/styles";
 
 const { Text } = Typography;
@@ -30,14 +32,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       style={{
         maxWidth: 360,
         margin: "0 auto",
-        padding: "32px 28px",
-        borderRadius: 16,
+        padding: `${spacing["3xl"]}px ${spacing["2xl"]}px`,
+        borderRadius: radius.xl,
         border: `1px solid ${borderColors.neutral}`,
         background: backgrounds.card,
         boxShadow: shadows.lg,
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: 24 }}>
+      <div style={{ textAlign: "center", marginBottom: spacing["2xl"] }}>
         <Text
           style={{
             fontSize: 20,
@@ -47,7 +49,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         >
           Portal'a Giriş
         </Text>
-        <p style={{ color: colorPalette.textSecondary, margin: "8px 0 0" }}>
+        <p
+          style={{
+            color: colorPalette.textSecondary,
+            margin: `${spacing.xs}px 0 0`,
+          }}
+        >
           Kullanıcı bilgilerinizle oturum açın.
         </p>
       </div>
@@ -88,7 +95,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           size="large"
           block
           loading={loading}
-          style={{ marginTop: 12 }}
+          style={{ marginTop: spacing.sm }}
         >
           Giriş Yap
         </Button>

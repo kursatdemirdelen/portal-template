@@ -1,5 +1,6 @@
 import React from "react";
 import { Empty, Button } from "antd";
+import { spacing, colors } from "@/shared/styles";
 
 interface EmptyStateProps {
   title?: string;
@@ -15,12 +16,18 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
 }) => {
   return (
-    <div style={{ padding: 24 }}>
+    <div style={{ padding: spacing["2xl"] }}>
       <Empty
         description={
           <div>
             <div style={{ fontWeight: 600 }}>{title}</div>
-            <div style={{ fontSize: 12, color: "#7f8c8d", marginTop: 6 }}>
+            <div
+              style={{
+                fontSize: 12,
+                color: colors.textSecondary,
+                marginTop: spacing.xs,
+              }}
+            >
               {description}
             </div>
           </div>

@@ -64,16 +64,16 @@ const TeamCard: React.FC<{
       }}
     >
       {/* Content */}
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: spacing.xl }}>
         {/* Team Name & Project */}
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: spacing.lg }}>
           <Text
             style={{
               color: colorPalette.textPrimary,
               fontWeight: 600,
               fontSize: 16,
               display: "block",
-              marginBottom: 4,
+              marginBottom: spacing.xs,
             }}
           >
             {team.name}
@@ -89,9 +89,9 @@ const TeamCard: React.FC<{
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 10,
-              marginBottom: 16,
-              padding: "10px 12px",
+              gap: spacing.md,
+              marginBottom: spacing.lg,
+              padding: `${spacing.sm}px ${spacing.md}px`,
               background: backgrounds.neutral50,
               borderRadius: radius.md,
             }}
@@ -103,7 +103,13 @@ const TeamCard: React.FC<{
               backgroundColor={leader.color}
             />
             <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: spacing.xs,
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 13,
@@ -170,7 +176,7 @@ const TeamCard: React.FC<{
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 2,
+              gap: spacing.xs,
               color: colorPalette.textSecondary,
               fontSize: 12,
             }}
@@ -185,7 +191,7 @@ const TeamCard: React.FC<{
       <div
         style={{
           borderTop: `1px solid ${borderColors.light}`,
-          padding: "12px 20px",
+          padding: `${spacing.sm}px ${spacing.xl}px`,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -281,7 +287,9 @@ export const ProjectTeamListPage: React.FC = () => {
 
         {/* Quick Stats */}
         <div style={{ display: "flex", alignItems: "center", gap: spacing.lg }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{ display: "flex", alignItems: "center", gap: spacing.xs }}
+          >
             <div
               style={{
                 width: 8,
@@ -297,7 +305,9 @@ export const ProjectTeamListPage: React.FC = () => {
               ekip
             </Text>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{ display: "flex", alignItems: "center", gap: spacing.xs }}
+          >
             <div
               style={{
                 width: 8,

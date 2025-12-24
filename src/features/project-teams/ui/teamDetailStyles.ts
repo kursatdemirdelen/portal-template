@@ -29,14 +29,14 @@ export const teamDetailStyles = {
 
   // ============ Info Header ============
   infoBlock: {
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   } as CSSProperties,
 
   projectName: {
     fontSize: 13,
     color: colors.textSecondary,
     display: "block",
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   } as CSSProperties,
 
   description: {

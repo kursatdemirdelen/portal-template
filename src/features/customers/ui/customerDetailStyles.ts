@@ -10,23 +10,25 @@ import {
   backgrounds,
   borderColors,
   hexToRgba,
+  spacing,
+  radius,
 } from "@/shared/styles";
 
 export const customerDetailStyles = {
   // ============ Card Base - Tüm kartlar için ortak ============
   card: {
-    borderRadius: 12,
+    borderRadius: radius.lg,
     boxShadow: shadows.sm,
   } as CSSProperties,
 
   cardFullHeight: {
-    borderRadius: 12,
+    borderRadius: radius.lg,
     boxShadow: shadows.sm,
     height: "100%",
   } as CSSProperties,
 
   cardBody: {
-    padding: "16px 20px",
+    padding: `${spacing.lg}px ${spacing.xl}px`,
   } as CSSProperties,
 
   // ============ Hero Card ============
@@ -49,20 +51,20 @@ export const customerDetailStyles = {
   } as CSSProperties,
 
   heroTagContainer: {
-    marginTop: 8,
+    marginTop: spacing.sm,
   } as CSSProperties,
 
   heroTag: {
-    borderRadius: 10,
-    padding: "1px 10px",
+    borderRadius: radius.lg,
+    padding: `${spacing.xs}px ${spacing.md}px`,
     fontSize: 12,
     margin: 0,
   } as CSSProperties,
 
   heroIdBox: {
     background: hexToRgba(backgrounds.card, 0.15),
-    borderRadius: 10,
-    padding: "12px 16px",
+    borderRadius: radius.lg,
+    padding: `${spacing.md}px ${spacing.lg}px`,
     backdropFilter: "blur(10px)",
     textAlign: "center" as const,
   } as CSSProperties,
@@ -74,7 +76,7 @@ export const customerDetailStyles = {
 
   heroIdValue: {
     color: backgrounds.card,
-    margin: "2px 0 0 0",
+    margin: `${spacing.xs}px 0 0 0`,
     fontSize: 20,
   } as CSSProperties,
 
@@ -82,17 +84,17 @@ export const customerDetailStyles = {
   descriptionLabel: {
     fontWeight: 500,
     color: colors.textSecondary,
-    padding: "6px 8px",
+    padding: `${spacing.xs}px ${spacing.sm}px`,
   } as CSSProperties,
 
   descriptionContent: {
     color: colors.textPrimary,
-    padding: "6px 8px",
+    padding: `${spacing.xs}px ${spacing.sm}px`,
   } as CSSProperties,
 
   // ============ Inner Cards ============
   innerCard: {
-    borderRadius: 8,
+    borderRadius: radius.md,
     height: "100%",
   } as CSSProperties,
 

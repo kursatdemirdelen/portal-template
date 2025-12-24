@@ -137,9 +137,9 @@ export const antdTheme: ThemeConfig = {
       horizontalItemSelectedBg: backgrounds.sidebarMenuActive,
       darkSubMenuItemBg: '#273347',
       itemHoverBg: backgrounds.sidebarMenuHover,
-      itemBorderRadius: 10,
+      itemBorderRadius: radius.lg,
       itemHeight: 38,
-      itemPaddingInline: 12,
+      itemPaddingInline: spacing.md,
     },
 
     Card: {

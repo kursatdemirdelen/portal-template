@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Typography, Tag, Avatar } from "antd";
+import { Typography, Tag } from "antd";
 import { Users } from "lucide-react";
-import { SectionCard } from "@/shared/ui";
+import { SectionCard, AvatarStack } from "@/shared/ui";
 import { projectDetailStyles } from "./projectDetailStyles";
 import { colors } from "@/shared/styles";
 import type { ProjectTeam } from "@/shared/types/project";
@@ -65,17 +65,7 @@ export const ProjectTeamsCard: React.FC<ProjectTeamsCardProps> = ({
               <Text style={projectDetailStyles.teamRole}>{team.role}</Text>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <Avatar.Group size="small" max={{ count: 3 }}>
-                {team.people.map((person, idx) => (
-                  <Avatar
-                    key={idx}
-                    size="small"
-                    style={{ backgroundColor: person.color }}
-                  >
-                    {person.initials}
-                  </Avatar>
-                ))}
-              </Avatar.Group>
+              <AvatarStack people={team.people} size={24} maxVisible={3} />
               <Tag
                 style={{
                   fontSize: 10,

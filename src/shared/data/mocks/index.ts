@@ -124,8 +124,16 @@ export {
 // =============================================================================
 
 export {
-  mockApprovalSteps,
-  mockApprovalRules,
+  mockApprovals,
+  getApprovalsByStatus,
+  getApprovalsByType,
+  getPendingApprovalsCount,
+} from './approvals.mock';
+
+export type { 
+  ApprovalRequest, 
+  ApprovalStatus, 
+  ApprovalType 
 } from './approvals.mock';
 
 // =============================================================================
@@ -171,6 +179,16 @@ export {
   mockTeamMembers,
   mockCeremonies,
   mockRoleTemplates,
+  mockProjectTeamDetails,
+  mockProjectTeamList,
+  getProjectTeamById,
+  getProjectTeamStats,
+} from './teams.mock';
+
+export type { 
+  TeamMember, 
+  ProjectTeamDetail, 
+  ProjectTeamListItem 
 } from './teams.mock';
 
 // =============================================================================

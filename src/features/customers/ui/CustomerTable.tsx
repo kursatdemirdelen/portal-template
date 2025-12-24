@@ -162,7 +162,7 @@ export const CustomerTable = ({
           showSizeChanger: true,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} / ${total} müşteri`,
-          defaultPageSize: TABLE_CONFIG.defaultPageSize,
+          pageSize: TABLE_CONFIG.pageSize,
           pageSizeOptions: TABLE_CONFIG.pageSizeOptions,
           style: { marginRight: 16 },
         }}

@@ -13,7 +13,7 @@ import {
   TicketComments,
 } from "../ui/ticket-detail";
 import { TicketHeader } from "../ui/shared";
-import { mockTicketDetail } from "../data/ticketDetail";
+import { mockTicketDetail } from "@/shared/data/mocks";
 
 const TicketDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

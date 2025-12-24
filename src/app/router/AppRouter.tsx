@@ -5,6 +5,7 @@ import { AuthLayout } from "@/shared/layout/AuthLayout";
 import { appRoutes } from "@/shared/config/routes";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PageLoader } from "@/shared/ui/Loaders";
+import { spacing, radius, colors, gradients } from "@/shared/styles";
 
 // 404 Not Found page
 const NotFoundPage: React.FC = () => (
@@ -14,32 +15,34 @@ const NotFoundPage: React.FC = () => (
       alignItems: "center",
       justifyContent: "center",
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #f8f9fa 0%, #f0f3f7 100%)",
+      background: gradients.bgCard,
       flexDirection: "column",
-      gap: 20,
-      color: "#2c3e50",
+      gap: spacing.xl,
+      color: colors.textPrimary,
     }}
   >
-    <div style={{ fontSize: 64, fontWeight: "bold", color: "#5b7aed" }}>
+    <div style={{ fontSize: 64, fontWeight: "bold", color: colors.primary }}>
       404
     </div>
     <div style={{ fontSize: 20 }}>Sayfa bulunamadı</div>
     <a
       href="/dashboard"
       style={{
-        marginTop: 20,
-        padding: "10px 20px",
-        background: "#5b7aed",
+        marginTop: spacing.xl,
+        padding: `${spacing.sm}px ${spacing.xl}px`,
+        background: colors.primary,
         color: "#fff",
-        borderRadius: 8,
+        borderRadius: radius.md,
         textDecoration: "none",
         transition: "all 0.3s ease",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = "#7b96f5";
+        e.currentTarget.style.background = colors.primary;
+        e.currentTarget.style.opacity = "0.9";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = "#5b7aed";
+        e.currentTarget.style.background = colors.primary;
+        e.currentTarget.style.opacity = "1";
       }}
     >
       Dashboard'a Dön

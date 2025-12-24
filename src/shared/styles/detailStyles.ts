@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { theme, hexToRgba, colors, backgrounds, shadows } from "./index";
+import { theme, hexToRgba, colors, backgrounds, shadows, spacing, radius } from "./index";
 
 /**
  * Shared Detail Page Styles
@@ -18,13 +18,13 @@ export const metaCardStyles = {
   container: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gap: 10,
-    rowGap: 10,
+    gap: spacing.md,
+    rowGap: spacing.md,
   } as CSSProperties,
 
   item: {
     display: "flex",
-    gap: 8,
+    gap: spacing.sm,
     alignItems: "flex-start",
   } as CSSProperties,
 
@@ -35,7 +35,7 @@ export const metaCardStyles = {
   iconBox: {
     width: 24,
     height: 24,
-    borderRadius: 6,
+    borderRadius: radius.sm,
     background: hexToRgba(colors.primary, 0.08),
     display: "flex",
     alignItems: "center",
@@ -57,7 +57,7 @@ export const metaCardStyles = {
   label: {
     fontSize: 9,
     display: "block",
-    marginBottom: 2,
+    marginBottom: spacing.xs,
     textTransform: "uppercase" as const,
     fontWeight: 600,
     letterSpacing: 0.5,
@@ -74,7 +74,7 @@ export const metaCardStyles = {
     gridColumn: "1 / -1",
     height: 1,
     background: theme.colors.border.subtle,
-    margin: "3px 0",
+    margin: `${spacing.xs}px 0`,
   } as CSSProperties,
 
   statusDot: {
@@ -86,8 +86,8 @@ export const metaCardStyles = {
   statusTag: {
     fontSize: 11,
     fontWeight: 600,
-    padding: "2px 8px",
-    borderRadius: 4,
+    padding: `${spacing.xs}px ${spacing.sm}px`,
+    borderRadius: radius.sm,
     margin: 0,
   } as CSSProperties,
 };
@@ -100,8 +100,8 @@ export const descriptionStyles = {
   header: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
-    marginBottom: 12,
+    gap: spacing.md,
+    marginBottom: spacing.md,
   } as CSSProperties,
 
   avatar: {
@@ -124,21 +124,21 @@ export const descriptionStyles = {
     fontSize: 11,
     color: theme.colors.text.secondary,
     display: "block",
-    marginTop: 2,
+    marginTop: spacing.xs,
   } as CSSProperties,
 
   tag: {
     fontSize: 10,
     fontWeight: 600,
-    padding: "2px 8px",
-    borderRadius: 4,
+    padding: `${spacing.xs}px ${spacing.sm}px`,
+    borderRadius: radius.sm,
   } as CSSProperties,
 
   content: {
     background: theme.colors.surface.soft,
     border: `1px solid ${theme.colors.border.subtle}`,
-    borderRadius: 6,
-    padding: "12px 14px",
+    borderRadius: radius.sm,
+    padding: `${spacing.md}px ${spacing.md}px`,
     fontSize: 13,
     lineHeight: 1.6,
     color: theme.colors.text.primary,
@@ -153,12 +153,12 @@ export const listItemStyles = {
   item: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
-    padding: "10px 12px",
+    gap: spacing.md,
+    padding: `${spacing.sm}px ${spacing.md}px`,
     background: theme.colors.surface.base,
     border: `1px solid ${theme.colors.border.subtle}`,
-    borderRadius: 6,
-    marginBottom: 8,
+    borderRadius: radius.sm,
+    marginBottom: spacing.sm,
     transition: "all 0.2s ease",
     cursor: "pointer",
   } as CSSProperties,
@@ -172,7 +172,7 @@ export const listItemStyles = {
   iconBox: {
     width: 32,
     height: 32,
-    borderRadius: 6,
+    borderRadius: radius.sm,
     background: theme.colors.surface.soft,
     border: `1px solid ${theme.colors.border.subtle}`,
     display: "flex",
@@ -268,7 +268,7 @@ export const cardHeaderStyles = {
     fontSize: 11,
     color: theme.colors.text.secondary,
     display: "block",
-    marginTop: 2,
+    marginTop: spacing.xs / 2,
   } as CSSProperties,
 };
 
@@ -279,9 +279,9 @@ export const cardHeaderStyles = {
 export const timelineStyles = {
   item: {
     display: "flex",
-    gap: 12,
+    gap: spacing.md,
     position: "relative" as const,
-    paddingBottom: 16,
+    paddingBottom: spacing.lg,
   } as CSSProperties,
 
   itemLast: {
@@ -294,13 +294,13 @@ export const timelineStyles = {
     borderRadius: "50%",
     background: colors.primary,
     flexShrink: 0,
-    marginTop: 4,
+    marginTop: spacing.xs,
     zIndex: 1,
   } as CSSProperties,
 
   line: {
     position: "absolute" as const,
-    left: 4,
+    left: spacing.xs,
     top: 14,
     bottom: 0,
     width: 2,
@@ -323,7 +323,7 @@ export const timelineStyles = {
     fontSize: 11,
     color: theme.colors.text.secondary,
     display: "block",
-    marginTop: 2,
+    marginTop: spacing.xs,
   } as CSSProperties,
 };
 
@@ -335,7 +335,7 @@ export const progressStyles = {
   container: {
     display: "flex",
     flexDirection: "column" as const,
-    gap: 8,
+    gap: spacing.sm,
   } as CSSProperties,
 
   header: {
@@ -473,15 +473,15 @@ export const detailStyles = {
     // Info row stiller
     infoRow: {
       display: "flex",
-      gap: 12,
-      padding: "8px 0",
+      gap: spacing.md,
+      padding: `${spacing.sm}px 0`,
       borderTop: `1px solid ${theme.colors.border.subtle}`,
-      marginBottom: 10,
+      marginBottom: spacing.md,
     } as CSSProperties,
     infoItem: {
       display: "flex",
       alignItems: "center",
-      gap: 5,
+      gap: spacing.xs,
     } as CSSProperties,
     infoText: {
       fontSize: 11,
@@ -512,12 +512,12 @@ export const detailStyles = {
       zIndex: 1,
     } as CSSProperties,
     header: {
-      marginBottom: 4,
+      marginBottom: spacing.xs,
     } as CSSProperties,
     user: {
       fontSize: 13,
       fontWeight: 600,
-      marginRight: 6,
+      marginRight: spacing.xs,
       color: theme.colors.text.primary,
     } as CSSProperties,
     action: {
@@ -528,10 +528,10 @@ export const detailStyles = {
     changeBadge: {
       display: "inline-flex" as const,
       alignItems: "center",
-      gap: 4,
-      padding: "3px 8px",
+      gap: spacing.xs,
+      padding: `${spacing.xs}px ${spacing.sm}px`,
       background: theme.colors.surface.soft,
-      borderRadius: 4,
+      borderRadius: radius.sm,
       fontSize: 11,
       marginBottom: 4,
       border: `1px solid ${theme.colors.border.subtle}`,

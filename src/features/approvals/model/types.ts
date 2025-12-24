@@ -1,14 +1,12 @@
-export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
-export type ApprovalType = 'leave' | 'expense' | 'overtime' | 'project';
+/**
+ * Approval Types
+ * 
+ * Re-export from centralized types for backward compatibility.
+ * @see @/shared/data/mocks/approvals.mock.ts
+ */
 
-export interface ApprovalRequest {
-  id: string;
-  type: ApprovalType;
-  title: string;
-  requesterName: string;
-  requesterAvatar?: string;
-  requestDate: string;
-  status: ApprovalStatus;
-  amount?: number; // For expenses
-  description?: string;
-}
+export type { 
+  ApprovalStatus, 
+  ApprovalType, 
+  ApprovalRequest 
+} from '@/shared/data/mocks';

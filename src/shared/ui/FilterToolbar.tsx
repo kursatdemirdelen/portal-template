@@ -1,6 +1,7 @@
 import React from "react";
 import { Space } from "antd";
 import { toolbarStyles } from "@/shared/styles/helpers";
+import { spacing } from "@/shared/styles/tokens";
 
 interface FilterToolbarProps {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
 }) => {
   return (
     <div style={{ ...toolbarStyles.filter.container, alignItems: align }}>
-      <Space size={12} wrap style={toolbarStyles.filter.inputs}>
+      <Space size={spacing.md} wrap style={toolbarStyles.filter.inputs}>
         {children}
       </Space>
       {actions && <div style={toolbarStyles.filter.actions}>{actions}</div>}

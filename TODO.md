@@ -1,103 +1,58 @@
-# 📋 Geliştirme Yapılacaklar
+# 📋 Yapılacaklar & İyileştirmeler
 
-Bu dosya, projenin iyileştirme ve geliştirme listesini içerir.
+## ✅ Tamamlanan İşler (Aralık 2025)
 
----
+### Mimari Iyileştirmeler
+- ✅ **Merkezi Stil Sistemi** - Design tokens'dan renkler kullanılıyor
+- ✅ **Merkezi Mock Data** - `src/shared/data/mocks/` sistemi
+- ✅ **Mock Consolidation** - Feature mock'ları merkeze taşındı
+  - approvals, project-teams, tickets
+- ✅ **Renk Tutarlılığı** - Hardcoded hex değerler token'larla değiştirildi
+- ✅ **Build Fix** - TypeScript & type errors düzeltildi
 
-## 🧹 Temizlik
-
-- [x] `shared/ui/PlaceholderPage.tsx` - ✅ Silindi
-- [x] `shared/ui/index.ts` → ✅ PlaceholderPage export kaldırıldı
-- [x] Mock API delays - ✅ Tüm `setTimeout` bloklarını kaldırıldı (userService, permissionService)
-- [x] TODO/FIXME yorumları - ✅ 9 actionable comment güncellendi ve açıklık sağlandı
-- [x] Style file consolidation - ✅ Merkezi `detailStyles.ts` sistemi oluşturuldu (550 satır)
-- [x] Duplicate components - ✅ 6 eski component silinip, paylaşılan sistem kuruldu
-- [x] Kod yorumları Türkçeleştirildi - ✅ Proje dilsel tutarlılığı sağlandı
-
----
-
-## 🔧 Feature Geliştirmeleri
-
-### Approvals (Onaylar)
-- [x] Onay listesi tablosu
-- [x] Durum filtreleri (Bekleyen, Onaylanan, Reddedilen)
-- [x] Onay/Red aksiyonları
-
-### Leaves (İzinler)
-- [x] İzin talebi formu
-- [x] Onay süreci (yönetici onayı)
-- [x] Takvim görünümü
-
-### Time Tracking (Zaman Takibi)
-- [ ] Aktif timer (başlat/durdur)
-- [ ] Haftalık özet grafiği
-- [ ] Proje bazlı zaman raporu
-
-### Projects (Projeler)
-- [ ] Proje detay sayfası
-- [ ] İlerleme grafiği
-- [ ] Takım üyeleri listesi
-
-### Assignments (Görevler)
-- [ ] Görev atama formu
-- [ ] Sürükle-bırak öncelik sıralaması
-- [ ] Görev durumu değiştirme
+### Kod Kalitesi
+- ✅ Unused mock data kaldırıldı (`ticketDetail.ts`)
+- ✅ Build başarıyla tamamlanıyor
+- ✅ Type safety %100
 
 ---
 
-## 🎨 UI/UX İyileştirmeleri
+## 📈 Sonraki Adımlar
 
-### Loading States
-- [x] Sayfalarda Skeleton loader (Users, Tickets)
-- [ ] Tablo yüklenirken spinner
-- [ ] Button loading state
+### Feature Geliştirmeleri
+- [ ] Time Tracking - Aktif timer
+- [ ] Projects - Detay sayfası iyileştirmeler
+- [ ] Assignments - Görev atama formu
+- [ ] Dashboard - Grafikler ve analytics
 
-### Empty States
-- [x] Boş liste görselleri ✅ (EmptyTicketList)
-- [x] "Veri bulunamadı" mesajları ✅
-- [x] Aksiyon önerileri ✅ (Yeni bilet oluştur butonu)
+### Performans
+- [ ] Infinite scroll (listeler için)
+- [ ] Virtual scroll (büyük tablolar)
+- [ ] Image optimization
+- [ ] Bundle size monitoring
 
-### Error Handling
-- [x] Global error boundary
-- [ ] Hata sayfası (404, 500)
-- [ ] Toast bildirimleri (başarı/hata)
+### Kullanıcı Deneyimi
+- [ ] Toast notifications
+- [ ] Advanced filters
+- [ ] Bulk actions (seçili öğeleri işle)
+- [ ] Keyboard shortcuts
 
-### Genel
-- [x] Dark mode desteği (toggle + CSS vars)
-- [x] Animasyon tutarlılığı ✅ (hover efektleri, transitions)
-- [x] Mobil görünüm iyileştirmeleri ✅ (responsive grid, breakpoints)
-
----
-
-## 📊 Dashboard Geliştirmeleri
-
-- [ ] Bilet trend grafiği (haftalık/aylık)
-- [ ] Proje ilerleme grafiği
-- [x] Hızlı aksiyon butonları ✅ (QuickActions - rol bazlı)
-- [ ] Son aktiviteler timeline
-- [ ] Mini takvim widget
+### API Entegrasyonu
+- [ ] Backend'e API çağrıları
+- [ ] Error handling & retry logic
+- [ ] Loading states standardizasyonu
+- [ ] Caching & offline support
 
 ---
 
-## 🛠️ Kod Kalitesi
+## 🎯 Başlangıç Noktası
 
-### Build Optimizasyonu
-- [x] Code Splitting / Lazy Loading ✅
-  - [x] React.lazy ile route bazlı splitting
-  - [x] Vite config'de vendor chunks (react, antd, tiptap, icons)
-  - [x] Suspense fallback'ler
-  - [x] `chunkSizeWarningLimit` 1500
-- [x] HTTP Client Consolidation ✅ (httpClient.ts silindi)
-- [x] CSS Refactoring ✅ (globals.css sadeleştirildi, duplicate'ler kaldırıldı)
+**Yeni geliştirici için:**
+1. `/docs/ARCHITECTURE.md` oku
+2. `/docs/SETUP.md` ile kurulum yap
+3. Mock data akışını anla: `src/shared/data/mocks/`
+4. Bir feature module seç ve geliştir
 
-### Ortak Hook'lar
-- [ ] `useDebounce` - Arama gecikmesi
-- [ ] `useLocalStorage` - Yerel depolama
-- [ ] `useMediaQuery` - Responsive kontrol
-- [ ] `useTableConfig` - Ortak tablo ayarları
-
-### Form Yönetimi
-- [ ] Form pattern standardizasyonu
 - [ ] Validasyon mesajları Türkçeleştirme
 - [ ] Ortak form bileşenleri
 

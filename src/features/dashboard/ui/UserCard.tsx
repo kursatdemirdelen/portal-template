@@ -11,6 +11,7 @@ import {
   gradients,
   hexToRgba,
   shadows,
+  spacing,
 } from "@/shared/styles";
 import type { DashboardUserInfo } from "@/shared/types";
 
@@ -75,7 +76,12 @@ export const UserCard: React.FC<UserCardProps> = memo(
         </div>
 
         {/* Content */}
-        <div style={{ padding: "0 16px 20px", marginTop: -36 }}>
+        <div
+          style={{
+            padding: `0 ${spacing.lg}px ${spacing.xl}px`,
+            marginTop: -36,
+          }}
+        >
           {/* Avatar */}
           <div
             style={{
@@ -232,7 +238,7 @@ const StatItem: React.FC<{
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      gap: 2,
+      gap: spacing.xs / 2,
     }}
   >
     <Text

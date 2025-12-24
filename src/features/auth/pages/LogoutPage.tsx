@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { gradients } from "@/shared/styles";
+import { gradients, spacing } from "@/shared/styles";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { PageLoader } from "@/shared/ui/Loaders";
@@ -22,7 +22,7 @@ const LogoutPage: React.FC = () => {
         alignItems: "center",
         justifyContent: "center",
         background: gradients.bgPrimary,
-        padding: 24,
+        padding: spacing["2xl"],
       }}
     >
       <PageLoader />

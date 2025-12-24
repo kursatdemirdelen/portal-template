@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Typography, theme } from "antd";
-import { UserAvatar } from "@/shared/ui";
+import { AvatarStack } from "@/shared/ui";
 import {
   backgrounds,
   borderColors,
@@ -8,7 +8,6 @@ import {
   getTeamStatusStyle,
   gradients,
 } from "@/shared/styles";
-import { getUserByName } from "@/shared/data/mocks";
 import type { ProjectTeam } from "@/shared/types";
 
 const { Text } = Typography;
@@ -43,49 +42,7 @@ export const ProjectTeams: React.FC<ProjectTeamsProps> = ({
   };
 
   const renderPeople = (team: ProjectTeam) => {
-    const visible = team.people.slice(0, 5);
-    const remaining = Math.max(team.members - visible.length, 0);
-
-    return (
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {visible.map((person, index) => {
-          const userInfo = getUserByName(person.name);
-          return (
-            <UserAvatar
-              key={person.name}
-              size={28}
-              backgroundColor={person.color}
-              avatarUrl={userInfo?.avatarUrl}
-              user={{ name: person.name }}
-              style={{
-                marginLeft: index === 0 ? 0 : -8,
-                border: `2px solid ${token.colorBgContainer}`,
-              }}
-            />
-          );
-        })}
-        {remaining > 0 && (
-          <div
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: backgrounds.hover,
-              color: colorPalette.primary,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginLeft: -8,
-              border: `2px solid ${token.colorBgContainer}`,
-              fontSize: 11,
-              fontWeight: 600,
-            }}
-          >
-            +{remaining}
-          </div>
-        )}
-      </div>
-    );
+    return <AvatarStack people={team.people} size={28} maxVisible={5} />;
   };
 
   return (

@@ -7,6 +7,8 @@
  * @module shared/utils/formatters
  */
 
+import { colors } from '@/shared/styles';
+
 // ============================================================================
 // DATE FORMATTERS
 // ============================================================================
@@ -84,10 +86,10 @@ export const projectStatusLabels: Record<ProjectStatus, string> = {
 };
 
 export const projectStatusColors: Record<ProjectStatus, string> = {
-  'Active': '#2563eb',
-  'Completed': '#10b981',
-  'On Hold': '#f59e0b',
-  'Planning': '#6b7280',
+  'Active': colors.info,
+  'Completed': colors.success,
+  'On Hold': colors.warning,
+  'Planning': colors.textSecondary,
 };
 
 export const getProjectStatusLabel = (status: ProjectStatus): string => {
@@ -95,7 +97,7 @@ export const getProjectStatusLabel = (status: ProjectStatus): string => {
 };
 
 export const getProjectStatusColor = (status: ProjectStatus): string => {
-  return projectStatusColors[status] || '#6b7280';
+  return projectStatusColors[status] || colors.textSecondary;
 };
 
 // ============================================================================
@@ -117,15 +119,15 @@ export const ticketStatusLabels: Record<string, string> = {
 };
 
 export const ticketStatusColors: Record<string, string> = {
-  'Open': '#3b82f6',
-  'In Progress': '#f59e0b',
-  'Closed': '#10b981',
-  'On Hold': '#6b7280',
-  'Yeni': '#3b82f6',
-  'Atanan': '#8b5cf6',
-  'İşlemde': '#f59e0b',
-  'Çözümlenen': '#10b981',
-  'Kapalı': '#6b7280',
+  'Open': colors.info,
+  'In Progress': colors.warning,
+  'Closed': colors.success,
+  'On Hold': colors.textSecondary,
+  'Yeni': colors.info,
+  'Atanan': colors.accent,
+  'İşlemde': colors.warning,
+  'Çözümlenen': colors.success,
+  'Kapalı': colors.textSecondary,
 };
 
 export const getTicketStatusLabel = (status: string): string => {
@@ -133,7 +135,7 @@ export const getTicketStatusLabel = (status: string): string => {
 };
 
 export const getTicketStatusColor = (status: string): string => {
-  return ticketStatusColors[status] || '#6b7280';
+  return ticketStatusColors[status] || colors.textSecondary;
 };
 
 // ============================================================================
@@ -150,10 +152,10 @@ export const priorityLabels: Record<Priority, string> = {
 };
 
 export const priorityColors: Record<Priority, string> = {
-  'Critical': '#ef4444',
-  'High': '#f59e0b',
-  'Medium': '#3b82f6',
-  'Low': '#10b981',
+  'Critical': colors.error,
+  'High': colors.warning,
+  'Medium': colors.info,
+  'Low': colors.success,
 };
 
 export const getPriorityLabel = (priority: Priority): string => {
@@ -161,7 +163,7 @@ export const getPriorityLabel = (priority: Priority): string => {
 };
 
 export const getPriorityColor = (priority: Priority): string => {
-  return priorityColors[priority] || '#6b7280';
+  return priorityColors[priority] || colors.textSecondary;
 };
 
 // ============================================================================
@@ -171,13 +173,13 @@ export const getPriorityColor = (priority: Priority): string => {
 export type TeamStatus = 'Aktif' | 'Beklemede' | 'Tamamlandı';
 
 export const teamStatusColors: Record<TeamStatus, string> = {
-  'Aktif': '#10b981',
-  'Beklemede': '#f59e0b',
-  'Tamamlandı': '#6b7280',
+  'Aktif': colors.success,
+  'Beklemede': colors.warning,
+  'Tamamlandı': colors.textSecondary,
 };
 
 export const getTeamStatusColor = (status: TeamStatus): string => {
-  return teamStatusColors[status] || '#6b7280';
+  return teamStatusColors[status] || colors.textSecondary;
 };
 
 // ============================================================================
@@ -252,9 +254,9 @@ export const getDaysDifference = (date1: string, date2: string = new Date().toIS
 export const getDeadlineStatus = (endDate: string): { color: string; text: string } => {
   const daysUntilEnd = getDaysDifference(endDate);
   
-  if (daysUntilEnd < 0) return { color: '#ef4444', text: 'Gecikmiş' };
-  if (daysUntilEnd === 0) return { color: '#ef4444', text: 'Bugün' };
-  if (daysUntilEnd <= 7) return { color: '#f59e0b', text: 'Bu Hafta' };
-  if (daysUntilEnd <= 30) return { color: '#f59e0b', text: 'Yaklaşan' };
-  return { color: '#10b981', text: 'Yeterli' };
+  if (daysUntilEnd < 0) return { color: colors.error, text: 'Gecikmiş' };
+  if (daysUntilEnd === 0) return { color: colors.error, text: 'Bugün' };
+  if (daysUntilEnd <= 7) return { color: colors.warning, text: 'Bu Hafta' };
+  if (daysUntilEnd <= 30) return { color: colors.warning, text: 'Yaklaşan' };
+  return { color: colors.success, text: 'Yeterli' };
 };

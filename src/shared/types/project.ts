@@ -7,6 +7,8 @@
  * @module shared/types/project
  */
 
+import { colors } from '@/shared/styles';
+
 // =============================================================================
 // TEMEL ENUMLAR / TİPLER
 // =============================================================================
@@ -25,20 +27,20 @@ export type ProjectProgressStatus = 'On Track' | 'At Risk' | 'Planning' | 'Delay
  * Proje durum renklendirilmesi
  */
 export const projectStatusColorMap: Record<ProjectStatus, string> = {
-  'Active': '#2563eb',      // Mavi - Devam Ediyor
-  'Completed': '#10b981',   // Yeşil - Tamamlandı
-  'On Hold': '#f59e0b',     // Turuncu - Beklemede
-  'Planning': '#6b7280',    // Gri - Planlama
+  'Active': colors.info,        // Mavi - Devam Ediyor
+  'Completed': colors.success,  // Yeşil - Tamamlandı
+  'On Hold': colors.warning,    // Turuncu - Beklemede
+  'Planning': colors.textSecondary, // Gri - Planlama
 };
 
 /**
  * Proje ilerleme durumu renklendirilmesi
  */
 export const projectProgressStatusColorMap: Record<ProjectProgressStatus, string> = {
-  'On Track': '#10b981',    // Yeşil
-  'At Risk': '#f59e0b',     // Turuncu
-  'Planning': '#6b7280',    // Gri
-  'Delayed': '#ef4444',     // Kırmızı
+  'On Track': colors.success,     // Yeşil
+  'At Risk': colors.warning,      // Turuncu
+  'Planning': colors.textSecondary, // Gri
+  'Delayed': colors.error,        // Kırmızı
 };
 
 // =============================================================================

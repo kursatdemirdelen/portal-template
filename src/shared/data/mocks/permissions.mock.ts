@@ -7,6 +7,7 @@
  */
 
 import type { Permission, RolePermissionMap, PermissionStats } from '@/shared/types';
+import { USER_ROLE_LABELS } from '@/shared/config/constants';
 
 export const allPermissions: Permission[] = [
   // Tickets
@@ -68,7 +69,7 @@ export const mockRolePermissions: RolePermissionMap[] = [
   {
     id: 'ROLE_ADMIN',
     roleId: 'admin',
-    roleName: 'Administrator',
+    roleName: USER_ROLE_LABELS['admin'],
     description: 'Sistem yöneticisi - Tüm yetkilere erişim',
     isSystem: true,
     permissions: allPermissions.map((p) => ({ ...p, isEnabled: true })),
@@ -76,7 +77,7 @@ export const mockRolePermissions: RolePermissionMap[] = [
   {
     id: 'ROLE_MANAGER',
     roleId: 'manager',
-    roleName: 'Manager',
+    roleName: USER_ROLE_LABELS['manager'],
     description: 'Proje yöneticisi - Temel yönetim yetkileri',
     isSystem: true,
     permissions: allPermissions.filter((p) => p.module !== 'users' && p.module !== 'parameters'),
@@ -84,7 +85,7 @@ export const mockRolePermissions: RolePermissionMap[] = [
   {
     id: 'ROLE_WORKER',
     roleId: 'worker',
-    roleName: 'Worker',
+    roleName: USER_ROLE_LABELS['worker'],
     description: 'Çalışan - Temel görüntüleme ve oluşturma yetkileri',
     isSystem: true,
     permissions: allPermissions.filter(
@@ -94,7 +95,7 @@ export const mockRolePermissions: RolePermissionMap[] = [
   {
     id: 'ROLE_USER',
     roleId: 'user',
-    roleName: 'User',
+    roleName: USER_ROLE_LABELS['user'],
     description: 'Kullanıcı - Sınırlı erişim',
     isSystem: true,
     permissions: allPermissions.filter((p) => p.action === 'view'),

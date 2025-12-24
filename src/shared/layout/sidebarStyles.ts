@@ -1,4 +1,6 @@
 // Sidebar dimensions
+import { spacing } from '@/shared/styles/tokens';
+
 export const SIDEBAR_WIDTH = 220;
 export const SIDEBAR_COLLAPSED_WIDTH = 64;
 export const MOBILE_BREAKPOINT = 768;
@@ -22,7 +24,7 @@ export const contentStyles = {
     marginLeft: 0,
   },
   content: {
-    padding: 20,
+    padding: spacing.xl,
     minHeight: "100vh",
   },
 };

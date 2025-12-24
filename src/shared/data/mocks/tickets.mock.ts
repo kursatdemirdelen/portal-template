@@ -15,20 +15,18 @@ import type {
   TicketDetail
 } from '@/shared/types';
 import { colors, backgrounds } from '@/shared/styles';
+import { TICKET_STATUS_DATA } from '@/shared/config/constants';
 import { mockUsers } from './users.mock';
 
 // =============================================================================
 // BİLET DURUM META BİLGİLERİ
 // =============================================================================
 
-export const TICKET_STATUS_META: TicketStatusMeta[] = [
-  { key: 'Yeni İstek', label: 'Yeni', color: colors.info, bgColor: backgrounds.infoBg },
-  { key: 'Atanan', label: 'Atanan', color: colors.warning, bgColor: backgrounds.warningBg },
-  { key: 'Çözümlenen', label: 'Çözümlenen', color: colors.success, bgColor: backgrounds.successBg },
-  { key: 'Kapatılan', label: 'Kapatıldı', color: colors.textSecondary, bgColor: backgrounds.neutral100 },
-];
+// Merkezi TICKET_STATUS_DATA'dan import edilir
+// @see @/shared/config/constants - TICKET_STATUS_DATA
 
-// =============================================================================
+// Backward compatibility için TicketStatusMeta[] array olarak export et
+export const TICKET_STATUS_META: TicketStatusMeta[] = TICKET_STATUS_DATA;
 // BİLETLER (Dashboard/Sidebar için - Basit format)
 // =============================================================================
 

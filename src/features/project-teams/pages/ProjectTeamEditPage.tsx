@@ -57,8 +57,8 @@ const CompactMemberCard: React.FC<{
     style={{
       display: "flex",
       alignItems: "center",
-      gap: 10,
-      padding: "8px 12px",
+      gap: spacing.md,
+      padding: `${spacing.xs}px ${spacing.md}px`,
       background: isLeader ? backgrounds.warningBg : backgrounds.neutral100,
       borderRadius: radius.md,
       border: `1px solid ${
@@ -72,7 +72,7 @@ const CompactMemberCard: React.FC<{
       size={32}
     />
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: spacing.xs }}>
         <Text strong style={{ fontSize: 13 }} ellipsis>
           {member.name}
         </Text>
@@ -318,7 +318,11 @@ export const ProjectTeamEditPage: React.FC = () => {
                 name="leaderId"
                 label={
                   <span
-                    style={{ display: "flex", alignItems: "center", gap: 6 }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: spacing.xs,
+                    }}
                   >
                     <Crown size={14} color={colorPalette.warning} />
                     Ekip Lideri
@@ -343,7 +347,13 @@ export const ProjectTeamEditPage: React.FC = () => {
             <Card
               size="small"
               title={
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: spacing.sm,
+                  }}
+                >
                   <Users size={16} color={colorPalette.primary} />
                   <span>Ekip Üyeleri</span>
                   {members.length > 0 && (
@@ -351,8 +361,8 @@ export const ProjectTeamEditPage: React.FC = () => {
                       style={{
                         background: colorPalette.primaryLighter,
                         color: colorPalette.primary,
-                        padding: "2px 8px",
-                        borderRadius: 10,
+                        padding: `${spacing.xs}px ${spacing.sm}px`,
+                        borderRadius: radius.lg,
                         fontSize: 11,
                         fontWeight: 600,
                       }}
@@ -397,14 +407,14 @@ export const ProjectTeamEditPage: React.FC = () => {
                 <Empty
                   image={Empty.PRESENTED_IMAGE_SIMPLE}
                   description="Henüz üye eklenmedi"
-                  style={{ padding: "20px 0" }}
+                  style={{ padding: `${spacing.xl}px 0` }}
                 />
               ) : (
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 6,
+                    gap: spacing.xs,
                     maxHeight: isMobile ? "auto" : 280,
                     overflowY: "auto",
                   }}
@@ -428,10 +438,10 @@ export const ProjectTeamEditPage: React.FC = () => {
         <div
           style={{
             display: "flex",
-            gap: 12,
+            gap: spacing.md,
             justifyContent: "flex-end",
-            marginTop: 16,
-            paddingTop: 16,
+            marginTop: spacing.lg,
+            paddingTop: spacing.lg,
             borderTop: `1px solid ${borderColors.light}`,
           }}
         >

@@ -54,7 +54,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 2,
+          gap: spacing.xs,
           minWidth: 0,
         }}
       >
@@ -80,7 +80,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
             color: colors.textPrimary,
             display: "flex",
             alignItems: "center",
-            gap: 6,
+            gap: spacing.xs,
             minWidth: 0,
           }}
         >

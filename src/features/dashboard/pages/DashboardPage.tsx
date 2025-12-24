@@ -21,7 +21,7 @@ import {
   getTicketsByDepartment,
 } from "@/shared/data/mocks";
 import type { DashboardUserRole } from "@/shared/types";
-import { borderColors, colors } from "@/shared/styles";
+import { borderColors, colors, spacing } from "@/shared/styles";
 
 const DashboardPage: React.FC = () => {
   // Test için rol seçimi
@@ -72,7 +72,7 @@ const DashboardPage: React.FC = () => {
       padding="small"
     >
       {/* ÜST SATIR */}
-      <Row gutter={[8, 8]} style={{ marginBottom: 12 }} align="stretch">
+      <Row gutter={[8, 8]} style={{ marginBottom: spacing.sm }} align="stretch">
         {/* PROFİL + SEÇ: SECENEK 1 - Profil altı vertical quick actions */}
         <Col
           xs={{ span: 24, order: 2 }}
@@ -87,14 +87,14 @@ const DashboardPage: React.FC = () => {
             style={{ height: "100%", minHeight: 180 }}
           >
             <UserCard user={currentUser} />
-            <div style={{ marginTop: 12 }}>
+            <div style={{ marginTop: spacing.sm }}>
               <QuickActions role={testRole} variant="compact" />
             </div>
             {/* Geçici rol seçici */}
             <div
               style={{
-                marginTop: 12,
-                paddingTop: 12,
+                marginTop: spacing.sm,
+                paddingTop: spacing.sm,
                 borderTop: `1px dashed ${borderColors.light}`,
               }}
             >
@@ -153,7 +153,11 @@ const DashboardPage: React.FC = () => {
       </Row>
 
       {/* ALT SATIR */}
-      <Row gutter={[8, 8]} style={{ marginBottom: 24 }} align="stretch">
+      <Row
+        gutter={[8, 8]}
+        style={{ marginBottom: spacing["2xl"] }}
+        align="stretch"
+      >
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <SectionCard
             title="Proje Ekipleri"

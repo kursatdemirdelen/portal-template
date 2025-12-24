@@ -6,6 +6,7 @@ import {
   MinusOutlined,
 } from "@ant-design/icons";
 import { colors, gradients, avatarColors, hexToRgba } from "@/shared/styles";
+import { spacing, radius } from "@/shared/styles/tokens";
 
 const { Text } = Typography;
 
@@ -91,8 +92,8 @@ export const StatCard: React.FC<StatCardProps> = ({
       style={{
         background: config.gradient,
         border: `1px solid ${config.border}`,
-        borderRadius: 10,
-        padding: "16px 18px",
+        borderRadius: radius.lg,
+        padding: `${spacing.lg}px ${spacing.lg}px`,
         position: "relative",
         overflow: "hidden",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04)",
@@ -125,7 +126,7 @@ export const StatCard: React.FC<StatCardProps> = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          marginBottom: 12,
+          marginBottom: spacing.md,
           position: "relative",
           zIndex: 1,
         }}
@@ -149,14 +150,14 @@ export const StatCard: React.FC<StatCardProps> = ({
             style={{
               width: 32,
               height: 32,
-              borderRadius: 8,
+              borderRadius: radius.md,
               background: iconSurface.background,
               border: iconSurface.border,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 16,
-              marginLeft: 8,
+              marginLeft: spacing.sm,
               color: config.accent,
               flexShrink: 0,
             }}
@@ -171,13 +172,15 @@ export const StatCard: React.FC<StatCardProps> = ({
         style={{
           position: "relative",
           zIndex: 1,
-          marginBottom: 12,
+          marginBottom: spacing.sm,
           flex: 1,
           display: "flex",
           alignItems: "center",
         }}
       >
-        <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+        <div
+          style={{ display: "flex", alignItems: "baseline", gap: spacing.xs }}
+        >
           <span
             style={{
               fontSize: 28,
@@ -211,7 +214,7 @@ export const StatCard: React.FC<StatCardProps> = ({
           alignItems: "center",
           position: "relative",
           zIndex: 1,
-          gap: 6,
+          gap: spacing.xs,
           flexWrap: "wrap",
         }}
       >
@@ -233,14 +236,14 @@ export const StatCard: React.FC<StatCardProps> = ({
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 3,
+              gap: spacing.xs,
               fontSize: 10,
               fontWeight: 600,
               color: trendColor,
-              padding: "3px 8px",
+              padding: `${spacing.xs}px ${spacing.sm}px`,
               background: `${trendColor}15`,
               border: `1px solid ${trendColor}30`,
-              borderRadius: 5,
+              borderRadius: radius.sm,
               whiteSpace: "nowrap",
               flexShrink: 0,
             }}

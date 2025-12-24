@@ -1,6 +1,6 @@
 import React from "react";
 import { Tag } from "antd";
-import { getRoleStyle } from "@/shared/styles";
+import { getRoleStyle, radius } from "@/shared/styles";
 
 type RoleVariant =
   | "admin"
@@ -21,7 +21,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, uppercase }) => {
   return (
     <Tag
       style={{
-        borderRadius: 999,
+        borderRadius: radius.full,
         border: style.border ?? "none",
         color: style.text,
         background: style.bg,

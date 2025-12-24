@@ -1,59 +1,17 @@
 /**
- * Users UI Constants - Labels, Colors, Descriptions
+ * Users UI Constants
+ * Re-exports merkezi constants'lardan - backward compatibility
  */
 
-import type { UserRole, UserStatus } from '../model';
-import { colors } from '@/shared/styles';
-
-// Role Labels
-export const ROLE_LABELS: Record<UserRole, string> = {
-  admin: 'Administrator',
-  manager: 'Manager',
-  worker: 'Çalışan',
-  user: 'Kullanıcı',
-};
-
-// Role Descriptions
-export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
-  admin: 'Sistem yöneticisi - Tüm yetkilere erişim',
-  manager: 'Proje yöneticisi - Temel yönetim yetkileri',
-  worker: 'Çalışan - Temel görüntüleme ve oluşturma yetkileri',
-  user: 'Kullanıcı - Sınırlı erişim',
-};
-
-// Role Colors
-export const ROLE_COLORS: Record<UserRole, string> = {
-  admin: colors.error,
-  manager: colors.warning,
-  worker: colors.info,
-  user: colors.accent,
-};
-
-// Status Labels
-export const STATUS_LABELS: Record<UserStatus, string> = {
-  active: 'Aktif',
-  inactive: 'İnaktif',
-  suspended: 'Askıya Alınmış',
-};
-
-// Status Colors
-export const STATUS_COLORS: Record<UserStatus, string> = {
-  active: colors.success,
-  inactive: colors.textSecondary,
-  suspended: colors.warning,
-};
-
-// Department Common Values
-export const DEPARTMENTS = [
-  'IT',
-  'Project Management',
-  'Development',
-  'QA',
-  'Sales',
-  'HR',
-  'Finance',
-  'Operations',
-];
+// Merkezi constants'lardan import et
+export { 
+  USER_ROLE_LABELS as ROLE_LABELS,
+  USER_ROLE_DESCRIPTIONS as ROLE_DESCRIPTIONS,
+  USER_ROLE_COLORS as ROLE_COLORS,
+  USER_STATUS_LABELS as STATUS_LABELS,
+  USER_STATUS_COLORS as STATUS_COLORS,
+  DEPARTMENTS,
+} from '@/shared/config/constants';
 
 // Table Columns Configuration
 export const TABLE_COLUMNS = {

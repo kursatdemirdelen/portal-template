@@ -1,5 +1,5 @@
 import React from "react";
-import { gradients } from "@/shared/styles";
+import { gradients, spacing } from "@/shared/styles";
 import { LoginForm } from "../ui/LoginForm";
 import { useAuth } from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
         alignItems: "center",
         justifyContent: "center",
         background: gradients.bgElevated,
-        padding: 24,
+        padding: spacing["2xl"],
       }}
     >
       <LoginForm loading={isLoading} onSubmit={handleSubmit} />

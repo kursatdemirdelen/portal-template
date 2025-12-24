@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "@/shared/hooks/useAppStore";
 import { setSidebarMobileOpen } from "@/shared/store/uiSlice";
 import { Sidebar } from "./Sidebar";
 import { contentStyles, MOBILE_BREAKPOINT } from "./sidebarStyles";
+import { spacing, borderColors } from "@/shared/styles/tokens";
 
 const { Content } = Layout;
 
@@ -50,18 +51,18 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               top: 0,
               zIndex: 50,
               background: "#fff",
-              padding: "12px 16px",
-              borderBottom: "1px solid #e5e7eb",
+              padding: `${spacing.sm}px ${spacing.lg}px`,
+              borderBottom: `1px solid ${borderColors.neutral}`,
               display: "flex",
               alignItems: "center",
-              gap: 12,
+              gap: spacing.md,
             }}
           >
             <Button
               type="text"
               icon={<MenuIcon size={20} />}
               onClick={openMobileSidebar}
-              style={{ padding: 4 }}
+              style={{ padding: spacing.xs }}
             />
             <span style={{ fontWeight: 600, fontSize: 16 }}>Portal</span>
           </div>

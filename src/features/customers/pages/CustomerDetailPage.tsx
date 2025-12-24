@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Card, Typography, Button, Space, Row, Col } from "antd";
 import { ArrowLeftOutlined, EditOutlined } from "@ant-design/icons";
 import { PageContainer } from "../../../shared/ui";
+import { spacing } from "@/shared/styles";
 import { getCustomerById } from "../mockData";
 import {
   CustomerHeroCard,
@@ -25,7 +26,7 @@ export const CustomerDetailPage = () => {
           <Space
             direction="vertical"
             align="center"
-            style={{ width: "100%", padding: 48 }}
+            style={{ width: "100%", padding: spacing["3xl"] }}
           >
             <Text type="secondary">İstenen müşteri bulunamadı.</Text>
             <Button type="primary" onClick={() => navigate("/customers")}>
@@ -54,14 +55,22 @@ export const CustomerDetailPage = () => {
         </Space>
       }
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div
+        style={{ display: "flex", flexDirection: "column", gap: spacing.lg }}
+      >
         {/* Hero Card */}
         <CustomerHeroCard customer={customer} />
 
         {/* Sol: Temel Bilgiler, Yetkili Kişi, Firma Bilgileri | Sağ: Lisans */}
         <Row gutter={[16, 16]}>
           <Col xs={24} lg={18}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: spacing.lg,
+              }}
+            >
               <CustomerInfoCard customer={customer} />
               <CustomerContactCard contact={customer.contact} />
               <CustomerCompanyCard customer={customer} />

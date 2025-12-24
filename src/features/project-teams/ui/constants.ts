@@ -1,54 +1,18 @@
-import { colors, avatarColors } from "@/shared/styles";
+import { avatarColors, colors } from "@/shared/styles";
 
 /**
  * Proje Ekipleri UI Constants
+ * Ortak constants merkezi configten import edilir
  */
 
-// Ekip üye rolleri
-export const TEAM_ROLES = [
-  "Project Manager",
-  "Tech Lead",
-  "Developer",
-  "Backend Developer",
-  "Frontend Developer",
-  "Full Stack Developer",
-  "Mobile Developer",
-  "iOS Developer",
-  "Android Developer",
-  "DevOps Engineer",
-  "QA Engineer",
-  "Test Engineer",
-  "UI Designer",
-  "UX Designer",
-  "Data Engineer",
-  "Data Analyst",
-  "Security Engineer",
-  "Support Specialist",
-] as const;
+// Merkezi constants'lardan team rolleri import et
+export { 
+  TEAM_ROLES,
+  TEAM_ROLE_COLORS as ROLE_COLORS,
+  TABLE_DEFAULTS,
+} from '@/shared/config/constants';
 
-export type TeamRole = (typeof TEAM_ROLES)[number];
-
-// Rol renkleri (badge için)
-export const ROLE_COLORS: Record<string, string> = {
-  "Project Manager": colors.primary,
-  "Tech Lead": colors.accent,
-  Developer: colors.info,
-  "Backend Developer": avatarColors.teal,
-  "Frontend Developer": colors.error,
-  "Full Stack Developer": avatarColors.deepPurple,
-  "Mobile Developer": avatarColors.deepOrange,
-  "iOS Developer": avatarColors.indigo,
-  "Android Developer": avatarColors.green,
-  "DevOps Engineer": avatarColors.deepPurple,
-  "QA Engineer": colors.warning,
-  "Test Engineer": avatarColors.orange,
-  "UI Designer": avatarColors.cyan,
-  "UX Designer": colors.info,
-  "Data Engineer": colors.textPrimary,
-  "Data Analyst": colors.textSecondary,
-  "Security Engineer": avatarColors.darkRed,
-  "Support Specialist": avatarColors.neutral,
-};
+export type TeamRole = import('@/shared/config/constants').TeamRole;
 
 // Mock Proje Listesi (form select için)
 export const PROJECTS = [

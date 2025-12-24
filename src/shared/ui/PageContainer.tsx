@@ -8,6 +8,7 @@ import {
 } from "@/shared/hooks/useBreadcrumbs";
 import { layoutStyles } from "@/shared/styles/helpers";
 import { colors } from "@/shared/styles";
+import { spacing } from "@/shared/styles/tokens";
 
 const { Title, Text } = Typography;
 
@@ -24,9 +25,17 @@ interface PageContainerProps {
 }
 
 const paddingConfig = {
-  small: { top: 20, bottom: 20, horizontal: 16 },
-  medium: { top: 24, bottom: 24, horizontal: 20 },
-  large: { top: 32, bottom: 32, horizontal: 28 },
+  small: { top: spacing.lg, bottom: spacing.lg, horizontal: spacing.md },
+  medium: {
+    top: spacing["2xl"],
+    bottom: spacing["2xl"],
+    horizontal: spacing.xl,
+  },
+  large: {
+    top: spacing["3xl"],
+    bottom: spacing["3xl"],
+    horizontal: spacing["3xl"],
+  },
 };
 
 export const PageContainer: React.FC<PageContainerProps> = ({
@@ -44,8 +53,8 @@ export const PageContainer: React.FC<PageContainerProps> = ({
   const paddingStyle = paddingConfig[padding];
   const routeBreadcrumbs = useBreadcrumbs();
   const headerPadding = {
-    top: Math.max(paddingStyle.top - 8, 12),
-    bottom: Math.max(paddingStyle.bottom - 8, 12),
+    top: Math.max(paddingStyle.top - 8, spacing.md),
+    bottom: Math.max(paddingStyle.bottom - 8, spacing.md),
     horizontal: paddingStyle.horizontal,
   };
 

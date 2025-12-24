@@ -1,4 +1,5 @@
 import { Layout, Card, Typography } from "antd";
+import { spacing, gradients } from "@/shared/styles";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -11,13 +12,13 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0f172a, #020617)",
-          padding: 16,
+          background: gradients.bgPrimary,
+          padding: spacing.md,
         }}
       >
         <Card style={{ width: 400, maxWidth: "100%" }} variant="borderless">
-          <div style={{ marginBottom: 24, textAlign: "center" }}>
-            <Title level={3} style={{ marginBottom: 4 }}>
+          <div style={{ marginBottom: spacing["2xl"], textAlign: "center" }}>
+            <Title level={3} style={{ marginBottom: spacing.xs }}>
               Portal Intellium
             </Title>
             <Text type="secondary">Güvenli yönetim paneli</Text>

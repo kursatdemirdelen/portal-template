@@ -117,7 +117,7 @@ export const ThemeSettingsCard: React.FC<ThemeSettingsCardProps> = ({
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 16,
+          gap: spacing.lg,
           background: `${colors.accent}05`,
           borderRadius: radius.lg,
           padding: `${spacing.md}px ${spacing.lg}px`,

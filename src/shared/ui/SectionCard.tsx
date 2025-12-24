@@ -1,7 +1,13 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import { Typography, Spin } from "antd";
 import { cardStyles } from "@/shared/styles/helpers";
-import { colors, gradients, spacing, borderColors } from "@/shared/styles";
+import {
+  colors,
+  gradients,
+  spacing,
+  borderColors,
+  radius,
+} from "@/shared/styles";
 
 const { Title, Text } = Typography;
 
@@ -40,9 +46,9 @@ const variantConfig = {
 };
 
 const paddingConfig = {
-  small: 12,
-  medium: 20,
-  large: 28,
+  small: spacing.md,
+  medium: spacing.xl,
+  large: spacing["3xl"],
 };
 
 export const SectionCard: React.FC<SectionCardProps> = ({
@@ -93,7 +99,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                 padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
                 ...cardStyles.sectionCard.header,
                 flexWrap: "wrap",
-                gap: 12,
+                gap: spacing.md,
               }}
             >
               <div style={{ flex: "1 1 auto", minWidth: 0 }}>
@@ -101,8 +107,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 12,
-                    marginBottom: subtitle ? 4 : 0,
+                    gap: spacing.md,
+                    marginBottom: subtitle ? spacing.xs : 0,
                   }}
                 >
                   {icon && (
@@ -126,7 +132,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                     type="secondary"
                     style={{
                       fontSize: 12,
-                      marginLeft: icon ? 32 : 0,
+                      marginLeft: icon ? spacing.lg : 0,
                       display: "block",
                       color: colors.textSecondary,
                     }}
@@ -141,7 +147,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 8,
+                    gap: spacing.sm,
                     flexWrap: "wrap",
                     flex: "0 0 auto",
                   }}

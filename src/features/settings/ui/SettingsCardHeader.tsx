@@ -24,7 +24,7 @@ export const SettingsCardHeader: React.FC<SettingsCardHeaderProps> = ({
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 16,
+        gap: spacing.lg,
         background: bgColor || `${color}05`,
         borderRadius: radius.lg,
         padding: `${spacing.md}px ${spacing.lg}px`,

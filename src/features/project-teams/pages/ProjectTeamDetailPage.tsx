@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button, Typography, Row, Col, Card, Tooltip, Grid } from "antd";
 import { Edit, ArrowLeft, Users, Crown, Calendar } from "lucide-react";
 import { PageContainer, UserAvatar } from "@/shared/ui";
-import { colors as colorPalette, spacing } from "@/shared/styles";
+import { colors as colorPalette, spacing, radius } from "@/shared/styles";
 import { teamDetailStyles as styles } from "../ui/teamDetailStyles";
 import { getProjectTeamById } from "../model";
 
@@ -143,7 +143,9 @@ export const ProjectTeamDetailPage: React.FC = () => {
               <Col xs={12} sm={8} md={6} lg={4} key={member.id}>
                 <Card
                   style={styles.memberCard}
-                  styles={{ body: { padding: "16px", textAlign: "center" } }}
+                  styles={{
+                    body: { padding: spacing.lg, textAlign: "center" },
+                  }}
                   hoverable
                   onMouseEnter={(e) => {
                     Object.assign(

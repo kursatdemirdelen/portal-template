@@ -6,6 +6,7 @@ import {
   colors,
   hexToRgba,
   shadows,
+  spacing,
 } from "@/shared/styles";
 
 const { Text } = Typography;
@@ -26,12 +27,12 @@ const containerStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  marginTop: 16,
-  gap: 64,
+  marginTop: spacing.lg,
+  gap: spacing["4xl"],
 };
 
 const chartWrapperStyle: CSSProperties = {
-  marginTop: 16,
+  marginTop: spacing.lg,
   width: 180,
   height: 180,
   borderRadius: "50%",
@@ -41,7 +42,7 @@ const chartWrapperStyle: CSSProperties = {
 
 const chartInnerStyle: CSSProperties = {
   position: "absolute",
-  inset: 22,
+  inset: spacing.xl,
   borderRadius: "50%",
   background: backgrounds.card,
   display: "flex",
@@ -85,7 +86,7 @@ const legendItemStyle: CSSProperties = {
 const legendLeftStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
-  gap: 12,
+  gap: spacing.md,
 };
 
 const colorDotBaseStyle: CSSProperties = {

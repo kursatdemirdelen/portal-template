@@ -14,7 +14,7 @@ import {
   EmptyTicketList,
   createTicketColumns,
 } from "@/features/tickets/ui/ticket-list";
-import { theme } from "@/shared/styles";
+import { theme, spacing } from "@/shared/styles";
 import {
   allTickets,
   type TicketRecord,
@@ -185,15 +185,21 @@ const TicketsPage: React.FC = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: 12,
-                gap: 8,
+                marginBottom: spacing.sm,
+                gap: spacing.sm,
                 flexWrap: "wrap",
               }}
             >
               <span style={{ fontSize: 12, color: theme.colors.text.muted }}>
                 {filteredTickets.length} bilet
               </span>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: spacing.sm,
+                  alignItems: "center",
+                }}
+              >
                 <Select
                   size="small"
                   value={sortBy}
@@ -214,7 +220,7 @@ const TicketsPage: React.FC = () => {
                   onClick={() =>
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc")
                   }
-                  style={{ padding: "0 8px" }}
+                  style={{ padding: `0 ${spacing.xs}px` }}
                 >
                   {sortOrder === "asc" ? "↑" : "↓"}
                 </Button>
@@ -282,7 +288,7 @@ const TicketsPage: React.FC = () => {
             {filteredTickets.length > 0 && (
               <div
                 style={{
-                  marginTop: 16,
+                  marginTop: spacing.lg,
                   display: "flex",
                   justifyContent: "center",
                 }}
