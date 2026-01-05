@@ -14,7 +14,6 @@ import type {
   TicketStatusMeta,
   TicketDetail
 } from '@/shared/types';
-import { colors, backgrounds } from '@/shared/styles';
 import { TICKET_STATUS_DATA } from '@/shared/config/constants';
 import { mockUsers } from './users.mock';
 

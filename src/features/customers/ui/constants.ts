@@ -3,7 +3,7 @@
  * Re-exports merkezi constants'lardan - backward compatibility
  */
 
-import type { Customer, CustomerStatus } from '@/shared/types';
+import type { CustomerStatus } from '@/shared/types';
 
 // Merkezi constants'lardan import et
 export { 

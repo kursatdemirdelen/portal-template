@@ -3,7 +3,7 @@
  * Merkezi takım üyesi ve seremoni verileri
  */
 
-import { TEAM_ROLES, USER_ROLE_LABELS } from '@/shared/config/constants';
+import { USER_ROLE_LABELS } from '@/shared/config/constants';
 import { avatarColors } from '@/shared/styles';
 
 // =============================================================================

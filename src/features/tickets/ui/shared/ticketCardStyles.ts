@@ -9,7 +9,6 @@ import {
   getMetaIconBoxStyle as sharedGetMetaIconBoxStyle,
   getListItemStyle as sharedGetListItemStyle,
 } from "@/shared/styles/detailStyles";
-import { colors, hexToRgba } from "@/shared/styles";
 
 // Re-export shared styles with ticket-specific alias
 export const ticketCardStyles = {

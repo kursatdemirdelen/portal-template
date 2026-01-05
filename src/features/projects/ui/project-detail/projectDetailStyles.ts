@@ -41,11 +41,18 @@ export const projectDetailStyles = {
 
   // ============ Ticket Item - shared listItem'dan ============
   ticketItem: {
-    ...detailStyles.listItem.container,
     padding: "10px 12px",
     marginBottom: 8,
     background: theme.colors.surface.base,
-    border: `1px solid ${theme.colors.border.subtle}`,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: theme.colors.border.subtle,
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    borderRadius: 6,
+    transition: "all 0.2s ease",
+    cursor: "pointer",
   } as CSSProperties,
   ticketItemHover: {
     background: theme.colors.surface.soft,
@@ -57,7 +64,9 @@ export const projectDetailStyles = {
     height: 32,
     borderRadius: 6,
     background: theme.colors.surface.soft,
-    border: `1px solid ${theme.colors.border.subtle}`,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: theme.colors.border.subtle,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

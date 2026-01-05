@@ -8,7 +8,6 @@
  */
 
 import type { LogEntry, LogStats } from '@/shared/types';
-import { LOG_LEVELS, LOG_SOURCES } from '@/shared/config/constants';
 
 export const mockLogs: LogEntry[] = [
   {

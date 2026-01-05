@@ -7,6 +7,7 @@ import {
 } from "@/shared/data/mocks/projects.mock";
 import { PageContainer } from "@/shared/ui";
 import type { BreadcrumbItem } from "@/shared/hooks/useBreadcrumbs";
+import { useNotification } from "@/shared/hooks";
 import {
   ProjectMetaCard,
   ProjectDescription,
@@ -81,6 +82,7 @@ const getProjectTickets = (projectId: string) => {
 const ProjectDetailPageComponent: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { success } = useNotification();
 
   if (!id) {
     return (
@@ -109,6 +111,7 @@ const ProjectDetailPageComponent: React.FC = () => {
 
   const handleStatusChange = (status: string) => {
     console.log("Status changed to:", status);
+    success("Başarılı", `Proje durumu '${status}' olarak güncellendi`);
     // Entegrasyon noktası: Proje güncelleme API çağrısı
     // await projectService.updateProject(id, { status });
   };

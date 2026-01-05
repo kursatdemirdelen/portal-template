@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button, Typography, Row, Col, Card, Tooltip, Grid } from "antd";
 import { Edit, ArrowLeft, Users, Crown, Calendar } from "lucide-react";
 import { PageContainer, UserAvatar } from "@/shared/ui";
-import { colors as colorPalette, spacing, radius } from "@/shared/styles";
+import { colors as colorPalette, spacing } from "@/shared/styles";
 import { teamDetailStyles as styles } from "../ui/teamDetailStyles";
 import { getProjectTeamById } from "../model";
 

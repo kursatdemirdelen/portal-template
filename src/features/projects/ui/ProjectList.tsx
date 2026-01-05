@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Row, Col, Tag, Progress, Button, Space } from "antd";
-import { TeamOutlined, CalendarOutlined } from "@ant-design/icons";
+import {
+  TeamOutlined,
+  CalendarOutlined,
+  EyeOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { SectionCard } from "@/shared/ui";
 import { colors as colorPalette } from "@/shared/styles";
 import type { Project, ProjectStatus } from "../model/types";
@@ -38,6 +43,25 @@ export const ProjectList: React.FC<ProjectListProps> = ({
             title={project.name}
             subtitle={project.description}
             padding="medium"
+            extra={
+              <Space size={4}>
+                <Button
+                  type="primary"
+                  ghost
+                  size="small"
+                  icon={<EyeOutlined />}
+                  onClick={() => handleDetails(project)}
+                  title="Detayları görüntüle"
+                />
+                <Button
+                  type="default"
+                  size="small"
+                  icon={<EditOutlined />}
+                  onClick={() => onEdit?.(project)}
+                  title="Projeyi düzenle"
+                />
+              </Space>
+            }
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <div
@@ -121,25 +145,6 @@ export const ProjectList: React.FC<ProjectListProps> = ({
                   </div>
                 </Col>
               </Row>
-
-              <Space style={{ width: "100%", marginTop: 8 }}>
-                <Button
-                  type="text"
-                  size="small"
-                  style={{ flex: 1 }}
-                  onClick={() => handleDetails(project)}
-                >
-                  Detaylar
-                </Button>
-                <Button
-                  type="text"
-                  size="small"
-                  style={{ flex: 1 }}
-                  onClick={() => onEdit?.(project)}
-                >
-                  Düzenle
-                </Button>
-              </Space>
             </div>
           </SectionCard>
         </Col>
