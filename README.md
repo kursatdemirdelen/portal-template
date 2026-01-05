@@ -52,34 +52,28 @@ VITE_APP_NAME=Portal
 -  **Feature-based Modüler** - Ölçeklenebilir yapı
 -  **Responsive Design** - Mobile + Desktop
 -  **API Entegrasyonuna Hazır** - Axios + error handling
+-  **Authentication** - JWT token, rol bazında korumalı rotalar
 
 ##  Başlıca Özellikler
 
-### Bilet Sistemi
-- Liste ve detay görünümü
-- Mobil kart view
-- Yorum ve efor takibi
-- Rich text editör
+- 🔐 **JWT Authentication** - Token tabanlı, rol bazlı yetkilendirme
+- 🎨 **Design System** - Merkezi stil tokenleri ve tema presetleri
+- 📦 **Modüler Yapı** - Feature-based mimarı, ölçeklenebilir
+- 🔄 **API Ready** - Axios client, mock ↔ gerçek API geçişi hazır
+- 📊 **Bilet Sistemi** - Liste, detay, yorum, efor takibi
+- 📱 **Responsive** - Mobile-first tasarım
 
-### Dashboard & Sidebar
-- İstatistik kartları
-- Responsive drawer modu
-- Tema presetleri: Default, Slate, Midnight, Ocean
-- Smooth animasyonlar
+**Detaylı bilgi:**
+- 🏗️ [Mimarı Rehberi](ARCHITECTURE.md) - Test credentials, best practices
+- 🔌 [API Entegrasyonu](API_INTEGRATION_GUIDE.md) - Backend bağlantısı
 
-### Hata Yönetimi
-- Global ErrorBoundary
-- 500 ekranı ve yenile aksiyonu
+##  📚 Hızlı Linkler
 
-##  Yetkilendirme
-
-- Route bazlı rol kontrolü
-- Mock giriş: admin, worker, user rolleri
-
-##  Dökümanlar
-
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Mimarı rehberi, best practices
-- **[API_INTEGRATION_GUIDE.md](API_INTEGRATION_GUIDE.md)** - Mock  API geçişi
+| İçerik | Link |
+|--------|------|
+| Mimarı & Best practices | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| API Entegrasyonu | [API_INTEGRATION_GUIDE.md](API_INTEGRATION_GUIDE.md) |
+| Yol Haritası | [TODO.md](TODO.md) |
 
 ##  Komutlar
 
@@ -91,4 +85,4 @@ npm run lint     # Statik analiz
 
 ---
 
-*Son güncelleme: 24 Aralık 2025*
+*Son güncelleme: 5 Ocak 2026*

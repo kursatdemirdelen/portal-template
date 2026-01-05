@@ -10,10 +10,139 @@ Mock servisleriyle çalışan uygulamayı gerçek backend API'sine bağlamak iç
 - ✅ Servisleri merkezi yerde (`userService.ts`, `permissionService.ts`, vb.)
 - ✅ TypeScript tiplemesi tam
 - ✅ Mock veriler `src/shared/data/mocks/` klasöründe
+- ✅ Auth sistemi hazır (AuthProvider, tokenService, ProtectedRoute)
 
 ---
 
-## 🚀 Entegrasyon Adımları
+## 🔐 Authentication & Token Setup
+
+### Test Kimlik Bilgileri
+
+**Mock giriş için kullanılabilecek hesaplar:**
+
+| Email | Şifre | Role |
+|-------|-------|------|
+| admin@example.com | admin123 | admin |
+| worker@example.com | worker123 | worker |
+| user@example.com | user123 | user |
+
+> ℹ️ **Not:** Detaylı bilgi için [ARCHITECTURE.md#-authentication-sistemi](../ARCHITECTURE.md#-authentication-sistemi) bölümüne bakın.
+
+### 1️⃣ Token Storage
+
+`src/shared/api/tokenService.ts` kullanarak token'ları yönet:
+
+```typescript
+import { tokenService } from '@/shared/api/tokenService';
+
+tokenService.setToken(token)      // Token kaydet
+tokenService.getToken()            // Token oku
+tokenService.removeToken()         // Token sil
+tokenService.getUserFromToken()    // JWT decode + user çıkart
+```
+
+### 2️⃣ API Client Interceptor'ı
+
+`src/shared/api/apiClient.ts` zaten hazır (token otomatik eklenir):
+
+```typescript
+// Request interceptor'ı
+apiClient.interceptors.request.use((config) => {
+  const token = tokenService.getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Response interceptor'ı - 401'de logout
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      window.dispatchEvent(new Event('auth:unauthorized'));
+      // AuthProvider bu event'i dinler ve logout çağırır
+    }
+    return Promise.reject(error);
+  }
+);
+```
+
+### 3️⃣ Login Service Güncelle
+
+`src/features/auth/services/authService.ts` dosyasında mock'u gerçek API'ye değiştir:
+
+```typescript
+// ❌ MOCK (şu an)
+function generateMockToken(user: AuthUser): string { ... }
+
+// ✅ GERÇEK API
+export const authService = {
+  login: async (credentials: LoginCredentials) => {
+    const response = await apiClient.post('/auth/login', credentials);
+    return response.data as LoginResponse; // { user, token }
+  },
+};
+```
+
+### 4️⃣ Login Response Format
+
+Backend'in şu format dönmesi gerekir:
+
+```json
+{
+  "user": {
+    "id": "user-id",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "admin"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+---
+
+## � Mock Data Sistemi
+
+Uygulamada kullanılan tüm mock veriler merkezi olarak yönetilir:
+
+```
+src/shared/data/mocks/
+├── users.mock.ts           # Kullanıcı verileri
+├── approvals.mock.ts       # Onay talepleri
+├── teams.mock.ts           # Takım verileri
+├── tickets.mock.ts         # Bilet verileri
+└── index.ts                # ← Tüm mock'lar buradan export
+```
+
+### Kullanım Örneği
+
+**Feature'da mock veriler:**
+```typescript
+// ✅ DOĞRU
+import { mockApprovals, mockTickets } from '@/shared/data/mocks';
+
+// ❌ YAPMAAAA
+import { mockApprovals } from '../mockData'; // Deprecated
+```
+
+### Backend'e Geçiş
+
+Mock verilerini gerçek API çağrılarıyla değiştirirken:
+
+1. **Service'i güncelle:** `src/shared/api/[feature]Service.ts`
+   ```typescript
+   // ❌ Mock
+   export const getApprovals = () => Promise.resolve(mockApprovals);
+   
+   // ✅ API çağrısı
+   export const getApprovals = () => apiClient.get('/approvals');
+   ```
+
+2. **Component'te değişiklik yok:** Service interface'i aynı kalırsa, component'te kod değişiklik gerekmez.
+
+---
 
 ### 1️⃣ Backend URL Ayarla
 
@@ -88,7 +217,41 @@ app.use(cors({
 
 ---
 
+## � Token Refresh & Invalidation
+
+### 401 Handling
+
+API 401 dönürse (token geçersiz/expired), `apiClient` otomatik olarak `auth:unauthorized` event'i tetikler ve AuthProvider logout yapar.
+
+### Token Refresh (Opsiyonel)
+
+Refresh token pattern'ı uygulamak isterseniz:
+
+```typescript
+// apiClient.ts response interceptor'ında
+if (error.response?.status === 401) {
+  // 1. Refresh token kullanarak yeni token al
+  const newToken = await refreshAccessToken();
+  // 2. Token'ı kaydet
+  tokenService.setToken(newToken);
+  // 3. Original request'i retry et
+  return apiClient(config);
+}
+```
+
+---
+
 ## 📊 API Endpoint Referansı
+
+### Authentication Endpoints
+
+| Operasyon | Method | Endpoint | Request Body |
+|-----------|--------|----------|---------------|
+| Login | POST | `/auth/login` | `{ email, password }` |
+| Logout | POST | `/auth/logout` | - |
+| Refresh Token | POST | `/auth/refresh` | `{ refreshToken }` |
+
+### User Endpoints
 
 | Operasyon | Method | Endpoint |
 |-----------|--------|----------|

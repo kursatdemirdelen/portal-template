@@ -101,7 +101,62 @@ radius.sm, radius.md, radius.lg
 
 ---
 
-## 📊 Mock Data Sistemi
+## � Authentication Sistemi
+
+### Dosya Yapısı
+
+```
+src/features/auth/
+├── pages/
+│   ├── LoginPage.tsx          # Giriş sayfası
+│   └── LogoutPage.tsx         # Çıkış (yükleme + redirect)
+├── ui/
+│   ├── LoginForm.tsx          # Form bileşeni
+│   ├── LoginBranding.tsx      # Left panel branding
+│   └── DemoCredentials.tsx    # Demo bilgileri
+├── providers/
+│   └── AuthProvider.tsx       # Global auth state (Context)
+├── services/
+│   └── authService.ts         # Login/logout logic
+├── hooks/
+│   └── useAuth.ts             # useAuth hook
+└── model/
+    └── types.ts               # Auth types
+```
+
+### Mock Kullanıcılar
+
+| Email | Password | Role |
+|-------|----------|------|
+| admin@example.com | admin123 | admin |
+| worker@example.com | worker123 | worker |
+| user@example.com | user123 | user |
+
+### AuthProvider Usage
+
+```typescript
+const { user, isAuthenticated, login, logout } = useAuth();
+```
+
+### ProtectedRoute Usage
+
+```typescript
+<ProtectedRoute roles={['admin']}>
+  <AdminPage />
+</ProtectedRoute>
+```
+
+### Logout Flow
+
+1. Sidebar "Çıkış" → `/logout` navigate
+2. LogoutPage mount → `logout()` çağır
+3. Token ve localStorage temizle
+4. 300ms loader göster
+5. `/login` sayfasına yönlendir
+
+---
+
+## �📊 Mock Data Sistemi
 
 Tüm mock veriler **merkezi** olarak yönetilir:
 

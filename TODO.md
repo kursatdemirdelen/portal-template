@@ -1,19 +1,29 @@
 # 📋 Yapılacaklar & İyileştirmeler
 
-## ✅ Tamamlanan İşler (Aralık 2025)
+## ✅ Tamamlanan İşler (Aralık 2025 - Ocak 2026)
 
-### Mimari Iyileştirmeler
+### Dokümantasyon (5 Ocak 2026)
+- ✅ **README sadeleştirme** - Tekrarlayan içerik kaldırıldı, öz yapı korundu
+- ✅ **Test Credentials merkezi** - ARCHITECTURE.md'de tek bir yerde tanımlandı
+- ✅ **Mock Data Sistemi dokü** - API_INTEGRATION_GUIDE.md'de açıklandı
+- ✅ **Tutarlılık kontrol** - Tüm dokümanlarda cross-reference'lar kuruldu
+
+### Mimari Iyileştirmeler (Aralık 2025)
 - ✅ **Merkezi Stil Sistemi** - Design tokens'dan renkler kullanılıyor
 - ✅ **Merkezi Mock Data** - `src/shared/data/mocks/` sistemi
 - ✅ **Mock Consolidation** - Feature mock'ları merkeze taşındı
-  - approvals, project-teams, tickets
 - ✅ **Renk Tutarlılığı** - Hardcoded hex değerler token'larla değiştirildi
-- ✅ **Build Fix** - TypeScript & type errors düzeltildi
 
 ### Kod Kalitesi
-- ✅ Unused mock data kaldırıldı (`ticketDetail.ts`)
+- ✅ Unused mock data kaldırıldı
 - ✅ Build başarıyla tamamlanıyor
 - ✅ Type safety %100
+
+### Yeni Özellikler (5 Ocak 2026 - Son Eklenen)
+- ✅ **Toast Notification Sistemi** - `useNotification()` hook'u + Ant Design entegrasyonu
+- ✅ **404/500 Error Pages** - Responsive error sayfaları
+- ✅ **Error Router** - AppRouter'a 500 sayfası ve error wrapper'ı eklendi
+- ✅ **Shared Hooks Index** - `useNotification`, `useAppStore`, `useBreadcrumbs` merkezi export
 
 ---
 
@@ -32,43 +42,29 @@
 - [ ] Bundle size monitoring
 
 ### Kullanıcı Deneyimi
-- [ ] Toast notifications
 - [ ] Advanced filters
 - [ ] Bulk actions (seçili öğeleri işle)
-- [ ] Keyboard shortcuts
+- [ ] Keyboard shortcuts (Global arama Cmd+K)
 
-### API Entegrasyonu
-- [ ] Backend'e API çağrıları
-- [ ] Error handling & retry logic
-- [ ] Loading states standardizasyonu
-- [ ] Caching & offline support
-
----
-
-## 🎯 Başlangıç Noktası
-
-**Yeni geliştirici için:**
-1. `/docs/ARCHITECTURE.md` oku
-2. `/docs/SETUP.md` ile kurulum yap
-3. Mock data akışını anla: `src/shared/data/mocks/`
-4. Bir feature module seç ve geliştir
-
-- [ ] Validasyon mesajları Türkçeleştirme
-- [ ] Ortak form bileşenleri
-
-### Error Handling
-- [ ] Merkezi hata yönetimi
-- [ ] API hata formatı standardizasyonu
-- [ ] Retry mekanizması
-
----
-
-## 👤 Profil Sayfası
-
+### Profil Sayfası (Sonraki Hedef)
 - [ ] Avatar yükleme özelliği
 - [ ] Şifre değiştirme formu
-- [ ] Bildirim ayarları (çalışır toggle'lar)
+- [ ] Bildirim ayarları
 - [ ] Oturum yönetimi
+
+---
+
+## 🎯 Yüksek Öncelik (Immediate)
+
+✅ Tamamlanan:
+- ✅ Toast notifications (başarı/hata/uyarı)
+- ✅ 404/500 error pages
+- ✅ Projects detay sayfası (Zaten var)
+
+Sonraki:
+- [ ] Profil sayfası (Avatar, şifre değişimi)
+- [ ] Advanced filters
+- [ ] Global arama (Cmd+K)
 
 ---
 
@@ -90,31 +86,6 @@
 
 ---
 
-## 📝 Notlar
-
-- ✅ **API entegrasyonuna hazır**: HTTP client konsolide edildi, mock services merkezi noktada
-- ✅ **Kod kalitesi iyileşti**: CSS duplicate'leri temizlendi, hardcoded değerler ortadan kaldırıldı
-- Öncelik sırası ihtiyaca göre güncellenebilir
-
-## ▶️ Yakın Yol Haritası
-
-**Yüksek Öncelik:**
-- [ ] Toast notifications (başarı/hata/uyarı)
-- [ ] Projects detay sayfası (Tickets gibi)
-- [ ] Time Tracking aktif timer
-- [ ] 404/500 error pages
-
-**Orta Öncelik:**
-- [ ] Tickets dışındaki sayfalarda Skeleton/Empty standardizasyonu
-- [ ] URL query params ile filtre saklama
-- [ ] Ortak hook'lar (`useDebounce`, `useLocalStorage`, `useMediaQuery`)
-
-**Düşük Öncelik:**
-- [ ] Ant Design icon chunk'ını optimize etme
-- [ ] Global arama (Cmd+K)
-- [ ] Dashboard grafikleri ve trend analizi
-- [ ] Mobil/tablet optimizasyonları
-
 ## 🧪 Komutlar
 
 - `npm run dev`: Geliştirme sunucusu
@@ -124,4 +95,4 @@
 
 ---
 
-*Son güncelleme: 24 Aralık 2025*
+*Son güncelleme: 5 Ocak 2026*
