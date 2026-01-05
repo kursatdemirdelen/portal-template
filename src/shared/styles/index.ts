@@ -19,3 +19,6 @@ export { hexToRgba } from './colorUtils';
 
 // Detail Page Styles (shared across ticket, project, etc.)
 export * from './detailStyles';
+
+// Profile Page Styles
+export * from './profileStyles';

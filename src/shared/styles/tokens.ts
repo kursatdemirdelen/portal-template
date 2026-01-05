@@ -60,6 +60,10 @@ export const colors = {
   textSecondary: '#7f8c8d',
   textTertiary: '#95a5a6',
   textMuted: '#bdc3c7',
+
+  // Border & Background
+  border: '#e8eefb',
+  backgroundLight: '#f8f9fa',
 } as const;
 
 export const backgrounds = {

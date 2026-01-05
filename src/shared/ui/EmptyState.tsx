@@ -7,6 +7,10 @@ interface EmptyStateProps {
   description?: string;
   actionText?: string;
   onAction?: () => void;
+  actionDisabled?: boolean;
+  image?: React.ReactNode;
+  imageStyle?: React.CSSProperties;
+  compact?: boolean;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
@@ -14,10 +18,16 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   description = "Filtreleri temizleyin veya yeni bir kayıt oluşturun.",
   actionText,
   onAction,
+  actionDisabled = false,
+  image = Empty.PRESENTED_IMAGE_SIMPLE,
+  imageStyle = { height: 60 },
+  compact = false,
 }) => {
   return (
-    <div style={{ padding: spacing["2xl"] }}>
+    <div style={{ padding: compact ? spacing.lg : spacing["2xl"] }}>
       <Empty
+        image={image}
+        imageStyle={imageStyle}
         description={
           <div>
             <div style={{ fontWeight: 600 }}>{title}</div>
@@ -34,7 +44,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         }
       >
         {actionText && (
-          <Button type="primary" onClick={onAction}>
+          <Button type="primary" onClick={onAction} disabled={actionDisabled}>
             {actionText}
           </Button>
         )}

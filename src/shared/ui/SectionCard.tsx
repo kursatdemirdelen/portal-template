@@ -1,13 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import { Typography, Spin } from "antd";
 import { cardStyles } from "@/shared/styles/helpers";
-import {
-  colors,
-  gradients,
-  spacing,
-  borderColors,
-  radius,
-} from "@/shared/styles";
+import { colors, gradients, spacing, borderColors } from "@/shared/styles";
 
 const { Title, Text } = Typography;
 
@@ -98,11 +92,10 @@ export const SectionCard: React.FC<SectionCardProps> = ({
               style={{
                 padding: `${paddingSize}px ${paddingSize}px 0 ${paddingSize}px`,
                 ...cardStyles.sectionCard.header,
-                flexWrap: "wrap",
                 gap: spacing.md,
               }}
             >
-              <div style={{ flex: "1 1 auto", minWidth: 0 }}>
+              <div style={{ flex: "1 1 0", minWidth: 0 }}>
                 <div
                   style={{
                     display: "flex",
