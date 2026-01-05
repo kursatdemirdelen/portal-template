@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { gradients, spacing } from "@/shared/styles";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,15 @@ const LogoutPage: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const handleLogout = useCallback(() => {
     logout();
     const id = setTimeout(() => navigate("/login", { replace: true }), 300);
     return () => clearTimeout(id);
   }, [logout, navigate]);
+
+  useEffect(() => {
+    handleLogout();
+  }, [handleLogout]);
 
   return (
     <div

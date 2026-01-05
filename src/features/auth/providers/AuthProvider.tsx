@@ -6,10 +6,11 @@ import React, {
   useEffect,
   type ReactNode,
 } from "react";
+import { tokenService } from "@/shared/api/tokenService";
 import type { AuthState, AuthUser } from "../model/types";
 
 interface AuthContextValue extends AuthState {
-  login: (user: AuthUser) => void;
+  login: (user: AuthUser, token: string) => void;
   logout: () => void;
   setLoading: (value: boolean) => void;
 }
@@ -19,6 +20,13 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 const STORAGE_KEY = "auth_state";
 
 const getInitialState = (): AuthState => {
+  // Önce token storage'dan kontrol et
+  const userFromToken = tokenService.getUserFromToken();
+  if (userFromToken) {
+    return { user: userFromToken, isAuthenticated: true, isLoading: false };
+  }
+
+  // Token yoksa eski localStorage'dan try et
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -36,7 +44,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [state, setState] = useState<AuthState>(getInitialState);
 
-  // persist to localStorage
+  // persist to localStorage (legacy)
   useEffect(() => {
     try {
       const toSave = JSON.stringify({
@@ -49,17 +57,34 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, [state.user, state.isAuthenticated]);
 
-  const login = (user: AuthUser) => {
-    setState({ user, isAuthenticated: true, isLoading: false });
-  };
-
-  const logout = () => {
-    setState({ user: null, isAuthenticated: false, isLoading: false });
+  const logout = React.useCallback(() => {
+    // Token'ı sil
+    tokenService.removeToken();
+    // localStorage cleanup
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch {
       // ignore
     }
+    setState({ user: null, isAuthenticated: false, isLoading: false });
+  }, []);
+
+  // 401 event listener - API interceptor'dan gelen logout signal
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      logout();
+    };
+
+    window.addEventListener("auth:unauthorized", handleUnauthorized);
+    return () => {
+      window.removeEventListener("auth:unauthorized", handleUnauthorized);
+    };
+  }, [logout]);
+
+  const login = (user: AuthUser, token: string) => {
+    // Token'ı secure storage'a kaydet
+    tokenService.setToken(token);
+    setState({ user, isAuthenticated: true, isLoading: false });
   };
 
   const setLoading = (value: boolean) => {
@@ -73,7 +98,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       logout,
       setLoading,
     }),
-    [state]
+    [state, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
