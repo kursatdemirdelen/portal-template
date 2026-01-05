@@ -293,7 +293,7 @@ export const appRoutes: AppRoute[] = [
     path: "/logout",
     label: "Çıkış",
     component: LogoutPage,
-    layout: "app",
+    layout: "auth",
     roles: ["admin", "worker", "user"],
     showInMenu: false,
     menuGroup: "Profil",

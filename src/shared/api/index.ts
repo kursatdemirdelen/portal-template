@@ -6,12 +6,13 @@
  * 
  * 📁 DOSYA YAPISI:
  * - apiClient.ts      → Axios base instance ve helper fonksiyonlar (get, post)
+ * - tokenService.ts   → Secure token management (secure-ls + JWT)
  * - userService       → Kullanıcı yönetimi CRUD
  * - permissionService → İzin ve rol yönetimi CRUD
  * 
  * 🔧 KULLANIM:
  * ```typescript
- * import { apiClient, apiGet, apiPost } from '@/shared/api';
+ * import { apiClient, apiGet, apiPost, tokenService } from '@/shared/api';
  * import { getUsers } from '@/shared/api/userService';
  * ```
  * 
@@ -24,6 +25,9 @@
 
 // HTTP Layer - Axios tabanlı tek client
 export * from './apiClient';
+
+// Token & Auth
+export { tokenService } from './tokenService';
 
 // Feature Services
 // Not: Servisler doğrudan import edilmeli, barrel export yerine

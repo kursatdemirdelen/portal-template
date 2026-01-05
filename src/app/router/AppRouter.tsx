@@ -1,97 +1,96 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { AppLayout } from "@/shared/layout/AppLayout";
 import { AuthLayout } from "@/shared/layout/AuthLayout";
 import { appRoutes } from "@/shared/config/routes";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PageLoader } from "@/shared/ui/Loaders";
-import { spacing, radius, colors, gradients } from "@/shared/styles";
-
-// 404 Not Found page
-const NotFoundPage: React.FC = () => (
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      minHeight: "100vh",
-      background: gradients.bgCard,
-      flexDirection: "column",
-      gap: spacing.xl,
-      color: colors.textPrimary,
-    }}
-  >
-    <div style={{ fontSize: 64, fontWeight: "bold", color: colors.primary }}>
-      404
-    </div>
-    <div style={{ fontSize: 20 }}>Sayfa bulunamadı</div>
-    <a
-      href="/dashboard"
-      style={{
-        marginTop: spacing.xl,
-        padding: `${spacing.sm}px ${spacing.xl}px`,
-        background: colors.primary,
-        color: "#fff",
-        borderRadius: radius.md,
-        textDecoration: "none",
-        transition: "all 0.3s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = colors.primary;
-        e.currentTarget.style.opacity = "0.9";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = colors.primary;
-        e.currentTarget.style.opacity = "1";
-      }}
-    >
-      Dashboard'a Dön
-    </a>
-  </div>
-);
+import { useGlobalErrorHandler } from "@/shared/hooks/useGlobalErrorHandler";
+import { NotFoundPage, ServerErrorPage } from "@/shared/ui/ErrorPages";
 
 export const AppRouter: React.FC = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Root redirect to dashboard */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
-        {/* Dynamic route mapping */}
-        {appRoutes.map((route) => {
-          const LayoutComp = route.layout === "auth" ? AuthLayout : AppLayout;
-          const PageComp = route.component;
-
-          const element = (
-            <LayoutComp>
-              <Suspense fallback={<PageLoader />}>
-                <PageComp />
-              </Suspense>
-            </LayoutComp>
-          );
-
-          // Auth routes don't need protection
-          if (route.layout === "auth") {
-            return (
-              <Route key={route.path} path={route.path} element={element} />
-            );
-          }
-
-          // Protected app routes with role-based access
-          return (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <ProtectedRoute roles={route.roles}>{element}</ProtectedRoute>
-              }
-            />
-          );
-        })}
-
-        {/* 404 fallback for unmatched routes */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <RouterContent />
     </BrowserRouter>
+  );
+};
+
+/**
+ * Error pages wrapper - Router context'i içinde
+ */
+const ErrorPageWrapper: React.FC<{ type: "404" | "500" }> = ({ type }) => {
+  const navigate = useNavigate();
+
+  if (type === "404") {
+    return (
+      <NotFoundPage onHome={() => navigate("/dashboard", { replace: true })} />
+    );
+  }
+
+  return (
+    <ServerErrorPage
+      errorCode={500}
+      title="Sunucu Hatası"
+      description="Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyiniz."
+      onRetry={() => window.location.reload()}
+      onHome={() => navigate("/dashboard", { replace: true })}
+    />
+  );
+};
+
+/**
+ * Inner component - Router context'i içinde, hook'lar burada çalışır
+ */
+const RouterContent: React.FC = () => {
+  useGlobalErrorHandler();
+
+  return (
+    <Routes>
+      {/* Root redirect to dashboard */}
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+      {/* Dynamic route mapping */}
+      {appRoutes.map((route) => {
+        const LayoutComp = route.layout === "auth" ? AuthLayout : AppLayout;
+        const PageComp = route.component;
+
+        const element = (
+          <LayoutComp>
+            <Suspense fallback={<PageLoader />}>
+              <PageComp />
+            </Suspense>
+          </LayoutComp>
+        );
+
+        // Auth routes don't need protection
+        if (route.layout === "auth") {
+          return <Route key={route.path} path={route.path} element={element} />;
+        }
+
+        // Protected app routes with role-based access
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <ProtectedRoute roles={route.roles}>{element}</ProtectedRoute>
+            }
+          />
+        );
+      })}
+
+      {/* Error pages */}
+      <Route path="/500" element={<ErrorPageWrapper type="500" />} />
+
+      {/* 404 fallback for unmatched routes */}
+      <Route path="*" element={<ErrorPageWrapper type="404" />} />
+    </Routes>
   );
 };
