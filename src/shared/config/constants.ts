@@ -32,14 +32,12 @@ export const USER_ROLE_COLORS: Record<UserRole, string> = {
 
 export const USER_STATUS_LABELS: Record<UserStatus, string> = {
   active: "Aktif",
-  inactive: "İnaktif",
-  suspended: "Askıya Alınmış",
+  inactive: "İnaktif", 
 };
 
 export const USER_STATUS_COLORS: Record<UserStatus, string> = {
   active: colors.success,
-  inactive: colors.textSecondary,
-  suspended: colors.warning,
+  inactive: colors.textSecondary, 
 };
 
 // ============ MÜŞTERİ DURUM & LİSANS ============

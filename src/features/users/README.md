@@ -30,7 +30,7 @@ users/
 ### Type Definitions
 - `@/shared/types/user.ts` - Merkezi user type'ları
 - `UserRole`: 'admin' | 'manager' | 'worker' | 'user'
-- `UserStatus`: 'active' | 'inactive' | 'suspended'
+- `UserStatus`: 'active' | 'inactive'  
 
 ### Constants
 - `@/shared/config/constants.ts` - Merkezi constants

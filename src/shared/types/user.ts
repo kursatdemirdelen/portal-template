@@ -19,7 +19,7 @@ export type UserRole = 'admin' | 'manager' | 'worker' | 'user';
 /**
  * Kullanıcı durumları
  */
-export type UserStatus = 'active' | 'inactive' | 'suspended';
+export type UserStatus = 'active' | 'inactive'  ;
 
 // =============================================================================
 // ANA ENTITY TİPLERİ
@@ -163,8 +163,7 @@ export interface BulkUpdateUsersResponse {
 export interface UserStats {
   total: number;
   active: number;
-  inactive: number;
-  suspended: number;
+  inactive: number; 
   byRole: {
     admin: number;
     manager: number;

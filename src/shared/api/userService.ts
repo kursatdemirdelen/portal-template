@@ -341,8 +341,7 @@ export async function getUserStats(): Promise<UserStats> {
   const stats: UserStats = {
     total: userDatabase.length,
     active: userDatabase.filter((u) => u.status === 'active').length,
-    inactive: userDatabase.filter((u) => u.status === 'inactive').length,
-    suspended: userDatabase.filter((u) => u.status === 'suspended').length,
+    inactive: userDatabase.filter((u) => u.status === 'inactive').length, 
     byRole: {
       admin: userDatabase.filter((u) => u.role === 'admin').length,
       manager: userDatabase.filter((u) => u.role === 'manager').length,

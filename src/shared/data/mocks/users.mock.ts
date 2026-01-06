@@ -282,8 +282,7 @@ export const getUserStats = () => {
   return {
     total: mockUsers.length,
     active: mockUsers.filter((u) => u.status === "active").length,
-    inactive: mockUsers.filter((u) => u.status === "inactive").length,
-    suspended: mockUsers.filter((u) => u.status === "suspended").length,
+    inactive: mockUsers.filter((u) => u.status === "inactive").length, 
     byRole: {
       admin: mockUsers.filter((u) => u.role === "admin").length,
       manager: mockUsers.filter((u) => u.role === "manager").length,

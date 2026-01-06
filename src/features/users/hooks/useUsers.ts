@@ -88,7 +88,7 @@ export const useUsers = () => {
   const stats: UserStatsDisplay = useMemo(() => ({
     total: users.length,
     active: users.filter((u) => u.status === "active").length,
-    inactive: users.filter((u) => u.status === "inactive" || u.status === "suspended").length,
+    inactive: users.filter((u) => u.status === "inactive"  ).length,
     admins: users.filter((u) => u.role === "admin" || u.role === "manager").length,
   }), [users]);
 
