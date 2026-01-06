@@ -8,22 +8,17 @@
 import React from "react";
 import { Row, Col } from "antd";
 import { StatCard } from "@/shared/ui";
-import { Users, CheckCircle2, Shield } from "lucide-react";
-
-interface UserStats {
-  total: number;
-  active: number;
-  admins: number;
-}
+import { Users, CheckCircle2, Shield, XCircle } from "lucide-react";
+import type { UserStatsDisplay } from "../model/types";
 
 interface UserStatsCardsProps {
-  stats: UserStats;
+  stats: UserStatsDisplay;
 }
 
 export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
   return (
     <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-      <Col xs={24} sm={12} lg={8}>
+      <Col xs={24} sm={12} lg={6}>
         <StatCard
           title="Toplam Kullanıcı"
           value={stats.total}
@@ -32,7 +27,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           description="Tüm kullanıcılar"
         />
       </Col>
-      <Col xs={24} sm={12} lg={8}>
+      <Col xs={24} sm={12} lg={6}>
         <StatCard
           title="Aktif Kullanıcı"
           value={stats.active}
@@ -41,13 +36,22 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           description="Sistem erişimi aktif"
         />
       </Col>
-      <Col xs={24} sm={12} lg={8}>
+      <Col xs={24} sm={12} lg={6}>
+        <StatCard
+          title="Pasif Kullanıcı"
+          value={stats.inactive}
+          icon={<XCircle size={18} />}
+          color="orange"
+          description="Erişimi kısıtlı"
+        />
+      </Col>
+      <Col xs={24} sm={12} lg={6}>
         <StatCard
           title="Yönetici Sayısı"
           value={stats.admins}
           icon={<Shield size={18} />}
           color="purple"
-          description="Sistem yöneticileri"
+          description="Admin ve Manager"
         />
       </Col>
     </Row>

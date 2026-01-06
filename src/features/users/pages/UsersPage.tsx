@@ -11,29 +11,24 @@
  */
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { PageContainer } from "@/shared/ui";
 import { Card } from "antd";
 import { TableSkeleton } from "@/shared/ui/Loaders";
 import { EmptyState } from "@/shared/ui/EmptyState";
-import {
-  UserStatsCards,
-  UserFiltersBar,
-  UserTable,
-  UserFormModal,
-} from "../ui";
-import { useUsers } from "../hooks/useUsers";
+import { UserStatsCards, UserFiltersBar, UserTable } from "../ui";
+import { useUsers } from "../hooks";
+import type { User } from "../model";
 
 /**
  * Kullanıcı yönetimi ana sayfası
  */
 const UsersPage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     filteredUsers,
     loading,
     stats,
-    modalVisible,
-    editingUser,
-    form,
     selectedRowKeys,
     searchText,
     roleFilter,
@@ -42,13 +37,20 @@ const UsersPage: React.FC = () => {
     setRoleFilter,
     setStatusFilter,
     setSelectedRowKeys,
-    openCreateModal,
-    openEditModal,
-    closeModal,
-    handleDelete,
     handleBulkStatusChange,
-    handleSave,
   } = useUsers();
+
+  const handleCreateClick = () => {
+    navigate("/users/create");
+  };
+
+  const handleViewUser = (user: User) => {
+    navigate(`/users/${user.id}`);
+  };
+
+  const handleEditUser = (user: User) => {
+    navigate(`/users/${user.id}/edit`);
+  };
 
   return (
     <PageContainer
@@ -68,7 +70,7 @@ const UsersPage: React.FC = () => {
         onRoleChange={setRoleFilter}
         onStatusChange={setStatusFilter}
         onBulkStatusChange={handleBulkStatusChange}
-        onCreateClick={openCreateModal}
+        onCreateClick={handleCreateClick}
       />
 
       {/* Users Table with standardized loading/empty states */}
@@ -82,7 +84,7 @@ const UsersPage: React.FC = () => {
             title="Kullanıcı bulunamadı"
             description="Filtreleri temizleyin veya yeni bir kullanıcı oluşturun."
             actionText="Yeni Kullanıcı"
-            onAction={openCreateModal}
+            onAction={handleCreateClick}
           />
         </Card>
       ) : (
@@ -91,19 +93,10 @@ const UsersPage: React.FC = () => {
           loading={loading}
           selectedRowKeys={selectedRowKeys}
           onSelectionChange={setSelectedRowKeys}
-          onEdit={openEditModal}
-          onDelete={handleDelete}
+          onView={handleViewUser}
+          onEdit={handleEditUser}
         />
       )}
-
-      {/* Create/Edit Modal */}
-      <UserFormModal
-        open={modalVisible}
-        editingUser={editingUser}
-        form={form}
-        onSave={handleSave}
-        onCancel={closeModal}
-      />
     </PageContainer>
   );
 };

@@ -9,7 +9,7 @@ interface EmptyStateProps {
   onAction?: () => void;
   actionDisabled?: boolean;
   image?: React.ReactNode;
-  imageStyle?: React.CSSProperties;
+  imageHeight?: number;
   compact?: boolean;
 }
 
@@ -20,14 +20,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
   actionDisabled = false,
   image = Empty.PRESENTED_IMAGE_SIMPLE,
-  imageStyle = { height: 60 },
+  imageHeight = 60,
   compact = false,
 }) => {
   return (
     <div style={{ padding: compact ? spacing.lg : spacing["2xl"] }}>
       <Empty
         image={image}
-        imageStyle={imageStyle}
+        styles={{ image: { height: imageHeight } }}
         description={
           <div>
             <div style={{ fontWeight: 600 }}>{title}</div>

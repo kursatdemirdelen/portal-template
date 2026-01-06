@@ -54,36 +54,40 @@ export const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ data }) => {
         subtitle="Telefon ve e-posta iletişim bilgileriniz"
       >
         <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
-          <Descriptions.Item label="Telefon">
+          <Descriptions.Item label="Telefon" span={1}>
             <Space>
               <PhoneOutlined />
               <Link href={`tel:${data.phone}`}>{data.phone}</Link>
             </Space>
           </Descriptions.Item>
-          {data.mobile && (
-            <Descriptions.Item label="Cep Telefonu">
+          <Descriptions.Item label="Cep Telefonu" span={1}>
+            {data.mobile ? (
               <Space>
                 <MobileOutlined />
                 <Link href={`tel:${data.mobile}`}>{data.mobile}</Link>
               </Space>
-            </Descriptions.Item>
-          )}
-          <Descriptions.Item label="Kurumsal E-posta">
+            ) : (
+              "-"
+            )}
+          </Descriptions.Item>
+          <Descriptions.Item label="Kurumsal E-posta" span={1}>
             <Space>
               <MailOutlined />
               <Link href={`mailto:${data.email}`}>{data.email}</Link>
             </Space>
           </Descriptions.Item>
-          {data.personalEmail && (
-            <Descriptions.Item label="Kişisel E-posta">
+          <Descriptions.Item label="Kişisel E-posta" span={1}>
+            {data.personalEmail ? (
               <Space>
                 <MailOutlined />
                 <Link href={`mailto:${data.personalEmail}`}>
                   {data.personalEmail}
                 </Link>
               </Space>
-            </Descriptions.Item>
-          )}
+            ) : (
+              "-"
+            )}
+          </Descriptions.Item>
         </Descriptions>
       </SectionCard>
 
@@ -104,24 +108,24 @@ export const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ data }) => {
             <div key={index}>
               {index > 0 && <Divider style={{ margin: `${spacing.sm}px 0` }} />}
               <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
-                <Descriptions.Item label="Adres Tipi">
+                <Descriptions.Item label="Adres Tipi" span={1}>
                   <Tag
                     color={addr.type === "Ev" ? colors.success : colors.info}
                   >
                     {addr.type}
                   </Tag>
                 </Descriptions.Item>
-                <Descriptions.Item label="İl / İlçe">
+                <Descriptions.Item label="İl / İlçe" span={1}>
                   <Space>
                     <EnvironmentOutlined />
                     {addr.city} / {addr.district}
                   </Space>
                 </Descriptions.Item>
-                <Descriptions.Item label="Adres" span={2}>
+                <Descriptions.Item label="Adres" span={1}>
                   {addr.address}
                 </Descriptions.Item>
                 {addr.postalCode && (
-                  <Descriptions.Item label="Posta Kodu" span={2}>
+                  <Descriptions.Item label="Posta Kodu" span={1}>
                     {addr.postalCode}
                   </Descriptions.Item>
                 )}

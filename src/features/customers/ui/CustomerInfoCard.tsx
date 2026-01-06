@@ -45,19 +45,16 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
           content: styles.descriptionContent,
         }}
       >
-        <Descriptions.Item label="Kısa Ad">
+        <Descriptions.Item label="Kısa Ad" span={1}>
           <Text strong>{customer.shortName}</Text>
         </Descriptions.Item>
-        <Descriptions.Item
-          label="Tam Unvan"
-          span={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2 }}
-        >
+        <Descriptions.Item label="Tam Unvan" span={1}>
           {customer.name}
         </Descriptions.Item>
-        <Descriptions.Item label="Vergi Dairesi">
+        <Descriptions.Item label="Vergi Dairesi" span={1}>
           {customer.taxOffice || "-"}
         </Descriptions.Item>
-        <Descriptions.Item label="Vergi No">
+        <Descriptions.Item label="Vergi No" span={1}>
           <Space size={4}>
             <Text code style={styles.textSm}>
               {customer.taxNumber || "-"}
@@ -74,7 +71,7 @@ export const CustomerInfoCard = ({ customer }: CustomerInfoCardProps) => {
             )}
           </Space>
         </Descriptions.Item>
-        <Descriptions.Item label="Durum">
+        <Descriptions.Item label="Durum" span={2}>
           <Tag color={STATUS_COLORS[customer.status]} style={{ margin: 0 }}>
             {STATUS_LABELS[customer.status]}
           </Tag>

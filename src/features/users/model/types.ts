@@ -3,40 +3,17 @@
  * =================================
  * 
  * Bu dosya, Users feature'ının tüm TypeScript type'larını içerir.
- * Temel tipler @/shared/types'dan import edilir.
+ * Temel tipler @/shared/types'dan re-export edilir.
+ * Feature-specific tipler burada tanımlanır.
  * 
- * 📦 İÇERİK:
- * 
- * 1. DOMAIN TYPES (Core Entities)
- *    - User             → Tek bir kullanıcı kaydı (@/shared/types'dan)
- *    - UserRole         → Rol tipi (@/shared/types'dan)
- *    - UserStatus       → Durum (@/shared/types'dan)
- *    - RoleInfo         → Rol detay bilgisi (@/shared/types'dan)
- * 
- * 2. API REQUEST TYPES
- *    - GetUsersRequest          → Liste sorgusu (filter, pagination)
- *    - CreateUserRequest        → Yeni kullanıcı oluşturma
- *    - UpdateUserRequest        → Kullanıcı güncelleme
- *    - DeleteUserRequest        → Kullanıcı silme
- *    - BulkUpdateUsersRequest   → Toplu güncelleme
- * 
- * 3. API RESPONSE TYPES
- *    - GetUsersResponse         → Paginated liste yanıtı
- *    - CreateUserResponse       → Oluşturma yanıtı
- *    - UpdateUserResponse       → Güncelleme yanıtı
- *    - BulkUpdateUsersResponse  → Toplu güncelleme yanıtı
- *    - UserStats                → İstatistik özeti
- * 
- * 🔧 BACKEND ENTEGRASYONU:
- * Bu type'lar backend API response'larıyla uyumlu olmalıdır.
- * 
- * 📁 KULLANIM:
- * - Service:  shared/api/userService.ts
- * - Page:     features/users/pages/UsersPage.tsx
- * - UI:       features/users/ui/constants.ts (labels için)
+ * @usage
+ * import type { User, UserRole, UserFilters } from '../model/types';
  */
 
-// Temel tipler shared types'dan re-export edilir
+// =============================================================================
+// RE-EXPORTS FROM SHARED TYPES
+// =============================================================================
+
 export type { 
   UserRole, 
   UserStatus, 
@@ -48,73 +25,51 @@ export type {
   GetUsersResponse,
   CreateUserRequest,
   CreateUserResponse,
+  UpdateUserRequest,
+  UpdateUserResponse,
+  DeleteUserRequest,
+  BulkUpdateUsersRequest,
+  BulkUpdateUsersResponse,
   UserStats,
 } from '@/shared/types';
 
-// Feature-specific extended types (shared types'ı genişletir)
-import type { UserRole, UserStatus, User } from '@/shared/types';
+// =============================================================================
+// FEATURE-SPECIFIC TYPES
+// =============================================================================
+
+import type { UserRole, UserStatus } from '@/shared/types';
 
 /**
- * Kullanıcı güncelleme isteği
+ * Kullanıcı filtreleme seçenekleri
  */
-export interface UpdateUserRequest {
-  id: string;
-  name?: string;
-  email?: string;
+export interface UserFilters {
+  search: string;
+  role: UserRole | 'all';
+  status: UserStatus | 'all';
+}
+
+/**
+ * Kullanıcı form verisi (Create/Edit)
+ */
+export interface UserFormData {
+  name: string;
+  email: string;
   phone?: string;
-  role?: UserRole;
-  status?: UserStatus;
-  department?: string;
+  password?: string;
+  language?: string;
+  role: UserRole;
+  department: string;
+  company?: string;
+  timezone?: string;
+  isActive?: boolean;
 }
 
 /**
- * Kullanıcı güncelleme yanıtı
+ * Kullanıcı istatistik özeti (UI için)
  */
-export interface UpdateUserResponse {
-  message: string;
-  user: User;
-}
-
-/**
- * Kullanıcı silme isteği
- */
-export interface DeleteUserRequest {
-  id: string;
-}
-
-/**
- * Toplu kullanıcı güncelleme isteği
- */
-export interface BulkUpdateUsersRequest {
-  userIds: string[];
-  status?: UserStatus;
-  role?: UserRole;
-  department?: string;
-}
-
-/**
- * Toplu kullanıcı güncelleme yanıtı
- */
-export interface BulkUpdateUsersResponse {
-  message: string;
-  updatedCount: number;
-  users: User[];
-}
-
-/**
- * Feature-specific UserStats (byDepartment ve lastModified ekli)
- */
-export interface UserStatsExtended {
+export interface UserStatsDisplay {
   total: number;
   active: number;
   inactive: number;
-  suspended: number;
-  byRole: {
-    admin: number;
-    manager: number;
-    worker: number;
-    user: number;
-  };
-  byDepartment: Record<string, number>;
-  lastModified: string;
+  admins: number;
 }

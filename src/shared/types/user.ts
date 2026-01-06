@@ -55,6 +55,9 @@ export interface User {
   role: UserRole;
   status: UserStatus;
   department?: string;
+  company?: string;
+  language?: string;
+  timezone?: string;
   createdAt: string;
   updatedAt: string;
   lastLogin?: string;
@@ -118,9 +121,11 @@ export interface DeleteUserRequest {
 }
 
 export interface BulkUpdateUsersRequest {
-  ids: string[];
+  ids?: string[];
+  userIds?: string[];
   status?: UserStatus;
   role?: UserRole;
+  department?: string;
 }
 
 // =============================================================================
@@ -149,6 +154,7 @@ export interface UpdateUserResponse {
 export interface BulkUpdateUsersResponse {
   message: string;
   updatedCount: number;
+  users?: User[];
 }
 
 /**

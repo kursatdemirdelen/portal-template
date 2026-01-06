@@ -55,8 +55,8 @@ export const FamilyInfoTab: React.FC<FamilyInfoTabProps> = ({ data }) => {
         }
         subtitle="Medeni durumunuz ve aile bilgileriniz"
       >
-        <Descriptions column={{ xs: 1, sm: 2, md: 4 }} bordered size="small">
-          <Descriptions.Item label="Medeni Durum">
+        <Descriptions column={{ xs: 1, sm: 2, md: 2 }} bordered size="small">
+          <Descriptions.Item label="Medeni Durum" span={1}>
             <Tag
               style={{
                 color: "#5b7aed",
@@ -68,18 +68,8 @@ export const FamilyInfoTab: React.FC<FamilyInfoTabProps> = ({ data }) => {
               {data.maritalStatus}
             </Tag>
           </Descriptions.Item>
-          {data.spouseName && (
-            <Descriptions.Item label="Eş Adı">
-              <Text strong>{data.spouseName}</Text>
-            </Descriptions.Item>
-          )}
-          {data.spouseOccupation && (
-            <Descriptions.Item label="Eş Mesleği">
-              {data.spouseOccupation}
-            </Descriptions.Item>
-          )}
           {data.numberOfChildren !== undefined && (
-            <Descriptions.Item label="Çocuk Sayısı">
+            <Descriptions.Item label="Çocuk Sayısı" span={1}>
               <Tag
                 style={{
                   color: "#10b981",
@@ -90,6 +80,16 @@ export const FamilyInfoTab: React.FC<FamilyInfoTabProps> = ({ data }) => {
               >
                 {data.numberOfChildren}
               </Tag>
+            </Descriptions.Item>
+          )}
+          {data.spouseName && (
+            <Descriptions.Item label="Eş Adı" span={1}>
+              <Text strong>{data.spouseName}</Text>
+            </Descriptions.Item>
+          )}
+          {data.spouseOccupation && (
+            <Descriptions.Item label="Eş Mesleği" span={1}>
+              {data.spouseOccupation}
             </Descriptions.Item>
           )}
         </Descriptions>

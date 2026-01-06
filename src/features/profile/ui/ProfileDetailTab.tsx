@@ -49,47 +49,43 @@ export const ProfileDetailTab: React.FC<ProfileDetailTabProps> = ({ data }) => {
         }
         subtitle="Temel kimlik ve kişisel bilgileriniz"
       >
-        <Descriptions column={{ xs: 1, sm: 2, md: 3 }} bordered size="small">
-          <Descriptions.Item label="Ad Soyad">
+        <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
+          <Descriptions.Item label="Ad Soyad" span={1}>
             <strong>{data.fullName}</strong>
           </Descriptions.Item>
-          {data.preferredName && (
-            <Descriptions.Item label="Tercih Edilen İsim">
-              {data.preferredName}
-            </Descriptions.Item>
-          )}
-          <Descriptions.Item label="Doğum Tarihi">
+          <Descriptions.Item label="Doğum Tarihi" span={1}>
             <Space>
               <CalendarOutlined />
               {data.birthDate}
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item label="Doğum Yeri">
+          <Descriptions.Item label="Doğum Yeri" span={1}>
             {data.birthPlace}
           </Descriptions.Item>
-          <Descriptions.Item label="TC Kimlik No">
+          <Descriptions.Item label="TC Kimlik No" span={1}>
             <span style={{ fontFamily: "monospace", letterSpacing: "0.5px" }}>
               {data.identityNumber}
             </span>
           </Descriptions.Item>
-          {data.age && (
-            <Descriptions.Item label="Yaş">
-              <Tag color="blue">{data.age}</Tag>
-            </Descriptions.Item>
-          )}
-          <Descriptions.Item label="Medeni Durum">
+          <Descriptions.Item label="Medeni Durum" span={1}>
             <Tag icon={<HeartOutlined />} color="magenta">
               {data.maritalStatus}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Uyruk">
+          <Descriptions.Item label="Uyruk" span={1}>
             {data.nationality}
           </Descriptions.Item>
-          <Descriptions.Item label="Cinsiyet">
+          <Descriptions.Item label="Cinsiyet" span={1}>
             <Space>
               {genderIcon}
               {genderText}
             </Space>
+          </Descriptions.Item>
+          <Descriptions.Item label="Tercih Edilen İsim" span={1}>
+            {data.preferredName || "-"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Yaş" span={1}>
+            {data.age ? <Tag color="blue">{data.age}</Tag> : "-"}
           </Descriptions.Item>
         </Descriptions>
       </SectionCard>
@@ -104,22 +100,26 @@ export const ProfileDetailTab: React.FC<ProfileDetailTabProps> = ({ data }) => {
         }
         subtitle="Sağlık durumu ve askerlik bilgileriniz"
       >
-        <Descriptions column={{ xs: 1, sm: 2, md: 3 }} bordered size="small">
-          {data.disabilityLevel && (
-            <Descriptions.Item label="Engel Derecesi">
+        <Descriptions column={{ xs: 1, sm: 1, md: 3 }} bordered size="small">
+          <Descriptions.Item label="Kan Grubu" span={1}>
+            <Tag color="red">{data.bloodType}</Tag>
+          </Descriptions.Item>
+          <Descriptions.Item label="Engel Derecesi" span={1}>
+            {data.disabilityLevel ? (
               <Tag color={data.disabilityLevel === "Yok" ? "green" : "orange"}>
                 {data.disabilityLevel}
               </Tag>
-            </Descriptions.Item>
-          )}
-          <Descriptions.Item label="Kan Grubu">
-            <Tag color="red">{data.bloodType}</Tag>
+            ) : (
+              "-"
+            )}
           </Descriptions.Item>
-          {data.militaryStatus && (
-            <Descriptions.Item label="Askerlik Durumu">
+          <Descriptions.Item label="Askerlik Durumu" span={1}>
+            {data.militaryStatus ? (
               <Tag color="green">{data.militaryStatus}</Tag>
-            </Descriptions.Item>
-          )}
+            ) : (
+              "-"
+            )}
+          </Descriptions.Item>
         </Descriptions>
       </SectionCard>
 
@@ -134,23 +134,23 @@ export const ProfileDetailTab: React.FC<ProfileDetailTabProps> = ({ data }) => {
           }
           subtitle="Maaş ödemesi için banka hesap bilgileriniz"
         >
-          <Descriptions column={{ xs: 1, sm: 2, md: 2 }} bordered size="small">
-            {data.bankName && (
-              <Descriptions.Item label="Banka Adı">
-                <Tag color="blue">{data.bankName}</Tag>
-              </Descriptions.Item>
-            )}
-            {data.bankAccountNo && (
-              <Descriptions.Item label="Banka Hesap No">
+          <Descriptions column={{ xs: 1, sm: 1 }} bordered size="small">
+            <Descriptions.Item label="Banka Adı" span={1}>
+              {data.bankName ? <Tag color="blue">{data.bankName}</Tag> : "-"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Banka Hesap No" span={1}>
+              {data.bankAccountNo ? (
                 <span
                   style={{ fontFamily: "monospace", letterSpacing: "0.5px" }}
                 >
                   {data.bankAccountNo}
                 </span>
-              </Descriptions.Item>
-            )}
-            {data.ibanNo && (
-              <Descriptions.Item label="Iban No" span={2}>
+              ) : (
+                "-"
+              )}
+            </Descriptions.Item>
+            <Descriptions.Item label="Iban No" span={1}>
+              {data.ibanNo ? (
                 <span
                   style={{
                     fontFamily: "monospace",
@@ -160,8 +160,10 @@ export const ProfileDetailTab: React.FC<ProfileDetailTabProps> = ({ data }) => {
                 >
                   {data.ibanNo}
                 </span>
-              </Descriptions.Item>
-            )}
+              ) : (
+                "-"
+              )}
+            </Descriptions.Item>
           </Descriptions>
         </SectionCard>
       )}

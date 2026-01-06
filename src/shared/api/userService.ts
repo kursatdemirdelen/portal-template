@@ -71,6 +71,9 @@ const userDatabase: User[] = [
     role: 'admin',
     status: 'active',
     department: 'IT',
+    company: 'Teknoloji A.Ş.',
+    language: 'tr',
+    timezone: 'Europe/Istanbul',
     createdAt: '2024-01-15',
     updatedAt: '2025-01-20',
     lastLogin: '2025-01-20 14:30',
@@ -84,6 +87,9 @@ const userDatabase: User[] = [
     role: 'manager',
     status: 'active',
     department: 'Project Management',
+    company: 'Teknoloji A.Ş.',
+    language: 'tr',
+    timezone: 'Europe/Istanbul',
     createdAt: '2024-02-10',
     updatedAt: '2025-01-19',
     lastLogin: '2025-01-20 10:15',
@@ -97,6 +103,9 @@ const userDatabase: User[] = [
     role: 'worker',
     status: 'active',
     department: 'Development',
+    company: 'Pazarlama Inc.',
+    language: 'en',
+    timezone: 'America/New_York',
     createdAt: '2024-03-05',
     updatedAt: '2025-01-20',
     lastLogin: '2025-01-20 09:45',
@@ -110,6 +119,9 @@ const userDatabase: User[] = [
     role: 'worker',
     status: 'active',
     department: 'QA',
+    company: 'Finans Ltd.',
+    language: 'tr',
+    timezone: 'Europe/Istanbul',
     createdAt: '2024-04-20',
     updatedAt: '2025-01-18',
     lastLogin: '2025-01-19 16:20',
@@ -123,6 +135,9 @@ const userDatabase: User[] = [
     role: 'worker',
     status: 'inactive',
     department: 'Development',
+    company: 'Teknoloji A.Ş.',
+    language: 'en',
+    timezone: 'America/New_York',
     createdAt: '2024-05-12',
     updatedAt: '2025-01-10',
     lastLogin: '2024-12-15 11:30',
@@ -136,6 +151,9 @@ const userDatabase: User[] = [
     role: 'user',
     status: 'active',
     department: 'Sales',
+    company: 'Operasyon A.Ş.',
+    language: 'tr',
+    timezone: 'Europe/Istanbul',
     createdAt: '2024-06-08',
     updatedAt: '2025-01-17',
     lastLogin: '2025-01-20 13:00',
@@ -295,7 +313,8 @@ export async function deleteUser(request: DeleteUserRequest): Promise<{ message:
  * Bulk update users
  */
 export async function bulkUpdateUsers(request: BulkUpdateUsersRequest): Promise<BulkUpdateUsersResponse> {
-  const usersToUpdate = userDatabase.filter((u) => request.userIds.includes(u.id));
+  const userIds = request.userIds || request.ids || [];
+  const usersToUpdate = userDatabase.filter((u) => userIds.includes(u.id));
 
   if (usersToUpdate.length === 0) {
     throw new Error('Güncellenecek kullanıcı bulunamadı');

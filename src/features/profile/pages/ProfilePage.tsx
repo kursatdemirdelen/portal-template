@@ -62,7 +62,39 @@ type UserRole = "admin" | "worker" | "user";
  * User rolü için sade profil
  */
 const SimpleProfile: React.FC = () => {
-  const data = mockSimpleProfileData;
+  // localStorage'dan oluşturulan kullanıcı verisini al veya mock data kullan
+  const createdUserData = localStorage.getItem("createdUserData");
+  const userData = createdUserData ? JSON.parse(createdUserData) : null;
+
+  // Eğer yeni kullanıcı data varsa kullan, yoksa mock data kullan
+  const data = userData
+    ? {
+        summary: {
+          name: userData.fullName,
+          title: userData.role,
+          initials: userData.fullName
+            .split(" ")
+            .map((n: string) => n[0])
+            .join("")
+            .toUpperCase(),
+          role: userData.role,
+          location: userData.timezone,
+        },
+        contactInfo: {
+          phone: "0212 XXX XXXX",
+          mobile: "0530 XXX XXXX",
+          email: userData.email,
+          addresses: [
+            {
+              type: "İş",
+              city: "İstanbul",
+              district: "Beşiktaş",
+              address: userData.company || "Şirket Adresi",
+            },
+          ],
+        },
+      }
+    : mockSimpleProfileData;
 
   return (
     <PageContainer title="Profil" subtitle="Hesap bilgilerinizi görüntüleyin">
@@ -79,7 +111,7 @@ const SimpleProfile: React.FC = () => {
 
         <Col xs={24} lg={16}>
           <SectionCard title="İletişim Bilgileri">
-            <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
+            <Descriptions column={{ xs: 1, sm: 1 }} bordered size="small">
               <Descriptions.Item
                 label={
                   <Space>
@@ -87,6 +119,7 @@ const SimpleProfile: React.FC = () => {
                     Telefon
                   </Space>
                 }
+                span={1}
               >
                 {data.contactInfo.phone}
               </Descriptions.Item>
@@ -97,6 +130,7 @@ const SimpleProfile: React.FC = () => {
                     Cep Telefonu
                   </Space>
                 }
+                span={1}
               >
                 {data.contactInfo.mobile}
               </Descriptions.Item>
@@ -107,6 +141,7 @@ const SimpleProfile: React.FC = () => {
                     E-posta
                   </Space>
                 }
+                span={1}
               >
                 {data.contactInfo.email}
               </Descriptions.Item>
@@ -117,17 +152,17 @@ const SimpleProfile: React.FC = () => {
             {data.contactInfo.addresses.map((addr, idx) => (
               <Descriptions
                 key={idx}
-                column={{ xs: 1, sm: 2 }}
+                column={{ xs: 1, sm: 1 }}
                 bordered
                 size="small"
               >
-                <Descriptions.Item label="Adres Tipi">
+                <Descriptions.Item label="Adres Tipi" span={1}>
                   {addr.type}
                 </Descriptions.Item>
-                <Descriptions.Item label="İl / İlçe">
+                <Descriptions.Item label="İl / İlçe" span={1}>
                   {addr.city} / {addr.district}
                 </Descriptions.Item>
-                <Descriptions.Item label="Tam Adres" span={2}>
+                <Descriptions.Item label="Tam Adres" span={1}>
                   {addr.address}
                 </Descriptions.Item>
               </Descriptions>

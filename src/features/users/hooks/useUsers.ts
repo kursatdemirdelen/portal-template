@@ -1,68 +1,121 @@
 /**
  * useUsers Hook
  * 
- * Kullanıcı sayfası için state ve işlemleri yöneten hook.
+ * Kullanıcı listesi yönetimi için ana hook.
+ * Filtreleme, sıralama, seçim ve CRUD işlemlerini yönetir.
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Form, message } from "antd";
 import { userService } from "@/shared/api/userService";
-import type { User, UserRole, UserStatus, CreateUserRequest } from "../model/types";
+import type { User, UserRole, UserStatus, UserFilters, UserStatsDisplay, CreateUserRequest } from "../model/types";
 
-interface UserStats {
-  total: number;
-  active: number;
-  admins: number;
-}
+// Default filter değerleri
+const DEFAULT_FILTERS: UserFilters = {
+  search: "",
+  role: "all",
+  status: "all",
+};
 
 export const useUsers = () => {
-  // State
+  // Core State
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+  const [filters, setFilters] = useState<UserFilters>(DEFAULT_FILTERS);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  
+  // Modal State
   const [modalVisible, setModalVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const [searchText, setSearchText] = useState("");
-  const [roleFilter, setRoleFilter] = useState<UserRole | "all">("all");
-  const [statusFilter, setStatusFilter] = useState<UserStatus | "all">("all");
   const [form] = Form.useForm();
 
-  // Load users on mount
-  useEffect(() => {
-    loadUsers();
-  }, []);
+  // ==========================================================================
+  // DATA LOADING
+  // ==========================================================================
 
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     setLoading(true);
     try {
       const response = await userService.getUsers();
-      setUsers(response.data);
+      let allUsers = response.data;
+      
+      // localStorage'dan oluşturulan kullanıcıları ekle
+      const storedUsers = localStorage.getItem("users");
+      if (storedUsers) {
+        const localUsers = JSON.parse(storedUsers);
+        allUsers = [...allUsers, ...localUsers];
+      }
+      
+      setUsers(allUsers);
     } catch {
-      message.error("Kullanıcılar yüklenirken hata oluştu");
+      // localStorage'dan veri oku (API başarısız olsa bile)
+      const storedUsers = localStorage.getItem("users");
+      if (storedUsers) {
+        setUsers(JSON.parse(storedUsers));
+      } else {
+        message.error("Kullanıcılar yüklenirken hata oluştu");
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  // Filter logic
-  const filteredUsers = users.filter((user) => {
-    const matchesSearch =
-      user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchText.toLowerCase());
-    const matchesRole = roleFilter === "all" || user.role === roleFilter;
-    const matchesStatus =
-      statusFilter === "all" || user.status === statusFilter;
-    return matchesSearch && matchesRole && matchesStatus;
-  });
+  // İlk yüklemede kullanıcıları getir
+  useEffect(() => {
+    loadUsers();
+  }, [loadUsers]);
 
-  // Statistics
-  const stats: UserStats = {
+  // ==========================================================================
+  // COMPUTED VALUES
+  // ==========================================================================
+
+  // Filtrelenmiş kullanıcılar
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      const matchesSearch =
+        filters.search === "" ||
+        user.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+        user.email.toLowerCase().includes(filters.search.toLowerCase());
+      
+      const matchesRole = filters.role === "all" || user.role === filters.role;
+      const matchesStatus = filters.status === "all" || user.status === filters.status;
+      
+      return matchesSearch && matchesRole && matchesStatus;
+    });
+  }, [users, filters]);
+
+  // İstatistikler - tüm kullanıcılar üzerinden
+  const stats: UserStatsDisplay = useMemo(() => ({
     total: users.length,
     active: users.filter((u) => u.status === "active").length,
-    admins: users.filter((u) => u.role === "admin").length,
-  };
+    inactive: users.filter((u) => u.status === "inactive" || u.status === "suspended").length,
+    admins: users.filter((u) => u.role === "admin" || u.role === "manager").length,
+  }), [users]);
 
-  // Modal handlers
+  // ==========================================================================
+  // FILTER HANDLERS
+  // ==========================================================================
+
+  const setSearchText = useCallback((value: string) => {
+    setFilters((prev) => ({ ...prev, search: value }));
+  }, []);
+
+  const setRoleFilter = useCallback((value: UserRole | "all") => {
+    setFilters((prev) => ({ ...prev, role: value }));
+  }, []);
+
+  const setStatusFilter = useCallback((value: UserStatus | "all") => {
+    setFilters((prev) => ({ ...prev, status: value }));
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setFilters(DEFAULT_FILTERS);
+  }, []);
+
+  // ==========================================================================
+  // MODAL HANDLERS
+  // ==========================================================================
+
   const openCreateModal = useCallback(() => {
     setEditingUser(null);
     form.resetFields();
@@ -81,7 +134,10 @@ export const useUsers = () => {
     form.resetFields();
   }, [form]);
 
-  // CRUD operations
+  // ==========================================================================
+  // CRUD OPERATIONS
+  // ==========================================================================
+
   const handleDelete = useCallback(async (id: string) => {
     try {
       await userService.deleteUser({ id });
@@ -90,7 +146,7 @@ export const useUsers = () => {
     } catch {
       message.error("Silme işlemi başarısız");
     }
-  }, []);
+  }, [loadUsers]);
 
   const handleBulkStatusChange = useCallback(async (status: UserStatus) => {
     try {
@@ -105,7 +161,7 @@ export const useUsers = () => {
     } catch {
       message.error("Toplu güncelleme başarısız");
     }
-  }, [selectedRowKeys]);
+  }, [selectedRowKeys, loadUsers]);
 
   const handleSave = useCallback(async () => {
     try {
@@ -122,29 +178,45 @@ export const useUsers = () => {
     } catch {
       message.error("İşlem başarısız");
     }
-  }, [form, editingUser, closeModal]);
+  }, [form, editingUser, closeModal, loadUsers]);
+
+  // ==========================================================================
+  // RETURN
+  // ==========================================================================
 
   return {
+    // Data
     users,
     filteredUsers,
     loading,
     stats,
-    modalVisible,
-    editingUser,
-    form,
+    
+    // Selection
     selectedRowKeys,
-    searchText,
-    roleFilter,
-    statusFilter,
+    setSelectedRowKeys,
+    
+    // Filters
+    searchText: filters.search,
+    roleFilter: filters.role,
+    statusFilter: filters.status,
     setSearchText,
     setRoleFilter,
     setStatusFilter,
-    setSelectedRowKeys,
+    resetFilters,
+    
+    // Modal
+    modalVisible,
+    editingUser,
+    form,
     openCreateModal,
     openEditModal,
     closeModal,
+    
+    // Actions
     handleDelete,
     handleBulkStatusChange,
     handleSave,
+    loadUsers,
   };
 };
+

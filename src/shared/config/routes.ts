@@ -42,6 +42,9 @@ const CustomerDetailPage = React.lazy(() =>
 const SettingsPage = React.lazy(() => import("@/features/settings/pages/SettingsPage"));
 
 const UsersPage = React.lazy(() => import("@/features/users/pages/UsersPage"));
+const UserCreatePage = React.lazy(() => import("@/features/users/pages/UserCreatePage"));
+const UserDetailPage = React.lazy(() => import("@/features/users/pages/UserDetailPage"));
+const UserEditPage = React.lazy(() => import("@/features/users/pages/UserEditPage"));
 const PermissionsPage = React.lazy(() => import("@/features/permissions/pages/PermissionsPage"));
 
 const ApprovalsPage = React.lazy(() => import("@/features/approvals/pages/ApprovalsPage"));
@@ -205,6 +208,30 @@ export const appRoutes: AppRoute[] = [
     component: ScrumBoardPage,
     layout: "app",
     roles: ["admin", "worker"],
+    showInMenu: false,
+  },
+  {
+    path: "/users/create",
+    label: "Kullanıcı Oluştur",
+    component: UserCreatePage,
+    layout: "app",
+    roles: ["admin"],
+    showInMenu: false,
+  },
+  {
+    path: "/users/:id/edit",
+    label: "Kullanıcı Düzenle",
+    component: UserEditPage,
+    layout: "app",
+    roles: ["admin"],
+    showInMenu: false,
+  },
+  {
+    path: "/users/:id",
+    label: "Kullanıcı Detayı",
+    component: UserDetailPage,
+    layout: "app",
+    roles: ["admin"],
     showInMenu: false,
   },
   {

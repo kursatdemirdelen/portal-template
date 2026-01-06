@@ -1,10 +1,10 @@
 /**
- * User Create Page
+ * User Edit Page
  *
- * Yeni kullanıcı oluşturma sayfası.
+ * Kullanıcı düzenleme sayfası.
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -13,12 +13,11 @@ import {
   Space,
   Row,
   Col,
-  Switch,
   message,
+  Spin,
 } from "antd";
 import {
-  UserAddOutlined,
-  LockOutlined,
+  SaveOutlined,
   ArrowLeftOutlined,
   MailOutlined,
   PhoneOutlined,
@@ -27,84 +26,127 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { PageContainer, SectionCard } from "@/shared/ui";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { userService } from "@/shared/api/userService";
+import type { User, UserRole, UserStatus } from "../model";
 import {
   DEPARTMENTS,
   ROLE_LABELS,
+  STATUS_LABELS,
   COMPANIES,
   LANGUAGES,
   TIMEZONES,
 } from "../ui/constants";
-import type { UserFormData, UserRole } from "../model";
 
-const UserCreatePage: React.FC = () => {
+const UserEditPage: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   // Form options from constants
-  const departments = DEPARTMENTS.map((d) => ({ label: d, value: d }));
   const roles = (Object.keys(ROLE_LABELS) as UserRole[]).map((role) => ({
     value: role,
     label: ROLE_LABELS[role],
   }));
 
-  const onFinish = async (values: UserFormData) => {
-    setLoading(true);
+  const statuses = (Object.keys(STATUS_LABELS) as UserStatus[]).map(
+    (status) => ({
+      value: status,
+      label: STATUS_LABELS[status],
+    })
+  );
+
+  const departments = DEPARTMENTS.map((d) => ({ label: d, value: d }));
+
+  useEffect(() => {
+    const loadUser = async () => {
+      if (!id) return;
+
+      setLoading(true);
+      try {
+        // Önce API'den dene
+        const response = await userService.getUsers();
+        let foundUser = response.data.find((u) => u.id === id);
+
+        // Bulamazsa localStorage'dan bak
+        if (!foundUser) {
+          const storedUsers = localStorage.getItem("users");
+          if (storedUsers) {
+            const localUsers = JSON.parse(storedUsers);
+            foundUser = localUsers.find((u: User) => u.id === id);
+          }
+        }
+
+        if (foundUser) {
+          setUser(foundUser);
+          form.setFieldsValue(foundUser);
+        } else {
+          message.error("Kullanıcı bulunamadı");
+          navigate("/users");
+        }
+      } catch {
+        message.error("Kullanıcı yüklenirken hata oluştu");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUser();
+  }, [id, navigate, form]);
+
+  const onFinish = async (values: Partial<User>) => {
+    if (!id || !user) return;
+
+    setSaving(true);
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Save to localStorage - UserTable ile uyumlu veri yapısı
-      const userData = {
-        id: `user-${Date.now()}`,
-        name: values.name,
-        email: values.email,
-        phone: values.phone || "",
-        role: values.role,
-        department: values.department,
-        status: values.isActive ? "active" : "inactive",
-        language: values.language,
-        company: values.company,
-        timezone: values.timezone,
-        avatar: "",
-        lastLogin: null,
-        createdAt: new Date().toISOString(),
+      const updatedUser = {
+        ...user,
+        ...values,
         updatedAt: new Date().toISOString(),
       };
 
-      // Add to users list
-      const existingUsers = localStorage.getItem("users");
-      const usersList = existingUsers ? JSON.parse(existingUsers) : [];
-      usersList.push(userData);
-      localStorage.setItem("users", JSON.stringify(usersList));
+      // localStorage'daki kullanıcıyı güncelle
+      const storedUsers = localStorage.getItem("users");
+      if (storedUsers) {
+        const localUsers = JSON.parse(storedUsers);
+        const index = localUsers.findIndex((u: User) => u.id === id);
+        if (index !== -1) {
+          localUsers[index] = updatedUser;
+          localStorage.setItem("users", JSON.stringify(localUsers));
+        }
+      }
 
-      // Also save as current created user for profile
-      localStorage.setItem("createdUserData", JSON.stringify(userData));
-
-      message.success("Kullanıcı başarıyla oluşturuldu!");
-
-      // Navigate to users page
-      setTimeout(() => {
-        navigate("/users");
-      }, 1000);
+      message.success("Kullanıcı başarıyla güncellendi!");
+      navigate(`/users/${id}`);
     } catch {
-      message.error("Kullanıcı oluşturma başarısız oldu!");
+      message.error("Güncelleme başarısız oldu!");
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
 
-  const handleReset = () => {
-    form.resetFields();
-  };
+  if (loading) {
+    return (
+      <PageContainer title="Kullanıcı Düzenle">
+        <div style={{ textAlign: "center", padding: 50 }}>
+          <Spin size="large" />
+        </div>
+      </PageContainer>
+    );
+  }
 
-  const handleBack = () => {
-    navigate("/users");
-  };
+  if (!user) {
+    return null;
+  }
 
   return (
-    <PageContainer title="Kullanıcı Oluştur" subtitle="Yeni kullanıcı ekleyin">
+    <PageContainer title="Kullanıcı Düzenle" subtitle={user.name}>
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
           <Form
@@ -162,16 +204,13 @@ const UserCreatePage: React.FC = () => {
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item
-                      label="Şifre"
-                      name="password"
-                      rules={[
-                        { required: true, message: "Şifre gerekli" },
-                        { min: 6, message: "En az 6 karakter" },
-                      ]}
+                      label="Şirket"
+                      name="company"
+                      rules={[{ required: true, message: "Şirket seçin" }]}
                     >
-                      <Input.Password
-                        placeholder="Kullanıcı şifresi"
-                        prefix={<LockOutlined />}
+                      <Select
+                        placeholder="Şirket seçiniz"
+                        options={[...COMPANIES]}
                         size="large"
                       />
                     </Form.Item>
@@ -187,13 +226,13 @@ const UserCreatePage: React.FC = () => {
                 <Row gutter={16}>
                   <Col xs={24} md={12}>
                     <Form.Item
-                      label="Kullanıcı Rolü"
-                      name="role"
-                      rules={[{ required: true, message: "Rol seçin" }]}
+                      label="Şirket"
+                      name="company"
+                      rules={[{ required: true, message: "Şirket seçin" }]}
                     >
                       <Select
-                        placeholder="Rol seçiniz"
-                        options={roles}
+                        placeholder="Şirket seçiniz"
+                        options={[...COMPANIES]}
                         size="large"
                       />
                     </Form.Item>
@@ -216,27 +255,26 @@ const UserCreatePage: React.FC = () => {
                 <Row gutter={16}>
                   <Col xs={24} md={12}>
                     <Form.Item
-                      label="Şirket"
-                      name="company"
-                      rules={[{ required: true, message: "Şirket seçin" }]}
+                      label="Kullanıcı Rolü"
+                      name="role"
+                      rules={[{ required: true, message: "Rol seçin" }]}
                     >
                       <Select
-                        placeholder="Şirket seçiniz"
-                        options={[...COMPANIES]}
+                        placeholder="Rol seçiniz"
+                        options={roles}
                         size="large"
                       />
                     </Form.Item>
                   </Col>
                   <Col xs={24} md={12}>
                     <Form.Item
-                      label="Dil"
-                      name="language"
-                      rules={[{ required: true, message: "Dil seçin" }]}
-                      initialValue="tr"
+                      label="Hesap Durumu"
+                      name="status"
+                      rules={[{ required: true, message: "Durum seçin" }]}
                     >
                       <Select
-                        placeholder="Dil seçiniz"
-                        options={[...LANGUAGES]}
+                        placeholder="Durum seçiniz"
+                        options={statuses}
                         size="large"
                       />
                     </Form.Item>
@@ -249,31 +287,34 @@ const UserCreatePage: React.FC = () => {
                 <Row gutter={16}>
                   <Col xs={24} md={12}>
                     <Form.Item
+                      label="Dil"
+                      name="language"
+                      rules={[{ required: true, message: "Dil seçin" }]}
+                    >
+                      <Select
+                        placeholder="Dil seçiniz"
+                        options={[...LANGUAGES]}
+                        size="large"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={16}>
+                  <Col xs={24} md={12}>
+                    <Form.Item
                       label="Zaman Dilimi"
                       name="timezone"
                       rules={[
                         { required: true, message: "Zaman dilimi seçin" },
                       ]}
-                      initialValue="Europe/Istanbul"
                     >
                       <Select
                         placeholder="Zaman dilimi seçiniz"
                         options={[...TIMEZONES]}
                         size="large"
+                        showSearch
                       />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Hesap Durumu"
-                      name="isActive"
-                      valuePropName="checked"
-                      initialValue={true}
-                    >
-                      <Space>
-                        <Switch />
-                        <span>Aktif</span>
-                      </Space>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -286,22 +327,18 @@ const UserCreatePage: React.FC = () => {
                     <Button
                       type="primary"
                       htmlType="submit"
-                      loading={loading}
-                      icon={<UserAddOutlined />}
+                      loading={saving}
+                      icon={<SaveOutlined />}
                       size="large"
                     >
-                      Kullanıcı Oluştur
-                    </Button>
-                    <Button size="large" onClick={handleReset}>
-                      Temizle
+                      Değişiklikleri Kaydet
                     </Button>
                     <Button
-                      type="default"
                       icon={<ArrowLeftOutlined />}
-                      onClick={handleBack}
+                      onClick={() => navigate(`/users/${id}`)}
                       size="large"
                     >
-                      Geri Dön
+                      İptal
                     </Button>
                   </Space>
                 </Form.Item>
@@ -314,4 +351,4 @@ const UserCreatePage: React.FC = () => {
   );
 };
 
-export default UserCreatePage;
+export default UserEditPage;

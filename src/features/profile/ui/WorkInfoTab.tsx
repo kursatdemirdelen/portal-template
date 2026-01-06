@@ -62,69 +62,69 @@ export const WorkInfoTab: React.FC<WorkInfoTabProps> = ({ data }) => {
           bordered
           size="small"
         >
-          <Descriptions.Item label="ID">
+          <Descriptions.Item label="ID" span={1}>
             <Text strong style={{ fontFamily: "monospace" }}>
               {data.id}
             </Text>
           </Descriptions.Item>
-          <Descriptions.Item label="Diğer ID">
+          <Descriptions.Item label="Diğer ID" span={1}>
             <Text strong style={{ fontFamily: "monospace" }}>
               {data.otherId || "-"}
             </Text>
           </Descriptions.Item>
-          <Descriptions.Item label="Meslek Adı/Kodu">
+          <Descriptions.Item label="Meslek Adı/Kodu" span={1}>
             <Tag color="blue">{data.occupationCode}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Başlama Tarihi">
+          <Descriptions.Item label="Başlama Tarihi" span={1}>
             <Space>
               <CalendarOutlined style={{ color: colors.success }} />
               <Text strong>{data.startDate}</Text>
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item label="Kıdem">
+          <Descriptions.Item label="Kıdem" span={1}>
             <Tag color="green" icon={<TrophyOutlined />}>
               {data.tenure || "-"}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="İşe Alma Kaynağı">
+          <Descriptions.Item label="İşe Alma Kaynağı" span={1}>
             <Text>{data.hiringSource || "-"}</Text>
           </Descriptions.Item>
-          <Descriptions.Item label="Ayrılış Tarihi">
+          <Descriptions.Item label="Ayrılış Tarihi" span={1}>
             <Space>
               <CalendarOutlined style={{ color: colors.error }} />
               <Text>{data.endDate || "-"}</Text>
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item label="Ayrılma Nedeni">
+          <Descriptions.Item label="Ayrılma Nedeni" span={2}>
             <Text>{data.terminationReason || "-"}</Text>
           </Descriptions.Item>
-          <Descriptions.Item label="Çalışma Durumu">
+          <Descriptions.Item label="Çalışma Durumu" span={1}>
             <Tag color="cyan">{data.employmentStatus}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Ücret Türü">
+          <Descriptions.Item label="Ücret Türü" span={1}>
             <Tag color="gold" icon={<DollarOutlined />}>
               {data.salaryType || "-"}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Konum">
+          <Descriptions.Item label="Konum" span={1}>
             <Text>{data.location || "-"}</Text>
           </Descriptions.Item>
-          <Descriptions.Item label="Bölüm">
+          <Descriptions.Item label="Bölüm" span={1}>
             <Space>
               <TeamOutlined style={{ color: colors.primary }} />
               <Text strong>{data.department || "-"}</Text>
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item label="Hizmet Alanı">
+          <Descriptions.Item label="Hizmet Alanı" span={1}>
             <Tag color="purple">{data.serviceArea || "-"}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="İş Ünvanı">
+          <Descriptions.Item label="İş Ünvanı" span={1}>
             <Tag color="geekblue">{data.jobTitle}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Seviye">
+          <Descriptions.Item label="Seviye" span={1}>
             <Tag color="magenta">Seviye {data.level || "-"}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Yönetici">
+          <Descriptions.Item label="Yönetici" span={2}>
             <Text strong>{data.manager || "-"}</Text>
           </Descriptions.Item>
         </Descriptions>
