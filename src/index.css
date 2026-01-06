@@ -102,6 +102,68 @@
 }
 
 /* ===========================
+   ANT DESIGN OVERRIDES
+   =========================== */
+
+/* Ant Design Input hover border fix */
+.ant-input:hover,
+.ant-input-number:hover,
+.ant-picker:hover,
+.ant-select:hover .ant-select-selector,
+.ant-input-affix-wrapper:hover {
+  border-color: var(--color-blue-light) !important;
+}
+
+.ant-input:focus,
+.ant-input-number:focus,
+.ant-picker:focus,
+.ant-select-focused .ant-select-selector,
+.ant-input-affix-wrapper:focus {
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 2px rgba(91, 122, 237, 0.1) !important;
+}
+
+/* Ant Design textarea hover fix */
+.ant-input-textarea:hover .ant-input {
+  border-color: var(--color-blue-light) !important;
+}
+
+.ant-input-textarea:focus-within .ant-input {
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 2px rgba(91, 122, 237, 0.1) !important;
+}
+
+/* Ant Design DatePicker/TimePicker hover fix */
+.ant-picker:hover {
+  border-color: var(--color-blue-light) !important;
+}
+
+.ant-picker-focused {
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 2px rgba(91, 122, 237, 0.1) !important;
+}
+
+/* Ant Design Select hover fix */
+.ant-select:hover .ant-select-selector {
+  border-color: var(--color-blue-light) !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 2px rgba(91, 122, 237, 0.1) !important;
+}
+
+/* Ant Design InputNumber hover fix */
+.ant-input-number:hover {
+  border-color: var(--color-blue-light) !important;
+}
+
+.ant-input-number-focused {
+  border-color: var(--color-blue) !important;
+  box-shadow: 0 0 0 2px rgba(91, 122, 237, 0.1) !important;
+}
+
+/* ===========================
    TABLE ROW HOVER EFFECTS
    =========================== */
 .table-row-hover:hover {

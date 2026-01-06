@@ -2,6 +2,12 @@
  * User Table Component
  *
  * Kullanıcıları gösteren tablo.
+ *
+ * @features
+ * - Kullanıcı adı ve şirket ismine göre sıralama
+ * - Çoklu seçim desteği
+ * - Avatar gösterimi
+ * - Düzenleme ve detay görüntüleme butonları
  */
 
 import React from "react";
@@ -60,6 +66,8 @@ export const UserTable: React.FC<UserTableProps> = ({
       title: "Kullanıcı Adı",
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ["ascend", "descend"],
       render: (name: string) => <span style={{ fontWeight: 500 }}>{name}</span>,
     },
     {
@@ -74,6 +82,8 @@ export const UserTable: React.FC<UserTableProps> = ({
       title: "Şirket",
       dataIndex: "company",
       key: "company",
+      sorter: (a, b) => (a.company || "").localeCompare(b.company || ""),
+      sortDirections: ["ascend", "descend"],
       render: (company: string) => company || "-",
     },
     {

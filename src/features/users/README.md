@@ -99,8 +99,9 @@ import type { User, UserRole, UserStatus } from '@/features/users/model';
 
 ### UsersPage
 - Tablo görünümü
+- **Sıralama** - Kullanıcı adı ve şirket ismine göre alfabetik sıralama
 - Filtreleme (rol, durum, departman)
-- Arama
+- **Gelişmiş Arama** - Kullanıcı adı, e-posta ve şirket ismine göre arama
 - Pagination
 - Toplu işlemler
 - İstatistik kartları

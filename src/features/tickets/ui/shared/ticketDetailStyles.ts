@@ -61,7 +61,9 @@ export const ticketDetailStyles = {
     gap: 12,
     padding: "10px 12px",
     background: theme.colors.surface.base,
-    border: `1px solid ${theme.colors.border.subtle}`,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: theme.colors.border.subtle,
     borderRadius: 6,
     marginBottom: 8,
     transition: "all 0.2s ease",
@@ -71,6 +73,7 @@ export const ticketDetailStyles = {
   attachmentItemHover: {
     background: theme.colors.surface.soft,
     borderColor: theme.colors.primary,
+    boxShadow: "0 2px 6px rgba(91, 122, 237, 0.08)",
     transform: "translateX(2px)",
   } as CSSProperties,
 
@@ -150,7 +153,9 @@ export const ticketDetailStyles = {
   } as CSSProperties,
 
   effortItem: {
-    border: `1px solid ${theme.colors.border.subtle}`,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: theme.colors.border.subtle,
     borderRadius: 6,
     padding: "10px 12px",
     marginBottom: 8,
@@ -210,14 +215,17 @@ export const ticketDetailStyles = {
     marginBottom: 16,
     padding: "12px 14px",
     background: theme.colors.surface.base,
-    border: `1px solid ${theme.colors.border.subtle}`,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: theme.colors.border.subtle,
     borderRadius: 6,
     transition: "all 0.15s ease",
   } as CSSProperties,
 
   commentItemHover: {
     background: theme.colors.surface.soft,
-    borderColor: theme.colors.border.strong,
+    borderColor: theme.colors.primary,
+    boxShadow: "0 2px 6px rgba(91, 122, 237, 0.08)",
   } as CSSProperties,
 
   commentHeader: {

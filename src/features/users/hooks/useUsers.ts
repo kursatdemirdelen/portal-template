@@ -3,6 +3,12 @@
  * 
  * Kullanıcı listesi yönetimi için ana hook.
  * Filtreleme, sıralama, seçim ve CRUD işlemlerini yönetir.
+ * 
+ * @features
+ * - Kullanıcı adı, e-posta ve şirket ismine göre arama
+ * - Rol ve durum filtreleme
+ * - Çoklu seçim ve toplu işlemler
+ * - localStorage entegrasyonu
  */
 
 import { useState, useEffect, useCallback, useMemo } from "react";
@@ -75,7 +81,8 @@ export const useUsers = () => {
       const matchesSearch =
         filters.search === "" ||
         user.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        user.email.toLowerCase().includes(filters.search.toLowerCase());
+        user.email.toLowerCase().includes(filters.search.toLowerCase()) ||
+        (user.company && user.company.toLowerCase().includes(filters.search.toLowerCase()));
       
       const matchesRole = filters.role === "all" || user.role === filters.role;
       const matchesStatus = filters.status === "all" || user.status === filters.status;

@@ -330,6 +330,10 @@ const TicketsPage: React.FC = () => {
               ),
             }}
             rowClassName={() => "table-row-hover"}
+            onRow={(record) => ({
+              onClick: () => navigate(`/tickets/${record.id}`),
+              style: { cursor: "pointer" },
+            })}
           />
         )}
       </SectionCard>
