@@ -204,6 +204,56 @@ await apiClient.post('/users', userData);
 
 ---
 
+## 🎫 Ticket Status Management
+
+### Merkezi Durum Tanımları
+
+Ticket durumları `@/shared/config/constants.ts` dosyasında merkezi olarak tanımlanır:
+
+```typescript
+export const TICKET_STATUSES = [
+  "Yeni İstek",
+  "Atanan",
+  "Çözümlenen",
+  "Kapatılan",
+] as const;
+
+export const TICKET_STATUS_DATA = [
+  { key: 'Yeni İstek', label: 'Yeni', color: colors.info, bgColor: backgrounds.infoBg },
+  { key: 'Atanan', label: 'Atanan', color: colors.warning, bgColor: backgrounds.warningBg },
+  { key: 'Çözümlenen', label: 'Çözümlenen', color: colors.success, bgColor: backgrounds.successBg },
+  { key: 'Kapatılan', label: 'Kapatıldı', color: colors.textSecondary, bgColor: backgrounds.neutral100 },
+];
+```
+
+### Kullanım
+
+**Mock Data'da:**
+```typescript
+// src/shared/data/mocks/tickets.mock.ts
+{
+  id: "TCK-1243",
+  status: "Yeni İstek",  // ✅ Doğru (merkezi constant'tan)
+  // status: "Açık"       // ❌ Yanlış (eski format)
+}
+```
+
+**Hooks'ta:**
+```typescript
+// src/features/tickets/hooks/useTicketStats.ts
+import { TICKET_STATUS } from '../model/constants';
+
+const openTicketsCount = tickets.filter(t => t.status === TICKET_STATUS.NEW).length;
+const inProgressCount = tickets.filter(t => t.status === TICKET_STATUS.ASSIGNED).length;
+```
+
+### Stats Mapping
+- `openTicketsCount` → "Yeni İstek"
+- `inProgressCount` → "Atanan"
+- `closedCount` → "Çözümlenen"
+
+---
+
 ## 📦 Type Safety
 
 Tüm types merkezi konumda:

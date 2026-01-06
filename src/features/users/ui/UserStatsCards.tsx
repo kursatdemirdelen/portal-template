@@ -25,6 +25,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           icon={<Users size={18} />}
           color="blue"
           description="Tüm kullanıcılar"
+          style={{ cursor: "default" }}
         />
       </Col>
       <Col xs={24} sm={12} lg={6}>
@@ -34,6 +35,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           icon={<CheckCircle2 size={18} />}
           color="green"
           description="Sistem erişimi aktif"
+          style={{ cursor: "default" }}
         />
       </Col>
       <Col xs={24} sm={12} lg={6}>
@@ -43,6 +45,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           icon={<XCircle size={18} />}
           color="orange"
           description="Erişimi kısıtlı"
+          style={{ cursor: "default" }}
         />
       </Col>
       <Col xs={24} sm={12} lg={6}>
@@ -52,6 +55,7 @@ export const UserStatsCards: React.FC<UserStatsCardsProps> = ({ stats }) => {
           icon={<Shield size={18} />}
           color="purple"
           description="Admin ve Manager"
+          style={{ cursor: "default" }}
         />
       </Col>
     </Row>

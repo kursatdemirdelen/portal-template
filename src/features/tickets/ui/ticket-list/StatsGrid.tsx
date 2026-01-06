@@ -6,23 +6,23 @@ import { User, Ticket, Clock, CheckCircle2 } from "lucide-react";
 export interface StatsGridProps {
   myTicketsCount: number;
   openTicketsCount: number;
-  pendingTicketsCount: number;
-  resolvedThisWeek: number;
+  inProgressCount: number;
+  closedCount: number;
   onClickMy?: () => void;
   onClickOpen?: () => void;
-  onClickPending?: () => void;
-  onClickResolved?: () => void;
+  onClickInProgress?: () => void;
+  onClickClosed?: () => void;
 }
 
 export const StatsGrid: React.FC<StatsGridProps> = ({
   myTicketsCount,
   openTicketsCount,
-  pendingTicketsCount,
-  resolvedThisWeek,
+  inProgressCount,
+  closedCount,
   onClickMy,
   onClickOpen,
-  onClickPending,
-  onClickResolved,
+  onClickInProgress,
+  onClickClosed,
 }) => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
@@ -65,47 +65,45 @@ export const StatsGrid: React.FC<StatsGridProps> = ({
         >
           <StatCard
             style={getCardStyle(1)}
-            title="Açık Biletler"
+            title="Yeni Biletler"
             value={openTicketsCount}
             color="orange"
             icon={<Ticket size={18} />}
-            description="Çözüm bekleyen"
+            description="Bekleyen istekler"
           />
         </div>
       </Col>
       <Col xs={24} sm={12} lg={6}>
         <div
-          onClick={onClickPending}
+          onClick={onClickInProgress}
           onMouseEnter={() => setHoveredCard(2)}
           onMouseLeave={() => setHoveredCard(null)}
           style={{ height: "100%" }}
         >
           <StatCard
             style={getCardStyle(2)}
-            title="Beklemedeki"
-            value={pendingTicketsCount}
+            title="Atanan"
+            value={inProgressCount}
             color="purple"
             icon={<Clock size={18} />}
-            description="İşlem bekleyen"
+            description="Üzerinde çalışılan"
           />
         </div>
       </Col>
       <Col xs={24} sm={12} lg={6}>
         <div
-          onClick={onClickResolved}
+          onClick={onClickClosed}
           onMouseEnter={() => setHoveredCard(3)}
           onMouseLeave={() => setHoveredCard(null)}
           style={{ height: "100%" }}
         >
           <StatCard
             style={getCardStyle(3)}
-            title="Bu Hafta Çözülen"
-            value={resolvedThisWeek}
+            title="Çözümlenen"
+            value={closedCount}
             color="green"
             icon={<CheckCircle2 size={18} />}
-            trend="up"
-            trendValue={12}
-            description="Son 7 gün"
+            description="Tamamlanan biletler"
           />
         </div>
       </Col>

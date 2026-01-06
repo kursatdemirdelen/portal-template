@@ -76,8 +76,8 @@ const TicketsPage: React.FC = () => {
   const {
     myTicketsCount,
     openTicketsCount,
-    pendingTicketsCount,
-    resolvedThisWeek,
+    inProgressCount,
+    closedCount,
     ticketStatusSummary,
   } = useTicketStats({
     tickets: allTickets,
@@ -122,12 +122,12 @@ const TicketsPage: React.FC = () => {
       <StatsGrid
         myTicketsCount={myTicketsCount}
         openTicketsCount={openTicketsCount}
-        pendingTicketsCount={pendingTicketsCount}
-        resolvedThisWeek={resolvedThisWeek}
+        inProgressCount={inProgressCount}
+        closedCount={closedCount}
         onClickMy={() => setAssigneeFilter(MOCK_CURRENT_USER)}
-        onClickOpen={() => setStatusFilter("Açık")}
-        onClickPending={() => setStatusFilter("Devam Ediyor")}
-        onClickResolved={() => setStatusFilter("Çözüldü")}
+        onClickOpen={() => setStatusFilter("Yeni İstek")}
+        onClickInProgress={() => setStatusFilter("Atanan")}
+        onClickClosed={() => setStatusFilter("Çözümlenen")}
       />
 
       <SectionCard

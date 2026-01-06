@@ -25,6 +25,20 @@
 - ✅ **Error Router** - AppRouter'a 500 sayfası ve error wrapper'ı eklendi
 - ✅ **Shared Hooks Index** - `useNotification`, `useAppStore`, `useBreadcrumbs` merkezi export
 
+### UI/UX İyileştirmeleri (6 Ocak 2026)
+- ✅ **User Table Sorting** - İsim ve şirket kolonlarına göre sıralama (Turkish locale)
+- ✅ **User Search Enhancement** - Şirket ismine göre arama eklendi
+- ✅ **Ant Design Hover Fix** - Form elementleri hover border rengi düzeltildi (global CSS)
+- ✅ **Ticket Detail Hover** - Ek/Efor/Yorum kartları hover efektleri düzeltildi
+- ✅ **Table Row Click** - Tickets sayfasında satır tıklaması ile detaya gitme
+- ✅ **Stats Card UX** - User stats kartları tıklanamaz hale getirildi
+
+### Veri Tutarlılığı (6 Ocak 2026)
+- ✅ **Ticket Status Refactor** - Eski durumlar ("Açık", "İşlemde") → Yeni ("Yeni İstek", "Atanan")
+- ✅ **Mock Data Migration** - 12 bilet mock'u merkezi TICKET_STATUS_DATA ile senkronize edildi
+- ✅ **Stats Fix** - useTicketStats hook'u doğru TICKET_STATUS constant'larını kullanıyor
+- ✅ **Documentation** - Tickets README.md oluşturuldu, ARCHITECTURE.md güncellendi
+
 ---
 
 ## 📈 Sonraki Adımlar
