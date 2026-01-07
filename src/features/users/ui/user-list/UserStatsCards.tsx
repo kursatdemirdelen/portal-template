@@ -9,7 +9,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import { StatCard } from "@/shared/ui";
 import { Users, CheckCircle2, Shield, XCircle } from "lucide-react";
-import type { UserStatsDisplay } from "../model/types";
+import type { UserStatsDisplay } from "../../model/types";
 
 interface UserStatsCardsProps {
   stats: UserStatsDisplay;

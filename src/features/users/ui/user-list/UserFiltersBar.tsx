@@ -7,8 +7,8 @@
 import React from "react";
 import { Card, Row, Col, Input, Select, Button, Space } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import type { UserRole, UserStatus } from "../model/types";
-import { ROLE_LABELS, STATUS_LABELS } from "./constants";
+import type { UserRole, UserStatus } from "../../model/types";
+import { ROLE_LABELS, STATUS_LABELS } from "../shared/constants";
 
 interface UserFiltersBarProps {
   searchText: string;

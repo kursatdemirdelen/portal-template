@@ -62,6 +62,7 @@ export interface UserFormData {
   company?: string;
   timezone?: string;
   isActive?: boolean;
+  status?: UserStatus;
 }
 
 /**

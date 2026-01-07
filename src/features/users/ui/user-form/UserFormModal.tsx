@@ -7,8 +7,8 @@
 import React from "react";
 import { Modal, Form, Input, Select, Row, Col } from "antd";
 import type { FormInstance } from "antd";
-import type { User, UserRole, UserStatus } from "../model/types";
-import { ROLE_LABELS, STATUS_LABELS, DEPARTMENTS } from "./constants";
+import type { User, UserRole, UserStatus } from "../../model/types";
+import { ROLE_LABELS, STATUS_LABELS, DEPARTMENTS } from "../shared/constants";
 
 interface UserFormModalProps {
   open: boolean;

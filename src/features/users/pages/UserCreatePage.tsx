@@ -2,314 +2,35 @@
  * User Create Page
  *
  * Yeni kullanıcı oluşturma sayfası.
+ * Refactored to use shared UserForm component.
  */
 
-import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  Select,
-  Button,
-  Space,
-  Row,
-  Col,
-  Switch,
-  message,
-} from "antd";
-import {
-  UserAddOutlined,
-  LockOutlined,
-  ArrowLeftOutlined,
-  MailOutlined,
-  PhoneOutlined,
-  IdcardOutlined,
-  BankOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { PageContainer, SectionCard } from "@/shared/ui";
+import React from "react";
+import { Button, Space } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import {
-  DEPARTMENTS,
-  ROLE_LABELS,
-  COMPANIES,
-  LANGUAGES,
-  TIMEZONES,
-} from "../ui/constants";
-import type { UserFormData, UserRole } from "../model";
+import { PageContainer } from "@/shared/ui";
+import { UserForm } from "../ui";
 
 const UserCreatePage: React.FC = () => {
   const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-
-  // Form options from constants
-  const departments = DEPARTMENTS.map((d) => ({ label: d, value: d }));
-  const roles = (Object.keys(ROLE_LABELS) as UserRole[]).map((role) => ({
-    value: role,
-    label: ROLE_LABELS[role],
-  }));
-
-  const onFinish = async (values: UserFormData) => {
-    setLoading(true);
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Save to localStorage - UserTable ile uyumlu veri yapısı
-      const userData = {
-        id: `user-${Date.now()}`,
-        name: values.name,
-        email: values.email,
-        phone: values.phone || "",
-        role: values.role,
-        department: values.department,
-        status: values.isActive ? "active" : "inactive",
-        language: values.language,
-        company: values.company,
-        timezone: values.timezone,
-        avatar: "",
-        lastLogin: null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      // Add to users list
-      const existingUsers = localStorage.getItem("users");
-      const usersList = existingUsers ? JSON.parse(existingUsers) : [];
-      usersList.push(userData);
-      localStorage.setItem("users", JSON.stringify(usersList));
-
-      // Also save as current created user for profile
-      localStorage.setItem("createdUserData", JSON.stringify(userData));
-
-      message.success("Kullanıcı başarıyla oluşturuldu!");
-
-      // Navigate to users page
-      setTimeout(() => {
-        navigate("/users");
-      }, 1000);
-    } catch {
-      message.error("Kullanıcı oluşturma başarısız oldu!");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleReset = () => {
-    form.resetFields();
-  };
-
-  const handleBack = () => {
-    navigate("/users");
-  };
 
   return (
-    <PageContainer title="Kullanıcı Oluştur" subtitle="Yeni kullanıcı ekleyin">
-      <Row gutter={[24, 24]}>
-        <Col xs={24} lg={16}>
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={onFinish}
-            requiredMark="optional"
+    <PageContainer
+      title="Kullanıcı Oluştur"
+      subtitle="Yeni kullanıcı ekleyin"
+      extra={
+        <Space>
+          <Button
+            icon={<ArrowLeftOutlined />}
+            onClick={() => navigate("/users")}
           >
-            <Space direction="vertical" size="large" style={{ width: "100%" }}>
-              {/* Kimlik ve İletişim Bilgileri */}
-              <SectionCard
-                title="Kimlik ve İletişim Bilgileri"
-                icon={<IdcardOutlined />}
-              >
-                <Row gutter={16}>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Ad Soyad"
-                      name="name"
-                      rules={[
-                        { required: true, message: "Ad soyad gerekli" },
-                        { min: 2, message: "En az 2 karakter girin" },
-                      ]}
-                    >
-                      <Input placeholder="Kullanıcı adı soyadı" size="large" />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="E-Posta"
-                      name="email"
-                      rules={[
-                        { required: true, message: "E-posta gerekli" },
-                        { type: "email", message: "Geçerli e-posta girin" },
-                      ]}
-                    >
-                      <Input
-                        placeholder="ornek@sirket.com"
-                        prefix={<MailOutlined />}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-
-                <Row gutter={16}>
-                  <Col xs={24} md={12}>
-                    <Form.Item label="Telefon" name="phone">
-                      <Input
-                        placeholder="+90 5XX XXX XXXX"
-                        prefix={<PhoneOutlined />}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Şifre"
-                      name="password"
-                      rules={[
-                        { required: true, message: "Şifre gerekli" },
-                        { min: 6, message: "En az 6 karakter" },
-                      ]}
-                    >
-                      <Input.Password
-                        placeholder="Kullanıcı şifresi"
-                        prefix={<LockOutlined />}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </SectionCard>
-
-              {/* Organizasyon ve Yetki Bilgileri */}
-              <SectionCard
-                title="Organizasyon ve Yetki Bilgileri"
-                icon={<BankOutlined />}
-              >
-                <Row gutter={16}>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Kullanıcı Rolü"
-                      name="role"
-                      rules={[{ required: true, message: "Rol seçin" }]}
-                    >
-                      <Select
-                        placeholder="Rol seçiniz"
-                        options={roles}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Departman"
-                      name="department"
-                      rules={[{ required: true, message: "Departman seçin" }]}
-                    >
-                      <Select
-                        placeholder="Departman seçiniz"
-                        options={departments}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-
-                <Row gutter={16}>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Şirket"
-                      name="company"
-                      rules={[{ required: true, message: "Şirket seçin" }]}
-                    >
-                      <Select
-                        placeholder="Şirket seçiniz"
-                        options={[...COMPANIES]}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Dil"
-                      name="language"
-                      rules={[{ required: true, message: "Dil seçin" }]}
-                      initialValue="tr"
-                    >
-                      <Select
-                        placeholder="Dil seçiniz"
-                        options={[...LANGUAGES]}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </SectionCard>
-
-              {/* Sistem Ayarları */}
-              <SectionCard title="Sistem Ayarları" icon={<SettingOutlined />}>
-                <Row gutter={16}>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Zaman Dilimi"
-                      name="timezone"
-                      rules={[
-                        { required: true, message: "Zaman dilimi seçin" },
-                      ]}
-                      initialValue="Europe/Istanbul"
-                    >
-                      <Select
-                        placeholder="Zaman dilimi seçiniz"
-                        options={[...TIMEZONES]}
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item
-                      label="Hesap Durumu"
-                      name="isActive"
-                      valuePropName="checked"
-                      initialValue={true}
-                    >
-                      <Space>
-                        <Switch />
-                        <span>Aktif</span>
-                      </Space>
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </SectionCard>
-
-              {/* Action Buttons */}
-              <SectionCard>
-                <Form.Item style={{ marginBottom: 0 }}>
-                  <Space size="middle">
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      loading={loading}
-                      icon={<UserAddOutlined />}
-                      size="large"
-                    >
-                      Kullanıcı Oluştur
-                    </Button>
-                    <Button size="large" onClick={handleReset}>
-                      Temizle
-                    </Button>
-                    <Button
-                      type="default"
-                      icon={<ArrowLeftOutlined />}
-                      onClick={handleBack}
-                      size="large"
-                    >
-                      Geri Dön
-                    </Button>
-                  </Space>
-                </Form.Item>
-              </SectionCard>
-            </Space>
-          </Form>
-        </Col>
-      </Row>
+            Geri
+          </Button>
+        </Space>
+      }
+    >
+      <UserForm mode="create" />
     </PageContainer>
   );
 };

@@ -2,9 +2,10 @@
  * useUserForm Hook
  * 
  * Kullanıcı formu işlemleri için hook.
+ * Enhanced with isDirty tracking and unsaved changes warning.
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import type { User, UserFormData } from "../model/types";
@@ -17,6 +18,7 @@ interface UseUserFormOptions {
 interface UseUserFormReturn {
   form: ReturnType<typeof Form.useForm>[0];
   saving: boolean;
+  isDirty: boolean;
   handleSave: (values: UserFormData) => Promise<void>;
   handleReset: () => void;
   handleCancel: () => void;
@@ -27,6 +29,32 @@ export const useUserForm = (options: UseUserFormOptions = {}): UseUserFormReturn
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [saving, setSaving] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+
+  // Track form changes
+  const handleFormChange = useCallback(() => {
+    setIsDirty(true);
+  }, []);
+
+  // Unsaved changes warning
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty && !saving) {
+        e.preventDefault();
+        e.returnValue = "Kaydedilmemiş değişiklikler var. Sayfadan ayrılmak istediğinizden emin misiniz?";
+      }
+    };
+    
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty, saving]);
+
+  // Initialize form with user data if editing
+  useEffect(() => {
+    if (user) {
+      form.setFieldsValue(user);
+    }
+  }, [user, form]);
 
   const handleSave = useCallback(async (values: UserFormData) => {
     setSaving(true);
@@ -39,7 +67,7 @@ export const useUserForm = (options: UseUserFormOptions = {}): UseUserFormReturn
         const updatedUser = {
           ...user,
           ...values,
-          status: values.isActive ? "active" : "inactive",
+          status: values.status || (values.isActive ? "active" : "inactive"),
           updatedAt: new Date().toISOString(),
         };
 
@@ -55,6 +83,7 @@ export const useUserForm = (options: UseUserFormOptions = {}): UseUserFormReturn
         }
 
         message.success("Kullanıcı başarıyla güncellendi!");
+        setIsDirty(false);
         navigate(`/users/${user.id}`);
       } else {
         // Create new user
@@ -81,7 +110,11 @@ export const useUserForm = (options: UseUserFormOptions = {}): UseUserFormReturn
         usersList.push(userData);
         localStorage.setItem("users", JSON.stringify(usersList));
 
+        // Also save as current created user for profile
+        localStorage.setItem("createdUserData", JSON.stringify(userData));
+
         message.success("Kullanıcı başarıyla oluşturuldu!");
+        setIsDirty(false);
         navigate("/users");
       }
 
@@ -95,15 +128,23 @@ export const useUserForm = (options: UseUserFormOptions = {}): UseUserFormReturn
 
   const handleReset = useCallback(() => {
     form.resetFields();
+    setIsDirty(false);
   }, [form]);
 
   const handleCancel = useCallback(() => {
+    if (isDirty) {
+      const confirmed = window.confirm(
+        "Kaydedilmemiş değişiklikler var. İptal etmek istediğinizden emin misiniz?"
+      );
+      if (!confirmed) return;
+    }
     navigate(user ? `/users/${user.id}` : "/users");
-  }, [navigate, user]);
+  }, [navigate, user, isDirty]);
 
   return {
     form,
     saving,
+    isDirty,
     handleSave,
     handleReset,
     handleCancel,

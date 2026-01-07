@@ -14,13 +14,13 @@ import React from "react";
 import { Table, Tag, Button, Space, Avatar, Card, Tooltip } from "antd";
 import { EditOutlined, UserOutlined, EyeOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import type { User, UserRole, UserStatus } from "../model/types";
+import type { User, UserRole, UserStatus } from "../../model/types";
 import {
   ROLE_LABELS,
   ROLE_COLORS,
   STATUS_LABELS,
   STATUS_COLORS,
-} from "./constants";
+} from "../shared/constants";
 import { colors } from "@/shared/styles";
 
 interface UserTableProps {
